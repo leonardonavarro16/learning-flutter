@@ -23,35 +23,75 @@ class IndexPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
+              ChangeColor(
+                text: 'Header',
                 width: screenSize.width * 0.5,
                 height: screenSize.height * 0.1,
                 color: Colors.blue,
-                child: const Center(child: Text('Header')),
               ),
-              Container(
+              ChangeColor(
+                text: 'Navbar',
                 width: screenSize.width * 0.5,
-                color: Colors.green,
                 height: screenSize.height * 0.1,
-                child: const Center(
-                  child: Text('navbar'),
-                ),
+                color: Colors.green,
               ),
             ],
           ),
-          Container(
+          ChangeColor(
+            text: 'Body',
+            width: screenSize.width,
             height: screenSize.height * 0.8,
             color: Colors.yellow,
           ),
-          Container(
-              width: screenSize.width,
-              height: screenSize.height * 0.1,
-              color: Colors.black,
-              child: const Center(
-                child: Text('footer', style: TextStyle(color: Colors.white)),
-              )),
+          ChangeColor(
+            text: 'Footer',
+            width: screenSize.width,
+            height: screenSize.height * 0.1,
+            color: Colors.black,
+          ),
         ],
       ),
+    );
+  }
+}
+
+class ChangeColor extends StatefulWidget {
+  final double width;
+  final double height;
+  final String text;
+  Color color;
+
+  ChangeColor({
+    super.key, required this.width,
+    required this.height, required this.color,
+    required this.text,
+  });
+
+  @override
+  State<StatefulWidget> createState() => ChangeColorState();
+}
+
+class ChangeColorState extends State<ChangeColor> {
+  int count=0;
+  List<Color> colors = [Colors.blue, Colors.green, Colors.yellow, Colors.black];
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.color = colors[count % colors.length];
+          count += 1;
+        });
+      },
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        color: widget.color,
+        child: Center(
+          child: Text(widget.text),
+        ),
+      )
     );
   }
 }
