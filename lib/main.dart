@@ -55,3 +55,13 @@ class IndexPage extends StatelessWidget {
     );
   }
 }
+
+class Changecolor extends StatefulWidget {
+  const Changecolor({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement  createState
+    throw UnimplementedError();
+  }
+}
