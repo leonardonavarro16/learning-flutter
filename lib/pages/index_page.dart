@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:swc_front/widgets/advert_list.dart';
 import 'package:swc_front/widgets/layout.dart';
 
 class IndexPage extends StatelessWidget {
@@ -6,6 +7,10 @@ class IndexPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout();
+    return Layout(
+      content: Column(
+        children: const [AdverList()],
+      ),
+    );
   }
 }
