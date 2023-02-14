@@ -45,12 +45,23 @@ class _AccountPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-      decoration: BoxDecoration(
-          color: Colors.purple, borderRadius: BorderRadius.circular(10)),
-      width: width,
-      child: Image.network(
-        'https://cdni.pornpics.de/460/7/518/39935848/39935848_050_0044.jpg',
-      ),
-    ));
+            decoration: BoxDecoration(
+                color: Colors.purple, borderRadius: BorderRadius.circular(10)),
+            width: width,
+            child: Column(
+              children: [
+                Image.network(
+                  'https://cdni.pornpics.de/460/7/518/39935848/39935848_050_0044.jpg',
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text('I´m tintiwinky '),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text('i have 23 years old '),
+                ),
+              ],
+            )));
   }
 }
