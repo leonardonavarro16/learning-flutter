@@ -103,7 +103,8 @@ class _AdvertPreview extends StatelessWidget {
     return Center(
         child: Container(
             decoration: BoxDecoration(
-                color: Colors.purple, borderRadius: BorderRadius.circular(10)),
+                color: const Color.fromARGB(255, 247, 97, 86),
+                borderRadius: BorderRadius.circular(10)),
             width: width,
             child: Column(
               children: [
