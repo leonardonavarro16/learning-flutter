@@ -101,11 +101,14 @@ class _AdvertPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Container(
+        child: SizedBox(
             width: width,
             child: Column(
               children: [
-                advert.image,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: advert.image,
+                ),
                 Text(advert.model.name,
                     style: const TextStyle(color: Colors.white)),
                 Text(advert.model.desiredAge.toString(),
