@@ -48,7 +48,7 @@ class IndexPage extends StatelessWidget {
     ];
     return Layout(
       content: ListView(
-        children: [AdverList(adverts: adverts)],
+        children: [const SizedBox(height: 20), AdverList(adverts: adverts)],
       ),
     );
   }

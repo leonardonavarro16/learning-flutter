@@ -7,19 +7,19 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return Container(
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Scaffold(
+          body: Container(
             color: Colors.black,
             height: constraints.maxHeight,
             width: constraints.maxWidth,
             child: content,
-          );
-        }),
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: NavBar(),
-        ));
+          ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(constraints.maxHeight * 0.075),
+            child: const NavBar(),
+          ));
+    });
   }
 }

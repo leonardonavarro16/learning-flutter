@@ -102,21 +102,14 @@ class _AdvertPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 247, 97, 86),
-                borderRadius: BorderRadius.circular(10)),
             width: width,
             child: Column(
               children: [
                 advert.image,
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(advert.model.name),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(advert.model.desiredAge.toString()),
-                ),
+                Text(advert.model.name,
+                    style: const TextStyle(color: Colors.white)),
+                Text(advert.model.desiredAge.toString(),
+                    style: const TextStyle(color: Colors.white)),
               ],
             )));
   }

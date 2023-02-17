@@ -1,12 +1,22 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:swc_front/widgets/login_form.dart';
+import '../widgets/layout.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const LoginForm();
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Layout(
+          content: Center(
+        child: SizedBox(
+            width: constraints.maxWidth * 0.8, child: const LoginForm()),
+      ));
+    });
   }
 }
+
+
+//  content: Center(child: SizedBox(width: contrains.maxwidht, child: LoginForm())),
