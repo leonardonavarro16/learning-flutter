@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/widgets/layout.dart';
-import 'package:swc_front/widgets/login_form.dart';
 import 'package:swc_front/widgets/registration_form.dart';
 
 class RegistrationPage extends StatelessWidget {

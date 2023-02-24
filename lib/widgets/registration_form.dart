@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:swc_front/widgets/utils/email_form_field.dart';
+import 'package:swc_front/widgets/utils/password_form_field.dart';
+import 'package:swc_front/widgets/utils/submit_button.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
@@ -12,82 +12,61 @@ class RegistrationForm extends StatefulWidget {
 
 class _RegistrationFormState extends State<RegistrationForm> {
   final _formKey = GlobalKey<FormState>();
-  final EmailRegistration = TextEditingController();
-  final PasswordRegistration = TextEditingController();
-  final ConfirmPassword = TextEditingController();
-
-  void EnviarForm() {
-    if (_formKey.currentState!.validate()) {
-      final email = EmailRegistration.text;
-
-      final password = PasswordRegistration.text;
-      final confirmPassword = ConfirmPassword.text;
-
-      debugPrint('Email: $email');
-      debugPrint('Password: $password');
-      debugPrint('Confirm password: $confirmPassword');
-    }
-  }
+  String email = '';
+  String password = '';
+  String confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            controller: EmailRegistration,
-            decoration: const InputDecoration(
-              labelText: 'correo electronico de registro',
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            keyboardType: TextInputType.emailAddress,
-            validator: ((value) {
-              if (value == null || value.isEmpty) {
-                return 'porfavor, introduce tu correo electronico';
-              }
-              return null;
-            }),
+        key: _formKey,
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              EmailFormField(
+                onChanged: (String value) {
+                  _formKey.currentState!.validate();
+                  email = value;
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              PasswordFormField(
+                onChanged: (String value) {
+                  _formKey.currentState!.validate();
+                  password = value;
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              PasswordFormField(
+                labelText: 'Confirmar contraseña',
+                emptyMessage: 'ingrese su contraseña de confirmacion',
+                additionalValidator: (String? value) {
+                  if (value != password) {
+                    return 'La contraseña no coincide ';
+                  }
+                  return null;
+                },
+                onChanged: (String value) {
+                  _formKey.currentState!.validate();
+                  confirmPassword = value;
+                },
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Registrar'),
+              ),
+            ],
           ),
-          TextFormField(
-            controller: PasswordRegistration,
-            decoration: const InputDecoration(
-              labelText: 'contraseña ',
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            obscureText: true,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'porfavor ingrese su contraseña';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: ConfirmPassword,
-            decoration: const InputDecoration(
-              labelText: 'repita su contraseña',
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            obscureText: true,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'porfavor repita su contraseña';
-              } else if (value != PasswordRegistration.text) {
-                return 'La contraseña no coincide ';
-              }
-              return null;
-            },
-          ),
-          ElevatedButton(
-            onPressed: EnviarForm,
-            child: const Text('Registrar'),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
