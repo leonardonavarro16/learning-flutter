@@ -22,51 +22,61 @@ class _RegistrationFormState extends State<RegistrationForm> {
         key: _formKey,
         child: Center(
           child: Column(
-            children: [
-              const SizedBox(
-                height: 15,
-              ),
-              EmailFormField(
-                onChanged: (String value) {
-                  _formKey.currentState!.validate();
-                  email = value;
-                },
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              PasswordFormField(
-                onChanged: (String value) {
-                  _formKey.currentState!.validate();
-                  password = value;
-                },
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              PasswordFormField(
-                labelText: 'Confirmar contraseña',
-                emptyMessage: 'ingrese su contraseña de confirmacion',
-                additionalValidator: (String? value) {
-                  if (value != password) {
-                    return 'La contraseña no coincide ';
-                  }
-                  return null;
-                },
-                onChanged: (String value) {
-                  _formKey.currentState!.validate();
-                  confirmPassword = value;
-                },
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Registrar'),
-              ),
-            ],
-          ),
+              children: [
+            const SizedBox(
+              height: 15,
+            ),
+            EmailFormField(
+              onChanged: (String value) {
+                _formKey.currentState!.validate();
+                setState(() => email = value);
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            PasswordFormField(
+              onChanged: (String value) {
+                _formKey.currentState!.validate();
+                setState(() => password = value);
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            PasswordFormField(
+              labelText: 'Confirmar contraseña',
+              emptyMessage: 'ingrese su contraseña de confirmacion',
+              additionalValidator: (String? value) {
+                if (value != password) {
+                  return 'La contraseña no coincide ';
+                }
+                return null;
+              },
+              onChanged: (String value) {
+                _formKey.currentState!.validate();
+                setState(() => confirmPassword = value);
+              },
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            buildSubmitButton(),
+          ].whereType<Widget>().toList()),
         ));
+  }
+
+  Widget? buildSubmitButton() {
+    bool showButton = _formKey.currentState == null
+        ? false
+        : _formKey.currentState!.validate();
+    if (showButton) {
+      return ElevatedButton(
+        onPressed: () {},
+        child: const Text('Registrar'),
+      );
+    } else {
+      return null;
+    }
   }
 }

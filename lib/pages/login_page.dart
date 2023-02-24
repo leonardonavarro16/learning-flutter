@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 const LoginForm(),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.only(top: 8.0),
                     child: Text(
-                      'Registrate aqui',
+                      'Registrate',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.white,
