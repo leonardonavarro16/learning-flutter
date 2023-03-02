@@ -100,20 +100,62 @@ class _AdvertPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).restorablePush(_dialogBuilder);
+                      },
+                      child: Center(
         child: SizedBox(
             width: width,
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: advert.image,
+                Column(
+                  children: [
+                    advert.image,
+                  ],
                 ),
                 Text(advert.model.name,
                     style: const TextStyle(color: Colors.white)),
                 Text(advert.model.desiredAge.toString(),
                     style: const TextStyle(color: Colors.white)),
               ],
-            )));
+            ))),
+                    );
+  }
+
+  static Route<Object?> _dialogBuilder(
+      BuildContext context, Object? arguments) {
+    return DialogRoute<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Basic dialog title'),
+          content: const Text('A dialog is a type of modal window that\n'
+              'appears in front of app content to\n'
+              'provide critical information, or prompt\n'
+              'for a decision to be made.'),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Disable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Enable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
