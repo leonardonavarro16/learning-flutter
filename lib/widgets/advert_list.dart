@@ -104,29 +104,49 @@ class _AdvertPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BaseModal.open(context: context, title: const Text('holi'), children: [
-          _buildModalClosedContent()
-        ]);
+        BaseModal.open(
+            context: context,
+            title: Text(advert.model.name,textAlign: TextAlign.center),
+            children: [
+              _buildModalOpenedContent(),
+            ]);
       },
       child: _buildModalClosedContent(),
     );
   }
 
+  Widget _buildModalOpenedContent() {
+    return Center(
+      child: SizedBox(
+        width: width,
+        child: Column(children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: advert.image,
+          ),
+          Text(advert.model.description, textAlign: TextAlign.center),
+          const SizedBox(height: 10),
+          Text(advert.model.phoneNumber)
+        ]),
+      ),
+    );
+  }
+
   Widget _buildModalClosedContent() {
     return Center(
-          child: SizedBox(
-              width: width,
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: advert.image,
-                  ),
-                  Text(advert.model.name,
-                      style: const TextStyle(color: Colors.white)),
-                  Text(advert.model.desiredAge.toString(),
-                      style: const TextStyle(color: Colors.white)),
-                ],
-              )));
+        child: SizedBox(
+            width: width,
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: advert.image,
+                ),
+                Text(advert.model.name,
+                    style: const TextStyle(color: Colors.white)),
+                Text(advert.model.desiredAge.toString(),
+                    style: const TextStyle(color: Colors.white)),
+              ],
+            )));
   }
 }

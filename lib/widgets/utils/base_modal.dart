@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:swc_front/models/model.dart';
+import 'package:swc_front/models/advert.dart';
 
 class BaseModal extends StatelessWidget {
   static Future<void> open({ required BuildContext context, required List<Widget> children, Widget? title }) {
@@ -19,6 +21,7 @@ class BaseModal extends StatelessWidget {
     return SimpleDialog(
       title: title,
       children: children,
+
     );
   }
 }
