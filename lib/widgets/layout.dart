@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:swc_front/widgets/nav_bar.dart';
 
@@ -10,6 +12,20 @@ class Layout extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Scaffold(
+          drawer: Drawer(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: const Text('Listar anuncios'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text('opcion 2'),
+                  onTap: () {},
+                )
+              ],
+            ),
+          ),
           body: Container(
             color: Colors.black,
             height: constraints.maxHeight,
