@@ -72,6 +72,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
         : _formKey.currentState!.validate();
     if (showButton) {
       return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 235, 91, 81),
+        ),
         onPressed: () {},
         child: const Text('Registrar'),
       );
