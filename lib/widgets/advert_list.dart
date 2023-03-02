@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/models/advert.dart';
 
+import 'utils/base_modal.dart';
+
 class AdverList extends StatelessWidget {
   int colsPerRow = 0;
   double colsWidth = 0;
@@ -101,61 +103,30 @@ class _AdvertPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-                      onTap: () {
-                        Navigator.of(context).restorablePush(_dialogBuilder);
-                      },
-                      child: Center(
-        child: SizedBox(
-            width: width,
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    advert.image,
-                  ],
-                ),
-                Text(advert.model.name,
-                    style: const TextStyle(color: Colors.white)),
-                Text(advert.model.desiredAge.toString(),
-                    style: const TextStyle(color: Colors.white)),
-              ],
-            ))),
-                    );
+      onTap: () {
+        BaseModal.open(context: context, title: const Text('holi'), children: [
+          _buildModalClosedContent()
+        ]);
+      },
+      child: _buildModalClosedContent(),
+    );
   }
 
-  static Route<Object?> _dialogBuilder(
-      BuildContext context, Object? arguments) {
-    return DialogRoute<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Basic dialog title'),
-          content: const Text('A dialog is a type of modal window that\n'
-              'appears in front of app content to\n'
-              'provide critical information, or prompt\n'
-              'for a decision to be made.'),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Disable'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Enable'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  Widget _buildModalClosedContent() {
+    return Center(
+          child: SizedBox(
+              width: width,
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: advert.image,
+                  ),
+                  Text(advert.model.name,
+                      style: const TextStyle(color: Colors.white)),
+                  Text(advert.model.desiredAge.toString(),
+                      style: const TextStyle(color: Colors.white)),
+                ],
+              )));
   }
 }
