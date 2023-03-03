@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/widgets/utils/email_form_field.dart';
 import 'package:swc_front/widgets/utils/password_form_field.dart';
-import 'package:swc_front/widgets/utils/submit_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
