@@ -13,7 +13,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.person),
+          prefixIcon: Icon(Icons.phone_android_outlined),
           labelText: '(+57) Ingrese su numero de contacto:',
           filled: true,
           fillColor: Colors.white),

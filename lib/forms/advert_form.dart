@@ -6,6 +6,8 @@ import 'package:swc_front/widgets/utils/name_form_field.dart';
 import 'package:swc_front/widgets/utils/phone_form_field.dart';
 
 import '../widgets/utils/age_form_field.dart';
+import '../widgets/utils/file2_picker_field.dart';
+import '../widgets/utils/file_picker_field.dart';
 
 class AdvertForm extends StatefulWidget {
   const AdvertForm({super.key});
@@ -40,6 +42,7 @@ class _AdvertFormState extends State<AdvertForm> {
         SizedBox(
           height: 25,
         ),
+        FilePickerFieldTwo(),
       ]),
     );
   }
