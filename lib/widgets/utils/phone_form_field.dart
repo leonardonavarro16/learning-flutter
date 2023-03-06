@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class PhoneNumberInput extends StatefulWidget {
-  const PhoneNumberInput({super.key});
+class PhoneNumberInput extends StatelessWidget {
+  final Function onChanged;
+  const PhoneNumberInput({super.key, required this.onChanged});
 
-  @override
-  State<StatefulWidget> createState() => _PhoneNumberInputState();
-}
+  //@override
+  //State<StatefulWidget> createState() => _PhoneNumberInputState();
 
-class _PhoneNumberInputState extends State<PhoneNumberInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -23,6 +22,19 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(10)
       ],
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Ingrese su numero teléfonico';
+        }
+        final phoneRegex = RegExp(r'[0-9]');
+        if (!phoneRegex.hasMatch(value)) {
+          return 'Ingresa un número teléfonico válido';
+        }
+        return null;
+      },
+      onChanged: (String value) {
+        onChanged(value);
+      },
     );
   }
 }

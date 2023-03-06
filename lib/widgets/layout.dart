@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/pages/create_advert_page.dart';
 import 'package:swc_front/pages/index_page.dart';
-import 'package:swc_front/pages/login_page.dart';
 import 'package:swc_front/widgets/nav_bar.dart';
 
 class Layout extends StatelessWidget {
@@ -62,7 +61,7 @@ class Layout extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AdvertFormPage()),
+                          builder: (context) => const CreateAdvertPage()),
                     );
                     // Handle onTap for creating anuncio
                   },

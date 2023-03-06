@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:swc_front/widgets/layout.dart';
 import '../forms/advert_form.dart';
 
-class AdvertFormPage extends StatelessWidget {
-  const AdvertFormPage({super.key});
+class CreateAdvertPage extends StatelessWidget {
+  const CreateAdvertPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +13,10 @@ class AdvertFormPage extends StatelessWidget {
         content: Center(
           child: SizedBox(
             width: constraints.maxWidth * 0.5,
-            child: Column(children: const [
+            child: ListView(children: const [
               SizedBox(height: 25),
               Text(
-                'Rellena el fórmulario para listar tu anuncio',
+                'Rellena el formulario para listar tu anuncio',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,

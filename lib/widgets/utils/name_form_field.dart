@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NameFormField extends StatelessWidget {
-  const NameFormField({super.key});
+  final Function onChanged;
+  const NameFormField({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class NameFormField extends StatelessWidget {
         }
         return null;
       },
-      onChanged: (String value) {},
+      onChanged: (String value) {
+        onChanged(value);
+      },
     );
   }
 }
