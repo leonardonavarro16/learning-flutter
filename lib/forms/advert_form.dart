@@ -1,8 +1,8 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:swc_front/widgets/utils/description_form.dart';
 import 'package:swc_front/widgets/utils/name_form_field.dart';
 import 'package:swc_front/widgets/utils/phone_form_field.dart';
-
 import '../widgets/utils/age_form_field.dart';
 import '../widgets/utils/file_picker_form_field.dart';
 
@@ -15,11 +15,11 @@ class AdvertForm extends StatefulWidget {
 
 class _AdvertForm extends State<AdvertForm> {
   final _formKey = GlobalKey<FormState>();
-  String name = '';
-  String age = '';
-  String phoneNumber = '';
-  String description = '';
-  String image = '';
+  String? name;
+  String? age;
+  String? phoneNumber;
+  String? description;
+  Uint8List? imageBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -31,37 +31,40 @@ class _AdvertForm extends State<AdvertForm> {
             height: 25,
           ),
           NameFormField(
-            onChanged: (String value) {
-              _formKey.currentState!.validate();
-              setState(() => name = value);
+            onChange: (String value, bool valid) {
+              setState(() => name = valid ? value : null);
             },
           ),
           const SizedBox(
             height: 25,
           ),
-          const AgeFormField(),
+          // pasar onchange
+          AgeFormField(onChanged: (String value, bool valid) {
+            setState(() => age = valid ? value : null);
+          }),
           const SizedBox(
             height: 25,
           ),
           PhoneNumberInput(
-            onChanged: (String value) {
-              _formKey.currentState!.validate();
-              setState(() => phoneNumber = value);
+            onChange: (String value, bool valid) {
+              setState(() => phoneNumber = valid ? value : null);
             },
           ),
           const SizedBox(
             height: 25,
           ),
           DescriptionInput(
-            onChanged: (String value) {
-              _formKey.currentState!.validate();
-              setState(() => description = value);
+            maxLength: 1000,
+            onChanged: (String value, bool valid) {
+              setState(() => description = valid ? value : null);
             },
           ),
           const SizedBox(
             height: 25,
           ),
-          const FilePickerField(),
+          FilePickerField(onChanged: (Uint8List bytes) {
+            setState(() => imageBytes = bytes);
+          }),
           const SizedBox(height: 25),
           buildSubmitButton()
         ].whereType<Widget>().toList(),
@@ -70,9 +73,10 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Widget? buildSubmitButton() {
-    bool showButton = _formKey.currentState == null
-        ? false
-        : _formKey.currentState!.validate();
+    bool showButton = name != null &&
+        age != null &&
+        description != null &&
+        imageBytes != null;
     if (showButton) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(

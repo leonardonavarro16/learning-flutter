@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
 class FilePickerField extends StatefulWidget {
-  const FilePickerField({Key? key}) : super(key: key);
+  final Function onChanged;
+
+  const FilePickerField({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<FilePickerField> createState() => _FilePickerField();
@@ -66,7 +70,11 @@ class _FilePickerField extends State<FilePickerField> {
         allowMultiple: false,
       );
 
-      if (result != null) _pickedFile = result!.files.single;
+      if (result != null) {
+        _pickedFile = result!.files.single;
+        Uint8List? a = _pickedFile!.bytes;
+        widget.onChanged(_pickedFile!.bytes);
+      }
 
       setState(() {
         isLoading = false;
@@ -81,6 +89,7 @@ class _FilePickerField extends State<FilePickerField> {
     // await _filePicker.clearTemporaryFiles();
     setState(() {
       _pickedFile = null;
+      widget.onChanged(null);
     });
   }
 }

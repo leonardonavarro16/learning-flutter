@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class AgeFormField extends StatefulWidget {
   final int minAge;
   final int maxAge;
+  final Function onChanged;
   final String label;
-  const AgeFormField({super.key, this.minAge=18, this.maxAge=65, this.label='Selecciona tu edad:'});
+  const AgeFormField(
+      {super.key,
+      required this.onChanged,
+      this.minAge = 18,
+      this.maxAge = 65,
+      this.label = 'Selecciona tu edad:'});
 
   @override
   State<StatefulWidget> createState() => _SliderInputState();

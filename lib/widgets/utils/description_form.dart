@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:swc_front/widgets/utils/base_text_form_field.dart';
 
 class DescriptionInput extends StatelessWidget {
   final Function onChanged;
-  const DescriptionInput({super.key, required this.onChanged});
+  final int? maxLength;
+  const DescriptionInput({super.key, required this.onChanged, this.maxLength});
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return BaseTextFormField(
       maxLines: 5,
       minLines: 1,
       decoration: const InputDecoration(
@@ -16,21 +18,13 @@ class DescriptionInput extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding:
               EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-          //contentPadding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-          //contentPadding: EdgeInsets.symmetric(vertical: 100),
           filled: true,
           fillColor: Colors.white,
           labelText: 'Ingrese una descripción: (max. 100 caracteres)'),
-      inputFormatters: <TextInputFormatter>[
-        LengthLimitingTextInputFormatter(1000)
-      ],
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Ingrese su descripción';
-        }
-        return null;
-      },
-      onChanged: (String value) {
+      inputFormatters: maxLength == null
+          ? null
+          : <TextInputFormatter>[LengthLimitingTextInputFormatter(maxLength)],
+      onChange: (String value) {
         onChanged(value);
       },
     );
