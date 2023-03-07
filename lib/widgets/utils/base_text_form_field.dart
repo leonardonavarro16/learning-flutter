@@ -10,6 +10,7 @@ class BaseTextFormField extends StatefulWidget {
   final InputDecoration? decoration;
   final int? maxLines;
   final int? minLines;
+  final String? fieldValue;
   const BaseTextFormField({
     super.key,
     required this.onChange,
@@ -19,6 +20,7 @@ class BaseTextFormField extends StatefulWidget {
     this.decoration,
     this.maxLines,
     this.minLines,
+    this.fieldValue,
   });
 
   @override
@@ -32,6 +34,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
   @override
   void initState() {
     super.initState();
+    _controller.text = widget.fieldValue ?? '';
     _controller.addListener(_onChange);
   }
 

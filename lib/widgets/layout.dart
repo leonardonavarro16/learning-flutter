@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/pages/create_advert_page.dart';
+import 'package:swc_front/pages/edit_profile.dart';
 import 'package:swc_front/pages/index_page.dart';
 import 'package:swc_front/widgets/nav_bar.dart';
 
@@ -72,9 +73,13 @@ class Layout extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditProfilePage()));
                     // Handle onTap for settings
                   },
-                  title: const Text('Settings'),
+                  title: const Text('Editar perfil'),
                   leading: const Icon(Icons.settings),
                   iconColor: Colors.red,
                   textColor: const Color.fromARGB(215, 255, 255, 255),

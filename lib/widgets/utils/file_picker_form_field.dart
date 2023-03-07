@@ -85,8 +85,7 @@ class _FilePickerField extends State<FilePickerField> {
   }
 
   void clearFile() async {
-    // tofix: call clearTemporaryFiles on mobile
-    // await _filePicker.clearTemporaryFiles();
+    // tofix: call "await _filePicker.clearTemporaryFiles()" on mobile
     setState(() {
       _pickedFile = null;
       widget.onChanged(null);

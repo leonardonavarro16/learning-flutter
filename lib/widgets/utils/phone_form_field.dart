@@ -4,11 +4,13 @@ import 'package:swc_front/widgets/utils/base_text_form_field.dart';
 
 class PhoneNumberInput extends StatelessWidget {
   final Function onChange;
-  const PhoneNumberInput({super.key, required this.onChange});
+  final String? fieldValue;
+  const PhoneNumberInput({super.key, required this.onChange, this.fieldValue});
 
   @override
   Widget build(BuildContext context) {
     return BaseTextFormField(
+        fieldValue: fieldValue,
         decoration: const InputDecoration(
             prefixIcon: Icon(Icons.phone_android_outlined),
             labelText: '(+57) Ingrese su numero de contacto:',

@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:swc_front/widgets/utils/base_text_form_field.dart';
 
 class DescriptionInput extends StatelessWidget {
-  final Function onChanged;
+  final Function onChange;
   final int? maxLength;
-  const DescriptionInput({super.key, required this.onChanged, this.maxLength});
+  const DescriptionInput({super.key, required this.onChange, this.maxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class DescriptionInput extends StatelessWidget {
       inputFormatters: maxLength == null
           ? null
           : <TextInputFormatter>[LengthLimitingTextInputFormatter(maxLength)],
-      onChange: (String value) {
-        onChanged(value);
+      onChange: (String value, bool valid) {
+        onChange(value);
       },
     );
   }

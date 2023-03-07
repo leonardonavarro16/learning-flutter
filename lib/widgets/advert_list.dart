@@ -106,7 +106,7 @@ class _AdvertPreview extends StatelessWidget {
       onTap: () {
         BaseModal.open(
             context: context,
-            title: Text(advert.model.name,textAlign: TextAlign.center),
+            title: Text(advert.user.name, textAlign: TextAlign.center),
             children: [
               _buildModalOpenedContent(),
             ]);
@@ -124,9 +124,9 @@ class _AdvertPreview extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: advert.image,
           ),
-          Text(advert.model.description, textAlign: TextAlign.center),
+          Text(advert.user.description, textAlign: TextAlign.center),
           const SizedBox(height: 10),
-          Text(advert.model.phoneNumber)
+          Text(advert.user.phoneNumber)
         ]),
       ),
     );
@@ -142,9 +142,9 @@ class _AdvertPreview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   child: advert.image,
                 ),
-                Text(advert.model.name,
+                Text(advert.user.name,
                     style: const TextStyle(color: Colors.white)),
-                Text(advert.model.desiredAge.toString(),
+                Text(advert.user.desiredAge.toString(),
                     style: const TextStyle(color: Colors.white)),
               ],
             )));

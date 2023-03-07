@@ -5,12 +5,15 @@ class AgeFormField extends StatefulWidget {
   final int maxAge;
   final Function onChanged;
   final String label;
+  final int? initialValue;
+
   const AgeFormField(
       {super.key,
       required this.onChanged,
       this.minAge = 18,
       this.maxAge = 65,
-      this.label = 'Selecciona tu edad:'});
+      this.label = 'Selecciona tu edad:',
+      this.initialValue});
 
   @override
   State<StatefulWidget> createState() => _SliderInputState();
@@ -21,7 +24,7 @@ class _SliderInputState extends State<AgeFormField> {
 
   @override
   void initState() {
-    sliderValue = widget.minAge;
+    sliderValue = widget.initialValue ?? widget.minAge;
     super.initState();
   }
 
@@ -40,9 +43,11 @@ class _SliderInputState extends State<AgeFormField> {
           divisions: widget.maxAge - widget.minAge,
           label: sliderValue.toString(),
           onChanged: (double value) {
+            int val = value.toInt();
             setState(() {
-              sliderValue = value.toInt();
+              sliderValue = val;
             });
+            widget.onChanged(val);
           },
         )
       ],

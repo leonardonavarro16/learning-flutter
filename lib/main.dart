@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages/create_advert_page.dart';
+import 'package:provider/provider.dart';
+import 'package:swc_front/models/current_user.dart';
+import 'package:swc_front/pages/index_page.dart';
 
 void main() => runApp(const SwcApp());
 
@@ -8,8 +10,10 @@ class SwcApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: const CreateAdvertPage());
+    return ChangeNotifierProvider(
+        create: (_) => CurrentUser(),
+        child: MaterialApp(
+            theme: ThemeData(primarySwatch: Colors.blue),
+            home: const IndexPage()));
   }
 }
