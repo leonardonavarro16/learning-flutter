@@ -24,7 +24,15 @@ class _SliderInputState extends State<AgeFormField> {
 
   @override
   void initState() {
-    sliderValue = widget.initialValue ?? widget.minAge;
+    bool inRange = widget.initialValue == null
+        ? false
+        : widget.initialValue! < widget.minAge &&
+            widget.initialValue! > widget.maxAge;
+    if (inRange) {
+      sliderValue = widget.initialValue!;
+    } else {
+      sliderValue = widget.minAge;
+    }
     super.initState();
   }
 
@@ -42,15 +50,17 @@ class _SliderInputState extends State<AgeFormField> {
           max: widget.maxAge.toDouble(),
           divisions: widget.maxAge - widget.minAge,
           label: sliderValue.toString(),
-          onChanged: (double value) {
-            int val = value.toInt();
-            setState(() {
-              sliderValue = val;
-            });
-            widget.onChanged(val);
-          },
+          onChanged: _onChange,
         )
       ],
     );
+  }
+
+  void _onChange(double value) {
+    int val = value.toInt();
+    setState(() {
+      sliderValue = val;
+      widget.onChanged(val);
+    });
   }
 }

@@ -13,6 +13,17 @@ class EditProfilePage extends StatelessWidget {
           child: SizedBox(
             width: constraints.maxWidth * 0.5,
             child: Column(children: const [
+              SizedBox(
+                height: 25,
+              ),
+              Text(
+                'Edita los datos de tu perfil',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white),
+              ),
               ProfileForm(),
             ]),
           ),

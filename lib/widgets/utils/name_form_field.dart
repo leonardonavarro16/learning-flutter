@@ -3,13 +3,13 @@ import 'package:swc_front/widgets/utils/base_text_form_field.dart';
 
 class NameFormField extends StatelessWidget {
   final Function onChange;
-  final String? fieldValue;
-  const NameFormField({super.key, required this.onChange, this.fieldValue});
+  final String? initialValue;
+  const NameFormField({super.key, required this.onChange, this.initialValue});
 
   @override
   Widget build(BuildContext context) {
     return BaseTextFormField(
-        fieldValue: fieldValue,
+        fieldValue: initialValue,
         decoration: const InputDecoration(
           prefixIcon: Icon(Icons.person),
           filled: true,

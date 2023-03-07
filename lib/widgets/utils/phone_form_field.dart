@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/widgets/utils/base_text_form_field.dart';
 
-class PhoneNumberInput extends StatelessWidget {
+class PhoneFormField extends StatelessWidget {
   final Function onChange;
-  final String? fieldValue;
-  const PhoneNumberInput({super.key, required this.onChange, this.fieldValue});
+  final String? initialValue;
+  const PhoneFormField({super.key, required this.onChange, this.initialValue});
 
   @override
   Widget build(BuildContext context) {
     return BaseTextFormField(
-        fieldValue: fieldValue,
+        fieldValue: initialValue,
         decoration: const InputDecoration(
             prefixIcon: Icon(Icons.phone_android_outlined),
             labelText: '(+57) Ingrese su numero de contacto:',
@@ -26,6 +26,10 @@ class PhoneNumberInput extends StatelessWidget {
           if (!phoneRegex.hasMatch(value)) {
             return 'Ingresa un número teléfonico válido';
           }
+          if (value.length < 10) {
+            return 'El número telefónico debe tener al menos 10 dígitos';
+          }
+
           return null;
         },
         inputFormatters: <TextInputFormatter>[

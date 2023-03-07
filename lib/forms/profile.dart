@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:swc_front/widgets/utils/name_form_field.dart';
 import 'package:swc_front/widgets/utils/phone_form_field.dart';
 import '../models/user.dart';
-import '../models/current_user.dart';
+import '../states/current_user.dart';
 import '../widgets/utils/age_form_field.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -41,7 +41,7 @@ class _ProfileForm extends State<ProfileForm> {
         const SizedBox(
           height: 25,
         ),
-        PhoneNumberInput(
+        PhoneFormField(
           onChange: (String value, bool valid) {
             setState(() => phoneNumber = valid ? value : null);
           },
@@ -61,7 +61,7 @@ class _ProfileForm extends State<ProfileForm> {
         ),
         onPressed: () {
           User user = _buildUser();
-          _context.read<CurrentUser>().update(user);
+          _context.read<CurrentUserState>().update(user);
         },
         child: const Text('Envíar'),
       );
@@ -75,7 +75,6 @@ class _ProfileForm extends State<ProfileForm> {
       name: name!,
       desiredAge: age!,
       phoneNumber: phoneNumber!,
-      description: '',
     );
   }
 }

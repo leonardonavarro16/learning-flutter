@@ -124,7 +124,7 @@ class _AdvertPreview extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: advert.image,
           ),
-          Text(advert.user.description, textAlign: TextAlign.center),
+          Text(advert.description, textAlign: TextAlign.center),
           const SizedBox(height: 10),
           Text(advert.user.phoneNumber)
         ]),

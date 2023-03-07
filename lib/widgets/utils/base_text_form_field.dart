@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:swc_front/widgets/utils/description_form.dart';
 
 class BaseTextFormField extends StatefulWidget {
   final Function onChange;

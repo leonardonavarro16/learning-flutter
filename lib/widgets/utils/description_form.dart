@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/widgets/utils/base_text_form_field.dart';
 
-class DescriptionInput extends StatelessWidget {
+class DescriptionFormField extends StatelessWidget {
   final Function onChange;
   final int? maxLength;
-  const DescriptionInput({super.key, required this.onChange, this.maxLength});
+  final int? maxLines;
+  final int? minLines;
+  const DescriptionFormField(
+      {super.key,
+      required this.onChange,
+      this.maxLength,
+      this.maxLines,
+      this.minLines});
 
   @override
   Widget build(BuildContext context) {
     return BaseTextFormField(
-      maxLines: 5,
-      minLines: 1,
+      maxLines: maxLines,
+      minLines: maxLines,
       decoration: const InputDecoration(
           prefixIcon: Icon(Icons.person_add_alt_outlined),
           border: OutlineInputBorder(),

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -18,12 +16,11 @@ class _FilePickerField extends State<FilePickerField> {
   bool isLoading = false;
   PlatformFile? _pickedFile;
 
-  // tofix: call clearTemporaryFiles on mobile
-  // @override
-  // void dispose() async {
-  //   await _filePicker.clearTemporaryFiles();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() async {
+    await _filePicker.clearTemporaryFiles();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +69,6 @@ class _FilePickerField extends State<FilePickerField> {
 
       if (result != null) {
         _pickedFile = result!.files.single;
-        Uint8List? a = _pickedFile!.bytes;
         widget.onChanged(_pickedFile!.bytes);
       }
 
