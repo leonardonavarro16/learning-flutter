@@ -1,10 +1,14 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swc_front/states/adverts.dart';
 import 'package:swc_front/states/current_user.dart';
 import 'package:swc_front/widgets/utils/description_form.dart';
 import 'package:swc_front/widgets/utils/name_form_field.dart';
 import 'package:swc_front/widgets/utils/phone_form_field.dart';
+import '../models/advert.dart';
+import '../models/user.dart';
+import '../pages/index_page.dart';
 import '../widgets/utils/age_form_field.dart';
 import '../widgets/utils/file_picker_form_field.dart';
 
@@ -93,7 +97,14 @@ class _AdvertForm extends State<AdvertForm> {
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 235, 91, 81),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Advert advert = _buildAdvert();
+          context.read<AdvertsState>().addAvert(advert);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const IndexPage()),
+          );
+        },
         child: const Text('Envíar'),
       );
     } else {
@@ -108,5 +119,18 @@ class _AdvertForm extends State<AdvertForm> {
       age = context.watch<CurrentUserState>().user?.desiredAge ?? 18;
       phoneNumber = context.watch<CurrentUserState>().user?.phoneNumber;
     });
+  }
+
+  Advert _buildAdvert() {
+    User user = _buildUser();
+    return Advert(
+      image: Image.memory(imageBytes!),
+      user: user,
+      description: description!,
+    );
+  }
+
+  User _buildUser() {
+    return User(name: name!, desiredAge: age!, phoneNumber: phoneNumber!);
   }
 }

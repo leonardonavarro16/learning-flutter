@@ -26,8 +26,8 @@ class _SliderInputState extends State<AgeFormField> {
   void initState() {
     bool inRange = widget.initialValue == null
         ? false
-        : widget.initialValue! < widget.minAge &&
-            widget.initialValue! > widget.maxAge;
+        : widget.initialValue! >= widget.minAge &&
+            widget.initialValue! <= widget.maxAge;
     if (inRange) {
       sliderValue = widget.initialValue!;
     } else {
