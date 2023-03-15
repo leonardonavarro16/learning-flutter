@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/models/user.dart';
+import 'package:swc_front/data/models/user.dart';
 
 class Advert {
   Image image;

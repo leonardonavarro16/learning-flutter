@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/models/advert.dart';
+import 'package:swc_front/data/models/advert.dart';
 
 import 'utils/base_modal.dart';
 

@@ -1,15 +1,12 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
-import 'package:swc_front/presentation/states/adverts.dart';
-import 'package:swc_front/presentation/states/current_user.dart';
+import 'package:swc_front/logic/states/current_user.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/advert.dart';
 import '../../data/models/user.dart';
-import '../pages/index_page.dart';
 import '../widgets/utils/age_form_field.dart';
 import '../widgets/utils/file_picker_form_field.dart';
 
@@ -100,8 +97,8 @@ class _AdvertForm extends State<AdvertForm> {
         ),
         onPressed: () {
           Advert advert = _buildAdvert();
-          context.read<AdvertsState>().addAvert(advert);
-          Navigator.pushNamed(context, Routes.index_page);
+          //todo: llamar a context.read<AdvertsCubit>().createAdvert(advert);
+          Navigator.pushNamed(context, Routes.indexPage);
         },
         child: const Text('Envíar'),
       );

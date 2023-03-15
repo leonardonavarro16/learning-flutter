@@ -1,10 +1,34 @@
-import 'package:flutter/widgets.dart';
 import '../../data/models/advert.dart';
-import '../../data/models/user.dart';
 
-class AdvertsState extends ChangeNotifier {
-  List<Advert> adverts = [];
-  // List<Advert> adverts = [
+abstract class AdvertsState {}
+
+// name convetion = cubit name + action + action's state
+
+class AdvertsInitial extends AdvertsState {}
+
+class AdvertsFetchInProgress extends AdvertsState {}
+
+class AdvertsFetchSuccess extends AdvertsState {
+  List<Advert> adverts;
+
+  AdvertsFetchSuccess(this.adverts);
+}
+
+class AdvertsFetchFailure extends AdvertsState {}
+
+class AdvertCreateInProgress extends AdvertsState {}
+
+class AdvertCreateSuccess extends AdvertsState {
+  Advert advert;
+
+  AdvertCreateSuccess(this.advert);
+}
+
+class AdvertCreateFailure extends AdvertsState {}
+
+
+
+// List<Advert> adverts = [
   //   Advert(
   //       image: Image.network(
   //         'https://cdni.pornpics.de/460/7/518/39935848/39935848_050_0044.jpg',
@@ -34,8 +58,8 @@ class AdvertsState extends ChangeNotifier {
   //     description: 'soy una nena bien caliente',
   //   ),
   //   Advert(
-  //     image: Image.network(
   //       'https://cdni.pornpics.com/460/7/167/83446716/83446716_114_1bdd.jpg',
+  //     image: Image.network(
   //     ),
   //     user: User(name: 'Rosa', desiredAge: 20, phoneNumber: '+57 301 345 6789'),
   //     description: 'soy una nena bien caliente',
@@ -49,9 +73,3 @@ class AdvertsState extends ChangeNotifier {
   //   ),
   //   ];
   // }
-
-  void addAvert(Advert advert) {
-    adverts.add(advert);
-    notifyListeners();
-  }
-}

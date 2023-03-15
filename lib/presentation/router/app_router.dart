@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/pages/create_advert_page.dart';
 import 'package:swc_front/presentation/pages/default_page.dart';
 import 'package:swc_front/presentation/pages/index_page.dart';
 import 'package:swc_front/presentation/pages/login_page.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
 
+import '../../logic/cubits/adverts.dart';
 import '../pages/edit_profile.dart';
 
 class Routes {
-  static const String index_page = '/home_page';
+  static const String indexPage = '/home_page';
   static const String edit_profile = '/edit_profile';
   static const String login_page = '/login_page';
   static const String create_advert_page = '/create_advert';
@@ -17,14 +18,15 @@ class Routes {
 }
 
 class AppNavigatorObserver extends NavigatorObserver {
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  final AdvertsCubit _advertsCubit = AdvertsCubit();
 
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       // index_page
-      case Routes.index_page:
-        return MaterialPageRoute(builder: (_) => const IndexPage());
+      case Routes.indexPage:
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _advertsCubit, child: const IndexPage()));
       // edit_profile
       case Routes.edit_profile:
         return MaterialPageRoute(builder: (_) => const EditProfilePage());

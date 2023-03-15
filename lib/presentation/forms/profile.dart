@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/user.dart';
-import '../states/current_user.dart';
+import '../../logic/states/current_user.dart';
 import '../widgets/utils/age_form_field.dart';
 
 class ProfileForm extends StatefulWidget {
