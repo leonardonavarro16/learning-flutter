@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swc_front/widgets/utils/name_form_field.dart';
-import 'package:swc_front/widgets/utils/phone_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../models/user.dart';
 import '../states/current_user.dart';
-import '../widgets/utils/age_form_field.dart';
+import '../presentation/widgets/utils/age_form_field.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({super.key});

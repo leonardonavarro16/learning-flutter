@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swc_front/presentation/widgets/router/app_router.dart';
 import 'package:swc_front/states/adverts.dart';
 import 'package:swc_front/states/current_user.dart';
-import 'package:swc_front/widgets/utils/description_form.dart';
-import 'package:swc_front/widgets/utils/name_form_field.dart';
-import 'package:swc_front/widgets/utils/phone_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/description_form.dart';
+import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../models/advert.dart';
 import '../models/user.dart';
 import '../pages/index_page.dart';
-import '../widgets/utils/age_form_field.dart';
-import '../widgets/utils/file_picker_form_field.dart';
+import '../presentation/widgets/utils/age_form_field.dart';
+import '../presentation/widgets/utils/file_picker_form_field.dart';
 
 class AdvertForm extends StatefulWidget {
   const AdvertForm({super.key});
@@ -100,10 +101,7 @@ class _AdvertForm extends State<AdvertForm> {
         onPressed: () {
           Advert advert = _buildAdvert();
           context.read<AdvertsState>().addAvert(advert);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const IndexPage()),
-          );
+          Navigator.pushNamed(context, Routes.index_page);
         },
         child: const Text('Envíar'),
       );

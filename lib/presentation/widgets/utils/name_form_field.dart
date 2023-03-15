@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/widgets/utils/base_text_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 
 class NameFormField extends StatelessWidget {
   final Function onChange;

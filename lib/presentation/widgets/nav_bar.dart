@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:swc_front/pages/index_page.dart';
 import 'package:swc_front/pages/login_page.dart';
 
+import 'router/app_router.dart';
+
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
   @override
@@ -11,9 +13,7 @@ class NavBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return const LoginPage();
-            }));
+            Navigator.pushNamed(context, Routes.login_page);
           },
           icon: const Icon(Icons.login),
           color: Colors.black,

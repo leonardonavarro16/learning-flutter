@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:swc_front/widgets/utils/base_text_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 
 class PhoneFormField extends StatelessWidget {
   final Function onChange;

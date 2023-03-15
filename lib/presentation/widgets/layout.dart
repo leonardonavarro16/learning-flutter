@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:swc_front/pages/create_advert_page.dart';
 import 'package:swc_front/pages/edit_profile.dart';
 import 'package:swc_front/pages/index_page.dart';
-import 'package:swc_front/widgets/nav_bar.dart';
+import 'package:swc_front/presentation/widgets/nav_bar.dart';
+
+import 'router/app_router.dart';
 
 class Layout extends StatelessWidget {
   final Widget content;
@@ -59,11 +61,7 @@ class Layout extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateAdvertPage()),
-                    );
+                    Navigator.pushNamed(context, Routes.create_advert_page);
                     // Handle onTap for creating anuncio
                   },
                   title: const Text('Crear anuncio'),
@@ -73,10 +71,7 @@ class Layout extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EditProfilePage()));
+                    Navigator.pushNamed(context, Routes.create_advert_page);
                     // Handle onTap for settings
                   },
                   title: const Text('Editar perfil'),

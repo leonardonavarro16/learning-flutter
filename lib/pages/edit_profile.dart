@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/widgets/layout.dart';
+import 'package:swc_front/presentation/widgets/layout.dart';
 import '../forms/profile.dart';
 
 class EditProfilePage extends StatelessWidget {

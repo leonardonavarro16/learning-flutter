@@ -7,4 +7,6 @@ class Advert {
   String description;
 
   Advert({required this.image, required this.user, required this.description});
+
+  static fromJson(advertData) {}
 }
