@@ -1,15 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/data/models/repositories/advert_repository.dart';
 
 import '../../data/models/advert.dart';
 import '../states/adverts.dart';
 
 class AdvertsCubit extends Cubit<AdvertsState> {
+  final AdvertRepository _advertRepository = AdvertRepository();
+
   AdvertsCubit() : super(AdvertsInitial());
 
   Future<void> fetchAdverts() async {
     try {
       emit(AdvertsFetchInProgress());
-      List<Advert> adverts = await repo.fetchAdverts();
+      List<Advert> adverts = await _advertRepository.fetchAdverts();
       emit(AdvertsFetchSuccess(adverts));
     } catch (e) {
       emit(AdvertsFetchFailure('Error al traer los anuncios'));

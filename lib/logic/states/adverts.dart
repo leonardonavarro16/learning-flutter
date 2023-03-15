@@ -14,7 +14,11 @@ class AdvertsFetchSuccess extends AdvertsState {
   AdvertsFetchSuccess(this.adverts);
 }
 
-class AdvertsFetchFailure extends AdvertsState {}
+class AdvertsFetchFailure extends AdvertsState {
+  String message = 'error error man';
+
+  AdvertsFetchFailure(this.message);
+}
 
 class AdvertCreateInProgress extends AdvertsState {}
 
