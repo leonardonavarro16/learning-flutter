@@ -1,17 +1,17 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swc_front/presentation/widgets/router/app_router.dart';
-import 'package:swc_front/states/adverts.dart';
-import 'package:swc_front/states/current_user.dart';
+import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:swc_front/presentation/states/adverts.dart';
+import 'package:swc_front/presentation/states/current_user.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
-import '../models/advert.dart';
-import '../models/user.dart';
+import '../../data/models/advert.dart';
+import '../../data/models/user.dart';
 import '../pages/index_page.dart';
-import '../presentation/widgets/utils/age_form_field.dart';
-import '../presentation/widgets/utils/file_picker_form_field.dart';
+import '../widgets/utils/age_form_field.dart';
+import '../widgets/utils/file_picker_form_field.dart';
 
 class AdvertForm extends StatefulWidget {
   const AdvertForm({super.key});

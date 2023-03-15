@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/pages/registration_page.dart';
-import 'package:swc_front/forms/login_form.dart';
-import '../presentation/widgets/layout.dart';
+import 'package:swc_front/presentation/pages/registration_page.dart';
+import 'package:swc_front/presentation/forms/login_form.dart';
+import '../widgets/layout.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

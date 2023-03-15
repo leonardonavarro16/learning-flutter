@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/pages/index_page.dart';
-import 'package:swc_front/pages/login_page.dart';
+import 'package:swc_front/presentation/pages/index_page.dart';
+import 'package:swc_front/presentation/pages/login_page.dart';
 
-import 'router/app_router.dart';
+import '../router/app_router.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});

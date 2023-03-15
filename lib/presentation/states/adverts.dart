@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import '../models/advert.dart';
-import '../models/user.dart';
+import '../../data/models/advert.dart';
+import '../../data/models/user.dart';
 
 class AdvertsState extends ChangeNotifier {
   List<Advert> adverts = [];
