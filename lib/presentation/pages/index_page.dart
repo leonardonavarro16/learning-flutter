@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:swc_front/presentation/widgets/advert_list.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
-import 'package:swc_front/models/advert.dart';
+import 'package:swc_front/data/models/advert.dart';
 import 'package:http/http.dart' as http;
-
-import '../states/adverts.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});

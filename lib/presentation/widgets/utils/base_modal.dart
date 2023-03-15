@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/models/user.dart';
-import 'package:swc_front/models/advert.dart';
 
 class BaseModal extends StatelessWidget {
   static Future<void> open(
