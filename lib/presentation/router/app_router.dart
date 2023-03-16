@@ -10,38 +10,38 @@ import '../../logic/cubits/adverts.dart';
 import '../pages/edit_profile.dart';
 
 class Routes {
-  static const String indexPage = '/home_page';
-  static const String edit_profile = '/edit_profile';
-  static const String login_page = '/login_page';
-  static const String create_advert_page = '/create_advert';
-  static const String registration_page = '/registration_page';
+  static const String indexPage = '/home-page';
+  static const String editProfile = '/edit-profile';
+  static const String loginPage = '/login-page';
+  static const String createAdvertPage = '/create-advert';
+  static const String registrationPage = '/registration-page';
 }
 
-class AppNavigatorObserver extends NavigatorObserver {
+class AppRouter {
   final AdvertsCubit _advertsCubit = AdvertsCubit();
 
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // index_page
       case Routes.indexPage:
+        _advertsCubit.fetchAdverts();
         return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
                 value: _advertsCubit, child: const IndexPage()));
-      // edit_profile
-      case Routes.edit_profile:
+      case Routes.editProfile:
         return MaterialPageRoute(builder: (_) => const EditProfilePage());
-      // login_page
-      case Routes.login_page:
+      case Routes.loginPage:
         return MaterialPageRoute(builder: (_) => const LoginPage());
-      // create_advert_page
-      case Routes.create_advert_page:
-        return MaterialPageRoute(builder: (_) => const CreateAdvertPage());
-      // registration_page
-      case Routes.registration_page:
+      case Routes.createAdvertPage:
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _advertsCubit, child: const CreateAdvertPage()));
+      case Routes.registrationPage:
         return MaterialPageRoute(builder: (_) => const RegistrationPage());
-      // default case
       default:
-        return MaterialPageRoute(builder: (_) => const IndexPage());
+        _advertsCubit.fetchAdverts();
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _advertsCubit, child: const IndexPage()));
     }
   }
 

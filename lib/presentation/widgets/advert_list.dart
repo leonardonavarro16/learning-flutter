@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/data/models/advert.dart';
-
 import 'utils/base_modal.dart';
 
 class AdverList extends StatelessWidget {
@@ -106,7 +105,7 @@ class _AdvertPreview extends StatelessWidget {
       onTap: () {
         BaseModal.open(
             context: context,
-            title: Text(advert.user.name, textAlign: TextAlign.center),
+            title: Text(advert.name, textAlign: TextAlign.center),
             children: [
               _buildModalOpenedContent(),
             ]);
@@ -122,11 +121,11 @@ class _AdvertPreview extends StatelessWidget {
         child: Column(children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: advert.image,
+            child: Image.network(advert.imageUrl),
           ),
           Text(advert.description, textAlign: TextAlign.center),
           const SizedBox(height: 10),
-          Text(advert.user.phoneNumber)
+          Text(advert.phoneNumber)
         ]),
       ),
     );
@@ -140,11 +139,10 @@ class _AdvertPreview extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: advert.image,
+                  child: Image.network(advert.imageUrl),
                 ),
-                Text(advert.user.name,
-                    style: const TextStyle(color: Colors.white)),
-                Text(advert.user.desiredAge.toString(),
+                Text(advert.name, style: const TextStyle(color: Colors.white)),
+                Text(advert.desiredAge.toString(),
                     style: const TextStyle(color: Colors.white)),
               ],
             )));

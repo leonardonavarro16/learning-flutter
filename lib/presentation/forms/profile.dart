@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/user.dart';
@@ -61,7 +60,7 @@ class _ProfileForm extends State<ProfileForm> {
         ),
         onPressed: () {
           User user = _buildUser();
-          _context.read<CurrentUserState>().update(user);
+          // _context.read<CurrentUserState>().update(user);
         },
         child: const Text('Envíar'),
       );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
+import '../router/app_router.dart';
 import '../widgets/layout.dart';
 
 class LoginPage extends StatelessWidget {
@@ -19,11 +20,7 @@ class LoginPage extends StatelessWidget {
                 const LoginForm(),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegistrationPage()),
-                    );
+                    Navigator.pushNamed(context, Routes.registrationPage);
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(top: 8.0),

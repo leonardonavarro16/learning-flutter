@@ -13,7 +13,7 @@ class NavBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, Routes.login_page);
+            Navigator.pushNamed(context, Routes.loginPage);
           },
           icon: const Icon(Icons.login),
           color: Colors.black,

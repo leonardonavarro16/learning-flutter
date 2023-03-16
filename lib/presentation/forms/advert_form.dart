@@ -2,12 +2,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
-import 'package:swc_front/logic/states/current_user.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/advert.dart';
-import '../../data/models/user.dart';
+import '../../logic/cubits/adverts.dart';
 import '../widgets/utils/age_form_field.dart';
 import '../widgets/utils/file_picker_form_field.dart';
 
@@ -23,12 +22,13 @@ class _AdvertForm extends State<AdvertForm> {
   int? age;
   String? phoneNumber;
   String? description;
+
   Uint8List? imageBytes;
   bool initialized = false;
 
   @override
   Widget build(BuildContext context) {
-    if (!initialized) _initFields();
+    // if (!initialized) _initFields(); Feature: CurrentUser
     return Column(
       children: [
         // Container(
@@ -39,7 +39,7 @@ class _AdvertForm extends State<AdvertForm> {
           height: 25,
         ),
         NameFormField(
-          initialValue: context.watch<CurrentUserState>().user?.name,
+          // initialValue: context.watch<CurrentUserState>().user?.name, Feature: CurrentUser
           onChange: (String value, bool valid) {
             setState(() => name = valid ? value : null);
           },
@@ -48,15 +48,15 @@ class _AdvertForm extends State<AdvertForm> {
           height: 25,
         ),
         AgeFormField(
-            initialValue: context.watch<CurrentUserState>().user?.desiredAge,
+            // initialValue: context.watch<CurrentUserState>().user?.desiredAge, Feature: CurrentUser
             onChanged: (int value) {
-              setState(() => age = value);
-            }),
+          setState(() => age = value);
+        }),
         const SizedBox(
           height: 25,
         ),
         PhoneFormField(
-          initialValue: context.watch<CurrentUserState>().user?.phoneNumber,
+          // initialValue: context.watch<CurrentUserState>().user?.phoneNumber, Feature: CurrentUser
           onChange: (String value, bool valid) {
             setState(() => phoneNumber = valid ? value : null);
           },
@@ -98,7 +98,7 @@ class _AdvertForm extends State<AdvertForm> {
         ),
         onPressed: () {
           Advert advert = _buildAdvert();
-          //todo: llamar a context.read<AdvertsCubit>().createAdvert(advert);
+          context.read<AdvertsCubit>().createAdvert(advert);
           Navigator.pushNamed(context, Routes.indexPage);
         },
         child: const Text('Envíar'),
@@ -108,25 +108,22 @@ class _AdvertForm extends State<AdvertForm> {
     }
   }
 
-  void _initFields() {
-    setState(() {
-      initialized = true;
-      name = context.watch<CurrentUserState>().user?.name;
-      age = context.watch<CurrentUserState>().user?.desiredAge ?? 18;
-      phoneNumber = context.watch<CurrentUserState>().user?.phoneNumber;
-    });
-  }
+  // void _initFields() { Feature: CurrentUser
+  //   setState(() {
+  //     initialized = true;
+  //     name = context.watch<CurrentUserState>().user?.name;
+  //     age = context.watch<CurrentUserState>().user?.desiredAge ?? 18;
+  //     phoneNumber = context.watch<CurrentUserState>().user?.phoneNumber;
+  //   });
+  // }
 
   Advert _buildAdvert() {
-    User user = _buildUser();
     return Advert(
-      image: Image.memory(imageBytes!),
-      user: user,
-      description: description!,
-    );
-  }
-
-  User _buildUser() {
-    return User(name: name!, desiredAge: age!, phoneNumber: phoneNumber!);
+        description: description!,
+        desiredAge: age!,
+        name: name!,
+        phoneNumber: phoneNumber!,
+        imageUrl:
+            'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80');
   }
 }

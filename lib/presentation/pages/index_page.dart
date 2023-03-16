@@ -32,22 +32,3 @@ class IndexPage extends StatelessWidget {
     );
   }
 }
-// FutureBuilder<List<Advert>>(
-//         future: fetchAdverts(),
-//         builder: (context, snapshot) {
-//           if (snapshot.hasData) {
-//             List<Advert> adverts = snapshot.data as List<Advert>;
-            // return ListView(
-            //   children: [
-            //     const SizedBox(height: 20),
-            //     AdverList(adverts: adverts)
-            //   ],
-            // );
-//           } else if (snapshot.hasError) {
-//             print('snapshot.error');
-            // return Text(snapshot.error.toString(),
-            //     style: const TextStyle(color: Colors.red));
-//           }
-//           return const Center(child: CircularProgressIndicator());
-//         },
-//       )

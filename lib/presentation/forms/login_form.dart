@@ -5,7 +5,7 @@ import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
   @override
-  _LoginFormState createState() => _LoginFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
