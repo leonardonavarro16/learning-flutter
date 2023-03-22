@@ -1,12 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:swc_front/data/models/user.dart';
 
-class CurrentUserState extends ChangeNotifier {
-  User? user =
-      User(name: 'javier roncallo', desiredAge: 26, phoneNumber: '3004988692');
+abstract class CurrentUserState {}
 
-  void update(User user) {
-    this.user = user;
-    notifyListeners();
-  }
+class CurrentUserInitial extends CurrentUserState {}
+
+class CurrentUserFetchSuccess extends CurrentUserState {
+  User user;
+
+  CurrentUserFetchSuccess({required this.user});
 }

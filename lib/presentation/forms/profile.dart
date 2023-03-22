@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/user.dart';
+import '../../logic/cubits/current_user_cubit.dart';
 import '../../logic/states/current_user.dart';
 import '../widgets/utils/age_form_field.dart';
 
@@ -16,57 +18,68 @@ class _ProfileForm extends State<ProfileForm> {
   String? name;
   int? age;
   String? phoneNumber;
-  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
-    return Column(
-      children: [
-        const SizedBox(
-          height: 25,
-        ),
-        NameFormField(
-          onChange: (String value, bool valid) {
-            setState(() => name = valid ? value : null);
-          },
-        ),
-        const SizedBox(
-          height: 25,
-        ),
-        AgeFormField(onChanged: (int value) {
-          setState(() => age = value);
-        }),
-        const SizedBox(
-          height: 25,
-        ),
-        PhoneFormField(
-          onChange: (String value, bool valid) {
-            setState(() => phoneNumber = valid ? value : null);
-          },
-        ),
-        const SizedBox(height: 25),
-        buildSubmitButton()
-      ].whereType<Widget>().toList(),
-    );
+    return BlocListener<CurrentUserCubit, CurrentUserState>(
+        listener: (BuildContext context, CurrentUserState state) {
+          if (state is CurrentUserFetchSuccess) {
+            setState(() {
+              name = state.user.name;
+              age = state.user.desiredAge;
+              name = state.user.name;
+            });
+          }
+        },
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 25,
+            ),
+            NameFormField(
+              initialValue: name,
+              onChange: (String value, bool valid) {
+                setState(() => name = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            AgeFormField(
+                initialValue: age,
+                onChanged: (int value) {
+                  setState(() => age = value);
+                }),
+            const SizedBox(
+              height: 25,
+            ),
+            PhoneFormField(
+              initialValue: phoneNumber,
+              onChange: (String value, bool valid) {
+                setState(() => phoneNumber = valid ? value : null);
+              },
+            ),
+            const SizedBox(height: 25),
+            if (_canShowSubmitButton()) _buildSubmitButton(),
+          ],
+        ));
   }
 
-  Widget? buildSubmitButton() {
-    bool showButton = name != null && age != null && phoneNumber != null;
-    if (showButton) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 235, 91, 81),
-        ),
-        onPressed: () {
-          User user = _buildUser();
-          // _context.read<CurrentUserState>().update(user);
-        },
-        child: const Text('Envíar'),
-      );
-    } else {
-      return null;
-    }
+  bool _canShowSubmitButton() {
+    return name != null && age != null && phoneNumber != null;
+  }
+
+  Widget _buildSubmitButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 235, 91, 81),
+      ),
+      onPressed: () {
+        User user = _buildUser();
+        // _context.read<CurrentUserState>().update(user);
+      },
+      child: const Text('Envíar'),
+    );
   }
 
   User _buildUser() {

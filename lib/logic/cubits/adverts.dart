@@ -11,8 +11,8 @@ class AdvertsCubit extends Cubit<AdvertsState> {
 
   Future<void> fetchAdverts() async {
     emit(AdvertsFetchInProgress());
-    List<Advert> adverts = await _advertRepository.fetchAll();
     try {
+      List<Advert> adverts = await _advertRepository.fetchAll();
       emit(AdvertsFetchSuccess(adverts));
     } catch (e) {
       emit(AdvertsFetchFailure('Error al traer los anuncios'));
