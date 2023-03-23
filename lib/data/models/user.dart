@@ -15,7 +15,7 @@ class User {
         phoneNumber: userData['phoneNumber']);
   }
 
-  // Map<String, dynamic> toMap() {
-  //   return {'name': name, 'desiredAge': desiredAge, 'phone': phoneNumber};
-  // }
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'desiredAge': desiredAge, 'phone': phoneNumber};
+  }
 }

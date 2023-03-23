@@ -20,49 +20,50 @@ class _ProfileForm extends State<ProfileForm> {
   String? phoneNumber;
 
   @override
+  void initState() {
+    CurrentUserState state = context.read<CurrentUserCubit>().state;
+    if (state is CurrentUserFetchSuccess) {
+      name = state.user.name;
+      age = state.user.desiredAge;
+      phoneNumber = state.user.phoneNumber;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocListener<CurrentUserCubit, CurrentUserState>(
-        listener: (BuildContext context, CurrentUserState state) {
-          if (state is CurrentUserFetchSuccess) {
-            setState(() {
-              name = state.user.name;
-              age = state.user.desiredAge;
-              name = state.user.name;
-            });
-          }
-        },
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 25,
-            ),
-            NameFormField(
-              initialValue: name,
-              onChange: (String value, bool valid) {
-                setState(() => name = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            AgeFormField(
-                initialValue: age,
-                onChanged: (int value) {
-                  setState(() => age = value);
-                }),
-            const SizedBox(
-              height: 25,
-            ),
-            PhoneFormField(
-              initialValue: phoneNumber,
-              onChange: (String value, bool valid) {
-                setState(() => phoneNumber = valid ? value : null);
-              },
-            ),
-            const SizedBox(height: 25),
-            if (_canShowSubmitButton()) _buildSubmitButton(),
-          ],
-        ));
+    return Column(
+      children: [
+        const SizedBox(
+          height: 25,
+        ),
+        NameFormField(
+          initialValue: name,
+          onChange: (String value, bool valid) {
+            setState(() => name = valid ? value : null);
+          },
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        AgeFormField(
+            initialValue: age,
+            onChanged: (int value) {
+              setState(() => age = value);
+            }),
+        const SizedBox(
+          height: 25,
+        ),
+        PhoneFormField(
+          initialValue: phoneNumber,
+          onChange: (String value, bool valid) {
+            setState(() => phoneNumber = valid ? value : null);
+          },
+        ),
+        const SizedBox(height: 25),
+        if (_canShowSubmitButton()) _buildSubmitButton(),
+      ],
+    );
   }
 
   bool _canShowSubmitButton() {
@@ -76,7 +77,7 @@ class _ProfileForm extends State<ProfileForm> {
       ),
       onPressed: () {
         User user = _buildUser();
-        // _context.read<CurrentUserState>().update(user);
+        BlocProvider.of<CurrentUserCubit>(context).update(user);
       },
       child: const Text('Envíar'),
     );
