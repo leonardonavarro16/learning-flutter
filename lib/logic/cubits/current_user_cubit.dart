@@ -3,9 +3,9 @@ import 'package:swc_front/logic/states/current_user.dart';
 import '../../data/models/user.dart';
 import '../../data/repositories/current_user_repository.dart';
 
-class CurrentUserCubit extends Cubit<CurrentUserState> {
+class AuthenticationCubit extends Cubit<CurrentUserState> {
   final CurrentUserRepository _repo = CurrentUserRepository();
-  CurrentUserCubit() : super(CurrentUserInitial());
+  AuthenticationCubit() : super(CurrentUserInitial());
 
   Future<void> fetchCurrentUser() async {
     User user = await _repo.fetch();

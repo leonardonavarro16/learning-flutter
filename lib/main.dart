@@ -17,7 +17,3 @@ class SwcApp extends StatelessWidget {
     );
   }
 }
-
-//todo: crear el data provider
-//todo: que funcione el repo
-//todo: crear un CurrentUserCubit

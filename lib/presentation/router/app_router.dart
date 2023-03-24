@@ -20,7 +20,7 @@ class Routes {
 
 class AppRouter {
   final AdvertsCubit _advertsCubit = AdvertsCubit();
-  final CurrentUserCubit _currentUserCubit = CurrentUserCubit();
+  final AuthenticationCubit _authenticationCubit = AuthenticationCubit();
 
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -30,21 +30,21 @@ class AppRouter {
             builder: (_) => BlocProvider.value(
                 value: _advertsCubit, child: const IndexPage()));
       case Routes.editProfile:
-        _currentUserCubit.fetchCurrentUser();
+        _authenticationCubit.fetchCurrentUser();
         return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
-                value: _currentUserCubit, child: const EditProfilePage()));
+                value: _authenticationCubit, child: const EditProfilePage()));
       case Routes.loginPage:
         return MaterialPageRoute(builder: (_) => const LoginPage());
 
       case Routes.createAdvertPage:
-        _currentUserCubit.fetchCurrentUser();
+        _authenticationCubit.fetchCurrentUser();
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(providers: [
                   BlocProvider.value(
                     value: _advertsCubit,
                   ),
-                  BlocProvider.value(value: _currentUserCubit)
+                  BlocProvider.value(value: _authenticationCubit)
                 ], child: const CreateAdvertPage()));
 
       case Routes.registrationPage:

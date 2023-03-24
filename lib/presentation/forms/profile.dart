@@ -21,7 +21,7 @@ class _ProfileForm extends State<ProfileForm> {
 
   @override
   void initState() {
-    CurrentUserState state = context.read<CurrentUserCubit>().state;
+    CurrentUserState state = context.read<AuthenticationCubit>().state;
     if (state is CurrentUserFetchSuccess) {
       name = state.user.name;
       age = state.user.desiredAge;
@@ -77,7 +77,7 @@ class _ProfileForm extends State<ProfileForm> {
       ),
       onPressed: () {
         User user = _buildUser();
-        BlocProvider.of<CurrentUserCubit>(context).update(user);
+        BlocProvider.of<AuthenticationCubit>(context).update(user);
       },
       child: const Text('Envíar'),
     );
