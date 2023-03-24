@@ -30,8 +30,8 @@ class _AdvertForm extends State<AdvertForm> {
 
   @override
   void initState() {
-    CurrentUserState state = context.read<AuthenticationCubit>().state;
-    if (state is CurrentUserFetchSuccess) {
+    UserState state = context.read<AuthenticationCubit>().state;
+    if (state.userStatus == UserStatus.success) {
       name = state.user.name;
       age = state.user.desiredAge;
       phoneNumber = state.user.phoneNumber;

@@ -1,11 +1,35 @@
 import 'package:swc_front/data/models/user.dart';
 
-abstract class CurrentUserState {}
+enum UserStatus { initial, loading, success, failure }
 
-class CurrentUserInitial extends CurrentUserState {}
+class UserState {
+  final User user;
+  final String error;
+  final UserStatus userStatus;
 
-class CurrentUserFetchSuccess extends CurrentUserState {
-  User user;
+  UserState({
+    required this.user,
+    required this.error,
+    required this.userStatus,
+  });
 
-  CurrentUserFetchSuccess({required this.user});
+  factory UserState.initial() {
+    return UserState(
+      user: User(desiredAge: 0, name: '', phoneNumber: ''),
+      error: '',
+      userStatus: UserStatus.initial,
+    );
+  }
+
+  UserState copyWith({
+    UserStatus? userStatus,
+    String? error,
+    User? user,
+  }) {
+    return UserState(
+      user: user ?? this.user,
+      error: error ?? this.error,
+      userStatus: userStatus ?? this.userStatus,
+    );
+  }
 }

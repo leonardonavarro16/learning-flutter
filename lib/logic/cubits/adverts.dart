@@ -32,7 +32,7 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     } catch (e) {
       emit(state.copyWith(
           advertsStatus: AdvertsStatus.failure,
-          error: 'Error al traer los anuncios'));
+          error: 'Error al crear el anuncios'));
     }
   }
 }
