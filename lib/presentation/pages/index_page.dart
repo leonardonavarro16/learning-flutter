@@ -14,16 +14,15 @@ class IndexPage extends StatelessWidget {
     return Layout(
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
-          if (state is AdvertsFetchSuccess) {
+          if (state.advertsStatus == AdvertsStatus.success) {
             return ListView(
               children: [
                 const SizedBox(height: 20),
                 AdverList(adverts: state.adverts)
               ],
             );
-          } else if (state is AdvertsFetchFailure) {
-            return Text(state.message,
-                style: const TextStyle(color: Colors.red));
+          } else if (state.advertsStatus == AdvertsStatus.loading) {
+            return Text(state.error, style: const TextStyle(color: Colors.red));
           } else {
             return const Center(child: CircularProgressIndicator());
           }

@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/current_user_cubit.dart';
+import 'package:swc_front/logic/states/current_user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
@@ -27,6 +29,17 @@ class _AdvertForm extends State<AdvertForm> {
   bool initialized = false;
 
   @override
+  void initState() {
+    CurrentUserState state = context.read<CurrentUserCubit>().state;
+    if (state is CurrentUserFetchSuccess) {
+      name = state.user.name;
+      age = state.user.desiredAge;
+      phoneNumber = state.user.phoneNumber;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // if (!initialized) _initFields(); Feature: CurrentUser
     return Column(
@@ -39,7 +52,7 @@ class _AdvertForm extends State<AdvertForm> {
           height: 25,
         ),
         NameFormField(
-          // initialValue: context.watch<CurrentUserState>().user?.name, Feature: CurrentUser
+          initialValue: name,
           onChange: (String value, bool valid) {
             setState(() => name = valid ? value : null);
           },
@@ -48,15 +61,15 @@ class _AdvertForm extends State<AdvertForm> {
           height: 25,
         ),
         AgeFormField(
-            // initialValue: context.watch<CurrentUserState>().user?.desiredAge, Feature: CurrentUser
+            initialValue: age,
             onChanged: (int value) {
-          setState(() => age = value);
-        }),
+              setState(() => age = value);
+            }),
         const SizedBox(
           height: 25,
         ),
         PhoneFormField(
-          // initialValue: context.watch<CurrentUserState>().user?.phoneNumber, Feature: CurrentUser
+          initialValue: phoneNumber,
           onChange: (String value, bool valid) {
             setState(() => phoneNumber = valid ? value : null);
           },

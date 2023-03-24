@@ -1,35 +1,28 @@
 import '../../data/models/advert.dart';
 
-abstract class AdvertsState {}
+enum AdvertsStatus { initial, loading, success, failure }
 
-// name convetion = cubit name + action + action's state
+class AdvertsState {
+  final List<Advert> adverts;
+  final String error;
+  final AdvertsStatus advertsStatus;
 
-class AdvertsInitial extends AdvertsState {}
+  AdvertsState(
+      {required this.adverts,
+      required this.error,
+      required this.advertsStatus});
 
-class AdvertsFetchInProgress extends AdvertsState {}
+  factory AdvertsState.initial() {
+    return AdvertsState(
+        adverts: [], error: '', advertsStatus: AdvertsStatus.initial);
+  }
 
-class AdvertsFetchSuccess extends AdvertsState {
-  List<Advert> adverts;
-
-  AdvertsFetchSuccess(this.adverts);
-}
-
-class AdvertsFetchFailure extends AdvertsState {
-  String message = 'error error man';
-
-  AdvertsFetchFailure(this.message);
-}
-
-class AdvertsCreateInProgress extends AdvertsState {}
-
-class AdvertsCreateSuccess extends AdvertsState {
-  Advert advert;
-
-  AdvertsCreateSuccess(this.advert);
-}
-
-class AdvertsCreateFailure extends AdvertsState {
-  String message;
-
-  AdvertsCreateFailure(this.message);
+  AdvertsState copyWith(
+      {AdvertsStatus? advertsStatus, String? error, List<Advert>? adverts}) {
+    return AdvertsState(
+      error: error ?? this.error,
+      adverts: adverts ?? this.adverts,
+      advertsStatus: advertsStatus ?? this.advertsStatus,
+    );
+  }
 }

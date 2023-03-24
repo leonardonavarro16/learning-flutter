@@ -7,25 +7,32 @@ import '../states/adverts.dart';
 class AdvertsCubit extends Cubit<AdvertsState> {
   final AdvertRepository _advertRepository = AdvertRepository();
 
-  AdvertsCubit() : super(AdvertsInitial());
+  AdvertsCubit() : super(AdvertsState.initial());
 
   Future<void> fetchAdverts() async {
-    emit(AdvertsFetchInProgress());
+    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
       List<Advert> adverts = await _advertRepository.fetchAll();
-      emit(AdvertsFetchSuccess(adverts));
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.success, adverts: adverts));
     } catch (e) {
-      emit(AdvertsFetchFailure('Error al traer los anuncios'));
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.failure,
+          error: 'Error al traer los anuncios'));
     }
   }
 
   Future<void> createAdvert(Advert advert) async {
-    emit(AdvertsCreateInProgress());
+    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
       Advert createdAdvert = await _advertRepository.create(advert);
-      emit(AdvertsCreateSuccess(createdAdvert));
+      state.adverts.add(createdAdvert);
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.success, adverts: state.adverts));
     } catch (e) {
-      emit(AdvertsCreateFailure('Error al traer los anuncios'));
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.failure,
+          error: 'Error al traer los anuncios'));
     }
   }
 }
