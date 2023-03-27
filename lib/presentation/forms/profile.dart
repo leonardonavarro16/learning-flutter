@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/user.dart';
-import '../../logic/cubits/current_user_cubit.dart';
+import '../../logic/cubits/authentication_cubit.dart';
 import '../../logic/states/current_user.dart';
 import '../widgets/utils/age_form_field.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/cubits/current_user_cubit.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/pages/create_advert_page.dart';
 import 'package:swc_front/presentation/pages/default_page.dart';
 import 'package:swc_front/presentation/pages/index_page.dart';
