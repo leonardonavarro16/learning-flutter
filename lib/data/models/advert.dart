@@ -24,7 +24,6 @@ class Advert {
 
   Map<String, dynamic> toMap() {
     return {
-      'imageUrl': imageUrl,
       'name': name,
       'age': desiredAge,
       'description': description,
