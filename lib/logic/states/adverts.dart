@@ -1,28 +1,35 @@
 import '../../data/models/advert.dart';
+import 'base.dart';
 
 enum AdvertsStatus { initial, loading, success, failure }
 
-class AdvertsState {
+class AdvertsState extends BaseState {
   final List<Advert> adverts;
   final String error;
-  final AdvertsStatus advertsStatus;
+  final AdvertsStatus status;
 
-  AdvertsState(
-      {required this.adverts,
-      required this.error,
-      required this.advertsStatus});
+  AdvertsState({
+    required this.adverts,
+    required this.error,
+    required this.status,
+    super.nextRoute,
+  });
 
   factory AdvertsState.initial() {
-    return AdvertsState(
-        adverts: [], error: '', advertsStatus: AdvertsStatus.initial);
+    return AdvertsState(adverts: [], error: '', status: AdvertsStatus.initial);
   }
 
-  AdvertsState copyWith(
-      {AdvertsStatus? advertsStatus, String? error, List<Advert>? adverts}) {
+  AdvertsState copyWith({
+    AdvertsStatus? advertsStatus,
+    String? error,
+    List<Advert>? adverts,
+    String? nextRoute,
+  }) {
     return AdvertsState(
       error: error ?? this.error,
       adverts: adverts ?? this.adverts,
-      advertsStatus: advertsStatus ?? this.advertsStatus,
+      status: advertsStatus ?? status,
+      nextRoute: nextRoute,
     );
   }
 }
