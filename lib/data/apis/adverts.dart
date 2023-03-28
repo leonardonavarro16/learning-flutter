@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import 'base.dart';
 
@@ -56,7 +56,7 @@ class AdvertsAPI extends BaseAPI {
   ];
 
   Future<List<dynamic>> fetchAll() async {
-    final response = await http.get(Uri.parse('$baseUrl/adverts'));
+    final response = await httpGet('$baseUrl/adverts');
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -66,12 +66,9 @@ class AdvertsAPI extends BaseAPI {
 
   Future<Map<String, dynamic>> create(Map<String, dynamic> rawAdvert) async {
     String body = jsonEncode({'advert': rawAdvert});
-    Map<String, String> headers = {
-      'Content-Type': 'application/json; charset=UTF-8'
-    };
-    final response = await http.post(
-      Uri.parse('$baseUrl/adverts'),
-      headers: headers,
+
+    final Response response = await httpPost(
+      '$baseUrl/adverts',
       body: body,
     );
     if (response.statusCode == 201) {
