@@ -1,60 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<LoginForm> createState() => LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
-  String email = '';
-  String password = '';
-  final _formKey = GlobalKey<FormState>();
+class LoginFormState extends State<LoginForm> {
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-          children: [
-        const SizedBox(
-          height: 25,
-        ),
-        EmailFormField(onChanged: (String value) {
-          _formKey.currentState!.validate();
-          setState(() => email = value);
-        }),
-        const SizedBox(
-          height: 25,
-        ),
-        PasswordFormField(onChanged: (String value) {
-          _formKey.currentState!.validate();
-          setState(() => password = value);
-        }),
-        const SizedBox(
-          height: 25,
-        ),
-        buildSubmitButton(),
-      ].whereType<Widget>().toList()),
-    );
+    return Column(children: [
+      const SizedBox(
+        height: 25,
+      ),
+      EmailFormField(onChange: (String? value, bool valid) {
+        if (valid) setState(() => email = value);
+      }),
+      const SizedBox(
+        height: 25,
+      ),
+      PasswordFormField(onChange: (String? value, bool valid) {
+        if (valid) setState(() => password = value);
+      }),
+      const SizedBox(
+        height: 25,
+      ),
+      if (_canBuildSubmitButton()) _buildSubmitButton(),
+    ]);
   }
 
-  Widget? buildSubmitButton() {
-    bool showButton = _formKey.currentState == null
-        ? false
-        : _formKey.currentState!.validate();
-    if (showButton) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 235, 91, 81),
-        ),
-        onPressed: () {},
-        child: const Text('Enviar'),
-      );
-    } else {
-      return null;
-    }
+  bool _canBuildSubmitButton() {
+    return email != null && password != null;
+  }
+
+  Widget _buildSubmitButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 235, 91, 81),
+      ),
+      onPressed: () {
+        context.read<AuthenticationCubit>().login(email!, password!);
+      },
+      child: const Text('Enviar'),
+    );
   }
 }

@@ -13,4 +13,9 @@ class CurrentUserRepository {
     Map<String, dynamic> rawUser = await _api.update(user.toMap());
     return User.fromMap(rawUser);
   }
+
+  Future<String> login(String email, String password) async {
+    Map<String, String> rawToken = await _api.login(email, password);
+    return rawToken.toString();
+  }
 }

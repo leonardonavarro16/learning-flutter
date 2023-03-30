@@ -48,7 +48,7 @@ class _AdvertForm extends State<AdvertForm> {
         ),
         NameFormField(
           initialValue: name,
-          onChange: (String value, bool valid) {
+          onChange: (String? value, bool valid) {
             setState(() => name = valid ? value : null);
           },
         ),
@@ -65,7 +65,7 @@ class _AdvertForm extends State<AdvertForm> {
         ),
         PhoneFormField(
           initialValue: phoneNumber,
-          onChange: (String value, bool valid) {
+          onChange: (String? value, bool valid) {
             setState(() => phoneNumber = valid ? value : null);
           },
         ),
@@ -76,8 +76,8 @@ class _AdvertForm extends State<AdvertForm> {
           maxLines: 5,
           minLines: 1,
           maxLength: 1000,
-          onChange: (String value) {
-            setState(() => description = value);
+          onChange: (String? value, bool valid) {
+            setState(() => description = valid ? value : null);
           },
         ),
         const SizedBox(

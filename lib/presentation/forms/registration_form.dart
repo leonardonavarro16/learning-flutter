@@ -10,75 +10,66 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
-  final _formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
-  String confirmPassword = '';
+  String? email;
+  String? password;
+  String? confirmPassword;
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-              children: [
-            const SizedBox(
-              height: 15,
-            ),
-            EmailFormField(
-              onChanged: (String value) {
-                _formKey.currentState!.validate();
-                setState(() => email = value);
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            PasswordFormField(
-              onChanged: (String value) {
-                _formKey.currentState!.validate();
-                setState(() => password = value);
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            PasswordFormField(
-              labelText: 'Confirmar contraseña',
-              emptyMessage: 'ingrese su contraseña de confirmacion',
-              additionalValidator: (String? value) {
-                if (value != password) {
-                  return 'La contraseña no coincide ';
-                }
-                return null;
-              },
-              onChanged: (String value) {
-                _formKey.currentState!.validate();
-                setState(() => confirmPassword = value);
-              },
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            buildSubmitButton(),
-          ].whereType<Widget>().toList()),
-        ));
+    return Center(
+        child: Column(children: [
+      const SizedBox(
+        height: 15,
+      ),
+      EmailFormField(
+        onChange: (String? value, bool valid) {
+          setState(() => email = valid ? value : null);
+        },
+      ),
+      const SizedBox(
+        height: 15,
+      ),
+      PasswordFormField(
+        onChange: (String? value, bool valid) {
+          setState(() => password = valid ? value : null);
+        },
+      ),
+      const SizedBox(
+        height: 15,
+      ),
+      PasswordFormField(
+        labelText: 'Confirmar contraseña',
+        emptyMessage: 'ingrese su contraseña de confirmacion',
+        additionalValidator: (String? value) {
+          if (value != password) {
+            return 'La contraseña no coincide ';
+          }
+          return null;
+        },
+        onChange: (String? value, bool valid) {
+          setState(() => confirmPassword = valid ? value : null);
+        },
+      ),
+      const SizedBox(
+        height: 12,
+      ),
+      if (_canBuildSubmitButton()) _buildSubmitButton(),
+    ]));
   }
 
-  Widget? buildSubmitButton() {
-    bool showButton = _formKey.currentState == null
-        ? false
-        : _formKey.currentState!.validate();
-    if (showButton) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 235, 91, 81),
-        ),
-        onPressed: () {},
-        child: const Text('Registrar'),
-      );
-    } else {
-      return null;
-    }
+  bool _canBuildSubmitButton() {
+    return email != null && password != null && confirmPassword != null;
+  }
+
+  Widget _buildSubmitButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 235, 91, 81),
+      ),
+      onPressed: () {
+        // context.read<AuthenticationCubit>().(email!, password!, );
+      },
+      child: const Text('Registrar'),
+    );
   }
 }

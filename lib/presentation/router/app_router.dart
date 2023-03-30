@@ -35,7 +35,9 @@ class AppRouter {
             builder: (_) => BlocProvider.value(
                 value: _authenticationCubit, child: const EditProfilePage()));
       case Routes.loginPage:
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _authenticationCubit, child: const LoginPage()));
 
       case Routes.createAdvertPage:
         _authenticationCubit.fetchCurrentUser();
@@ -48,7 +50,9 @@ class AppRouter {
                 ], child: const CreateAdvertPage()));
 
       case Routes.registrationPage:
-        return MaterialPageRoute(builder: (_) => const RegistrationPage());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _authenticationCubit, child: const RegistrationPage()));
       default:
         _advertsCubit.fetchAdverts();
         return MaterialPageRoute(

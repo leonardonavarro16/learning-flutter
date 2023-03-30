@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 
 class PhoneFormField extends StatelessWidget {
-  final Function onChange;
+  final void Function(String?, bool) onChange;
   final String? initialValue;
   const PhoneFormField({super.key, required this.onChange, this.initialValue});
 
@@ -18,7 +18,7 @@ class PhoneFormField extends StatelessWidget {
             fillColor: Colors.white),
         keyboardType: TextInputType.phone,
         onChange: onChange,
-        getErrorText: (value) {
+        validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Ingrese su numero teléfonico';
           }

@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BaseTextFormField extends StatefulWidget {
-  final Function onChange;
-  final Function(String?)? getErrorText;
+  final Function(String?, bool) onChange;
+  final Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final InputDecoration? decoration;
   final int? maxLines;
   final int? minLines;
   final String? fieldValue;
+  final bool obscureText;
   const BaseTextFormField({
     super.key,
     required this.onChange,
-    this.getErrorText,
+    this.validator,
     this.inputFormatters,
     this.keyboardType,
     this.decoration,
     this.maxLines,
     this.minLines,
     this.fieldValue,
+    this.obscureText = false,
   });
 
   @override
@@ -50,6 +52,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
       minLines: widget.minLines,
       controller: _controller,
       keyboardType: widget.keyboardType,
+      obscureText: widget.obscureText,
       decoration: widget.decoration == null
           ? InputDecoration(errorText: _getErrorText(_controller.text))
           : widget.decoration!.copyWith(
@@ -72,10 +75,10 @@ class _BaseTextFormField extends State<BaseTextFormField> {
 
   String? _getErrorText(String? value) {
     if (!_touched) return null;
-    if (widget.getErrorText == null) {
+    if (widget.validator == null) {
       return null;
     } else {
-      return widget.getErrorText!(value);
+      return widget.validator!(value);
     }
   }
 }

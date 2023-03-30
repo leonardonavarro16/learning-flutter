@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/presentation/pages/index_page.dart';
 
 import 'presentation/router/app_router.dart';
 

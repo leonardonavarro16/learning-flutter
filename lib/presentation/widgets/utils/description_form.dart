@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 
 class DescriptionFormField extends StatelessWidget {
-  final Function onChange;
+  final void Function(String?, bool) onChange;
   final int? maxLength;
   final int? maxLines;
   final int? minLines;
@@ -31,8 +31,8 @@ class DescriptionFormField extends StatelessWidget {
       inputFormatters: maxLength == null
           ? null
           : <TextInputFormatter>[LengthLimitingTextInputFormatter(maxLength)],
-      onChange: (String value, bool valid) {
-        onChange(value);
+      onChange: (String? value, bool valid) {
+        onChange(value, valid);
       },
     );
   }

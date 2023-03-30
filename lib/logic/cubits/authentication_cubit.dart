@@ -27,7 +27,21 @@ class AuthenticationCubit extends Cubit<UserState> {
     } catch (error) {
       emit(state.copyWith(
           userStatus: UserStatus.failure,
-          error: 'error al actualizar el usuaruo'));
+          error: 'error al actualizar el usuario'));
+    }
+  }
+
+  Future<void> login(String email, String password) async {
+    emit(state.copyWith(userStatus: UserStatus.loading));
+    try {
+      String token = await _repo.login(email, password);
+      emit(state.copyWith(
+        userStatus: UserStatus.success,
+        token: token, // guardar el token en el estado del cubit
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+          userStatus: UserStatus.failure, error: 'login failure'));
     }
   }
 }

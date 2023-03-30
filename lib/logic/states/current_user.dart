@@ -6,11 +6,13 @@ class UserState {
   final User user;
   final String error;
   final UserStatus userStatus;
+  final String? token;
 
   UserState({
     required this.user,
     required this.error,
     required this.userStatus,
+    this.token,
   });
 
   factory UserState.initial() {
@@ -21,15 +23,12 @@ class UserState {
     );
   }
 
-  UserState copyWith({
-    UserStatus? userStatus,
-    String? error,
-    User? user,
-  }) {
+  UserState copyWith(
+      {UserStatus? userStatus, String? error, User? user, String? token}) {
     return UserState(
-      user: user ?? this.user,
-      error: error ?? this.error,
-      userStatus: userStatus ?? this.userStatus,
-    );
+        user: user ?? this.user,
+        error: error ?? this.error,
+        userStatus: userStatus ?? this.userStatus,
+        token: token ?? this.token);
   }
 }

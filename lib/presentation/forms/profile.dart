@@ -39,7 +39,7 @@ class _ProfileForm extends State<ProfileForm> {
         ),
         NameFormField(
           initialValue: name,
-          onChange: (String value, bool valid) {
+          onChange: (String? value, bool valid) {
             setState(() => name = valid ? value : null);
           },
         ),
@@ -56,7 +56,7 @@ class _ProfileForm extends State<ProfileForm> {
         ),
         PhoneFormField(
           initialValue: phoneNumber,
-          onChange: (String value, bool valid) {
+          onChange: (String? value, bool valid) {
             setState(() => phoneNumber = valid ? value : null);
           },
         ),

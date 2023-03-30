@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 
 class NameFormField extends StatelessWidget {
-  final Function onChange;
+  final void Function(String?, bool) onChange;
   final String? initialValue;
   const NameFormField({super.key, required this.onChange, this.initialValue});
 
@@ -17,7 +17,7 @@ class NameFormField extends StatelessWidget {
           labelText: 'Ingrese su nombre:',
         ),
         onChange: onChange,
-        getErrorText: (String? value) {
+        validator: (String? value) {
           if (value == null || value.isEmpty) {
             return 'Ingrese su nombre completo';
           }

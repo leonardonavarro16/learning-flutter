@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'base_text_form_field.dart';
+
 class PasswordFormField extends StatelessWidget {
-  final Function onChanged;
+  final void Function(String? value, bool valid) onChange;
   final Function? additionalValidator;
   final String? emptyMessage;
   final String? labelText;
 
   const PasswordFormField({
     super.key,
-    required this.onChanged,
+    required this.onChange,
     this.additionalValidator,
     this.emptyMessage,
     this.labelText,
@@ -16,7 +18,7 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return BaseTextFormField(
       decoration: InputDecoration(
         labelText: labelText ?? 'Contraseña',
         filled: true,
@@ -30,8 +32,8 @@ class PasswordFormField extends StatelessWidget {
         if (additionalValidator != null) return additionalValidator!(value);
         return null;
       },
-      onChanged: (String value) {
-        onChanged(value);
+      onChange: (String? value, bool valid) {
+        onChange(value, valid);
       },
     );
   }
