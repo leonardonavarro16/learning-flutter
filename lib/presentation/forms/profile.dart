@@ -4,7 +4,7 @@ import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
-import '../../logic/states/current_user.dart';
+import '../../logic/states/authentication.dart.dart';
 import '../widgets/utils/age_form_field.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -21,7 +21,7 @@ class _ProfileForm extends State<ProfileForm> {
 
   @override
   void initState() {
-    UserState state = context.read<AuthenticationCubit>().state;
+    AuthenticationState state = context.read<AuthenticationCubit>().state;
     if (state.userStatus == UserStatus.success) {
       name = state.user.name;
       age = state.user.desiredAge;

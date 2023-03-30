@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
-import 'package:swc_front/logic/states/current_user.dart';
+import 'package:swc_front/logic/states/authentication.dart.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
@@ -30,7 +30,7 @@ class _AdvertForm extends State<AdvertForm> {
 
   @override
   void initState() {
-    UserState state = context.read<AuthenticationCubit>().state;
+    AuthenticationState state = context.read<AuthenticationCubit>().state;
     if (state.userStatus == UserStatus.success) {
       name = state.user.name;
       age = state.user.desiredAge;

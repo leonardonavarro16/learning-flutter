@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/states/current_user.dart';
+import 'package:swc_front/logic/states/authentication.dart.dart';
 import '../../data/models/user.dart';
 import '../../data/repositories/current_user_repository.dart';
 
-class AuthenticationCubit extends Cubit<UserState> {
+class AuthenticationCubit extends Cubit<AuthenticationState> {
   final CurrentUserRepository _repo = CurrentUserRepository();
 
-  AuthenticationCubit() : super(UserState.initial());
+  AuthenticationCubit() : super(AuthenticationState.initial());
 
   Future<void> fetchCurrentUser() async {
     emit(state.copyWith(userStatus: UserStatus.loading));
