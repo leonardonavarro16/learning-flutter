@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 
 import 'presentation/router/app_router.dart';
 
@@ -10,9 +12,12 @@ class SwcApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      onGenerateRoute: _appRouter.onGenerateRoute,
+    return BlocProvider(
+      create: (BuildContext context) => AuthenticationCubit(),
+      child: MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.blue),
+        onGenerateRoute: _appRouter.onGenerateRoute,
+      ),
     );
   }
 }

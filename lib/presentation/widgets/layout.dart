@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:swc_front/presentation/pages/index_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/states/authentication.dart.dart';
 import 'package:swc_front/presentation/widgets/nav_bar.dart';
 
 import '../router/app_router.dart';
@@ -10,6 +14,7 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // bool isLogged = context.watch<AuthenticationCubit>().state.token != null;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
