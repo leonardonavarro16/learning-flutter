@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/logic/states/authentication.dart.dart';
+import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/nav_bar.dart';
 
 import '../router/app_router.dart';
@@ -14,7 +14,7 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // bool isLogged = context.watch<AuthenticationCubit>().state.token != null;
+    bool isLogged = context.watch<AuthenticationCubit>().state.token != null;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
@@ -58,16 +58,17 @@ class Layout extends StatelessWidget {
                   iconColor: Colors.red,
                   textColor: const Color.fromARGB(215, 255, 255, 255),
                 ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.createAdvertPage);
-                    // Handle onTap for creating anuncio
-                  },
-                  title: const Text('Crear anuncio'),
-                  leading: const Icon(Icons.announcement_outlined),
-                  iconColor: Colors.red,
-                  textColor: const Color.fromARGB(215, 255, 255, 255),
-                ),
+                if (isLogged)
+                  ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.createAdvertPage);
+                      // Handle onTap for creating anuncio
+                    },
+                    title: const Text('Crear anuncio'),
+                    leading: const Icon(Icons.announcement_outlined),
+                    iconColor: Colors.red,
+                    textColor: const Color.fromARGB(215, 255, 255, 255),
+                  ),
                 ListTile(
                   onTap: () {
                     Navigator.pushNamed(context, Routes.editProfile);

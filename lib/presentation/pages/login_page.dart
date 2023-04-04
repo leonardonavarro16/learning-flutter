@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/presentation/pages/registration_page.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
 import '../router/app_router.dart';
 import '../widgets/layout.dart';

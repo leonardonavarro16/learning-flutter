@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
-import 'package:swc_front/logic/states/authentication.dart.dart';
+import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
@@ -32,9 +32,9 @@ class _AdvertForm extends State<AdvertForm> {
   void initState() {
     AuthenticationState state = context.read<AuthenticationCubit>().state;
     if (state.authenticationStatus == AuthenticationStatus.success) {
-      name = state.user.name;
-      age = state.user.desiredAge;
-      phoneNumber = state.user.phoneNumber;
+      name = state.user?.name;
+      age = state.user?.age;
+      phoneNumber = state.user?.phoneNumber;
     }
     super.initState();
   }
@@ -57,7 +57,7 @@ class _AdvertForm extends State<AdvertForm> {
         ),
         AgeFormField(
             initialValue: age,
-            onChanged: (int value) {
+            onChange: (int value) {
               setState(() => age = value);
             }),
         const SizedBox(
@@ -131,7 +131,7 @@ class _AdvertForm extends State<AdvertForm> {
   Advert _buildAdvert() {
     return Advert(
         description: description!,
-        desiredAge: age!,
+        age: age!,
         name: name!,
         phoneNumber: phoneNumber!,
         imageUrl:

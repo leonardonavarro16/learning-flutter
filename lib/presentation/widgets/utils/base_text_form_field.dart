@@ -7,7 +7,7 @@ class BaseTextFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final InputDecoration? decoration;
-  final int? maxLines;
+  final int maxLines;
   final int? minLines;
   final String? fieldValue;
   final bool obscureText;
@@ -18,7 +18,7 @@ class BaseTextFormField extends StatefulWidget {
     this.inputFormatters,
     this.keyboardType,
     this.decoration,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.fieldValue,
     this.obscureText = false,

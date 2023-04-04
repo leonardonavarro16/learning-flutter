@@ -9,7 +9,7 @@ class AdvertsAPI extends BaseAPI {
       'imageUrl':
           'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
       'name': 'Rosa',
-      'desiredAge': 20,
+      'age': 20,
       'phoneNumber': '+57 301 345 6789',
       'description': 'soy una nena bien caliente'
     },
@@ -17,7 +17,7 @@ class AdvertsAPI extends BaseAPI {
       'imageUrl':
           'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
       'name': 'Rosa',
-      'desiredAge': 20,
+      'age': 20,
       'phoneNumber': '+57 301 345 6789',
       'description': 'soy una nena bien caliente',
     },
@@ -25,7 +25,7 @@ class AdvertsAPI extends BaseAPI {
       'imageUrl':
           'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
       'name': 'Rosa',
-      'desiredAge': 20,
+      'age': 20,
       'phoneNumber': '+57 301 345 6789',
       'description': 'soy una nena bien caliente',
     },
@@ -33,7 +33,7 @@ class AdvertsAPI extends BaseAPI {
       'imageUrl':
           'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
       'name': 'Rosa',
-      'desiredAge': 20,
+      'age': 20,
       'phoneNumber': '+57 301 345 6789',
       'description': 'soy una nena bien caliente',
     },
@@ -41,7 +41,7 @@ class AdvertsAPI extends BaseAPI {
       'imageUrl':
           'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
       'name': 'Rosa',
-      'desiredAge': 20,
+      'age': 20,
       'phoneNumber': '+57 301 345 6789',
       'description': 'soy una nena bien caliente',
     },
@@ -49,7 +49,7 @@ class AdvertsAPI extends BaseAPI {
       'imageUrl':
           'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
       'name': 'Rosa',
-      'desiredAge': 20,
+      'age': 20,
       'phoneNumber': '+57 301 345 6789',
       'description': 'soy una nena bien caliente',
     },

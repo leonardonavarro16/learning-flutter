@@ -142,7 +142,7 @@ class _AdvertPreview extends StatelessWidget {
                   child: Image.network(advert.imageUrl),
                 ),
                 Text(advert.name, style: const TextStyle(color: Colors.white)),
-                Text(advert.desiredAge.toString(),
+                Text(advert.age.toString(),
                     style: const TextStyle(color: Colors.white)),
               ],
             )));

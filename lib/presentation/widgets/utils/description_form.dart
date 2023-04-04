@@ -5,13 +5,13 @@ import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 class DescriptionFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
   final int? maxLength;
-  final int? maxLines;
+  final int maxLines;
   final int? minLines;
   const DescriptionFormField(
       {super.key,
       required this.onChange,
       this.maxLength,
-      this.maxLines,
+      this.maxLines = 1,
       this.minLines});
 
   @override

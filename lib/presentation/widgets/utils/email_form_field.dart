@@ -4,7 +4,8 @@ import 'base_text_form_field.dart';
 
 class EmailFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
-  const EmailFormField({super.key, required this.onChange});
+  final int? initialValue;
+  const EmailFormField({super.key, this.initialValue, required this.onChange});
 
   @override
   Widget build(BuildContext context) {

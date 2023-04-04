@@ -1,17 +1,29 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:swc_front/data/apis/base.dart';
-import 'package:swc_front/presentation/forms/login_form.dart';
 
-class CurrentUserAPI extends BaseAPI {
+class AuthenticationAPI extends BaseAPI {
   final Map<String, dynamic> _user = {
     'name': 'pollo',
-    'desiredAge': 19,
+    'age': 19,
     'phoneNumber': '+57 301 323 7812',
   };
 
   Future<Map<String, dynamic>> fetch() async {
     return _user;
+  }
+
+  Future<Map<String, dynamic>> create(Map<String, dynamic> rawUser) async {
+    String body = jsonEncode({'user': rawUser});
+    final response = await httpPost(
+      '$baseUrl/users',
+      body: body,
+    );
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load user');
+    }
   }
 
   Future<Map<String, String>> login(String email, String password) async {
@@ -25,7 +37,7 @@ class CurrentUserAPI extends BaseAPI {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print(response.body);
+
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {

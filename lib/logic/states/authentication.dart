@@ -3,8 +3,8 @@ import 'package:swc_front/data/models/user.dart';
 enum AuthenticationStatus { initial, loading, success, failure }
 
 class AuthenticationState {
-  final User user;
-  final String error;
+  final User? user;
+  final String? error;
   final AuthenticationStatus authenticationStatus;
   final String? token;
 
@@ -17,8 +17,8 @@ class AuthenticationState {
 
   factory AuthenticationState.initial() {
     return AuthenticationState(
-      user: User(desiredAge: 0, name: '', phoneNumber: ''),
-      error: '',
+      user: null,
+      error: null,
       authenticationStatus: AuthenticationStatus.initial,
     );
   }

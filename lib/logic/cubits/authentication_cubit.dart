@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/states/authentication.dart.dart';
+import 'package:swc_front/logic/states/authentication.dart';
 import '../../data/models/user.dart';
 import '../../data/repositories/current_user_repository.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  final CurrentUserRepository _repo = CurrentUserRepository();
+  final AuthenticationRepository _repo = AuthenticationRepository();
 
   AuthenticationCubit() : super(AuthenticationState.initial());
 
@@ -21,6 +21,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  Future<void> create(User user, String password) async {
+    emit(state.copyWith(authenticationStatus: AuthenticationStatus.loading));
+    try {
+      User newUser = await _repo.create(user, password);
+      emit(state.copyWith(
+          authenticationStatus: AuthenticationStatus.success, user: newUser));
+    } catch (error) {
+      emit(state.copyWith(
+          authenticationStatus: AuthenticationStatus.failure,
+          error: 'Error creating the user'));
+    }
+  }
+
   Future<void> update(User user) async {
     emit(state.copyWith(authenticationStatus: AuthenticationStatus.loading));
     try {
@@ -31,7 +44,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (error) {
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.failure,
-          error: 'error al actualizar el usuario'));
+          error: 'Error updating the user'));
     }
   }
 
@@ -41,7 +54,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       String token = await _repo.login(email, password);
       emit(state.copyWith(
         authenticationStatus: AuthenticationStatus.success,
-        token: token, // guardar el token en el estado del cubit
+        token: token,
       ));
     } catch (error) {
       emit(state.copyWith(

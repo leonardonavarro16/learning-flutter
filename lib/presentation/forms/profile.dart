@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
-import '../../logic/states/authentication.dart.dart';
+import '../../logic/states/authentication.dart';
 import '../widgets/utils/age_form_field.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -18,14 +19,16 @@ class _ProfileForm extends State<ProfileForm> {
   String? name;
   int? age;
   String? phoneNumber;
+  String? email;
 
   @override
   void initState() {
     AuthenticationState state = context.read<AuthenticationCubit>().state;
     if (state.authenticationStatus == AuthenticationStatus.success) {
-      name = state.user.name;
-      age = state.user.desiredAge;
-      phoneNumber = state.user.phoneNumber;
+      name = state.user?.name;
+      age = state.user?.age;
+      phoneNumber = state.user?.phoneNumber;
+      email = state.user?.email;
     }
     super.initState();
   }
@@ -48,7 +51,7 @@ class _ProfileForm extends State<ProfileForm> {
         ),
         AgeFormField(
             initialValue: age,
-            onChanged: (int value) {
+            onChange: (int value) {
               setState(() => age = value);
             }),
         const SizedBox(
@@ -61,6 +64,11 @@ class _ProfileForm extends State<ProfileForm> {
           },
         ),
         const SizedBox(height: 25),
+        EmailFormField(
+          onChange: (String? value, bool valid) {
+            setState(() => email = valid ? value : null);
+          },
+        ),
         if (_canShowSubmitButton()) _buildSubmitButton(),
       ],
     );
@@ -85,9 +93,6 @@ class _ProfileForm extends State<ProfileForm> {
 
   User _buildUser() {
     return User(
-      name: name!,
-      desiredAge: age!,
-      phoneNumber: phoneNumber!,
-    );
+        name: name!, age: age!, phoneNumber: phoneNumber!, email: email!);
   }
 }
