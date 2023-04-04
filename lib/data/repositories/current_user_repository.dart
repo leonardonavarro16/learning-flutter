@@ -22,7 +22,7 @@ class AuthenticationRepository {
   }
 
   Future<String> login(String email, String password) async {
-    Map<String, String> rawToken = await _api.login(email, password);
-    return rawToken.toString();
+    String rawToken = await _api.login(email, password);
+    return rawToken;
   }
 }

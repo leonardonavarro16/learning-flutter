@@ -26,7 +26,7 @@ class AuthenticationAPI extends BaseAPI {
     }
   }
 
-  Future<Map<String, String>> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/auth/login'),
       body: jsonEncode(<String, String>{
@@ -39,7 +39,7 @@ class AuthenticationAPI extends BaseAPI {
     );
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      return jsonDecode(response.body)['token'];
     } else {
       throw Exception('Failed to load user');
     }

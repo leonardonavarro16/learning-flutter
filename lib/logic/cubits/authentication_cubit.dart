@@ -27,6 +27,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       User newUser = await _repo.create(user, password);
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.success, user: newUser));
+      login(newUser.email, password);
     } catch (error) {
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.failure,
@@ -50,13 +51,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   Future<void> login(String email, String password) async {
     emit(state.copyWith(authenticationStatus: AuthenticationStatus.loading));
-    try {
-      String token = await _repo.login(email, password);
-      emit(state.copyWith(
-        authenticationStatus: AuthenticationStatus.success,
-        token: token,
-      ));
-    } catch (error) {
+    String token = await _repo.login(email, password);
+    emit(state.copyWith(
+      authenticationStatus: AuthenticationStatus.success,
+      token: token,
+    ));
+    try {} catch (error) {
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.failure,
           error: 'login failure'));

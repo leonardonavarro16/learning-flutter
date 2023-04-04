@@ -112,7 +112,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
             ),
             onPressed: () {
               User user = _buildUser();
-              print(user);
               context.read<AuthenticationCubit>().create(user, password!);
             },
             child: const Text('Submit'),
