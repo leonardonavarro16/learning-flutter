@@ -85,7 +85,7 @@ class _ProfileForm extends State<ProfileForm> {
       ),
       onPressed: () {
         User user = _buildUser();
-        BlocProvider.of<AuthenticationCubit>(context).update(user);
+        // BlocProvider.of<AuthenticationCubit>(context).update(user);
       },
       child: const Text('Envíar'),
     );

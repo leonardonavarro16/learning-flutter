@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/pages/create_advert_page.dart';
 import 'package:swc_front/presentation/pages/default_page.dart';
 import 'package:swc_front/presentation/pages/index_page.dart';
@@ -20,21 +19,20 @@ class Routes {
 
 class AppRouter {
   final AdvertsCubit _advertsCubit = AdvertsCubit();
-  final AuthenticationCubit _authenticationCubit = AuthenticationCubit();
 
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.indexPage:
         _advertsCubit.fetchAdverts();
-        return MaterialPageRoute(builder: (_) => const IndexPage());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _advertsCubit, child: const IndexPage()));
       case Routes.editProfile:
-        _authenticationCubit.fetchCurrentUser();
         return MaterialPageRoute(builder: (_) => const EditProfilePage());
       case Routes.loginPage:
         return MaterialPageRoute(builder: (_) => const LoginPage());
 
       case Routes.createAdvertPage:
-        _authenticationCubit.fetchCurrentUser();
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(providers: [
                   BlocProvider.value(

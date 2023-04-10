@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/user.dart';
+import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/utils/age_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
-
+import '../router/app_router.dart';
 import '../../logic/states/authentication.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -113,6 +114,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
             onPressed: () {
               User user = _buildUser();
               context.read<AuthenticationCubit>().create(user, password!);
+              Navigator.pushNamed(context, Routes.indexPage);
             },
             child: const Text('Submit'),
           );

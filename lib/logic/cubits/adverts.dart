@@ -25,10 +25,10 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     }
   }
 
-  Future<void> createAdvert(Advert advert) async {
+  Future<void> createAdvert(Advert advert, String token) async {
     try {
       emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
-      Advert createdAdvert = await _advertRepository.create(advert);
+      Advert createdAdvert = await _advertRepository.create(advert, token);
       state.adverts.add(createdAdvert);
       emit(state.copyWith(
         advertsStatus: AdvertsStatus.success,

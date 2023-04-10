@@ -11,6 +11,7 @@ class BaseTextFormField extends StatefulWidget {
   final int? minLines;
   final String? fieldValue;
   final bool obscureText;
+  final void Function(String)? onFieldSubmitted;
   const BaseTextFormField({
     super.key,
     required this.onChange,
@@ -22,6 +23,7 @@ class BaseTextFormField extends StatefulWidget {
     this.minLines,
     this.fieldValue,
     this.obscureText = false,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -60,6 +62,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
             ),
       validator: _getErrorText,
       inputFormatters: widget.inputFormatters,
+      onFieldSubmitted: widget.onFieldSubmitted,
     );
   }
 

@@ -122,7 +122,9 @@ class _AdvertForm extends State<AdvertForm> {
       ),
       onPressed: () {
         Advert advert = _buildAdvert();
-        context.read<AdvertsCubit>().createAdvert(advert);
+        String? token = context.read<AuthenticationCubit>().state.token;
+        if (token == null) throw Exception('Token is missing');
+        context.read<AdvertsCubit>().createAdvert(advert, token);
       },
       child: const Text('Envíar'),
     );

@@ -14,7 +14,8 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLogged = context.watch<AuthenticationCubit>().state.token != null;
+    bool isLogged = context.watch<AuthenticationCubit>().isLogged();
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(

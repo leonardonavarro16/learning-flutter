@@ -64,12 +64,16 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
-  Future<Map<String, dynamic>> create(Map<String, dynamic> rawAdvert) async {
+  Future<Map<String, dynamic>> create(
+    Map<String, dynamic> rawAdvert,
+    String token,
+  ) async {
     String body = jsonEncode({'advert': rawAdvert});
 
     final Response response = await httpPost(
       '$baseUrl/adverts',
       body: body,
+      token: token,
     );
     if (response.statusCode == 201) {
       return jsonDecode(response.body);
