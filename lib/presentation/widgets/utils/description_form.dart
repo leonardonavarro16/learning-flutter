@@ -7,9 +7,12 @@ class DescriptionFormField extends StatelessWidget {
   final int? maxLength;
   final int maxLines;
   final int? minLines;
+  final void Function(String)? onFieldSubmitted;
+
   const DescriptionFormField(
       {super.key,
       required this.onChange,
+      this.onFieldSubmitted,
       this.maxLength,
       this.maxLines = 1,
       this.minLines});
@@ -34,6 +37,7 @@ class DescriptionFormField extends StatelessWidget {
       onChange: (String? value, bool valid) {
         onChange(value, valid);
       },
+      onFieldSubmitted: onFieldSubmitted,
     );
   }
 }

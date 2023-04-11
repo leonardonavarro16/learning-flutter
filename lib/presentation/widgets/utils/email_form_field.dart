@@ -6,11 +6,12 @@ class EmailFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
   final void Function(String)? onFieldSubmitted;
   final int? initialValue;
+
   const EmailFormField({
     super.key,
     this.initialValue,
-    required this.onChange,
     this.onFieldSubmitted,
+    required this.onChange,
   });
 
   @override
@@ -25,7 +26,7 @@ class EmailFormField extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return 'Ingrese su correo electrónico';
         }
-        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+        final emailRegex = RegExp(r'^[\w-zñ\.]+@([\w-zñ]+\.)+[\w-z]{2,4}$');
         if (!emailRegex.hasMatch(value)) {
           return 'Ingrese un correo electrónico válido';
         }

@@ -5,7 +5,12 @@ import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 class PhoneFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
   final String? initialValue;
-  const PhoneFormField({super.key, required this.onChange, this.initialValue});
+  final void Function(String)? onFieldSubmitted;
+  const PhoneFormField(
+      {super.key,
+      required this.onChange,
+      this.initialValue,
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class PhoneFormField extends StatelessWidget {
             fillColor: Colors.white),
         keyboardType: TextInputType.phone,
         onChange: onChange,
+        onFieldSubmitted: onFieldSubmitted,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Ingrese su numero teléfonico';

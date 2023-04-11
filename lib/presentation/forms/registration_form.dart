@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/user.dart';
-import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/age_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
-import '../router/app_router.dart';
+import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
 import '../../logic/states/authentication.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -19,6 +19,7 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
+  final _formKey = GlobalKey<FormState>();
   String? name;
   int? age;
   String? phoneNumber;
@@ -28,63 +29,85 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(children: [
-      const SizedBox(
-        height: 15,
-      ),
-      NameFormField(onChange: (String? value, bool valid) {
-        setState(() => name = valid ? value : null);
-      }),
-      const SizedBox(
-        height: 15,
-      ),
-      AgeFormField(onChange: (int value) {
-        setState(() => age = value);
-      }),
-      const SizedBox(
-        height: 15,
-      ),
-      PhoneFormField(onChange: (String? value, bool valid) {
-        setState(() => phoneNumber = valid ? value : null);
-      }),
-      const SizedBox(
-        height: 15,
-      ),
-      EmailFormField(
-        onChange: (String? value, bool valid) {
-          setState(() => email = valid ? value : null);
-        },
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      PasswordFormField(
-        onChange: (String? value, bool valid) {
-          setState(() => password = valid ? value : null);
-        },
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      PasswordFormField(
-        labelText: 'Confirmar contraseña',
-        emptyMessage: 'ingrese su contraseña de confirmacion',
-        additionalValidator: (String? value) {
-          if (value != password) {
-            return 'La contraseña no coincide ';
-          }
-          return null;
-        },
-        onChange: (String? value, bool valid) {
-          setState(() => confirmPassword = valid ? value : null);
-        },
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-      if (_canBuildSubmitButton()) _buildSubmitButton(),
-    ]));
+    return BlocListener<AuthenticationCubit, AuthenticationState>(
+      listener: (BuildContext context, AuthenticationState state) {
+        if (state.authenticationStatus == AuthenticationStatus.success) {
+          Navigator.pushNamed(context, Routes.indexPage);
+        } else if (state.authenticationStatus == AuthenticationStatus.failure) {
+          SnackBarUtil.showSnackBar(
+              context,
+              icon: const Icon(Icons.error_outline),
+              backgroundColor: Colors.red,
+              'Error de registro: este correo electronico ya existe');
+        }
+      },
+      child: Form(
+          key: _formKey,
+          child: Center(
+              child: Column(children: [
+            const SizedBox(
+              height: 15,
+            ),
+            NameFormField(
+                onFieldSubmitted: (_) => _submitForm(),
+                onChange: (String? value, bool valid) {
+                  setState(() => name = valid ? value : null);
+                }),
+            const SizedBox(
+              height: 15,
+            ),
+            AgeFormField(onChange: (int value) {
+              setState(() => age = value);
+            }),
+            const SizedBox(
+              height: 15,
+            ),
+            PhoneFormField(
+                onFieldSubmitted: (_) => _submitForm(),
+                onChange: (String? value, bool valid) {
+                  setState(() => phoneNumber = valid ? value : null);
+                }),
+            const SizedBox(
+              height: 15,
+            ),
+            EmailFormField(
+              onFieldSubmitted: (_) => _submitForm(),
+              onChange: (String? value, bool valid) {
+                setState(() => email = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            PasswordFormField(
+              onFieldSubmitted: (_) => _submitForm(),
+              onChange: (String? value, bool valid) {
+                setState(() => password = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            PasswordFormField(
+              onFieldSubmitted: (_) => _submitForm(),
+              labelText: 'Confirmar contraseña',
+              emptyMessage: 'ingrese su contraseña de confirmacion',
+              additionalValidator: (String? value) {
+                if (value != password) {
+                  return 'La contraseña no coincide ';
+                }
+                return null;
+              },
+              onChange: (String? value, bool valid) {
+                setState(() => confirmPassword = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            if (_canBuildSubmitButton()) _buildSubmitButton(),
+          ]))),
+    );
   }
 
   bool _canBuildSubmitButton() {
@@ -101,25 +124,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
       builder: (BuildContext context, AuthenticationState state) {
         if (state.authenticationStatus == AuthenticationStatus.loading) {
           return const CircularProgressIndicator();
-        } else if (state.authenticationStatus == AuthenticationStatus.failure) {
-          return Text(state.error ?? 'Error',
-              style: const TextStyle(color: Colors.red));
-        } else if (state.authenticationStatus == AuthenticationStatus.success) {
-          return const Text('done jajaja', style: TextStyle(color: Colors.red));
-        } else if (state.authenticationStatus == AuthenticationStatus.initial) {
+        } else {
           return ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromARGB(255, 235, 91, 81),
             ),
-            onPressed: () {
-              User user = _buildUser();
-              context.read<AuthenticationCubit>().create(user, password!);
-              Navigator.pushNamed(context, Routes.indexPage);
-            },
+            onPressed: _submitForm,
             child: const Text('Submit'),
           );
-        } else {
-          throw Exception('Unknown authentication status');
         }
       },
     );
@@ -133,5 +145,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
       email: email!,
       // password: confirmPassword!
     );
+  }
+
+  void _submitForm() {
+    User user = _buildUser();
+    context.read<AuthenticationCubit>().create(user, password!);
   }
 }

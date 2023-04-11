@@ -19,7 +19,8 @@ class LoginPage extends StatelessWidget {
                 const LoginForm(),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.registrationPage);
+                    Navigator.pushReplacementNamed(
+                        context, Routes.registrationPage);
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(top: 8.0),

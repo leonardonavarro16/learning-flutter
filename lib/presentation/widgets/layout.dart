@@ -70,16 +70,17 @@ class Layout extends StatelessWidget {
                     iconColor: Colors.red,
                     textColor: const Color.fromARGB(215, 255, 255, 255),
                   ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.editProfile);
-                    // Handle onTap for settings
-                  },
-                  title: const Text('Editar perfil'),
-                  leading: const Icon(Icons.settings),
-                  iconColor: Colors.red,
-                  textColor: const Color.fromARGB(215, 255, 255, 255),
-                ),
+                if (isLogged)
+                  ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.editProfile);
+                      // Handle onTap for settings
+                    },
+                    title: const Text('Editar perfil'),
+                    leading: const Icon(Icons.settings),
+                    iconColor: Colors.red,
+                    textColor: const Color.fromARGB(215, 255, 255, 255),
+                  ),
               ],
             ),
           ),

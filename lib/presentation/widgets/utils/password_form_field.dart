@@ -7,6 +7,7 @@ class PasswordFormField extends StatelessWidget {
   final Function? additionalValidator;
   final String? emptyMessage;
   final String? labelText;
+  final void Function(String)? onFieldSubmitted;
 
   const PasswordFormField({
     super.key,
@@ -14,6 +15,7 @@ class PasswordFormField extends StatelessWidget {
     this.additionalValidator,
     this.emptyMessage,
     this.labelText,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -35,6 +37,7 @@ class PasswordFormField extends StatelessWidget {
       onChange: (String? value, bool valid) {
         onChange(value, valid);
       },
+      onFieldSubmitted: onFieldSubmitted,
     );
   }
 }

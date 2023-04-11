@@ -4,7 +4,13 @@ import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 class NameFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
   final String? initialValue;
-  const NameFormField({super.key, required this.onChange, this.initialValue});
+  final void Function(String)? onFieldSubmitted;
+  const NameFormField({
+    super.key,
+    required this.onChange,
+    this.initialValue,
+    this.onFieldSubmitted,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +23,13 @@ class NameFormField extends StatelessWidget {
           labelText: 'Ingrese su nombre:',
         ),
         onChange: onChange,
+        onFieldSubmitted: onFieldSubmitted,
         validator: (String? value) {
           if (value == null || value.isEmpty) {
             return 'Ingrese su nombre completo';
           }
-          final nameRegExp =
-              RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+          final nameRegExp = RegExp(
+              r"^\s*([A-Za-z][A-Za-zñÑ]*(?:\s+[A-Za-z][A-Za-zñÑ]*)*\.?\s*)$");
           if (!nameRegExp.hasMatch(value)) {
             return 'Ingrese un nombre válido';
           }
