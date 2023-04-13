@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
-import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
@@ -47,12 +46,13 @@ class _AdvertForm extends State<AdvertForm> {
     return BlocListener<AdvertsCubit, AdvertsState>(
         listener: (BuildContext context, AdvertsState state) {
           if (state.status == AdvertsStatus.failure) {
+            String errorMessage = state.error;
             SnackBarUtil.showSnackBar(
                 context,
                 icon: const Icon(Icons.error_outline),
-                backgroundColor: Colors.yellow,
+                backgroundColor: Colors.red,
                 textColor: Colors.black,
-                'Error al cargar');
+                errorMessage);
           }
         },
         child: Form(
@@ -156,7 +156,7 @@ class _AdvertForm extends State<AdvertForm> {
         name: name!,
         phoneNumber: phoneNumber!,
         imageUrl:
-            'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80');
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU');
   }
 
   void _submitForm() {

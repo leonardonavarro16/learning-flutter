@@ -18,10 +18,9 @@ class AdvertsCubit extends Cubit<AdvertsState> {
         advertsStatus: AdvertsStatus.success,
         adverts: adverts,
       ));
-    } catch (e) {
+    } catch (error) {
       emit(state.copyWith(
-          advertsStatus: AdvertsStatus.failure,
-          error: 'Error al traer los anuncios'));
+          advertsStatus: AdvertsStatus.failure, error: error.toString()));
     }
   }
 
@@ -35,10 +34,9 @@ class AdvertsCubit extends Cubit<AdvertsState> {
         adverts: state.adverts,
         nextRoute: Routes.indexPage,
       ));
-    } catch (e) {
+    } catch (error) {
       emit(state.copyWith(
-          advertsStatus: AdvertsStatus.failure,
-          error: 'Error al crear el anuncios'));
+          advertsStatus: AdvertsStatus.failure, error: error.toString()));
     }
   }
 }

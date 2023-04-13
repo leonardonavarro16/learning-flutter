@@ -15,7 +15,7 @@ class Advert {
   static Advert fromMap(Map<String, dynamic> advertData) {
     return Advert(
         imageUrl: advertData['imageUrl'] ??
-            'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU',
         name: advertData['name'],
         age: advertData['age'],
         phoneNumber: advertData['phone'],

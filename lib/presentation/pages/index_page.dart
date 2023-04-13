@@ -21,7 +21,7 @@ class IndexPage extends StatelessWidget {
                 AdverList(adverts: state.adverts)
               ],
             );
-          } else if (state.status == AdvertsStatus.loading) {
+          } else if (state.status == AdvertsStatus.failure) {
             return Text(state.error, style: const TextStyle(color: Colors.red));
           } else {
             return const Center(child: CircularProgressIndicator());

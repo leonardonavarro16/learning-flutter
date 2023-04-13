@@ -8,6 +8,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   AuthenticationCubit() : super(AuthenticationState.initial());
 
+  void setUser(User user) {
+    emit(state.copyWith(user: user));
+  }
+
   Future<void> create(User user, String password) async {
     emit(state.copyWith(authenticationStatus: AuthenticationStatus.loading));
     try {
@@ -18,7 +22,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (error) {
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.failure,
-          error: 'Error creating the user'));
+          error: error.toString()));
     }
   }
 
@@ -34,7 +38,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (error) {
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.failure,
-          error: 'login failure'));
+          error: error.toString()));
     }
   }
 

@@ -34,11 +34,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
         if (state.authenticationStatus == AuthenticationStatus.success) {
           Navigator.pushNamed(context, Routes.indexPage);
         } else if (state.authenticationStatus == AuthenticationStatus.failure) {
+          String errorMessage =
+              state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';
+
           SnackBarUtil.showSnackBar(
               context,
               icon: const Icon(Icons.error_outline),
               backgroundColor: Colors.red,
-              'Error de registro: este correo electronico ya existe');
+              errorMessage);
         }
       },
       child: Form(

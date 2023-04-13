@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/user.dart';
+import 'package:swc_front/logic/states/user.dart';
+import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
 import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import '../../logic/states/authentication.dart';
@@ -35,43 +39,60 @@ class _ProfileForm extends State<ProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 25,
-        ),
-        NameFormField(
-          initialValue: name,
-          onChange: (String? value, bool valid) {
-            setState(() => name = valid ? value : null);
-          },
-        ),
-        const SizedBox(
-          height: 25,
-        ),
-        AgeFormField(
-            initialValue: age,
-            onChange: (int value) {
-              setState(() => age = value);
-            }),
-        const SizedBox(
-          height: 25,
-        ),
-        PhoneFormField(
-          initialValue: phoneNumber,
-          onChange: (String? value, bool valid) {
-            setState(() => phoneNumber = valid ? value : null);
-          },
-        ),
-        const SizedBox(height: 25),
-        EmailFormField(
-          onChange: (String? value, bool valid) {
-            setState(() => email = valid ? value : null);
-          },
-        ),
-        if (_canShowSubmitButton()) _buildSubmitButton(),
-      ],
-    );
+    return BlocListener<UserCubit, UserState>(
+        listener: (BuildContext context, UserState state) {
+          if (state.userStatus == UserStatus.success) {
+            context.read<AuthenticationCubit>().setUser(state.user!);
+            Navigator.pushNamed(context, Routes.indexPage);
+          } else if (state.userStatus == UserStatus.failure) {
+            String errorMessage =
+                state.error ?? 'Ocurrió un error al actualizar el usuario';
+            SnackBarUtil.showSnackBar(
+                context,
+                icon: const Icon(Icons.error_outline),
+                backgroundColor: Colors.red,
+                errorMessage);
+          }
+        },
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 25,
+            ),
+            NameFormField(
+              initialValue: name,
+              onChange: (String? value, bool valid) {
+                setState(() => name = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            AgeFormField(
+                initialValue: age,
+                onChange: (int value) {
+                  setState(() => age = value);
+                }),
+            const SizedBox(
+              height: 25,
+            ),
+            PhoneFormField(
+              initialValue: phoneNumber,
+              onChange: (String? value, bool valid) {
+                setState(() => phoneNumber = valid ? value : null);
+              },
+            ),
+            const SizedBox(height: 25),
+            EmailFormField(
+              initialValue: email,
+              onChange: (String? value, bool valid) {
+                setState(() => email = valid ? value : null);
+              },
+            ),
+            const SizedBox(height: 25),
+            if (_canShowSubmitButton()) _buildSubmitButton(),
+          ],
+        ));
   }
 
   bool _canShowSubmitButton() {
@@ -79,20 +100,36 @@ class _ProfileForm extends State<ProfileForm> {
   }
 
   Widget _buildSubmitButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 235, 91, 81),
-      ),
-      onPressed: () {
-        User user = _buildUser();
-        // BlocProvider.of<AuthenticationCubit>(context).update(user);
-      },
-      child: const Text('Envíar'),
-    );
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        builder: (BuildContext context, AuthenticationState state) {
+      if (state.authenticationStatus == AuthenticationStatus.loading) {
+        return const CircularProgressIndicator();
+      } else {
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+          ),
+          onPressed: () {
+            User user = _buildUser();
+            String token =
+                BlocProvider.of<AuthenticationCubit>(context).state.token!;
+
+            user.id =
+                BlocProvider.of<AuthenticationCubit>(context).state.user!.id;
+            BlocProvider.of<UserCubit>(context).update(user, token);
+          },
+          child: const Text('Editar'),
+        );
+      }
+    });
   }
 
   User _buildUser() {
     return User(
-        name: name!, age: age!, phoneNumber: phoneNumber!, email: email!);
+      name: name!,
+      age: age!,
+      phoneNumber: phoneNumber!,
+      email: email!,
+    );
   }
 }
