@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 
 import 'presentation/router/app_router.dart';
 
-void main() => runApp(SwcApp());
+void main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(SwcApp());
+}
 
 class SwcApp extends StatelessWidget {
   final AppRouter _appRouter = AppRouter();

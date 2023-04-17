@@ -121,7 +121,10 @@ class _AdvertPreview extends StatelessWidget {
         child: Column(children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: Image.network(advert.imageUrl),
+            child: advert.imageBytes == null
+                ? Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
+                : Image.memory(advert.imageBytes!),
           ),
           Text(advert.description, textAlign: TextAlign.center),
           const SizedBox(height: 10),
@@ -139,7 +142,10 @@ class _AdvertPreview extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.network(advert.imageUrl),
+                  child: advert.imageBytes == null
+                      ? Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
+                      : Image.memory(advert.imageBytes!),
                 ),
                 Text(advert.name, style: const TextStyle(color: Colors.white)),
                 Text(advert.age.toString(),

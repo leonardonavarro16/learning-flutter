@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 class Advert {
-  String imageUrl;
+  Uint8List? imageBytes;
   String name;
   int age;
   String phoneNumber;
@@ -9,13 +12,14 @@ class Advert {
       {required this.phoneNumber,
       required this.age,
       required this.name,
-      required this.imageUrl,
+      required this.imageBytes,
       required this.description});
 
   static Advert fromMap(Map<String, dynamic> advertData) {
     return Advert(
-        imageUrl: advertData['imageUrl'] ??
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU',
+        imageBytes: advertData['image'] == null
+            ? null
+            : base64.decode(advertData['image']),
         name: advertData['name'],
         age: advertData['age'],
         phoneNumber: advertData['phone'],
@@ -27,7 +31,8 @@ class Advert {
       'name': name,
       'age': age,
       'description': description,
-      'phone': phoneNumber
+      'phone': phoneNumber,
+      'image': imageBytes == null ? null : base64.encode(imageBytes!),
     };
   }
 }

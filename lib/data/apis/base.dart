@@ -1,7 +1,13 @@
+import 'dart:io' show Platform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:http/http.dart';
 
 abstract class BaseAPI {
-  final String baseUrl = 'http://localhost:3000';
+  //final String baseUrl = 'http://localhost:3000';
+
+  final bool debug = dotenv.env['DEBUG'] == 'true';
+  final String baseUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
 
   Future<Response> httpGet(String url) {
     return get(Uri.parse(url));

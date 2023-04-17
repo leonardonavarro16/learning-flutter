@@ -26,7 +26,6 @@ class _AdvertForm extends State<AdvertForm> {
   int? age;
   String? phoneNumber;
   String? description;
-
   Uint8List? imageBytes;
   bool initialized = false;
 
@@ -155,8 +154,7 @@ class _AdvertForm extends State<AdvertForm> {
         age: age!,
         name: name!,
         phoneNumber: phoneNumber!,
-        imageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU');
+        imageBytes: imageBytes!);
   }
 
   void _submitForm() {
