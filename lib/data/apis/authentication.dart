@@ -3,20 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:swc_front/data/apis/base.dart';
 
 class AuthenticationAPI extends BaseAPI {
-  Future<Map<String, dynamic>> create(Map<String, dynamic> rawUser) async {
-    String body = jsonEncode({'user': rawUser});
-    final response = await httpPost(
-      '$baseUrl/users',
-      body: body,
-    );
-    if (response.statusCode == 201) {
-      return jsonDecode(response.body);
-    } else {
-      final error = jsonDecode(response.body)['error'];
-      throw Exception(error);
-    }
-  }
-
   Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/auth/login'),

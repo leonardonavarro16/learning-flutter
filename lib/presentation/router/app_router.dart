@@ -46,7 +46,9 @@ class AppRouter {
         );
 
       case Routes.registrationPage:
-        return MaterialPageRoute(builder: (_) => const RegistrationPage());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                value: _userCubit, child: const RegistrationPage()));
       default:
         _advertsCubit.fetchAdverts();
         return MaterialPageRoute(

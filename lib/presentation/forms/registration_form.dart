@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/cubits/user.dart';
+import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/age_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
@@ -29,11 +31,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: (BuildContext context, AuthenticationState state) {
-        if (state.authenticationStatus == AuthenticationStatus.success) {
+    return BlocListener<UserCubit, UserState>(
+      listener: (BuildContext context, UserState state) {
+        if (state.userStatus == UserStatus.success) {
           Navigator.pushNamed(context, Routes.indexPage);
-        } else if (state.authenticationStatus == AuthenticationStatus.failure) {
+        } else if (state.userStatus == UserStatus.failure) {
           String errorMessage =
               state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';
 
@@ -123,9 +125,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   Widget _buildSubmitButton() {
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
-      builder: (BuildContext context, AuthenticationState state) {
-        if (state.authenticationStatus == AuthenticationStatus.loading) {
+    return BlocBuilder<UserCubit, UserState>(
+      builder: (BuildContext context, UserState state) {
+        if (state.userStatus == UserStatus.loading) {
           return const CircularProgressIndicator();
         } else {
           return ElevatedButton(
@@ -152,6 +154,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   void _submitForm() {
     User user = _buildUser();
-    context.read<AuthenticationCubit>().create(user, password!);
+    context.read<UserCubit>().create(user, password!);
   }
 }

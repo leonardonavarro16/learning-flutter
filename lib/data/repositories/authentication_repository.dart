@@ -1,15 +1,10 @@
+import 'package:swc_front/data/apis/user.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/data/apis/authentication.dart';
 
 class AuthenticationRepository {
   final AuthenticationAPI _api = AuthenticationAPI();
-
-  Future<User> create(User user, String password) async {
-    Map<String, dynamic> userFields = user.toMap();
-    userFields['password'] = password;
-    Map<String, dynamic> rawUser = await _api.create(userFields);
-    return User.fromMap(rawUser);
-  }
+  // final UserAPI _api = UserAPI();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     Map<String, dynamic> response = await _api.login(email, password);
