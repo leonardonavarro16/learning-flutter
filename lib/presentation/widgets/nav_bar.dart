@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swc_front/presentation/pages/index_page.dart';
-import 'package:swc_front/presentation/pages/login_page.dart';
 
 import '../router/app_router.dart';
 
@@ -13,7 +11,7 @@ class NavBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, Routes.loginPage);
+            Navigator.pushReplacementNamed(context, Routes.loginPage);
           },
           icon: const Icon(Icons.login),
           color: Colors.black,

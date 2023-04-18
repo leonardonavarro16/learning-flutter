@@ -43,7 +43,7 @@ class _ProfileForm extends State<ProfileForm> {
         listener: (BuildContext context, UserState state) {
           if (state.userStatus == UserStatus.success) {
             context.read<AuthenticationCubit>().setUser(state.user!);
-            Navigator.pushNamed(context, Routes.indexPage);
+            Navigator.pushReplacementNamed(context, Routes.indexPage);
           } else if (state.userStatus == UserStatus.failure) {
             String errorMessage =
                 state.error ?? 'Ocurrió un error al actualizar el usuario';

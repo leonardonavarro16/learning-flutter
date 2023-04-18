@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 class Advert {
-  Uint8List? imageBytes;
+  Uint8List imageBytes;
   String name;
   int age;
   String phoneNumber;
@@ -17,9 +17,7 @@ class Advert {
 
   static Advert fromMap(Map<String, dynamic> advertData) {
     return Advert(
-        imageBytes: advertData['image'] == null
-            ? null
-            : base64.decode(advertData['image']),
+        imageBytes: base64.decode(advertData['image']),
         name: advertData['name'],
         age: advertData['age'],
         phoneNumber: advertData['phone'],
@@ -32,7 +30,7 @@ class Advert {
       'age': age,
       'description': description,
       'phone': phoneNumber,
-      'image': imageBytes == null ? null : base64.encode(imageBytes!),
+      'image': base64.encode(imageBytes),
     };
   }
 }

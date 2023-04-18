@@ -5,7 +5,7 @@ import 'base.dart';
 
 class AdvertsAPI extends BaseAPI {
   Future<List<dynamic>> fetchAll() async {
-    final response = await httpGet('$baseUrl/adverts');
+    final response = await httpGet('${baseUrl()}/adverts');
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -21,7 +21,7 @@ class AdvertsAPI extends BaseAPI {
     String body = jsonEncode({'advert': rawAdvert});
 
     final Response response = await httpPost(
-      '$baseUrl/adverts',
+      '${baseUrl()}/adverts',
       body: body,
       token: token,
     );

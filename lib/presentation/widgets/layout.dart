@@ -52,7 +52,7 @@ class Layout extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.indexPage);
+                    Navigator.pushReplacementNamed(context, Routes.indexPage);
                   },
                   title: const Text('Listar anuncios'),
                   leading: const Icon(Icons.post_add_outlined),
@@ -62,7 +62,8 @@ class Layout extends StatelessWidget {
                 if (isLogged)
                   ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.createAdvertPage);
+                      Navigator.pushReplacementNamed(
+                          context, Routes.createAdvertPage);
                       // Handle onTap for creating anuncio
                     },
                     title: const Text('Crear anuncio'),
@@ -73,7 +74,8 @@ class Layout extends StatelessWidget {
                 if (isLogged)
                   ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.editProfile);
+                      Navigator.pushReplacementNamed(
+                          context, Routes.editProfile);
                       // Handle onTap for settings
                     },
                     title: const Text('Editar perfil'),

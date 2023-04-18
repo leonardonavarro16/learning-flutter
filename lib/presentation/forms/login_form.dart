@@ -25,7 +25,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, AuthenticationState state) {
         if (state.authenticationStatus == AuthenticationStatus.success) {
-          Navigator.pushNamed(context, Routes.indexPage);
+          Navigator.pushReplacementNamed(context, Routes.indexPage);
         } else if (state.authenticationStatus == AuthenticationStatus.failure) {
           String errorMessage =
               state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';

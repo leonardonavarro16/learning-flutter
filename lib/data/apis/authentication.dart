@@ -4,15 +4,12 @@ import 'package:swc_front/data/apis/base.dart';
 
 class AuthenticationAPI extends BaseAPI {
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/login'),
+    final response = await httpPost(
+      '${baseUrl()}/auth/login',
       body: jsonEncode(<String, String>{
         'email': email,
         'password': password,
       }),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
     );
 
     if (response.statusCode == 200) {

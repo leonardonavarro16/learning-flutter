@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/user.dart';
-import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
@@ -11,7 +10,8 @@ import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
-import '../../logic/states/authentication.dart';
+
+import '../../logic/cubits/authentication_cubit.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
@@ -34,7 +34,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
     return BlocListener<UserCubit, UserState>(
       listener: (BuildContext context, UserState state) {
         if (state.userStatus == UserStatus.success) {
-          Navigator.pushNamed(context, Routes.indexPage);
+          context
+              .read<AuthenticationCubit>()
+              .login(state.user!.email, password!);
+          Navigator.pushReplacementNamed(context, Routes.indexPage);
         } else if (state.userStatus == UserStatus.failure) {
           String errorMessage =
               state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';

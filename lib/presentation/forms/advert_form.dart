@@ -110,7 +110,8 @@ class _AdvertForm extends State<AdvertForm> {
                       listener: (BuildContext context, AdvertsState state) {
                     if (state.status == AdvertsStatus.success) {
                       if (state.nextRoute != null) {
-                        Navigator.pushNamed(context, state.nextRoute!);
+                        Navigator.pushReplacementNamed(
+                            context, state.nextRoute!);
                       }
                     }
                   }, builder: (BuildContext context, AdvertsState state) {
