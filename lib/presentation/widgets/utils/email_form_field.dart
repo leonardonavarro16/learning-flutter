@@ -34,7 +34,8 @@ class EmailFormField extends StatelessWidget {
         return null;
       },
       onChange: (String? value, bool isValid) {
-        onChange(value, isValid);
+        // Javi, esto es lo que convierte en minusculas antes de registrar en el backend
+        onChange(value?.toLowerCase(), isValid);
       },
       onFieldSubmitted: onFieldSubmitted,
     );
