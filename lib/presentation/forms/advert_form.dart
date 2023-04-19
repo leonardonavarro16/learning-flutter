@@ -11,7 +11,7 @@ import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';
 import '../widgets/utils/age_form_field.dart';
-import '../widgets/utils/file_picker_form_field.dart';
+import '../widgets/utils/multi_file_picker_form_field.dart';
 
 class AdvertForm extends StatefulWidget {
   const AdvertForm({super.key});

@@ -20,7 +20,8 @@ class Layout extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
           body: Container(
-            color: Colors.black,
+            // TODO: CAMBIAR EL COLOR UNA VEZ TERMINES LAS PRUEBAS DE WIDGETS
+            color: Colors.blueGrey,
             height: constraints.maxHeight,
             width: constraints.maxWidth,
             child: content,
