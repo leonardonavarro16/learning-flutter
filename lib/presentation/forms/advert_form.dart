@@ -109,7 +109,7 @@ class _AdvertForm extends State<AdvertForm> {
                 const SizedBox(
                   height: 25,
                 ),
-                FilePickerField(onChanged: (List<Uint8List>? bytes) {
+                MultiFilePickerField(onChanged: (List<Uint8List>? bytes) {
                   setState(() => imageBytes = bytes);
                 }),
                 const SizedBox(height: 25),
