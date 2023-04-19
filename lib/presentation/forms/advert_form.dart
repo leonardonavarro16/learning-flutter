@@ -26,7 +26,7 @@ class _AdvertForm extends State<AdvertForm> {
   int? age;
   String? phoneNumber;
   String? description;
-  Uint8List? imageBytes;
+  List<Uint8List>? imageBytes;
   bool initialized = false;
 
   @override
@@ -52,6 +52,14 @@ class _AdvertForm extends State<AdvertForm> {
                 backgroundColor: Colors.red,
                 textColor: Colors.black,
                 errorMessage);
+          } else if (state.status == AdvertsStatus.success) {
+            SnackBarUtil.showSnackBar(
+              context,
+              icon: const Icon(Icons.person_off_outlined),
+              backgroundColor: Colors.green,
+              textColor: Colors.black,
+              'El anuncio ha sido creado exitosamente!',
+            );
           }
         },
         child: Form(
@@ -101,7 +109,7 @@ class _AdvertForm extends State<AdvertForm> {
                 const SizedBox(
                   height: 25,
                 ),
-                FilePickerField(onChanged: (Uint8List? bytes) {
+                FilePickerField(onChanged: (List<Uint8List>? bytes) {
                   setState(() => imageBytes = bytes);
                 }),
                 const SizedBox(height: 25),
@@ -155,7 +163,7 @@ class _AdvertForm extends State<AdvertForm> {
         age: age!,
         name: name!,
         phoneNumber: phoneNumber!,
-        imageBytes: imageBytes!);
+        images: imageBytes!);
   }
 
   void _submitForm() {
