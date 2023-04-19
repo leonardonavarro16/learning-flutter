@@ -1,10 +1,10 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'image_carousel.dart';
 
 class MultiFilePickerField extends StatefulWidget {
-  final Function onChanged;
+  final void Function(List<Uint8List>) onChanged;
 
   const MultiFilePickerField({Key? key, required this.onChanged})
       : super(key: key);
@@ -17,7 +17,8 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
   final FilePicker _filePicker = FilePicker.platform;
   FilePickerResult? result;
   bool isLoading = false;
-  List<Uint8List> _pickedFiles = [];
+  int index = 0;
+  final List<Uint8List> _pickedFiles = [];
 
   @override
   void dispose() async {
@@ -27,38 +28,34 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) return const CircularProgressIndicator();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (isLoading) const CircularProgressIndicator(),
-        if (!isLoading && _pickedFiles.isEmpty)
-          Center(
-            child: TextButton(
-              onPressed: () => pickFile(),
-              child: const Text(
-                'Selecciona un archivo',
-                style: TextStyle(color: Color.fromARGB(255, 235, 91, 81)),
-              ),
-            ),
+        if (_pickedFiles.isNotEmpty)
+          ImageCarousel(
+            images: _pickedFiles,
+            onChange: (newIndex) => index = newIndex,
           ),
-        if (!isLoading && _pickedFiles.isNotEmpty)
-          Column(
+        if (_pickedFiles.isNotEmpty)
+          Row(
             children: [
+              _buildSelectFileBtn(),
               TextButton(
-                onPressed: () => clearFile(),
+                onPressed: () => cleanFiles(),
                 child: const Text(
-                  'Limpiar archivos',
-                  style: TextStyle(color: Color.fromARGB(255, 235, 91, 81)),
+                  'Limpiar selección',
+                  style: TextStyle(color: Colors.red),
                 ),
               ),
-              SizedBox(
-                  child: ListView.builder(
-                      itemCount: _pickedFiles.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(title: Text("Imagen #$index"));
-                      }))
+              TextButton(
+                onPressed: () => _removeCurrentImage(),
+                child: const Text('Borrar esta imagen',
+                    style: TextStyle(color: Colors.red)),
+              )
             ],
           ),
+        if (_pickedFiles.isEmpty) _buildSelectFileBtn(),
       ],
     );
   }
@@ -70,18 +67,14 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
       });
       result = await _filePicker.pickFiles(
         type: FileType.image,
-        allowMultiple: true,
+        allowMultiple: false,
       );
+      Uint8List? bytes = result?.files.single.bytes;
 
-      if (result != null) {
-        print(result!.files.map((pickedFile) => pickedFile.bytes!));
-        _pickedFiles.addAll(
-            result!.files.map((pickedFile) => pickedFile.bytes!).toList());
-        print(_pickedFiles);
-        print(_pickedFiles[0]);
+      if (bytes != null) {
+        _pickedFiles.add(bytes);
         widget.onChanged(_pickedFiles);
       }
-
       setState(() {
         isLoading = false;
       });
@@ -90,11 +83,27 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
     }
   }
 
-  void clearFile() async {
-    // tofix: call "await _filePicker.clearTemporaryFiles()" on mobile
+  void cleanFiles() {
     setState(() {
-      _pickedFiles = [];
-      widget.onChanged(null);
+      _pickedFiles.clear();
     });
+  }
+
+  void _removeCurrentImage() {
+    setState(() {
+      _pickedFiles.removeAt(index);
+    });
+  }
+
+  Widget _buildSelectFileBtn() {
+    return Center(
+      child: TextButton(
+        onPressed: () => pickFile(),
+        child: const Text(
+          'Selecciona un archivo',
+          style: TextStyle(color: Color.fromARGB(255, 235, 91, 81)),
+        ),
+      ),
+    );
   }
 }
