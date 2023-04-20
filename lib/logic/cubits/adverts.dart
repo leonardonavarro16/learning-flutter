@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/repositories/advert_repository.dart';
 
 import '../../data/models/advert.dart';
-import '../../presentation/router/app_router.dart';
 import '../states/adverts.dart';
 
 class AdvertsCubit extends Cubit<AdvertsState> {
@@ -32,7 +31,6 @@ class AdvertsCubit extends Cubit<AdvertsState> {
       emit(state.copyWith(
         advertsStatus: AdvertsStatus.success,
         adverts: state.adverts,
-        nextRoute: Routes.indexPage,
       ));
     } catch (error) {
       emit(state.copyWith(

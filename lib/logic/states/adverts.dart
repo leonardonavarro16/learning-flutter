@@ -12,7 +12,6 @@ class AdvertsState extends BaseState {
     required this.adverts,
     required this.error,
     required this.status,
-    super.nextRoute,
   });
 
   factory AdvertsState.initial() {
@@ -23,13 +22,11 @@ class AdvertsState extends BaseState {
     AdvertsStatus? advertsStatus,
     String? error,
     List<Advert>? adverts,
-    String? nextRoute,
   }) {
     return AdvertsState(
       error: error ?? this.error,
       adverts: adverts ?? this.adverts,
       status: advertsStatus ?? status,
-      nextRoute: nextRoute,
     );
   }
 }

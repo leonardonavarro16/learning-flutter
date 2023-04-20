@@ -8,18 +8,25 @@ class Advert {
   String phoneNumber;
   String description;
 
-  Advert(
-      {required this.phoneNumber,
-      required this.age,
-      required this.name,
-      required this.images,
-      required this.description});
+  Advert({
+    required this.phoneNumber,
+    required this.age,
+    required this.name,
+    required this.images,
+    required this.description,
+  });
 
   static Advert fromMap(Map<String, dynamic> advertData) {
-    List<String> imagesBase64 = advertData['images'];
-    List<Uint8List> decodedImagesBytes = imagesBase64
-        .map((String imageBytes) => base64.decode(imageBytes))
-        .toList();
+    List<Uint8List> decodedImagesBytes = [];
+    if (advertData['images'] != null && advertData['images'].isNotEmpty) {
+      advertData['images'].forEach(
+        (image) => decodedImagesBytes.add(
+          base64.decode(
+            image.toString().replaceAll(RegExp(r'\s+'), ''),
+          ),
+        ),
+      );
+    }
 
     return Advert(
         images: decodedImagesBytes,
