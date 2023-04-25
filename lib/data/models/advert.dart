@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:mime/mime.dart';
 
 class Advert {
   List<Uint8List> images;
@@ -17,35 +18,37 @@ class Advert {
   });
 
   static Advert fromMap(Map<String, dynamic> advertData) {
-    List<Uint8List> decodedImagesBytes = [];
+    List<Uint8List> imagesBytes = [];
     if (advertData['images'] != null && advertData['images'].isNotEmpty) {
       advertData['images'].forEach(
-        (image) => decodedImagesBytes.add(
-          base64.decode(
-            image.toString().replaceAll(RegExp(r'\s+'), ''),
-          ),
+        (image) => imagesBytes.add(
+          base64.decode(image),
         ),
       );
     }
 
     return Advert(
-        images: decodedImagesBytes,
-        name: advertData['name'],
-        age: advertData['age'],
-        phoneNumber: advertData['phone'],
-        description: advertData['description']);
+      images: imagesBytes,
+      name: advertData['name'],
+      age: advertData['age'],
+      phoneNumber: advertData['phone'],
+      description: advertData['description'],
+    );
   }
 
   Map<String, dynamic> toMap() {
-    List<String> encodedImageBytes =
-        images.map((Uint8List image) => base64.encode(image)).toList();
+    List<String> imagesBase64 = images.map((Uint8List image) {
+      String? mimeType = lookupMimeType('', headerBytes: image);
+      String encodedImage = base64.encode(image);
+      return "data:$mimeType;base64,$encodedImage";
+    }).toList();
 
     return {
       'name': name,
       'age': age,
       'description': description,
       'phone': phoneNumber,
-      'images': encodedImageBytes,
+      'images': imagesBase64,
     };
   }
 }

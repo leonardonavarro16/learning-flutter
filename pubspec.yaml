@@ -40,9 +40,9 @@ dependencies:
   http: ^0.13.5
   flutter_bloc: ^8.1.2
   flutter_dotenv: ^5.0.2
+  mime: ^1.0.4
 dependency_overrides:
   intl: 0.17.0
-
 
 dev_dependencies:
   flutter_test:
