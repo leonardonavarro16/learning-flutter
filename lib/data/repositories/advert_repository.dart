@@ -12,7 +12,7 @@ class AdvertRepository {
   }
 
   Future<Advert> create(Advert advert, String token) async {
-    Map<String, dynamic> rawAdvert = await _api.create(advert.toMap(), token);
+    Map<String, dynamic> rawAdvert = await _api.create(advert, token);
     return Advert.fromMap(rawAdvert);
   }
 }

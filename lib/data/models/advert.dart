@@ -22,7 +22,7 @@ class Advert {
     if (advertData['images'] != null && advertData['images'].isNotEmpty) {
       advertData['images'].forEach(
         (image) => imagesBytes.add(
-          base64.decode(image),
+          Uint8List.fromList(image),
         ),
       );
     }
@@ -37,10 +37,12 @@ class Advert {
   }
 
   Map<String, dynamic> toMap() {
-    List<String> imagesBase64 = images.map((Uint8List image) {
+    List<Map<String, dynamic>> imagesData = images.map((Uint8List image) {
       String? mimeType = lookupMimeType('', headerBytes: image);
-      String encodedImage = base64.encode(image);
-      return "data:$mimeType;base64,$encodedImage";
+      return {
+        'mime': mimeType,
+        'data': image,
+      };
     }).toList();
 
     return {
@@ -48,7 +50,7 @@ class Advert {
       'age': age,
       'description': description,
       'phone': phoneNumber,
-      'images': imagesBase64,
+      'images': imagesData,
     };
   }
 }
