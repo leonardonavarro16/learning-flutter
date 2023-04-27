@@ -60,32 +60,52 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 25,
             ),
-            if (_canBuildSubmitButton()) _buildSubmitButton(),
+            // if (_canBuildSubmitButton())
+            _buildSubmitButton(),
           ],
         ),
       ),
     );
   }
 
-  bool _canBuildSubmitButton() {
-    return email != null && password != null;
-  }
+  // bool _canBuildSubmitButton() {
+  //   return email != null && password != null;
+  // }
 
   Widget _buildSubmitButton() {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
-        builder: (BuildContext context, AuthenticationState state) {
-      if (state.authenticationStatus == AuthenticationStatus.loading) {
-        return const CircularProgressIndicator();
-      } else {
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 235, 91, 81),
-          ),
-          onPressed: _submitForm,
-          child: const Text('Submit'),
-        );
-      }
-    });
+      builder: (BuildContext context, AuthenticationState state) {
+        if (state.authenticationStatus == AuthenticationStatus.loading) {
+          return const CircularProgressIndicator();
+        } else {
+          return Container(
+            height: 50.0,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 0, 0, 0),
+                  Color(0xFFFF0000),
+                ],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+              ),
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                elevation: 0.0,
+              ),
+              onPressed: _submitForm,
+              child: const Text('Ingresar'),
+            ),
+          );
+        }
+      },
+    );
   }
 
   void _submitForm() {

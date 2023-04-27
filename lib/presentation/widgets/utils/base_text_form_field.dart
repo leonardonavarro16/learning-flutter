@@ -56,8 +56,69 @@ class _BaseTextFormField extends State<BaseTextFormField> {
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText,
       decoration: widget.decoration == null
-          ? InputDecoration(errorText: _getErrorText(_controller.text))
+          ? InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Color(0xFFFF0000),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.blue,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.red,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.blue,
+                ),
+              ),
+              errorText: _getErrorText(_controller.text))
           : widget.decoration!.copyWith(
+              border: const OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Color(0xFFFF0000),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.blue,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.red,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.blue,
+                ),
+              ),
               errorText: _getErrorText(_controller.text),
             ),
       validator: _getErrorText,

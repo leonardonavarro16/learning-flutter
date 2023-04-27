@@ -16,6 +16,7 @@ class Routes {
   static const String loginPage = '/login-page';
   static const String createAdvertPage = '/create-advert';
   static const String registrationPage = '/registration-page';
+  // static const String testingPage = '/testing-page';
 }
 
 class AppRouter {
@@ -48,6 +49,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
                 value: _userCubit, child: const RegistrationPage()));
+      // case Routes.testingPage:
+      //   return MaterialPageRoute(builder: (_) => const TestingPage());
+
       default:
         _advertsCubit.fetchAdverts();
         return MaterialPageRoute(

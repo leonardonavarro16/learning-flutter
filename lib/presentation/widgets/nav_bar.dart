@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import '../router/app_router.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({super.key});
+  const NavBar({Key? key});
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -17,7 +19,7 @@ class NavBar extends StatelessWidget {
           color: Colors.black,
         )
       ],
-      backgroundColor: const Color.fromARGB(216, 243, 89, 89),
+      backgroundColor: const Color(0xFFFF0000),
       leading: Builder(
         builder: (BuildContext context) {
           return IconButton(
@@ -28,6 +30,25 @@ class NavBar extends StatelessWidget {
             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           );
         },
+      ),
+      // Agrega el BackdropFilter
+      flexibleSpace: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withOpacity(0.5),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0.5, 1],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

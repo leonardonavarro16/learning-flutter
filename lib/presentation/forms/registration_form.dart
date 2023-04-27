@@ -54,7 +54,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
           child: Center(
               child: Column(children: [
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             NameFormField(
                 onFieldSubmitted: (_) => _submitForm(),
@@ -68,7 +68,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               setState(() => age = value);
             }),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             PhoneFormField(
                 onFieldSubmitted: (_) => _submitForm(),
@@ -76,7 +76,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   setState(() => phoneNumber = valid ? value : null);
                 }),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             EmailFormField(
               onFieldSubmitted: (_) => _submitForm(),
@@ -85,7 +85,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               },
             ),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             PasswordFormField(
               onFieldSubmitted: (_) => _submitForm(),
@@ -94,7 +94,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               },
             ),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             PasswordFormField(
               onFieldSubmitted: (_) => _submitForm(),
@@ -111,21 +111,22 @@ class _RegistrationFormState extends State<RegistrationForm> {
               },
             ),
             const SizedBox(
-              height: 12,
+              height: 25,
             ),
-            if (_canBuildSubmitButton()) _buildSubmitButton(),
+            // if (_canBuildSubmitButton())
+            _buildSubmitButton(),
           ]))),
     );
   }
 
-  bool _canBuildSubmitButton() {
-    return name != null &&
-        age != null &&
-        phoneNumber != null &&
-        email != null &&
-        password != null &&
-        confirmPassword != null;
-  }
+  // bool _canBuildSubmitButton() {
+  //   return name != null &&
+  //       age != null &&
+  //       phoneNumber != null &&
+  //       email != null &&
+  //       password != null &&
+  //       confirmPassword != null;
+  // }
 
   Widget _buildSubmitButton() {
     return BlocBuilder<UserCubit, UserState>(
@@ -138,7 +139,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               backgroundColor: const Color.fromARGB(255, 235, 91, 81),
             ),
             onPressed: _submitForm,
-            child: const Text('Submit'),
+            child: const Text('Registrar'),
           );
         }
       },

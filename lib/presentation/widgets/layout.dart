@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/nav_bar.dart';
 
@@ -16,10 +17,45 @@ class Layout extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
-          body: SizedBox(
-            height: constraints.maxHeight,
-            width: constraints.maxWidth,
-            child: content,
+          body: Stack(
+            children: [
+              Container(
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black,
+                      Color(0xFFFF0000),
+                    ],
+                    begin: Alignment.center,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: content,
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: ClipPath(
+                  clipper: WaveClipperTwo(reverse: true),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 76, 5, 0),
+                          Color(0xFFFF0000),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(constraints.maxHeight * 0.075),
@@ -60,13 +96,21 @@ class Layout extends StatelessWidget {
                     onTap: () {
                       Navigator.pushReplacementNamed(
                           context, Routes.createAdvertPage);
-                      // Handle onTap for creating anuncio
                     },
                     title: const Text('Crear anuncio'),
                     leading: const Icon(Icons.announcement_outlined),
                     iconColor: Colors.red,
                     textColor: const Color.fromARGB(215, 255, 255, 255),
                   ),
+                // ListTile(
+                //   onTap: () {
+                //     Navigator.pushReplacementNamed(context, Routes.testingPage);
+                //   },
+                //   title: const Text('Testeo de página'),
+                //   leading: const Icon(Icons.auto_fix_high),
+                //   iconColor: Colors.blue,
+                //   textColor: const Color.fromARGB(215, 255, 255, 255),
+                // ),
                 if (isLogged)
                   ListTile(
                     onTap: () {
