@@ -9,82 +9,38 @@ class AdvertsAPI extends BaseAPI {
     Map<String, dynamic> advert,
     String token,
   ) async {
-    // final advertFormData = FormData();
+    final advertFormData = FormData();
 
-    // advertFormData.fields.addAll([
-    //   MapEntry('name', advert.name),
-    //   MapEntry('age', advert.age.toString()),
-    //   MapEntry('phone', advert.phoneNumber),
-    //   MapEntry('description', advert.description)
-    // ]);
+    advertFormData.fields.addAll([
+      MapEntry('advert[name]', advert['name']),
+      MapEntry('advert[age]', advert['age'].toString()),
+      MapEntry('advert[phone]', advert['phone']),
+      MapEntry('advert[description]', advert['description'])
+    ]);
 
-    // for (int i = 0; i < advert.images.length; i++) {
-    //   final bytes = advert.images[i];
-    //   final mimeType = lookupMimeType('', headerBytes: bytes);
-    //   final multipartFile = await MultipartFile.fromBytes(
-    //     bytes,
-    //     filename: 'image$i',
-    //     contentType: MediaType.parse(mimeType!),
-    //   );
-    //   advertFormData.files.add(MapEntry('image$i', multipartFile));
-    // }
-    // final formData = FormData();
-    // formData.fields.add(MapEntry('advert', jsonEncode(advertFormData)));
-
-    // final dio = Dio();
-    // dio.options.headers['authorization'] = 'Bearer $token';
-
-    // try {
-    //   final response = await dio.post(
-    //     '${baseUrl()}/adverts',
-    //     data: formData,
-    //   );
-
-    //   if (response.statusCode == 201) {
-    //     return response.data;
-    //   } else {
-    //     throw Exception('Failed to create advert');
-    //   }
-    // } catch (error) {
-    //   throw Exception('Failed to create advert: ${error.toString()}');
-    // }
-
-    // List<MultipartFile> images = [];
-    // for (int i = 0; i < advert['images'].length; i++) {
-    //   final mimeType = lookupMimeType('', headerBytes: advert['images'][i]);
-    //   final multipartFile = MultipartFile.fromFile(
-    //     advert['images'][i],
-    //     contentType: MediaType.parse(mimeType!),
-    //   );
-    // }
-    List<MultipartFile> images = [];
-    if (advert['images'] is List) {
-      advert['images'].forEach((image) {
-        final mimeType = lookupMimeType('', headerBytes: image);
-        images.add(MultipartFile.fromBytes(
-          image,
-          contentType: MediaType.parse(mimeType!),
-        ));
-      });
+    for (int i = 0; i < advert['images'].length; i++) {
+      final bytes = advert['images'][i];
+      final mimeType = lookupMimeType('', headerBytes: bytes);
+      final multipartFile = MultipartFile.fromBytes(
+        bytes,
+        filename: 'image$i',
+        contentType: MediaType.parse(mimeType!),
+      );
+      advertFormData.files.add(MapEntry('advert[images[]]', multipartFile));
     }
-    advert['images'] = images;
-    final advertFormData = FormData.fromMap({'advert': advert});
+
     final dio = Dio();
     dio.options.headers['authorization'] = 'Bearer $token';
 
-    try {
-      final response = await dio.post(
-        '${baseUrl()}/adverts',
-        data: advertFormData,
-      );
+    final response = await dio.post(
+      '${baseUrl()}/adverts',
+      data: advertFormData,
+    );
 
-      if (response.statusCode == 201) {
-        return response.data;
-      } else {
-        throw Exception('Failed to create advert');
-      }
-    } catch (error) {
-      throw Exception('Failed to create advert: ${error.toString()}');
+    if (response.statusCode == 201) {
+      return response.data;
+    } else {
+      throw Exception('Failed to create advert');
     }
   }
 
