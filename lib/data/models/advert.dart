@@ -37,20 +37,12 @@ class Advert {
   }
 
   Map<String, dynamic> toMap() {
-    List<Map<String, dynamic>> imagesData = images.map((Uint8List image) {
-      String? mimeType = lookupMimeType('', headerBytes: image);
-      return {
-        'mime': mimeType,
-        'data': image,
-      };
-    }).toList();
-
     return {
       'name': name,
       'age': age,
       'description': description,
       'phone': phoneNumber,
-      'images': imagesData,
+      'images': images,
     };
   }
 }
