@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/nav_bar.dart';
+import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
 
 import '../router/app_router.dart';
 
@@ -17,6 +18,7 @@ class Layout extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
+          extendBody: true,
           body: Stack(
             children: [
               Container(
@@ -126,6 +128,7 @@ class Layout extends StatelessWidget {
               ],
             ),
           ),
+          bottomNavigationBar: AppleMusicBottomSheet(),
         );
       },
     );
