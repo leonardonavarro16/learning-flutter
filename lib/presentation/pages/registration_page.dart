@@ -7,6 +7,20 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Layout(content: RegistrationForm());
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Layout(
+        content: Center(
+          child: SizedBox(
+            width: constraints.maxWidth * 0.8,
+            child: Column(
+              children: const [
+                RegistrationForm(),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
   }
 }

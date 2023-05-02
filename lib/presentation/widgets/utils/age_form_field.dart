@@ -42,7 +42,7 @@ class _SliderInputState extends State<AgeFormField> {
       children: [
         Text(
           widget.label,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(fontSize: 8, color: Colors.white),
         ),
         Slider(
           value: sliderValue.toDouble(),

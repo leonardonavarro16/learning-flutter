@@ -48,7 +48,7 @@ class _LoginFormState extends State<LoginForm> {
               onFieldSubmitted: (_) => _submitForm(),
             ),
             const SizedBox(
-              height: 25,
+              height: 15,
             ),
             PasswordFormField(
                 onFieldSubmitted: (_) => _submitForm(),

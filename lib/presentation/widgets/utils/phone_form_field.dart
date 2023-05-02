@@ -18,7 +18,7 @@ class PhoneFormField extends StatelessWidget {
         fieldValue: initialValue,
         decoration: const InputDecoration(
             prefixIcon: Icon(Icons.phone_android_outlined),
-            labelText: '(+57) Ingrese su numero de contacto:',
+            labelText: '(+57) Celular',
             filled: true,
             fillColor: Colors.white),
         keyboardType: TextInputType.phone,

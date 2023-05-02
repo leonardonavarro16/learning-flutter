@@ -10,7 +10,6 @@ import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
-
 import '../../logic/cubits/authentication_cubit.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -61,7 +60,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               child: Center(
                   child: Column(children: [
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 NameFormField(
                     onFieldSubmitted: (_) => _submitForm(),
@@ -75,7 +74,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   setState(() => age = value);
                 }),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 PhoneFormField(
                     onFieldSubmitted: (_) => _submitForm(),
@@ -83,7 +82,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       setState(() => phoneNumber = valid ? value : null);
                     }),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 EmailFormField(
                   onFieldSubmitted: (_) => _submitForm(),
@@ -92,7 +91,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 PasswordFormField(
                   onFieldSubmitted: (_) => _submitForm(),
@@ -101,7 +100,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 PasswordFormField(
                   onFieldSubmitted: (_) => _submitForm(),
@@ -118,7 +117,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 // if (_canBuildSubmitButton())
                 _buildSubmitButton(),
@@ -143,12 +142,30 @@ class _RegistrationFormState extends State<RegistrationForm> {
         if (state.userStatus == UserStatus.loading) {
           return const CircularProgressIndicator();
         } else {
-          return ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 235, 91, 81),
+          return Container(
+            height: 50.0,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 0, 0, 0),
+                  Color(0xFFFF0000),
+                ],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+              ),
+              borderRadius: BorderRadius.circular(25.0),
             ),
-            onPressed: _submitForm,
-            child: const Text('Registrar'),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                elevation: 0.0,
+              ),
+              onPressed: _submitForm,
+              child: const Text('Registrate'),
+            ),
           );
         }
       },

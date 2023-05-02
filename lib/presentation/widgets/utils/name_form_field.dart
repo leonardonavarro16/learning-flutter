@@ -20,7 +20,7 @@ class NameFormField extends StatelessWidget {
           prefixIcon: Icon(Icons.person),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'Ingrese su nombre:',
+          labelText: 'Nombre:',
         ),
         onChange: onChange,
         onFieldSubmitted: onFieldSubmitted,

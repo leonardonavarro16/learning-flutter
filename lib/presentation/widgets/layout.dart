@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/nav_bar.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
+import 'package:swc_front/presentation/widgets/utils/wave_clipper.dart';
 
 import '../router/app_router.dart';
 
@@ -19,45 +21,45 @@ class Layout extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
           extendBody: true,
-          body: Stack(
-            children: [
-              Container(
-                height: constraints.maxHeight,
-                width: constraints.maxWidth,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black,
-                      Color(0xFFFF0000),
-                    ],
-                    begin: Alignment.center,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: content,
+          body: Container(
+            height: constraints.maxHeight,
+            width: constraints.maxWidth,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black,
+                  Color(0xFFFF0000),
+                ],
+                begin: Alignment.center,
+                end: Alignment.bottomCenter,
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: ClipPath(
-                  clipper: WaveClipperTwo(reverse: true),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 76, 5, 0),
-                          Color(0xFFFF0000),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: ClipPath(
+                    clipper: WaveClipperTwo(reverse: true),
+                    child: Container(
+                      height: constraints.maxHeight * 0.2,
+                      width: constraints.maxWidth,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 76, 5, 0),
+                            Color(0xFFFF0000),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                content
+              ],
+            ),
           ),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(constraints.maxHeight * 0.075),

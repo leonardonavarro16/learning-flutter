@@ -49,6 +49,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final double fontSize = MediaQuery.of(context).size.width * 0.04;
     return TextFormField(
       maxLines: widget.maxLines,
       minLines: widget.minLines,
@@ -58,31 +59,33 @@ class _BaseTextFormField extends State<BaseTextFormField> {
       decoration: widget.decoration == null
           ? InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.03,
+                ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Color(0xFFFF0000),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.blue,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.red,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.blue,
@@ -92,28 +95,28 @@ class _BaseTextFormField extends State<BaseTextFormField> {
           : widget.decoration!.copyWith(
               border: const OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Color(0xFFFF0000),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.blue,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.red,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.blue,
