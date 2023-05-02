@@ -49,73 +49,82 @@ class _RegistrationFormState extends State<RegistrationForm> {
               errorMessage);
         }
       },
-      child: Form(
-          key: _formKey,
-          child: Center(
-              child: Column(children: [
-            const SizedBox(
-              height: 25,
-            ),
-            NameFormField(
-                onFieldSubmitted: (_) => _submitForm(),
-                onChange: (String? value, bool valid) {
-                  setState(() => name = valid ? value : null);
+      child: Column(
+        children: [
+          SizedBox(
+            height: 175,
+            width: 175,
+            child: Image.asset('white_logo_swc.png'),
+          ),
+          Form(
+              key: _formKey,
+              child: Center(
+                  child: Column(children: [
+                const SizedBox(
+                  height: 25,
+                ),
+                NameFormField(
+                    onFieldSubmitted: (_) => _submitForm(),
+                    onChange: (String? value, bool valid) {
+                      setState(() => name = valid ? value : null);
+                    }),
+                const SizedBox(
+                  height: 15,
+                ),
+                AgeFormField(onChange: (int value) {
+                  setState(() => age = value);
                 }),
-            const SizedBox(
-              height: 15,
-            ),
-            AgeFormField(onChange: (int value) {
-              setState(() => age = value);
-            }),
-            const SizedBox(
-              height: 25,
-            ),
-            PhoneFormField(
-                onFieldSubmitted: (_) => _submitForm(),
-                onChange: (String? value, bool valid) {
-                  setState(() => phoneNumber = valid ? value : null);
-                }),
-            const SizedBox(
-              height: 25,
-            ),
-            EmailFormField(
-              onFieldSubmitted: (_) => _submitForm(),
-              onChange: (String? value, bool valid) {
-                setState(() => email = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            PasswordFormField(
-              onFieldSubmitted: (_) => _submitForm(),
-              onChange: (String? value, bool valid) {
-                setState(() => password = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            PasswordFormField(
-              onFieldSubmitted: (_) => _submitForm(),
-              labelText: 'Confirmar contraseña',
-              emptyMessage: 'ingrese su contraseña de confirmacion',
-              additionalValidator: (String? value) {
-                if (value != password) {
-                  return 'La contraseña no coincide ';
-                }
-                return null;
-              },
-              onChange: (String? value, bool valid) {
-                setState(() => confirmPassword = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            // if (_canBuildSubmitButton())
-            _buildSubmitButton(),
-          ]))),
+                const SizedBox(
+                  height: 25,
+                ),
+                PhoneFormField(
+                    onFieldSubmitted: (_) => _submitForm(),
+                    onChange: (String? value, bool valid) {
+                      setState(() => phoneNumber = valid ? value : null);
+                    }),
+                const SizedBox(
+                  height: 25,
+                ),
+                EmailFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => email = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                PasswordFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => password = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                PasswordFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  labelText: 'Confirmar contraseña',
+                  emptyMessage: 'ingrese su contraseña de confirmacion',
+                  additionalValidator: (String? value) {
+                    if (value != password) {
+                      return 'La contraseña no coincide ';
+                    }
+                    return null;
+                  },
+                  onChange: (String? value, bool valid) {
+                    setState(() => confirmPassword = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                // if (_canBuildSubmitButton())
+                _buildSubmitButton(),
+              ]))),
+        ],
+      ),
     );
   }
 

@@ -19,6 +19,12 @@ class LoginPage extends StatelessWidget {
             width: constraints.maxWidth * 0.8,
             child: Column(
               children: [
+                // const SizedBox(height: 15),
+                SizedBox(
+                  height: 175,
+                  width: 175,
+                  child: Image.asset('white_logo_swc.png'),
+                ),
                 const LoginForm(),
                 InkWell(
                   onTap: () {
