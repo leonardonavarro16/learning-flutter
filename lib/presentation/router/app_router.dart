@@ -5,7 +5,6 @@ import 'package:swc_front/presentation/pages/default_page.dart';
 import 'package:swc_front/presentation/pages/index_page.dart';
 import 'package:swc_front/presentation/pages/login_page.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
-import 'package:swc_front/logic/cubits/user.dart';
 
 import '../../logic/cubits/adverts.dart';
 import '../pages/create_advert_page.dart';

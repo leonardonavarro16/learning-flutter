@@ -1,7 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/user.dart';
-import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/data/repositories/user.dart';
 

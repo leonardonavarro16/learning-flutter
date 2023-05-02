@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
 import '../router/app_router.dart';
 import '../widgets/layout.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Layout(
@@ -22,11 +25,11 @@ class LoginPage extends StatelessWidget {
                     Navigator.pushReplacementNamed(
                         context, Routes.registrationPage);
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.only(top: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      'Registrate',
-                      style: TextStyle(
+                      t.registrationLinkText,
+                      style: const TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.white,
                       ),

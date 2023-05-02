@@ -9,7 +9,7 @@ import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
-import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
+import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 
 import '../../logic/cubits/authentication_cubit.dart';
 

@@ -7,7 +7,7 @@ import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
-import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
+import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';
 import '../router/app_router.dart';

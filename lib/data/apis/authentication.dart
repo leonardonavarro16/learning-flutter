@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:swc_front/data/apis/base.dart';
 
 class AuthenticationAPI extends BaseAPI {

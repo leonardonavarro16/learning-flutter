@@ -6,7 +6,7 @@ import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
-import 'package:swc_front/presentation/widgets/utils/snackbarUtil.dart';
+import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import '../../logic/states/authentication.dart';

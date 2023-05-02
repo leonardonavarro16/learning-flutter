@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/nav_bar.dart';
 
 import '../router/app_router.dart';
@@ -19,9 +16,7 @@ class Layout extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
-          body: Container(
-            // TODO: CAMBIAR EL COLOR UNA VEZ TERMINES LAS PRUEBAS DE WIDGETS
-            color: Colors.blueGrey,
+          body: SizedBox(
             height: constraints.maxHeight,
             width: constraints.maxWidth,
             child: content,
