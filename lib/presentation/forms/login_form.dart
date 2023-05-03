@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/authentication.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
@@ -77,31 +78,7 @@ class _LoginFormState extends State<LoginForm> {
         if (state.authenticationStatus == AuthenticationStatus.loading) {
           return const CircularProgressIndicator();
         } else {
-          return Container(
-            height: 50.0,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 0, 0, 0),
-                  Color(0xFFFF0000),
-                ],
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-              ),
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                elevation: 0.0,
-              ),
-              onPressed: _submitForm,
-              child: const Text('Ingresar'),
-            ),
-          );
+          return CustomButton(text: 'Ingresar', onPressed: _submitForm);
         }
       },
     );

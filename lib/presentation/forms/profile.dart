@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
@@ -105,10 +106,8 @@ class _ProfileForm extends State<ProfileForm> {
       if (state.authenticationStatus == AuthenticationStatus.loading) {
         return const CircularProgressIndicator();
       } else {
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
+        return CustomButton(
+          text: 'Editar',
           onPressed: () {
             User user = _buildUser();
             String token =
@@ -118,7 +117,6 @@ class _ProfileForm extends State<ProfileForm> {
                 BlocProvider.of<AuthenticationCubit>(context).state.user!.id;
             BlocProvider.of<UserCubit>(context).update(user, token);
           },
-          child: const Text('Editar'),
         );
       }
     });

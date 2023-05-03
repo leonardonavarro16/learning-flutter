@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
@@ -141,17 +142,14 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Widget _buildSubmitButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 235, 91, 81),
-      ),
+    return CustomButton(
+      text: 'Enviar',
       onPressed: () {
         Advert advert = _buildAdvert();
         String? token = context.read<AuthenticationCubit>().state.token;
         if (token == null) throw Exception('Token is missing');
         context.read<AdvertsCubit>().createAdvert(advert, token);
       },
-      child: const Text('Envíar'),
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/age_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
@@ -142,31 +143,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
         if (state.userStatus == UserStatus.loading) {
           return const CircularProgressIndicator();
         } else {
-          return Container(
-            height: 50.0,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 0, 0, 0),
-                  Color(0xFFFF0000),
-                ],
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-              ),
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                elevation: 0.0,
-              ),
-              onPressed: _submitForm,
-              child: const Text('Registrate'),
-            ),
-          );
+          return CustomButton(text: 'Registrate', onPressed: _submitForm);
         }
       },
     );
