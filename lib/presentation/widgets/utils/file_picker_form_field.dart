@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -18,7 +19,7 @@ class _FilePickerField extends State<FilePickerField> {
 
   @override
   void dispose() async {
-    await _filePicker.clearTemporaryFiles();
+    if (!kIsWeb) await _filePicker.clearTemporaryFiles();
     super.dispose();
   }
 

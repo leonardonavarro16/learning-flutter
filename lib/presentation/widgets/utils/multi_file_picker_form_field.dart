@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'image_carousel.dart';
@@ -22,7 +22,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
 
   @override
   void dispose() async {
-    await _filePicker.clearTemporaryFiles();
+    if (!kIsWeb) await _filePicker.clearTemporaryFiles();
     super.dispose();
   }
 

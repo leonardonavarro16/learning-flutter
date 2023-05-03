@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:typed_data';
-import 'package:mime/mime.dart';
 
 class Advert {
   List<Uint8List> images;
@@ -18,22 +16,13 @@ class Advert {
   });
 
   static Advert fromMap(Map<String, dynamic> advertData) {
-    List<Uint8List> imagesBytes = [];
-    if (advertData['images'] != null && advertData['images'].isNotEmpty) {
-      advertData['images'].forEach(
-        (image) => imagesBytes.add(
-          Uint8List.fromList(image),
-        ),
-      );
-    }
-
     return Advert(
-      images: imagesBytes,
-      name: advertData['name'],
-      age: advertData['age'],
-      phoneNumber: advertData['phone'],
-      description: advertData['description'],
-    );
+        images:
+            (advertData['images'] as List<dynamic>).cast<Uint8List>().toList(),
+        name: advertData['name'],
+        age: advertData['age'],
+        phoneNumber: advertData['phone'],
+        description: advertData['description']);
   }
 
   Map<String, dynamic> toMap() {
