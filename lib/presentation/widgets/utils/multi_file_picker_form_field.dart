@@ -33,28 +33,30 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (_pickedFiles.isNotEmpty)
-          ImageCarousel(
-            images: _pickedFiles,
-            onChange: (newIndex) => index = newIndex,
-          ),
-        if (_pickedFiles.isNotEmpty)
-          Row(
-            children: [
-              _buildSelectFileBtn(),
-              TextButton(
-                onPressed: () => cleanFiles(),
-                child: const Text(
-                  'Limpiar selección',
-                  style: TextStyle(color: Colors.red),
+          // GridView.count()
+// TODO: REVISAR SI ES MEJOR SLIVER FOR GRID O GRIDLIST.COUNT PARA HACER EL PREVIEW DE LAS IMAGES ANTES DE ENVIAR EL ADVERT
+          // ImageCarousel(
+          //   images: _pickedFiles,
+          //   onChange: (newIndex) => index = newIndex,
+          // ),
+          if (_pickedFiles.isNotEmpty)
+            Row(
+              children: [
+                _buildSelectFileBtn(),
+                TextButton(
+                  onPressed: () => cleanFiles(),
+                  child: const Text(
+                    'Limpiar selección',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () => _removeCurrentImage(),
-                child: const Text('Borrar esta imagen',
-                    style: TextStyle(color: Colors.red)),
-              )
-            ],
-          ),
+                TextButton(
+                  onPressed: () => _removeCurrentImage(),
+                  child: const Text('Borrar esta imagen',
+                      style: TextStyle(color: Colors.red)),
+                )
+              ],
+            ),
         if (_pickedFiles.isEmpty) _buildSelectFileBtn(),
       ],
     );

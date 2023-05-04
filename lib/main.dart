@@ -20,6 +20,7 @@ class SwcApp extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AuthenticationCubit(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

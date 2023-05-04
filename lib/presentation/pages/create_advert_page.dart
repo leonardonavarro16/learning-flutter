@@ -16,7 +16,7 @@ class CreateAdvertPage extends StatelessWidget {
             child: ListView(children: const [
               SizedBox(height: 25),
               Text(
-                'Rellena el formulario para listar tu anuncio',
+                'Nuevo anuncio',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
