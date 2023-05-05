@@ -44,6 +44,7 @@ dependencies:
   flutter_custom_clippers: ^2.1.0
   bottom_bar_with_sheet: ^2.4.0
   google_nav_bar: ^5.0.6
+  blurrycontainer: ^1.0.2
 dependency_overrides:
   intl: 0.17.0
 

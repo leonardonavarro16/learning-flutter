@@ -27,36 +27,49 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     if (isLoading) return const CircularProgressIndicator();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (_pickedFiles.isNotEmpty)
-          // GridView.count()
-// TODO: REVISAR SI ES MEJOR SLIVER FOR GRID O GRIDLIST.COUNT PARA HACER EL PREVIEW DE LAS IMAGES ANTES DE ENVIAR EL ADVERT
-          // ImageCarousel(
-          //   images: _pickedFiles,
-          //   onChange: (newIndex) => index = newIndex,
-          // ),
-          if (_pickedFiles.isNotEmpty)
-            Row(
-              children: [
-                _buildSelectFileBtn(),
-                TextButton(
-                  onPressed: () => cleanFiles(),
-                  child: const Text(
-                    'Limpiar selección',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => _removeCurrentImage(),
-                  child: const Text('Borrar esta imagen',
-                      style: TextStyle(color: Colors.red)),
-                )
-              ],
+          GridView.builder(
+            shrinkWrap: true,
+            itemCount: _pickedFiles.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              mainAxisSpacing: 3,
+              crossAxisSpacing: 3,
+              childAspectRatio: 1.0,
             ),
+            itemBuilder: (BuildContext context, int index) {
+              return Image.memory(
+                _pickedFiles[index],
+                fit: BoxFit.cover,
+              );
+            },
+          ),
+        if (_pickedFiles.isNotEmpty)
+          Column(
+            children: [
+              _buildSelectFileBtn(),
+              TextButton(
+                onPressed: () => cleanFiles(),
+                child: const Text(
+                  'Limpiar selección',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+              TextButton(
+                onPressed: () => _removeCurrentImage(),
+                child: const Text(
+                  'Borrar esta imagen',
+                  style: TextStyle(color: Colors.red),
+                ),
+              )
+            ],
+          ),
         if (_pickedFiles.isEmpty) _buildSelectFileBtn(),
       ],
     );

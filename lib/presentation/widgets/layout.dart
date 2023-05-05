@@ -61,10 +61,10 @@ class Layout extends StatelessWidget {
               ],
             ),
           ),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(constraints.maxHeight * 0.075),
-            child: const NavBar(),
-          ),
+          // appBar: PreferredSize(
+          //   preferredSize: Size.fromHeight(constraints.maxHeight * 0.075),
+          //   child: const NavBar(),
+          // ),
           drawer: Drawer(
             backgroundColor: Colors.black,
             child: ListView(

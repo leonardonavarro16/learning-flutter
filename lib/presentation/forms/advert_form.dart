@@ -51,6 +51,12 @@ class _AdvertForm extends State<AdvertForm> {
           const SizedBox(
             height: 15,
           ),
+          MultiFilePickerField(
+            onChanged: (List<Uint8List>? bytes) {
+              setState(() => imageBytes = bytes);
+            },
+          ),
+          const SizedBox(height: 15),
           NameFormField(
             onFieldSubmitted: (_) => _submitForm(),
             initialValue: name,
@@ -92,12 +98,6 @@ class _AdvertForm extends State<AdvertForm> {
           const SizedBox(
             height: 15,
           ),
-          MultiFilePickerField(
-            onChanged: (List<Uint8List>? bytes) {
-              setState(() => imageBytes = bytes);
-            },
-          ),
-          const SizedBox(height: 15),
           if (_canShowSubmitButton())
             BlocConsumer<AdvertsCubit, AdvertsState>(
                 listener: (BuildContext context, AdvertsState state) {

@@ -1,3 +1,4 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'utils/base_modal.dart';
@@ -135,22 +136,44 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   Widget _buildModalClosedContent() {
-    return Center(
-        child: SizedBox(
-            width: width,
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: advert.images.isEmpty
-                      ? Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
-                      : Image.memory(advert.images.first),
-                ),
-                Text(advert.name, style: const TextStyle(color: Colors.white)),
-                Text(advert.age.toString(),
-                    style: const TextStyle(color: Colors.white)),
-              ],
-            )));
+    return Container(
+      margin: const EdgeInsets.all(5),
+      child: BlurryContainer(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        blur: 15,
+        color: const Color.fromRGBO(0, 0, 0, 0.6),
+        padding: const EdgeInsets.all(8),
+        child: Center(
+            child: SizedBox(
+                width: width,
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: advert.images.isEmpty
+                          ? Image.network(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
+                          : Image.memory(advert.images.first),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(advert.name,
+                            style: const TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(advert.age.toString(),
+                            style: const TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                ))),
+      ),
+    );
   }
 }

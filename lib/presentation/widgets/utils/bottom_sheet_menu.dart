@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:blurrycontainer/blurrycontainer.dart';
 
 class AppleMusicBottomSheet extends StatefulWidget {
   @override
@@ -13,17 +13,21 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BlurryContainer(
+      // elevation: 0,
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(35), topRight: Radius.circular(35)),
+      blur: 20,
       color: const Color.fromRGBO(0, 0, 0, 0.6),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: GNav(
           selectedIndex: _selectedIndex,
-          backgroundColor: Color.fromRGBO(0, 0, 0, 0),
-          color: Colors.red,
-          activeColor: Colors.white,
-          tabBackgroundColor: const Color(0xFFFF0000),
-          padding: const EdgeInsets.all(16),
+          backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+          color: Colors.grey,
+          activeColor: const Color(0xFFFF0000),
+          // tabBackgroundColor: const Color(0xFFFF0000),
+          padding: const EdgeInsets.all(5),
           gap: 8,
           onTabChange: (index) {
             setState(() {
@@ -46,19 +50,23 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
           },
           tabs: const [
             GButton(
-              icon: Icons.home,
+              iconSize: 30,
+              icon: CupertinoIcons.house_alt,
               // text: 'Home',
             ),
             GButton(
-              icon: Icons.favorite_border,
+              iconSize: 30,
+              icon: CupertinoIcons.suit_heart,
               // text: 'Likes',
             ),
             GButton(
-              icon: Icons.search,
+              iconSize: 30,
+              icon: CupertinoIcons.square_stack_3d_down_right,
               // text: 'Search',
             ),
             GButton(
-              icon: CupertinoIcons.person_circle_fill,
+              iconSize: 30,
+              icon: CupertinoIcons.person_badge_plus,
               // text: 'Settings',
             ),
           ],

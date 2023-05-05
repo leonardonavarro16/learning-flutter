@@ -17,7 +17,7 @@ class IndexPage extends StatelessWidget {
           if (state.status == AdvertsStatus.success) {
             return ListView(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 AdverList(adverts: state.adverts)
               ],
             );
