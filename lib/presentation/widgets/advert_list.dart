@@ -138,41 +138,57 @@ class _AdvertPreview extends StatelessWidget {
   Widget _buildModalClosedContent() {
     return Container(
       margin: const EdgeInsets.all(5),
-      child: BlurryContainer(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        blur: 15,
-        color: const Color.fromRGBO(0, 0, 0, 0.6),
-        padding: const EdgeInsets.all(8),
-        child: Center(
-            child: SizedBox(
-                width: width,
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: advert.images.isEmpty
-                          ? Image.network(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
-                          : Image.memory(advert.images.first),
+      child: Center(
+        child: SizedBox(
+          width: width,
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: advert.images.isEmpty
+                    ? Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
+                    : Image.memory(advert.images.first),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(advert.name,
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(advert.age.toString(),
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                  ],
-                ))),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        advert.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'Age: ${advert.age}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
-
+import 'package:swc_front/presentation/widgets/utils/search_appbar.dart';
+import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
 import '../../logic/cubits/adverts.dart';
 import '../../logic/states/adverts.dart';
 import '../widgets/advert_list.dart';
@@ -15,10 +16,28 @@ class IndexPage extends StatelessWidget {
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
           if (state.status == AdvertsStatus.success) {
-            return ListView(
+            return Column(
               children: [
-                const SizedBox(height: 30),
-                AdverList(adverts: state.adverts)
+                // const SearchAppBar(),
+                SizedBox(
+                  height: 120,
+                  child: ListView.builder(
+                      itemCount: 20,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return StoryBubble();
+                      }),
+                ),
+
+                // SPACE DESIGNED TO ADVERTS POST AS LISTVIEW
+                Expanded(
+                  child: ListView(
+                    children: [
+                      const SizedBox(height: 30),
+                      AdverList(adverts: state.adverts)
+                    ],
+                  ),
+                ),
               ],
             );
           } else if (state.status == AdvertsStatus.failure) {
