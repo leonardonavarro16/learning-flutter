@@ -45,6 +45,7 @@ dependencies:
   bottom_bar_with_sheet: ^2.4.0
   google_nav_bar: ^5.0.6
   blurrycontainer: ^1.0.2
+  searchbar_animation: ^0.0.4
 dependency_overrides:
   intl: 0.17.0
 

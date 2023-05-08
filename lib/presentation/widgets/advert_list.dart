@@ -1,6 +1,10 @@
+// import 'dart:js';
+
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/data/models/advert.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'utils/base_modal.dart';
 
 class AdverList extends StatelessWidget {
@@ -104,36 +108,147 @@ class _AdvertPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BaseModal.open(
-            context: context,
-            title: Text(advert.name, textAlign: TextAlign.center),
-            children: [
-              _buildModalOpenedContent(),
-            ]);
+        BaseModal.open(context: context, children: [
+          _buildModalOpenedContent(context),
+        ]);
       },
       child: _buildModalClosedContent(),
     );
   }
 
-  Widget _buildModalOpenedContent() {
-    return Center(
-      child: SizedBox(
-        width: width,
-        child: Column(children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: advert.images.isEmpty
-                ? Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
-                : Image.memory(advert.images.first),
+  Widget _buildModalOpenedContent(BuildContext context) {
+    return Column(
+      children: [
+        FittedBox(
+          fit: BoxFit.contain,
+          child: Image.memory(advert.images.first),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black,
+                  Color(0xFFFF0000),
+                ],
+                begin: Alignment.center,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      advert.name,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    Row(
+                      children: const [
+                        Text(
+                          '4.5',
+                          style: TextStyle(
+                            color: Color.fromARGB(155, 255, 255, 255),
+                            fontSize: 12,
+                          ),
+                        ),
+                        SizedBox(width: 2.5),
+                        Icon(
+                            color: Colors.yellow,
+                            size: 10,
+                            CupertinoIcons.star_fill),
+                      ],
+                    ),
+                    Text(
+                      '${advert.age} años',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(155, 255, 255, 255),
+                        fontSize: 10,
+                      ),
+                    ),
+                    const Text(
+                      '24 horas',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(children: const [
+                  SizedBox(
+                    width: 27.5,
+                  ),
+                  Text(
+                    'Barranquilla',
+                    style: TextStyle(
+                      color: Color.fromARGB(155, 255, 255, 255),
+                      fontSize: 10,
+                    ),
+                  ),
+                ]),
+                const Divider(
+                  color: Color.fromARGB(155, 255, 255, 255), //color of divider
+                  height: 10,
+                  thickness: 1,
+                  indent: 35,
+                  endIndent: 25,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  child: Text(
+                      style: const TextStyle(fontSize: 10, color: Colors.white),
+                      advert.description,
+                      textAlign: TextAlign.center),
+                ),
+                const SizedBox(height: 15),
+                CustomButton(
+                  text: 'CONTACTAR',
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
-          Text(advert.description, textAlign: TextAlign.center),
-          const SizedBox(height: 10),
-          Text(advert.phoneNumber)
-        ]),
-      ),
+        ),
+      ],
     );
   }
+
+  // Widget _buildModalOpenedContent() {
+  //   return Center(
+  //     child: SizedBox(
+  //       width: width,
+  //       child: Column(children: [
+  //         ClipRRect(
+  //           borderRadius: BorderRadius.circular(15),
+  //           child: advert.images.isEmpty
+  //               ? Image.network(
+  //                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
+  //               : Image.memory(advert.images.first),
+  //         ),
+  //         Text(advert.description, textAlign: TextAlign.center),
+  //         const SizedBox(height: 10),
+  //         Text(advert.phoneNumber)
+  //       ]),
+  //     ),
+  //   );
+  // }
 
   Widget _buildModalClosedContent() {
     return Container(
@@ -158,29 +273,71 @@ class _AdvertPreview extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.7),
                     borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
                     ),
                   ),
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        advert.name,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            advert.name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Row(
+                            children: const [
+                              Text(
+                                '4.5',
+                                style: TextStyle(
+                                  color: Color.fromARGB(155, 255, 255, 255),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 2.5),
+                              Icon(
+                                  color: Colors.white,
+                                  size: 9,
+                                  CupertinoIcons.star_fill),
+                            ],
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 5),
-                      Text(
-                        'Age: ${advert.age}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          const Text(
+                            'Barranquilla',
+                            style: TextStyle(
+                              color: Color.fromARGB(155, 255, 255, 255),
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(
+                            '${advert.age} años',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 10,
+                            ),
+                          ),
+                          const Text(
+                            '24 horas',
+                            style: TextStyle(
+                              color: Color.fromARGB(155, 255, 255, 255),
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
