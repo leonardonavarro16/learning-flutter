@@ -1,10 +1,7 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
-import 'package:swc_front/presentation/widgets/utils/image_carousel.dart';
 import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
@@ -29,9 +26,6 @@ class AdverList extends StatelessWidget {
       return SizedBox(
         width: constraints.maxWidth,
         child: Table(
-          // border: TableBorder.all(
-          //   color: Colors.green,
-          // ),
           children: generateTableRows(constraints),
         ),
       );
@@ -136,19 +130,6 @@ class _AdvertPreview extends StatelessWidget {
               ),
             ),
           ),
-
-        // ListView.builder(itemBuilder: advert.,),
-
-        // PageView.builder(
-        //   itemCount: advert.images.length,
-
-        //   itemBuilder: (context, index) {
-        //     return Image.memory(
-        //       advert.images[index],
-        //       fit: BoxFit.cover,
-        //     );
-        //   },
-        // ),
         Positioned(
           bottom: 0,
           left: 0,
@@ -260,37 +241,6 @@ class _AdvertPreview extends StatelessWidget {
     );
   }
 
-// Widget swiper(){
-//   return Container(
-//     child: Swiper(itemBuilder: (BuildContext context, int index){
-//       return
-//     }
-//     ),
-
-//   );
-
-// }
-
-  // Widget _buildModalOpenedContent() {
-  //   return Center(
-  //     child: SizedBox(
-  //       width: width,
-  //       child: Column(children: [
-  //         ClipRRect(
-  //           borderRadius: BorderRadius.circular(15),
-  //           child: advert.images.isEmpty
-  //               ? Image.network(
-  //                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
-  //               : Image.memory(advert.images.first),
-  //         ),
-  //         Text(advert.description, textAlign: TextAlign.center),
-  //         const SizedBox(height: 10),
-  //         Text(advert.phoneNumber)
-  //       ]),
-  //     ),
-  //   );
-  // }
-
   Widget _buildModalClosedContent() {
     return Container(
       margin: const EdgeInsets.all(5),
@@ -314,8 +264,8 @@ class _AdvertPreview extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.7),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
                     ),
                   ),
                   padding: const EdgeInsets.all(10),

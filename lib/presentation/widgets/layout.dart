@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/presentation/widgets/nav_bar.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
-import 'package:swc_front/presentation/widgets/utils/wave_clipper.dart';
 
 import '../router/app_router.dart';
 
