@@ -1,11 +1,12 @@
-// import 'dart:js';
-
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/image_carousel.dart';
 import 'utils/base_modal.dart';
+import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
 class AdverList extends StatelessWidget {
   int colsPerRow = 0;
@@ -119,10 +120,35 @@ class _AdvertPreview extends StatelessWidget {
   Widget _buildModalOpenedContent(BuildContext context) {
     return Column(
       children: [
-        FittedBox(
-          fit: BoxFit.contain,
-          child: Image.memory(advert.images.first),
-        ),
+        if (advert.images.length == 1)
+          FittedBox(
+            fit: BoxFit.cover,
+            child: Image.memory(advert.images.first, fit: BoxFit.cover),
+          ),
+        if (advert.images.length > 1)
+          FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              width: MediaQuery.of(context).size.width,
+              child: ImageSlider(
+                images: advert.images,
+              ),
+            ),
+          ),
+
+        // ListView.builder(itemBuilder: advert.,),
+
+        // PageView.builder(
+        //   itemCount: advert.images.length,
+
+        //   itemBuilder: (context, index) {
+        //     return Image.memory(
+        //       advert.images[index],
+        //       fit: BoxFit.cover,
+        //     );
+        //   },
+        // ),
         Positioned(
           bottom: 0,
           left: 0,
@@ -148,14 +174,27 @@ class _AdvertPreview extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 Row(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      advert.name,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          advert.name,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        const Text(
+                          'Barranquilla',
+                          style: TextStyle(
+                            color: Color.fromARGB(155, 255, 255, 255),
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       children: const [
@@ -190,18 +229,6 @@ class _AdvertPreview extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(children: const [
-                  SizedBox(
-                    width: 27.5,
-                  ),
-                  Text(
-                    'Barranquilla',
-                    style: TextStyle(
-                      color: Color.fromARGB(155, 255, 255, 255),
-                      fontSize: 10,
-                    ),
-                  ),
-                ]),
                 const Divider(
                   color: Color.fromARGB(155, 255, 255, 255), //color of divider
                   height: 10,
@@ -211,14 +238,17 @@ class _AdvertPreview extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Text(
-                      style: const TextStyle(fontSize: 10, color: Colors.white),
+                      style:
+                          const TextStyle(fontSize: 10.5, color: Colors.white),
                       advert.description,
                       textAlign: TextAlign.center),
                 ),
                 const SizedBox(height: 15),
                 CustomButton(
+                  height: 60,
+                  width: 170,
                   text: 'CONTACTAR',
                   onPressed: () {},
                 ),
@@ -229,6 +259,17 @@ class _AdvertPreview extends StatelessWidget {
       ],
     );
   }
+
+// Widget swiper(){
+//   return Container(
+//     child: Swiper(itemBuilder: (BuildContext context, int index){
+//       return
+//     }
+//     ),
+
+//   );
+
+// }
 
   // Widget _buildModalOpenedContent() {
   //   return Center(

@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final double? height;
+  final double? width;
 
   const CustomButton({
     Key? key,
+    this.height,
+    this.width,
     required this.text,
     required this.onPressed,
   }) : super(key: key);
@@ -13,7 +17,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50.0,
+      width: width ?? 140,
+      height: height ?? 50,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -34,7 +39,10 @@ class CustomButton extends StatelessWidget {
           elevation: 0.0,
         ),
         onPressed: onPressed,
-        child: Text(text),
+        child: Text(
+          text,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
