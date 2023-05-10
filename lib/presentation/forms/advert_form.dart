@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
@@ -122,7 +124,7 @@ class _AdvertForm extends State<AdvertForm> {
               }
             }, builder: (BuildContext context, AdvertsState state) {
               if (state.status == AdvertsStatus.loading) {
-                return const CircularProgressIndicator();
+                return const CustomIndicatorProgress();
               } else {
                 return _buildSubmitButton();
               }

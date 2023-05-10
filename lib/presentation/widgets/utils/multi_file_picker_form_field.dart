@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'image_carousel.dart';
 
 class MultiFilePickerField extends StatefulWidget {
@@ -29,7 +31,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
   @override
   @override
   Widget build(BuildContext context) {
-    if (isLoading) return const CircularProgressIndicator();
+    if (isLoading) return const CustomIndicatorProgress();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

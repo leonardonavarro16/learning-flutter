@@ -4,6 +4,7 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 
@@ -76,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
       builder: (BuildContext context, AuthenticationState state) {
         if (state.authenticationStatus == AuthenticationStatus.loading) {
-          return const CircularProgressIndicator();
+          return const CustomIndicatorProgress();
         } else {
           return CustomButton(text: 'Ingresar', onPressed: _submitForm);
         }

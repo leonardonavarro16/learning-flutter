@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 
 class FilePickerField extends StatefulWidget {
   final Function onChanged;
@@ -28,7 +30,7 @@ class _FilePickerField extends State<FilePickerField> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (isLoading) const CircularProgressIndicator(),
+        if (isLoading) const CustomIndicatorProgress(),
         if (!isLoading && _pickedFile == null)
           Center(
             child: TextButton(

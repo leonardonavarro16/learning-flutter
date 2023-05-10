@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/search_appbar.dart';
 import 'package:swc_front/presentation/widgets/utils/search_bar.dart';
 import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
@@ -58,7 +60,7 @@ class IndexPage extends StatelessWidget {
           } else if (state.status == AdvertsStatus.failure) {
             return Text(state.error, style: const TextStyle(color: Colors.red));
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CustomIndicatorProgress());
           }
         },
       ),

@@ -49,7 +49,9 @@ class _BaseTextFormField extends State<BaseTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = MediaQuery.of(context).size.width * 0.04;
+    // final double fontSize = MediaQuery.of(context).size.width * 0.02;
+    final double fontSize = 15;
+
     return TextFormField(
       maxLines: widget.maxLines,
       minLines: widget.minLines,

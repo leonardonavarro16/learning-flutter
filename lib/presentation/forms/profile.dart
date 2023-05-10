@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/user.dart';
@@ -5,6 +6,7 @@ import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
@@ -78,7 +80,7 @@ class _ProfileForm extends State<ProfileForm> {
               backgroundImage: AssetImage('avatar_preview_two.jpg'),
             ),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             NameFormField(
               initialValue: name,
@@ -115,20 +117,21 @@ class _ProfileForm extends State<ProfileForm> {
             const SizedBox(
               height: 15,
             ),
-            if (_canShowSubmitButton()) _buildSubmitButton(),
+            // if (_canShowSubmitButton())
+            _buildSubmitButton(),
           ],
         ));
   }
 
-  bool _canShowSubmitButton() {
-    return name != null && age != null && phoneNumber != null;
-  }
+  // bool _canShowSubmitButton() {
+  //   return name != null && age != null && phoneNumber != null;
+  // }
 
   Widget _buildSubmitButton() {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
         builder: (BuildContext context, AuthenticationState state) {
       if (state.authenticationStatus == AuthenticationStatus.loading) {
-        return const CircularProgressIndicator();
+        return const CustomIndicatorProgress();
       } else {
         return CustomButton(
           text: 'Editar',
