@@ -40,6 +40,7 @@ class _ProfileForm extends State<ProfileForm> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     return BlocListener<UserCubit, UserState>(
         listener: (BuildContext context, UserState state) {
           if (state.userStatus == UserStatus.success) {
@@ -60,6 +61,25 @@ class _ProfileForm extends State<ProfileForm> {
             const SizedBox(
               height: 25,
             ),
+            if (isLogged)
+              Text(
+                name ?? '',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            const SizedBox(
+              height: 25,
+            ),
+            const CircleAvatar(
+              radius: 70,
+              backgroundImage: AssetImage('avatar_preview_two.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             NameFormField(
               initialValue: name,
               onChange: (String? value, bool valid) {
@@ -67,7 +87,7 @@ class _ProfileForm extends State<ProfileForm> {
               },
             ),
             const SizedBox(
-              height: 25,
+              height: 15,
             ),
             AgeFormField(
                 initialValue: age,
@@ -75,7 +95,7 @@ class _ProfileForm extends State<ProfileForm> {
                   setState(() => age = value);
                 }),
             const SizedBox(
-              height: 25,
+              height: 15,
             ),
             PhoneFormField(
               initialValue: phoneNumber,
@@ -83,14 +103,18 @@ class _ProfileForm extends State<ProfileForm> {
                 setState(() => phoneNumber = valid ? value : null);
               },
             ),
-            const SizedBox(height: 25),
+            const SizedBox(
+              height: 15,
+            ),
             EmailFormField(
               initialValue: email,
               onChange: (String? value, bool valid) {
                 setState(() => email = valid ? value : null);
               },
             ),
-            const SizedBox(height: 25),
+            const SizedBox(
+              height: 15,
+            ),
             if (_canShowSubmitButton()) _buildSubmitButton(),
           ],
         ));
