@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BaseTextFormField extends StatefulWidget {
   final Function(String?, bool) onChange;
@@ -53,6 +54,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
     final double fontSize = 15;
 
     return TextFormField(
+      style: GoogleFonts.quicksand(),
       maxLines: widget.maxLines,
       minLines: widget.minLines,
       controller: _controller,
@@ -76,21 +78,21 @@ class _BaseTextFormField extends State<BaseTextFormField> {
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.blue,
+                  color: Color(0xFFFF0000),
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.red,
+                  color: Color(0xFFFF0000),
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.blue,
+                  color: Color(0xFFFF0000),
                 ),
               ),
               errorText: _getErrorText(_controller.text))
@@ -107,21 +109,21 @@ class _BaseTextFormField extends State<BaseTextFormField> {
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.blue,
+                  color: Color(0xFFFF0000),
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.red,
+                  color: Color(0xFFFF0000),
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.blue,
+                  color: Color(0xFFFF0000),
                 ),
               ),
               errorText: _getErrorText(_controller.text),

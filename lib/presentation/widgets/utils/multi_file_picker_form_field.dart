@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'image_carousel.dart';
 
 class MultiFilePickerField extends StatefulWidget {
@@ -66,18 +67,14 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
               _buildSelectFileBtn(),
               TextButton(
                 onPressed: () => cleanFiles(),
-                child: const Text(
-                  'Limpiar selección',
-                  style: TextStyle(color: Colors.red),
-                ),
+                child: const TextView(
+                    text: 'Limpiar selección', color: Colors.red),
               ),
               TextButton(
                 onPressed: () => _removeCurrentImage(),
-                child: const Text(
-                  'Borrar esta imagen',
-                  style: TextStyle(color: Colors.red),
-                ),
-              )
+                child: const TextView(
+                    text: 'Borrar esta imagen', color: Colors.red),
+              ),
             ],
           ),
         if (_pickedFiles.isEmpty) _buildSelectFileBtn(),
@@ -124,10 +121,9 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
     return Center(
       child: TextButton(
         onPressed: () => pickFile(),
-        child: const Text(
-          'Selecciona un archivo',
-          style: TextStyle(color: Color.fromARGB(255, 235, 91, 81)),
-        ),
+        child: const TextView(
+            text: 'Selecciona un archivo',
+            color: Color.fromARGB(255, 235, 91, 81)),
       ),
     );
   }

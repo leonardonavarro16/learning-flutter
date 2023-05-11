@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../forms/profile.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -17,14 +18,12 @@ class EditProfilePage extends StatelessWidget {
               SizedBox(
                 height: 35,
               ),
-              Text(
-                'Mi perfil',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                    color: Colors.white),
-              ),
+              TextView(
+                  text: 'Mi perfil',
+                  textAlign: TextAlign.center,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                  color: Colors.white),
               ProfileForm(),
             ]),
           ),

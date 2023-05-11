@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class FilePickerField extends StatefulWidget {
   final Function onChanged;
@@ -35,9 +36,9 @@ class _FilePickerField extends State<FilePickerField> {
           Center(
             child: TextButton(
               onPressed: () => pickFile(),
-              child: const Text(
-                'Selecciona un archivo',
-                style: TextStyle(color: Color.fromARGB(255, 235, 91, 81)),
+              child: const TextView(
+                text: 'Selecciona un archivo',
+                color: Color.fromARGB(255, 235, 91, 81),
               ),
             ),
           ),
@@ -45,10 +46,9 @@ class _FilePickerField extends State<FilePickerField> {
           Center(
             child: TextButton(
               onPressed: () => clearFile(),
-              child: const Text(
-                'Limpiar archivo',
-                style: TextStyle(color: Color.fromARGB(255, 235, 91, 81)),
-              ),
+              child: const TextView(
+                  text: 'Limpiar archivo',
+                  color: Color.fromARGB(255, 235, 91, 81)),
             ),
           ),
         if (!isLoading && _pickedFile != null)

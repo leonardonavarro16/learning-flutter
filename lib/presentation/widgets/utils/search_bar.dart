@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class SearchTextFieldExample extends StatefulWidget {
   const SearchTextFieldExample({super.key});
@@ -25,7 +26,7 @@ class _SearchTextFieldExampleState extends State<SearchTextFieldExample> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(text),
+            TextView(text: text),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: SearchTextField(

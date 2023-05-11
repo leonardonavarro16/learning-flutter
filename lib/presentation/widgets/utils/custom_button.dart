@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -39,10 +40,7 @@ class CustomButton extends StatelessWidget {
           elevation: 0.0,
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        child: TextView(text: text, fontWeight: FontWeight.bold),
       ),
     );
   }

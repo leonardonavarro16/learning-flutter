@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../router/app_router.dart';
 
 class NavBar extends StatelessWidget {
@@ -9,7 +10,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Slut for Cash'),
+      title: const TextView(text: 'Slut for Cash'),
       actions: [
         IconButton(
           onPressed: () {

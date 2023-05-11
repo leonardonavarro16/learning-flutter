@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../router/app_router.dart';
 import '../widgets/layout.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,12 +34,10 @@ class LoginPage extends StatelessWidget {
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      t.registrationLinkText,
-                      style: const TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.white,
-                      ),
+                    child: TextView(
+                      text: t.registrationLinkText,
+                      decoration: TextDecoration.underline,
+                      color: Colors.white,
                     ),
                   ),
                 ),

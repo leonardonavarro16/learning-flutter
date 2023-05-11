@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../forms/advert_form.dart';
 
 class CreateAdvertPage extends StatelessWidget {
@@ -27,14 +28,12 @@ class CreateAdvertPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Nuevo anuncio',
+                  const TextView(
+                    text: 'Nuevo anuncio',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white,
                   ),
                   const SizedBox(height: 16),
                   const AdvertForm(),

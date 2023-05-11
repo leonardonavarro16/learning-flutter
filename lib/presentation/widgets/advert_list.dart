@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
@@ -161,30 +162,25 @@ class _AdvertPreview extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          advert.name,
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                        TextView(
+                          text: advert.name,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
-                        const Text(
-                          'Barranquilla',
-                          style: TextStyle(
-                            color: Color.fromARGB(155, 255, 255, 255),
-                            fontSize: 10,
-                          ),
+                        const TextView(
+                          text: 'Barranquilla',
+                          color: Color.fromARGB(155, 255, 255, 255),
+                          fontSize: 10,
                         ),
                       ],
                     ),
                     Row(
                       children: const [
-                        Text(
-                          '4.5',
-                          style: TextStyle(
-                            color: Color.fromARGB(155, 255, 255, 255),
-                            fontSize: 12,
-                          ),
+                        TextView(
+                          text: '4.5',
+                          color: Color.fromARGB(155, 255, 255, 255),
+                          fontSize: 12,
                         ),
                         SizedBox(width: 2.5),
                         Icon(
@@ -193,20 +189,16 @@ class _AdvertPreview extends StatelessWidget {
                             CupertinoIcons.star_fill),
                       ],
                     ),
-                    Text(
-                      '${advert.age} años',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(155, 255, 255, 255),
-                        fontSize: 10,
-                      ),
+                    TextView(
+                      text: '${advert.age} años',
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(155, 255, 255, 255),
+                      fontSize: 10,
                     ),
-                    const Text(
-                      '24 horas',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
+                    const TextView(
+                      text: '24 horas',
+                      color: Colors.white,
+                      fontSize: 10,
                     ),
                   ],
                 ),
@@ -220,10 +212,10 @@ class _AdvertPreview extends StatelessWidget {
                 const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Text(
-                      style:
-                          const TextStyle(fontSize: 10.5, color: Colors.white),
-                      advert.description,
+                  child: TextView(
+                      text: advert.description,
+                      fontSize: 10.5,
+                      color: Colors.white,
                       textAlign: TextAlign.center),
                 ),
                 const SizedBox(height: 15),
@@ -275,23 +267,19 @@ class _AdvertPreview extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            advert.name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          TextView(
+                            text: advert.name,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                           Row(
                             children: const [
-                              Text(
-                                '4.5',
-                                style: TextStyle(
-                                  color: Color.fromARGB(155, 255, 255, 255),
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              TextView(
+                                text: '4.5',
+                                color: Color.fromARGB(155, 255, 255, 255),
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
                               ),
                               SizedBox(width: 2.5),
                               Icon(
@@ -306,27 +294,21 @@ class _AdvertPreview extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          const Text(
-                            'Barranquilla',
-                            style: TextStyle(
-                              color: Color.fromARGB(155, 255, 255, 255),
-                              fontSize: 10,
-                            ),
+                          const TextView(
+                            text: 'Barranquilla',
+                            color: Color.fromARGB(155, 255, 255, 255),
+                            fontSize: 10,
                           ),
-                          Text(
-                            '${advert.age} años',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 10,
-                            ),
+                          TextView(
+                            text: '${advert.age} años',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 10,
                           ),
-                          const Text(
-                            '24 horas',
-                            style: TextStyle(
-                              color: Color.fromARGB(155, 255, 255, 255),
-                              fontSize: 10,
-                            ),
+                          const TextView(
+                            text: '24 horas',
+                            color: Color.fromARGB(155, 255, 255, 255),
+                            fontSize: 10,
                           ),
                         ],
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class AgeFormField extends StatefulWidget {
   final int minAge;
@@ -40,10 +41,7 @@ class _SliderInputState extends State<AgeFormField> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          widget.label,
-          style: const TextStyle(fontSize: 8, color: Colors.white),
-        ),
+        TextView(text: widget.label, fontSize: 10, color: Colors.white),
         Slider(
           thumbColor: const Color(0xFFFF0000),
           activeColor: const Color.fromARGB(255, 144, 10, 0),

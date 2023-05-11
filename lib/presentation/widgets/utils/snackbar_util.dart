@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class SnackBarUtil {
   static showSnackBar(BuildContext context, String message,
@@ -11,7 +12,7 @@ class SnackBarUtil {
           children: [
             icon ?? const Icon(Icons.error_outline),
             const SizedBox(width: 10),
-            Text(message),
+            TextView(text: message),
           ],
         ),
         action: SnackBarAction(

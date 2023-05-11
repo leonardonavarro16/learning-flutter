@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class ImageCarousel extends StatefulWidget {
   final List<Uint8List> images;
@@ -25,7 +26,7 @@ class _ImageCarousel extends State<ImageCarousel> {
       children: [
         ElevatedButton(
           onPressed: () => _incrementIndex(-1),
-          child: const Text('Prev'),
+          child: const TextView(text: 'Prev'),
         ),
         SizedBox(
           height: 100,
@@ -34,7 +35,7 @@ class _ImageCarousel extends State<ImageCarousel> {
         ),
         ElevatedButton(
           onPressed: () => _incrementIndex(1),
-          child: const Text('Next'),
+          child: const TextView(text: 'Next'),
         )
       ],
     );

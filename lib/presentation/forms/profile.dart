@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
@@ -10,6 +11,7 @@ import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import '../../logic/states/authentication.dart';
@@ -64,13 +66,11 @@ class _ProfileForm extends State<ProfileForm> {
               height: 25,
             ),
             if (isLogged)
-              Text(
-                name ?? '',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
+              TextView(
+                text: '$name',
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
               ),
             const SizedBox(
               height: 25,

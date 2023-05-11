@@ -48,6 +48,7 @@ dependencies:
   searchbar_animation: ^0.0.4
   carousel_slider: ^4.2.1
   dots_indicator: ^3.0.0
+  google_fonts: ^4.0.4
   
   
 dependency_overrides:

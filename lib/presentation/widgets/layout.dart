@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 import '../router/app_router.dart';
 
@@ -72,22 +73,21 @@ class Layout extends StatelessWidget {
                     color: Color.fromARGB(216, 243, 89, 89),
                   ),
                   child: Center(
-                    child: Text(
+                    child: TextView(
+                      text: 'Bienvenido a Sluts for Cash!',
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                       textAlign: TextAlign.center,
-                      'Bienvenido a Sluts for Cash!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 30,
-                      ),
                     ),
                   ),
                 ),
+
                 ListTile(
                   onTap: () {
                     Navigator.pushReplacementNamed(context, Routes.indexPage);
                   },
-                  title: const Text('Listar anuncios'),
+                  title: const TextView(text: 'Listar anuncios'),
                   leading: const Icon(Icons.post_add_outlined),
                   iconColor: Colors.red,
                   textColor: const Color.fromARGB(215, 255, 255, 255),
@@ -98,7 +98,7 @@ class Layout extends StatelessWidget {
                       Navigator.pushReplacementNamed(
                           context, Routes.createAdvertPage);
                     },
-                    title: const Text('Crear anuncio'),
+                    title: const TextView(text: 'Crear anuncio'),
                     leading: const Icon(Icons.announcement_outlined),
                     iconColor: Colors.red,
                     textColor: const Color.fromARGB(215, 255, 255, 255),
@@ -119,7 +119,7 @@ class Layout extends StatelessWidget {
                           context, Routes.editProfile);
                       // Handle onTap for settings
                     },
-                    title: const Text('Editar perfil'),
+                    title: const TextView(text: 'Editar perfil'),
                     leading: const Icon(Icons.settings),
                     iconColor: Colors.red,
                     textColor: const Color.fromARGB(215, 255, 255, 255),
