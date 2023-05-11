@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -46,9 +45,18 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
               childAspectRatio: 1.0,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return Image.memory(
-                _pickedFiles[index],
-                fit: BoxFit.cover,
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(18.5),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(18.5),
+                  child: Image.memory(
+                    _pickedFiles[index],
+                    fit: BoxFit.cover,
+                  ),
+                ),
               );
             },
           ),

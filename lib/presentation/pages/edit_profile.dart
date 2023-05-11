@@ -15,7 +15,7 @@ class EditProfilePage extends StatelessWidget {
             width: constraints.maxWidth * 0.8,
             child: Column(children: const [
               SizedBox(
-                height: 25,
+                height: 35,
               ),
               Text(
                 'Mi perfil',
