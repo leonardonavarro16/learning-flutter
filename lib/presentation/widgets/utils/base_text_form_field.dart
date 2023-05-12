@@ -50,8 +50,8 @@ class _BaseTextFormField extends State<BaseTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    // final double fontSize = MediaQuery.of(context).size.width * 0.02;
-    final double fontSize = 15;
+    final double fontSize = MediaQuery.of(context).size.width * 0.02;
+    // final double fontSize = 15;
 
     return TextFormField(
       style: GoogleFonts.quicksand(),

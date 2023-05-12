@@ -21,7 +21,9 @@ class SwcApp extends StatelessWidget {
       create: (BuildContext context) => AuthenticationCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData(
+          primaryColor: const Color(0xFFFF0000),
+        ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         onGenerateRoute: _appRouter.onGenerateRoute,

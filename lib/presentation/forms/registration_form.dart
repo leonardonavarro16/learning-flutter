@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/user.dart';
@@ -7,6 +6,7 @@ import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/age_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/date_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
@@ -73,6 +73,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 const SizedBox(
                   height: 15,
                 ),
+
+                const DatePickerField(),
+                const SizedBox(height: 30),
                 AgeFormField(onChange: (int value) {
                   setState(() => age = value);
                 }),
