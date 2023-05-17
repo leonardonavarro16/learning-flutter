@@ -73,16 +73,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 const SizedBox(
                   height: 15,
                 ),
-
-                DatePickerField(
-                  onChange: (int val) {
-                    setState(() => age = val);
+                EmailFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => email = valid ? value : null);
                   },
                 ),
-                const SizedBox(height: 30),
-                // AgeFormField(onChange: (int value) {
-                //   setState(() => age = value);
-                // }),
                 const SizedBox(
                   height: 15,
                 ),
@@ -94,10 +90,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 const SizedBox(
                   height: 15,
                 ),
-                EmailFormField(
-                  onFieldSubmitted: (_) => _submitForm(),
-                  onChange: (String? value, bool valid) {
-                    setState(() => email = valid ? value : null);
+
+                DatePickerField(
+                  onChange: (int val) {
+                    setState(() => age = val);
                   },
                 ),
                 const SizedBox(
@@ -152,7 +148,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
         if (state.userStatus == UserStatus.loading) {
           return const CustomIndicatorProgress();
         } else {
-          return CustomButton(text: 'Registrate', onPressed: _submitForm);
+          return CustomButton(text: 'Crear cuenta', onPressed: _submitForm);
         }
       },
     );

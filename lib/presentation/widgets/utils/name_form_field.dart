@@ -17,7 +17,7 @@ class NameFormField extends StatelessWidget {
     return BaseTextFormField(
         fieldValue: initialValue,
         decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.person),
+          // prefixIcon: Icon(Icons.person),
           filled: true,
           fillColor: Colors.white,
           labelText: 'Nombre',

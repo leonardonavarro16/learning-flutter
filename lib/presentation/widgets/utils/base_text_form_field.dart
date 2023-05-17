@@ -62,6 +62,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
       obscureText: widget.obscureText,
       decoration: widget.decoration == null
           ? InputDecoration(
+              iconColor: const Color(0xFFFF0000),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(
                   MediaQuery.of(context).size.width * 0.03,

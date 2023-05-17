@@ -17,7 +17,7 @@ class PhoneFormField extends StatelessWidget {
     return BaseTextFormField(
         fieldValue: initialValue,
         decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.phone_android_outlined),
+            // prefixIcon: Icon(Icons.phone_android_outlined),
             labelText: '(+57) Celular',
             filled: true,
             fillColor: Colors.white),
