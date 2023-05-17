@@ -52,6 +52,20 @@ class _DatePickerState extends State<DatePickerField> {
               ),
             ).copyWith(
               dialogBackgroundColor: const Color.fromARGB(255, 25, 25, 25),
+              textTheme: TextTheme(
+                displayLarge: GoogleFonts.quicksand(),
+                displayMedium: GoogleFonts.quicksand(),
+                displaySmall: GoogleFonts.quicksand(),
+                headlineMedium: GoogleFonts.quicksand(),
+                headlineSmall: GoogleFonts.quicksand(),
+                titleMedium: GoogleFonts.quicksand(),
+                titleSmall: GoogleFonts.quicksand(),
+                bodyLarge: GoogleFonts.quicksand(),
+                bodyMedium: GoogleFonts.quicksand(),
+                bodySmall: GoogleFonts.quicksand(),
+                labelLarge: GoogleFonts.quicksand(),
+                labelSmall: GoogleFonts.quicksand(),
+              ),
               colorScheme: Theme.of(context).colorScheme.copyWith(
                     primary: const Color(0xFFFF0000),
                     surface: const Color(0xFFFF0000),
