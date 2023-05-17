@@ -74,11 +74,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   height: 15,
                 ),
 
-                const DatePickerField(),
+                DatePickerField(
+                  onChange: (int val) {
+                    setState(() => age = val);
+                  },
+                ),
                 const SizedBox(height: 30),
-                AgeFormField(onChange: (int value) {
-                  setState(() => age = value);
-                }),
+                // AgeFormField(onChange: (int value) {
+                //   setState(() => age = value);
+                // }),
                 const SizedBox(
                   height: 15,
                 ),
