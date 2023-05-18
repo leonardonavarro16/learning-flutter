@@ -21,14 +21,15 @@ class CustomButton extends StatelessWidget {
       width: width ?? 140,
       height: height ?? 50,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color(0xFFFF0000),
-          ],
-          begin: Alignment.centerRight,
-          end: Alignment.centerLeft,
-        ),
+        // gradient: const LinearGradient(
+        color:
+            // [
+            // Color.fromARGB(255, 0, 0, 0),
+            const Color(0xFFFF0000),
+        // ],
+        // begin: Alignment.centerRight,
+        // end: Alignment.centerLeft,
+        // ),
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: ElevatedButton(
