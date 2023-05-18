@@ -6,6 +6,7 @@ class AgeFormField extends StatefulWidget {
   final int maxAge;
   final Function onChange;
   final String label;
+  final String? ageToShow;
   final int? initialValue;
 
   const AgeFormField(
@@ -14,7 +15,8 @@ class AgeFormField extends StatefulWidget {
       this.minAge = 18,
       this.maxAge = 65,
       this.label = 'Selecciona tu edad:',
-      this.initialValue});
+      this.initialValue,
+      this.ageToShow});
 
   @override
   State<StatefulWidget> createState() => _SliderInputState();
@@ -41,7 +43,14 @@ class _SliderInputState extends State<AgeFormField> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextView(text: widget.label, fontSize: 10, color: Colors.white),
+        TextView(text: widget.label, fontSize: 12, color: Colors.white),
+        if (widget.ageToShow != null)
+          TextView(
+            text: widget.ageToShow,
+            fontSize: 16,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         Slider(
           thumbColor: const Color(0xFFFF0000),
           activeColor: const Color.fromARGB(255, 144, 10, 0),
@@ -51,7 +60,7 @@ class _SliderInputState extends State<AgeFormField> {
           divisions: widget.maxAge - widget.minAge,
           label: sliderValue.toString(),
           onChanged: _onChange,
-        )
+        ),
       ],
     );
   }

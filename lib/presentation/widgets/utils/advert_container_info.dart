@@ -56,7 +56,7 @@ class AdvertContentInfo extends StatelessWidget {
                         color: Colors.white),
                     TextView(
                       text: location,
-                      color: Color.fromARGB(155, 255, 255, 255),
+                      color: const Color.fromARGB(155, 255, 255, 255),
                       fontSize: 10,
                     ),
                   ],
@@ -65,7 +65,7 @@ class AdvertContentInfo extends StatelessWidget {
                   children: [
                     TextView(
                       text: rate,
-                      color: Color.fromARGB(155, 255, 255, 255),
+                      color: const Color.fromARGB(155, 255, 255, 255),
                       fontSize: 12,
                     ),
                     const SizedBox(width: 2.5),
@@ -78,7 +78,7 @@ class AdvertContentInfo extends StatelessWidget {
                 TextView(
                   text: '${advert.age} años',
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(155, 255, 255, 255),
+                  color: const Color.fromARGB(155, 255, 255, 255),
                   fontSize: 10,
                 ),
                 TextView(
