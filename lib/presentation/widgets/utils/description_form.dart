@@ -23,7 +23,7 @@ class DescriptionFormField extends StatelessWidget {
       maxLines: maxLines,
       minLines: maxLines,
       decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.person_add_alt_outlined),
+          // prefixIcon: Icon(Icons.person_add_alt_outlined),
           border: OutlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding:

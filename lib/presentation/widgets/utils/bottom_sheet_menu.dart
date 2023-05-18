@@ -11,12 +11,14 @@ class AppleMusicBottomSheet extends StatefulWidget {
 
 class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
   int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return BlurryContainer(
-      // elevation: 0,
       borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(35), topRight: Radius.circular(35)),
+        topLeft: Radius.circular(35),
+        topRight: Radius.circular(35),
+      ),
       blur: 20,
       color: const Color.fromRGBO(0, 0, 0, 0.6),
       child: Padding(
@@ -26,13 +28,13 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
           backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
           color: Colors.grey,
           activeColor: const Color(0xFFFF0000),
-          // tabBackgroundColor: const Color(0xFFFF0000),
           padding: const EdgeInsets.all(5),
           gap: 8,
           onTabChange: (index) {
             setState(() {
               _selectedIndex = index;
             });
+
             switch (index) {
               case 0:
                 Navigator.pushNamed(context, Routes.indexPage);
@@ -52,22 +54,18 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
             GButton(
               iconSize: 30,
               icon: CupertinoIcons.house_alt,
-              // text: 'Home',
             ),
             GButton(
               iconSize: 30,
               icon: CupertinoIcons.suit_heart,
-              // text: 'Likes',
             ),
             GButton(
               iconSize: 30,
               icon: CupertinoIcons.square_stack_3d_down_right,
-              // text: 'Search',
             ),
             GButton(
               iconSize: 30,
               icon: CupertinoIcons.person_badge_plus,
-              // text: 'Settings',
             ),
           ],
         ),

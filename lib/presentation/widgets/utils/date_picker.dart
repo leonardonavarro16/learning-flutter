@@ -82,7 +82,7 @@ class _DatePickerState extends State<DatePickerField> {
 
         if (age <= 18) {
           hasError = true;
-          return 'Debes ser mayor a 18';
+          return 'Debes ser mayor a 18 años para registrarte';
         }
 
         hasError = false;
