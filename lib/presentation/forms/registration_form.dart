@@ -30,6 +30,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   String? email;
   String? password;
   String? confirmPassword;
+  DateTime? birthdate;
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +93,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 ),
 
                 DatePickerField(
-                  onChange: (int val) {
-                    setState(() => age = val);
+                  onChange: (int value, DateTime selectedBirthdate) {
+                    _setAge(value);
+                    _setBirthdate(selectedBirthdate);
                   },
                 ),
                 const SizedBox(
@@ -133,6 +135,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
     );
   }
 
+  void _setAge(int value) {
+    setState(() => age = value);
+  }
+
+  void _setBirthdate(DateTime selectedBirthdate) {
+    setState(() => birthdate = selectedBirthdate);
+  }
+
   // bool _canBuildSubmitButton() {
   //   return name != null &&
   //       age != null &&
@@ -160,6 +170,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       age: age!,
       phoneNumber: phoneNumber!,
       email: email!,
+      birthdate: birthdate!,
       // password: confirmPassword!
     );
   }

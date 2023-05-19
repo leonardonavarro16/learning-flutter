@@ -4,6 +4,7 @@ import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/date_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
@@ -27,6 +28,7 @@ class _ProfileForm extends State<ProfileForm> {
   int? age;
   String? phoneNumber;
   String? email;
+  DateTime? birthdate;
 
   @override
   void initState() {
@@ -36,6 +38,7 @@ class _ProfileForm extends State<ProfileForm> {
       age = state.user?.age;
       phoneNumber = state.user?.phoneNumber;
       email = state.user?.email;
+      birthdate = state.user?.birthdate;
     }
     super.initState();
   }
@@ -89,12 +92,13 @@ class _ProfileForm extends State<ProfileForm> {
             const SizedBox(
               height: 15,
             ),
-            AgeFormField(
-                ageToShow: '$age años',
-                initialValue: age,
-                onChange: (int value) {
-                  setState(() => age = value);
-                }),
+            DatePickerField(
+              initialValue: birthdate,
+              onChange: (int value, DateTime selectedBirthdate) {
+                _setFirstState(value);
+                _setSecondState(selectedBirthdate);
+              },
+            ),
             const SizedBox(
               height: 15,
             ),
@@ -120,6 +124,14 @@ class _ProfileForm extends State<ProfileForm> {
             _buildSubmitButton(),
           ],
         ));
+  }
+
+  void _setFirstState(int value) {
+    setState(() => age = value);
+  }
+
+  void _setSecondState(DateTime selectedBirthdate) {
+    setState(() => birthdate = selectedBirthdate);
   }
 
   // bool _canShowSubmitButton() {
@@ -154,6 +166,7 @@ class _ProfileForm extends State<ProfileForm> {
       age: age!,
       phoneNumber: phoneNumber!,
       email: email!,
+      birthdate: birthdate!,
     );
   }
 }

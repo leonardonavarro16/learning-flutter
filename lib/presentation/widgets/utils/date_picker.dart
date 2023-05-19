@@ -4,7 +4,15 @@ import 'package:intl/intl.dart';
 
 class DatePickerField extends StatefulWidget {
   final Function onChange;
-  const DatePickerField({Key? key, required this.onChange}) : super(key: key);
+  final DateTime? initialValue;
+  final String? fieldValue;
+
+  const DatePickerField({
+    Key? key,
+    required this.onChange,
+    this.initialValue,
+    this.fieldValue,
+  }) : super(key: key);
 
   @override
   _DatePickerState createState() => _DatePickerState();
@@ -14,19 +22,24 @@ class _DatePickerState extends State<DatePickerField> {
   final TextEditingController _date = TextEditingController();
   DateTime currentDate = DateTime.now();
   late DateTime dateCenturyAgo;
+  DateTime? pickedDate;
   bool hasError = false;
   DateTime? lastSelectedDate;
+  DateTime? selectedDate;
 
   @override
   void initState() {
     super.initState();
+    _date.text = widget.fieldValue ?? '';
     dateCenturyAgo = currentDate.subtract(
       const Duration(days: 365 * 100),
     );
+    selectedDate = widget.initialValue;
   }
 
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: widget.fieldValue,
       readOnly: true,
       style: GoogleFonts.quicksand(),
       controller: _date,
@@ -62,7 +75,6 @@ class _DatePickerState extends State<DatePickerField> {
           ),
         ),
         labelText: 'Fecha de nacimiento',
-        // icon: const Icon(CupertinoIcons.calendar),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
         ),
@@ -89,9 +101,9 @@ class _DatePickerState extends State<DatePickerField> {
         return null;
       },
       onTap: () async {
-        DateTime? pickedDate = await showDatePicker(
+        pickedDate = await showDatePicker(
           context: context,
-          initialDate: lastSelectedDate ?? currentDate,
+          initialDate: selectedDate ?? currentDate,
           firstDate: dateCenturyAgo,
           lastDate: currentDate,
           builder: (context, child) => Theme(
@@ -132,8 +144,9 @@ class _DatePickerState extends State<DatePickerField> {
         if (pickedDate != null) {
           lastSelectedDate = pickedDate;
           setState(() {
-            _date.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-            widget.onChange(getAge());
+            _date.text = DateFormat('dd-MM-yyyy').format(pickedDate!);
+            int age = getAge();
+            widget.onChange(age, pickedDate!);
           });
         }
       },

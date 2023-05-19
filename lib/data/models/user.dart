@@ -5,15 +5,15 @@ class User {
   int age;
   String phoneNumber;
   String email;
+  DateTime birthdate;
   int? id;
-  Uint8List? avatarImage;
 
   User(
       {required this.name,
       required this.age,
       required this.phoneNumber,
       required this.email,
-      this.avatarImage,
+      required this.birthdate,
       this.id});
 
   static User fromMap(Map<String, dynamic> userData) {
@@ -23,6 +23,7 @@ class User {
       age: userData['age'],
       phoneNumber: userData['phone'],
       email: userData['email'],
+      birthdate: DateTime.parse(userData['birthdate']),
     );
   }
 
@@ -33,6 +34,7 @@ class User {
       'age': age,
       'phone': phoneNumber,
       'email': email,
+      'birthdate': birthdate.toString(),
     };
   }
 }
