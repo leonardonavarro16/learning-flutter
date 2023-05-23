@@ -112,6 +112,21 @@ class _AdvertPreview extends StatelessWidget {
     );
   }
 
+  String formatPhoneNumber(String phoneNumber) {
+    final regex = RegExp(r'^(\d{3})(\d{3})(\d{4})$');
+    final match = regex.firstMatch(phoneNumber);
+
+    if (match != null) {
+      final group1 = match.group(1);
+      final group2 = match.group(2);
+      final group3 = match.group(3);
+
+      return '$group1 $group2 $group3';
+    } else {
+      return phoneNumber;
+    }
+  }
+
   Widget _buildModalOpenedContent(BuildContext context) {
     return Column(
       children: [
@@ -222,7 +237,7 @@ class _AdvertPreview extends StatelessWidget {
                 CustomButton(
                   height: 60,
                   width: 170,
-                  text: 'CONTACTAR',
+                  text: formatPhoneNumber(advert.phoneNumber),
                   onPressed: () {},
                 ),
               ],

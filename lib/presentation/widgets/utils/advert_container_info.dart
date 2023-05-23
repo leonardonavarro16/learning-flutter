@@ -4,7 +4,6 @@ import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
-//todo: Arreglar esta clase para lograr refactorizar el código correspondiente a 'AdvertList'.
 class AdvertContentInfo extends StatelessWidget {
   final Advert advert;
   final String location;
@@ -108,12 +107,27 @@ class AdvertContentInfo extends StatelessWidget {
             CustomButton(
               height: 60,
               width: 170,
-              text: 'CONTACTAR',
+              text: formatPhoneNumber(advert.phoneNumber),
               onPressed: () {},
             ),
           ],
         ),
       ),
     );
+  }
+
+  String formatPhoneNumber(String phoneNumber) {
+    final regex = RegExp(r'^(\d{3})(\d{3})(\d{4})$');
+    final match = regex.firstMatch(phoneNumber);
+
+    if (match != null) {
+      final group1 = match.group(1);
+      final group2 = match.group(2);
+      final group3 = match.group(3);
+
+      return '$group1 $group2 $group3';
+    } else {
+      return phoneNumber;
+    }
   }
 }
