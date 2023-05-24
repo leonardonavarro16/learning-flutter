@@ -1,11 +1,14 @@
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+
 class User {
   String name;
   int age;
   String phoneNumber;
   String email;
   DateTime birthdate;
+  Uint8List? avatarImage;
   int? id;
 
   User(
@@ -14,17 +17,18 @@ class User {
       required this.phoneNumber,
       required this.email,
       required this.birthdate,
+      this.avatarImage,
       this.id});
 
   static User fromMap(Map<String, dynamic> userData) {
     return User(
-      id: userData['id'],
-      name: userData['fullname'],
-      age: userData['age'],
-      phoneNumber: userData['phone'],
-      email: userData['email'],
-      birthdate: DateTime.parse(userData['birthdate']),
-    );
+        id: userData['id'],
+        name: userData['fullname'],
+        age: userData['age'],
+        phoneNumber: userData['phone'],
+        email: userData['email'],
+        birthdate: DateTime.parse(userData['birthdate']),
+        avatarImage: userData['avatarImage']);
   }
 
   Map<String, dynamic> toMap() {
@@ -35,6 +39,7 @@ class User {
       'phone': phoneNumber,
       'email': email,
       'birthdate': birthdate.toString(),
+      'avatarImage': avatarImage,
     };
   }
 }

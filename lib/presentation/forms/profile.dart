@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/user.dart';
@@ -6,6 +9,7 @@ import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/date_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/image_picker_button.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
@@ -29,6 +33,7 @@ class _ProfileForm extends State<ProfileForm> {
   String? phoneNumber;
   String? email;
   DateTime? birthdate;
+  Uint8List? avatarImage;
 
   @override
   void initState() {
@@ -39,6 +44,7 @@ class _ProfileForm extends State<ProfileForm> {
       phoneNumber = state.user?.phoneNumber;
       email = state.user?.email;
       birthdate = state.user?.birthdate;
+      avatarImage = state.user?.avatarImage;
     }
     super.initState();
   }
@@ -76,9 +82,10 @@ class _ProfileForm extends State<ProfileForm> {
             const SizedBox(
               height: 25,
             ),
-            const CircleAvatar(
-              radius: 70,
-              backgroundImage: AssetImage('avatar_preview_two.jpg'),
+            ImagePickerButton(
+              onChanged: (Uint8List? bytes) {
+                setState(() => avatarImage = bytes);
+              },
             ),
             const SizedBox(
               height: 25,
@@ -167,6 +174,7 @@ class _ProfileForm extends State<ProfileForm> {
       phoneNumber: phoneNumber!,
       email: email!,
       birthdate: birthdate!,
+      avatarImage: avatarImage!,
     );
   }
 }
