@@ -35,7 +35,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   String? password;
   String? confirmPassword;
   DateTime? birthdate;
-  Uint8List? avatarImage;
+  Uint8List? image;
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
     ByteData? byteData = await rootBundle.load('user_default1.jpg');
     if (byteData != null) {
       setState(() {
-        avatarImage = byteData.buffer.asUint8List();
+        image = byteData.buffer.asUint8List();
       });
     }
   }
@@ -187,7 +187,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       phoneNumber: phoneNumber!,
       email: email!,
       birthdate: birthdate!,
-      avatarImage: avatarImage!,
+      image: image!,
     );
   }
 

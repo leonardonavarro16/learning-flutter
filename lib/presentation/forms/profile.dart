@@ -33,7 +33,7 @@ class _ProfileForm extends State<ProfileForm> {
   String? phoneNumber;
   String? email;
   DateTime? birthdate;
-  Uint8List? avatarImage;
+  Uint8List? image;
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _ProfileForm extends State<ProfileForm> {
       phoneNumber = state.user?.phoneNumber;
       email = state.user?.email;
       birthdate = state.user?.birthdate;
-      avatarImage = state.user?.avatarImage;
+      image = state.user?.image;
     }
     super.initState();
   }
@@ -84,7 +84,7 @@ class _ProfileForm extends State<ProfileForm> {
             ),
             ImagePickerButton(
               onChanged: (Uint8List? bytes) {
-                setState(() => avatarImage = bytes);
+                setState(() => image = bytes);
               },
             ),
             const SizedBox(
@@ -174,7 +174,7 @@ class _ProfileForm extends State<ProfileForm> {
       phoneNumber: phoneNumber!,
       email: email!,
       birthdate: birthdate!,
-      avatarImage: avatarImage!,
+      image: image!,
     );
   }
 }

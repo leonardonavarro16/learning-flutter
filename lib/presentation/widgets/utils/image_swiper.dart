@@ -19,49 +19,47 @@ class _ImageSliderState extends State<ImageSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: Stack(
-            children: [
-              CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: false,
-                  enlargeCenterPage: true,
-                  aspectRatio: 9 / 16,
-                  viewportFraction: 1,
-                  enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  onPageChanged: (index, _) {
-                    setState(() {
-                      _currentImageIndex = index;
-                    });
-                  },
-                ),
-                items: widget.images
-                    .map(
-                      (image) => Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        child: Image.memory(image, fit: BoxFit.cover),
-                      ),
-                    )
-                    .toList(),
+        Stack(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: false,
+                enlargeCenterPage: true,
+                aspectRatio: 9 / 16,
+                viewportFraction: 1,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                onPageChanged: (index, _) {
+                  setState(() {
+                    _currentImageIndex = index;
+                  });
+                },
               ),
-              Positioned(
-                bottom: 16.0,
-                left: 0.0,
-                right: 0.0,
-                child: DotsIndicator(
-                  dotsCount: widget.images.length,
-                  position: _currentImageIndex,
-                  decorator: DotsDecorator(
-                    activeColor: Colors.white,
-                    activeSize: const Size(7, 7),
-                    color: Colors.grey[400]!,
-                    size: const Size(4, 4),
-                  ),
+              items: widget.images
+                  .map(
+                    (image) => Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: Image.memory(image, fit: BoxFit.cover),
+                    ),
+                  )
+                  .toList(),
+            ),
+            Positioned(
+              bottom: 25,
+              left: 0.0,
+              right: 0.0,
+              child: DotsIndicator(
+                dotsCount: widget.images.length,
+                position: _currentImageIndex,
+                decorator: DotsDecorator(
+                  activeColor: Colors.white,
+                  activeSize: const Size(7, 7),
+                  color: Colors.grey[400]!,
+                  size: const Size(4, 4),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

@@ -29,7 +29,7 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
           width: 150,
           height: 150,
           child: ClipOval(
-            child: Image.memory(_pickedFile!.bytes!),
+            child: Image.asset('user_default1.jpg'),
           ),
         ),
         Positioned(

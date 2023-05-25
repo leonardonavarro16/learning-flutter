@@ -139,7 +139,7 @@ class _AdvertPreview extends StatelessWidget {
           FittedBox(
             fit: BoxFit.cover,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.888,
               width: MediaQuery.of(context).size.width,
               child: ImageSlider(
                 images: advert.images,
@@ -148,11 +148,10 @@ class _AdvertPreview extends StatelessWidget {
           ),
         Positioned(
           bottom: 0,
-          left: 0,
-          right: 0,
+          // left: 0,
+          // right: 0,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.305,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BaseModal extends StatelessWidget {
@@ -21,15 +22,14 @@ class BaseModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.92,
+    return Stack(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: AlertDialog(
             title: title,
+            // todo: change this propertie in order to dont allow to be scrolleable!
             content: SingleChildScrollView(
               child: ListBody(children: children),
             ),
@@ -43,7 +43,25 @@ class BaseModal extends StatelessWidget {
             elevation: 0,
           ),
         ),
-      ),
+        Positioned(
+          top: 16,
+          right: 16,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              CupertinoIcons.xmark_square_fill,
+              shadows: [
+                BoxShadow(
+                    color: Colors.black, offset: Offset(0, 2), blurRadius: 5.0)
+              ],
+              size: 45,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

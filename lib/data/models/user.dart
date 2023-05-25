@@ -8,7 +8,7 @@ class User {
   String phoneNumber;
   String email;
   DateTime birthdate;
-  Uint8List? avatarImage;
+  Uint8List? image;
   int? id;
 
   User(
@@ -17,7 +17,7 @@ class User {
       required this.phoneNumber,
       required this.email,
       required this.birthdate,
-      this.avatarImage,
+      this.image,
       this.id});
 
   static User fromMap(Map<String, dynamic> userData) {
@@ -28,7 +28,7 @@ class User {
         phoneNumber: userData['phone'],
         email: userData['email'],
         birthdate: DateTime.parse(userData['birthdate']),
-        avatarImage: userData['avatarImage']);
+        image: userData['image']);
   }
 
   Map<String, dynamic> toMap() {
@@ -39,7 +39,7 @@ class User {
       'phone': phoneNumber,
       'email': email,
       'birthdate': birthdate.toString(),
-      'avatarImage': avatarImage,
+      'image': image,
     };
   }
 }
