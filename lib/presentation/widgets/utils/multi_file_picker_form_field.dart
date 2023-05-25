@@ -36,31 +36,37 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (_pickedFiles.isNotEmpty)
-          GridView.builder(
-            shrinkWrap: true,
-            itemCount: _pickedFiles.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              mainAxisSpacing: 3,
-              crossAxisSpacing: 3,
-              childAspectRatio: 1.0,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(18.5),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18.5),
-                  child: Image.memory(
-                    _pickedFiles[index],
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            },
+          const TextView(
+            text: 'Fotos del anuncio',
+            color: Colors.white,
+            fontSize: 14,
           ),
+        const SizedBox(height: 15),
+        GridView.builder(
+          shrinkWrap: true,
+          itemCount: _pickedFiles.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 3,
+            crossAxisSpacing: 3,
+            childAspectRatio: 1.0,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18.5),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18.5),
+                child: Image.memory(
+                  _pickedFiles[index],
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+        ),
         if (_pickedFiles.isNotEmpty)
           Column(
             children: [
