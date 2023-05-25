@@ -13,21 +13,21 @@ class CreateAdvertPage extends StatelessWidget {
         return Layout(
           content: Center(
             child: SizedBox(
-              width: constraints.maxWidth * 0.8,
+              width: constraints.maxWidth * 0.65,
               child: ListView(
                 children: [
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 8.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 80,
-                        width: 80,
+                        height: 60,
+                        width: 60,
                         child: Image.asset('gradient_logo_swc.png'),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  // const SizedBox(height: 8),
                   const TextView(
                     text: 'Nuevo anuncio',
                     textAlign: TextAlign.center,

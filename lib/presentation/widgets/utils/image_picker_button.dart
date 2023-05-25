@@ -5,6 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// todo: hay que refactorizar el código -> separar componente de botón y componente de foto de perfil, también aplicarlo en MultiFilePickerField
+
 class ImagePickerButton extends StatefulWidget {
   final Function onChanged;
 
@@ -53,8 +55,16 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
                   ),
                 ],
               ),
-              child:
-                  const Icon(CupertinoIcons.switch_camera, color: Colors.white),
+              child: const Icon(
+                CupertinoIcons.switch_camera,
+                color: Colors.white,
+                shadows: [
+                  BoxShadow(
+                      color: Colors.black,
+                      offset: Offset(0, 2),
+                      blurRadius: 5.0)
+                ],
+              ),
             ),
           ),
         ),

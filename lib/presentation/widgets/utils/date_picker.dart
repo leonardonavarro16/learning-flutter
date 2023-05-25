@@ -118,18 +118,30 @@ class _DatePickerState extends State<DatePickerField> {
             ).copyWith(
               dialogBackgroundColor: const Color.fromARGB(255, 25, 25, 25),
               textTheme: TextTheme(
-                displayLarge: GoogleFonts.quicksand(),
-                displayMedium: GoogleFonts.quicksand(),
-                displaySmall: GoogleFonts.quicksand(),
-                headlineMedium: GoogleFonts.quicksand(),
-                headlineSmall: GoogleFonts.quicksand(),
-                titleMedium: GoogleFonts.quicksand(),
-                titleSmall: GoogleFonts.quicksand(),
-                bodyLarge: GoogleFonts.quicksand(),
-                bodyMedium: GoogleFonts.quicksand(),
-                bodySmall: GoogleFonts.quicksand(),
-                labelLarge: GoogleFonts.quicksand(),
-                labelSmall: GoogleFonts.quicksand(),
+                displayLarge: GoogleFonts.quicksand(), // no aplica
+                displayMedium: GoogleFonts.quicksand(), // no aplica
+                displaySmall: GoogleFonts.quicksand(), // no aplica
+                headlineMedium: GoogleFonts
+                    .quicksand(), // controla: fecha en cabecera, día - mes. mod. 1 y mod. 2
+                headlineSmall: GoogleFonts.quicksand(), // no aplica
+                titleMedium: GoogleFonts.quicksand(
+                    color: Colors.white,
+                    fontSize:
+                        18), // controla: título y fecha seleccionada en mod. 2
+                titleSmall: GoogleFonts
+                    .quicksand(), // Controla: seleccionador de mes y años en mod. 1
+                bodyLarge: GoogleFonts.quicksand(), // no aplica
+                bodyMedium: GoogleFonts.quicksand(), // no aplica
+                bodySmall: GoogleFonts.quicksand(
+                    fontSize:
+                        14), // controla: numeros de fecha del calendario mod. 1
+                labelLarge: GoogleFonts.quicksand(
+                    fontWeight: FontWeight
+                        .bold), // controla: botones de aceptar y cancelar mod. 1 y mod. 2
+                labelSmall: GoogleFonts.quicksand(
+                    fontSize: 16,
+                    fontWeight: FontWeight
+                        .bold), // controla: seleccionar fecha mod. 1 y mod. 2
               ),
               colorScheme: Theme.of(context).colorScheme.copyWith(
                     primary: const Color(0xFFFF0000),
