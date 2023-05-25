@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -19,7 +21,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
   final FilePicker _filePicker = FilePicker.platform;
   FilePickerResult? result;
   bool isLoading = false;
-  int index = 0;
+  int _currentImageIndex = 0;
   final List<Uint8List> _pickedFiles = [];
 
   @override
@@ -42,30 +44,58 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
             fontSize: 14,
           ),
         const SizedBox(height: 15),
-        GridView.builder(
-          shrinkWrap: true,
-          itemCount: _pickedFiles.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            mainAxisSpacing: 3,
-            crossAxisSpacing: 3,
-            childAspectRatio: 1.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18.5),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(18.5),
-                child: Image.memory(
-                  _pickedFiles[index],
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
-          },
+        Stack(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+
+                  // animateToClosest: true,
+                  enableInfiniteScroll: false,
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                  aspectRatio: 1.4,
+                  viewportFraction: 0.5,
+
+                  // enlargeStrategy: CenterPageEnlargeStrategy.height,
+                  onPageChanged: (index, _) {
+                    setState(() {
+                      _currentImageIndex = index;
+                    });
+                  }),
+              items: _pickedFiles.map((image) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18.5),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18.5),
+                    child: Image.memory(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            Positioned(
+              bottom: 25,
+              left: 0.0,
+              right: 0.0,
+              child: _pickedFiles.isNotEmpty
+                  ? DotsIndicator(
+                      dotsCount: _pickedFiles.length,
+                      position: _currentImageIndex,
+                      decorator: DotsDecorator(
+                        activeColor: Colors.white,
+                        activeSize: const Size(7, 7),
+                        color: Colors.grey[400]!,
+                        size: const Size(4, 4),
+                      ),
+                    )
+                  : SizedBox(), // Opcional: Si no hay imágenes seleccionadas, se muestra un SizedBox
+            ),
+          ],
         ),
         if (_pickedFiles.isNotEmpty)
           Column(
@@ -119,7 +149,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
 
   void _removeCurrentImage() {
     setState(() {
-      _pickedFiles.removeAt(index);
+      _pickedFiles.removeAt(_currentImageIndex);
     });
   }
 

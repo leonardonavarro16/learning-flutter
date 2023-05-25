@@ -23,6 +23,7 @@ class _ImageSliderState extends State<ImageSlider> {
           children: [
             CarouselSlider(
               options: CarouselOptions(
+                enableInfiniteScroll: false,
                 autoPlay: false,
                 enlargeCenterPage: true,
                 aspectRatio: 9 / 16,
