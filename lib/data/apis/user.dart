@@ -1,15 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:swc_front/data/apis/base.dart';
-import 'package:http/http.dart';
+import 'package:swc_front/presentation/widgets/utils/map.dart';
 
 class UserAPI extends BaseAPI {
   Future<Map<String, dynamic>> create(Map<String, dynamic> rawUser) async {
-    String body = jsonEncode({'user': rawUser});
-
     final request = http.MultipartRequest(
       'POST',
       Uri.parse('${baseUrl()}/users'),
@@ -40,39 +38,34 @@ class UserAPI extends BaseAPI {
     if (response.statusCode == 201) {
       final responseBody = await response.stream.bytesToString();
 
-      Map<String, dynamic> user = jsonDecode(responseBody);
-      await downloadUserImage(user);
-
-      return user;
+      return jsonDecode(responseBody);
     } else {
       throw Exception('Failed to create user');
     }
   }
 
   Future<Map<String, dynamic>> update(
-      Map<String, dynamic> userFields, String token) async {
-    final Response response = await httpPut(
-      '${baseUrl()}/users/${userFields['id']}',
-      body: jsonEncode({'user': userFields}),
+    Map<String, dynamic> user,
+    String token,
+  ) async {
+    Map<String, dynamic> files = MapUtils.removeKeysAndGetRemoved(user, [
+      'image',
+    ]);
+    Map<String, dynamic> userFields = {"user": user};
+    Map<String, dynamic> userFiles = {"user": files};
+    final response = await formDataPut(
+      "${baseUrl()}/users/${user['id']}",
+      fields: MapUtils.convertMapToStringValues(
+        MapUtils.formatAsFormDataMap(userFields),
+      ),
+      files: MapUtils.formatAsFormDataMap(userFiles),
       token: token,
     );
     if (response.statusCode == 200) {
-      final responseBody = await response.body;
-
-      Map<String, dynamic> user = jsonDecode(responseBody)['user'];
-      print(user);
-      await downloadUserImage(user);
-      return user;
+      final responseBody = await response.stream.bytesToString();
+      return jsonDecode(responseBody)['user'];
     } else {
-      final error = jsonDecode(response.body)['error'];
-      throw Exception(error);
-    }
-  }
-
-  Future<void> downloadUserImage(Map<String, dynamic> rawUser) async {
-    bool downloadImage = rawUser['image'] != null;
-    if (downloadImage) {
-      rawUser['image'] = await getBytesFromUrl(rawUser['image']);
+      throw Exception('Error en la solicitud: ${response.statusCode}');
     }
   }
 }

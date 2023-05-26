@@ -26,9 +26,10 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, AuthenticationState state) {
-        if (state.authenticationStatus == AuthenticationStatus.success) {
+        if (state.authenticationStatus == AuthenticationStatus.successLogin) {
           Navigator.pushReplacementNamed(context, Routes.indexPage);
-        } else if (state.authenticationStatus == AuthenticationStatus.failure) {
+        } else if (state.authenticationStatus ==
+            AuthenticationStatus.failureLogin) {
           String errorMessage =
               state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';
           SnackBarUtil.showSnackBar(
@@ -60,8 +61,7 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 25,
             ),
-            // if (_canBuildSubmitButton())
-            _buildSubmitButton(),
+            if (_canBuildSubmitButton()) _buildSubmitButton(),
             const SizedBox(height: 15)
           ],
         ),
@@ -69,9 +69,9 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  // bool _canBuildSubmitButton() {
-  //   return email != null && password != null;
-  // }
+  bool _canBuildSubmitButton() {
+    return email != null && password != null;
+  }
 
   Widget _buildSubmitButton() {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(

@@ -4,6 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
+import 'package:http_parser/http_parser.dart';
 
 abstract class BaseAPI {
   String baseUrl() {
@@ -41,5 +43,54 @@ abstract class BaseAPI {
     } else {
       throw Exception('Failed to load image');
     }
+  }
+
+  Future<StreamedResponse> formDataPut(
+    String url, {
+    required Map<String, String> fields,
+    String? token,
+    Map<String, dynamic>? files,
+  }) async {
+    final request = MultipartRequest(
+      'PUT',
+      Uri.parse(url),
+    );
+    setRequestData(request, fields: fields, token: token, files: files);
+    var response = await request.send();
+    return response;
+  }
+
+  void setRequestData(
+    request, {
+    required Map<String, String> fields,
+    String? token,
+    Map<String, dynamic>? files,
+  }) {
+    if (token != null) request.headers['Authorization'] = 'Bearer $token';
+    request.fields.addAll(fields);
+    if (files != null) {
+      files.forEach((String key, dynamic value) {
+        if (value is Uint8List) {
+          addFileToFormDataRequest(request, key, value);
+        } else if (value is List<Uint8List>) {
+          for (Uint8List bytes in value) {
+            addFileToFormDataRequest(request, key, bytes);
+          }
+        } else {
+          throw Exception("Invalid file bytes");
+        }
+      });
+    }
+  }
+
+  void addFileToFormDataRequest(request, String key, Uint8List bytes) {
+    final mimeType = lookupMimeType('', headerBytes: bytes);
+    final multipartFile = MultipartFile.fromBytes(
+      key,
+      bytes,
+      filename: 'file',
+      contentType: MediaType.parse(mimeType!),
+    );
+    request.files.add(multipartFile);
   }
 }

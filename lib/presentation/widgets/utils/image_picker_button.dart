@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 
 class ImagePickerButton extends StatefulWidget {
   final Function(Uint8List) onChanged;
@@ -16,11 +16,10 @@ class ImagePickerButton extends StatefulWidget {
 }
 
 class _ImagePickerButtonState extends State<ImagePickerButton> {
-  Uint8List? image;
   final FilePicker _filePicker = FilePicker.platform;
   FilePickerResult? result;
   bool isLoading = false;
-  PlatformFile? _pickedFile;
+  Uint8List? _pickedFile;
 
   @override
   Widget build(BuildContext context) {
@@ -32,56 +31,57 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
               SizedBox(
                 width: 150,
                 height: 150,
-                child: (image != null)
-                    ? Image.memory(image!)
-                    : ((_pickedFile != null)
-                        ? Image.memory(
-                            _pickedFile!.bytes!,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset('user_default1.jpg')),
+                child: (_pickedFile != null)
+                    ? Image.memory(
+                        _pickedFile!,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset('user_default1.jpg'),
               ),
               if (isLoading)
-                const Center(
-                  child: CircularProgressIndicator(),
+                const Positioned.fill(
+                  child: Center(
+                    child: CustomIndicatorProgress(),
+                  ),
                 ),
             ],
           ),
         ),
-        Positioned(
-          bottom: 1,
-          right: 1,
-          child: GestureDetector(
-            onTap: pickFile,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(50),
-                ),
-                color: const Color(0xFFFF0000),
-                boxShadow: [
-                  BoxShadow(
-                    offset: const Offset(2, 4),
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 3,
+        if (!isLoading)
+          Positioned(
+            bottom: 1,
+            right: 1,
+            child: GestureDetector(
+              onTap: pickFile,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
                   ),
-                ],
-              ),
-              child: const Icon(
-                CupertinoIcons.switch_camera,
-                color: Colors.white,
-                shadows: [
-                  BoxShadow(
-                      color: Colors.black,
-                      offset: Offset(0, 2),
-                      blurRadius: 5.0)
-                ],
+                  color: const Color(0xFFFF0000),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(2, 4),
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  CupertinoIcons.switch_camera,
+                  color: Colors.white,
+                  shadows: [
+                    BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(0, 2),
+                        blurRadius: 5.0)
+                  ],
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
@@ -97,9 +97,7 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
       );
 
       if (result != null) {
-        _pickedFile = result!.files.single;
-        // final File file = File(_pickedFile!.path!);
-        // image = await file.readAsBytes();
+        _pickedFile = result!.files.single.bytes;
         // widget.onChanged(image!);
       }
 

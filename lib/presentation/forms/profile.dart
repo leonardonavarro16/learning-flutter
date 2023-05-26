@@ -38,7 +38,7 @@ class _ProfileForm extends State<ProfileForm> {
   @override
   void initState() {
     AuthenticationState state = context.read<AuthenticationCubit>().state;
-    if (state.authenticationStatus == AuthenticationStatus.success) {
+    if (state.isLoggedIn()) {
       name = state.user?.name;
       age = state.user?.age;
       phoneNumber = state.user?.phoneNumber;

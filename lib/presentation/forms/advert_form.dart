@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
@@ -36,10 +35,10 @@ class _AdvertForm extends State<AdvertForm> {
   @override
   void initState() {
     AuthenticationState state = context.read<AuthenticationCubit>().state;
-    if (state.authenticationStatus == AuthenticationStatus.success) {
-      name = state.user?.name;
-      age = state.user?.age;
-      phoneNumber = state.user?.phoneNumber;
+    if (state.isLoggedIn()) {
+      name = state.user!.name;
+      age = state.user!.age;
+      phoneNumber = state.user!.phoneNumber;
     }
     super.initState();
   }

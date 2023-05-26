@@ -1,6 +1,6 @@
 import 'package:swc_front/data/models/user.dart';
 
-enum AuthenticationStatus { initial, loading, success, failure }
+enum AuthenticationStatus { initial, loading, successLogin, failureLogin }
 
 class AuthenticationState {
   final User? user;
@@ -33,5 +33,9 @@ class AuthenticationState {
         error: error ?? this.error,
         authenticationStatus: authenticationStatus ?? this.authenticationStatus,
         token: token ?? this.token);
+  }
+
+  bool isLoggedIn() {
+    return user != null && token != null;
   }
 }

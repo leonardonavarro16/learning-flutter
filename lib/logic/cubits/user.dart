@@ -23,8 +23,8 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> update(User updatedUser, String token) async {
     emit(state.copyWith(userStatus: UserStatus.loading));
+    User user = await _userRepository.updateUser(updatedUser, token);
     try {
-      User user = await _userRepository.updateUser(updatedUser, token);
       emit(state.copyWith(userStatus: UserStatus.success, user: user));
     } catch (error) {
       emit(state.copyWith(
