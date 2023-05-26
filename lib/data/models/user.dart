@@ -28,7 +28,7 @@ class User {
         phoneNumber: userData['phone'],
         email: userData['email'],
         birthdate: DateTime.parse(userData['birthdate']),
-        image: userData['image']);
+        image: userData['image']); //.cast<Uint8List>());
   }
 
   Map<String, dynamic> toMap() {

@@ -54,7 +54,8 @@ class _BaseTextFormField extends State<BaseTextFormField> {
     // final double fontSize = 15;
 
     return TextFormField(
-      style: GoogleFonts.quicksand(),
+      // style: GoogleFonts.quicksand(),
+      style: const TextStyle(fontFamily: 'SanFrancisco'),
       maxLines: widget.maxLines,
       minLines: widget.minLines,
       controller: _controller,

@@ -41,7 +41,8 @@ class _DatePickerState extends State<DatePickerField> {
     return TextFormField(
       initialValue: widget.fieldValue,
       readOnly: true,
-      style: GoogleFonts.quicksand(),
+      // style: GoogleFonts.quicksand(),
+      style: const TextStyle(fontFamily: 'SanFrancisco'),
       controller: _date,
       decoration: InputDecoration(
         filled: true,
@@ -117,31 +118,41 @@ class _DatePickerState extends State<DatePickerField> {
               ),
             ).copyWith(
               dialogBackgroundColor: const Color.fromARGB(255, 25, 25, 25),
-              textTheme: TextTheme(
-                displayLarge: GoogleFonts.quicksand(), // no aplica
-                displayMedium: GoogleFonts.quicksand(), // no aplica
-                displaySmall: GoogleFonts.quicksand(), // no aplica
-                headlineMedium: GoogleFonts
-                    .quicksand(), // controla: fecha en cabecera, día - mes. mod. 1 y mod. 2
-                headlineSmall: GoogleFonts.quicksand(), // no aplica
-                titleMedium: GoogleFonts.quicksand(
-                    color: Colors.white,
-                    fontSize:
-                        18), // controla: título y fecha seleccionada en mod. 2
-                titleSmall: GoogleFonts
-                    .quicksand(), // Controla: seleccionador de mes y años en mod. 1
-                bodyLarge: GoogleFonts.quicksand(), // no aplica
-                bodyMedium: GoogleFonts.quicksand(), // no aplica
-                bodySmall: GoogleFonts.quicksand(
-                    fontSize:
-                        14), // controla: numeros de fecha del calendario mod. 1
-                labelLarge: GoogleFonts.quicksand(
-                    fontWeight: FontWeight
-                        .bold), // controla: botones de aceptar y cancelar mod. 1 y mod. 2
-                labelSmall: GoogleFonts.quicksand(
-                    fontSize: 16,
-                    fontWeight: FontWeight
-                        .bold), // controla: seleccionar fecha mod. 1 y mod. 2
+              textTheme: const TextTheme(
+                displayLarge:
+                    TextStyle(fontFamily: 'SanFrancisco'), // no aplica
+                displayMedium:
+                    TextStyle(fontFamily: 'SanFrancisco'), // no aplica
+                displaySmall:
+                    TextStyle(fontFamily: 'SanFrancisco'), // no aplica
+                headlineMedium: TextStyle(
+                    fontFamily:
+                        'SanFrancisco'), // controla: fecha en cabecera, día - mes. mod. 1 y mod. 2
+                headlineSmall:
+                    TextStyle(fontFamily: 'SanFrancisco'), // no aplica
+                titleMedium: TextStyle(
+                  fontFamily: 'SanFrancisco',
+                  color: Colors.white,
+                  fontSize: 18,
+                ), // controla: título y fecha seleccionada en mod. 2
+                titleSmall: TextStyle(
+                    fontFamily:
+                        'SanFrancisco'), // Controla: seleccionador de mes y años en mod. 1
+                bodyLarge: TextStyle(fontFamily: 'SanFrancisco'), // no aplica
+                bodyMedium: TextStyle(fontFamily: 'SanFrancisco'), // no aplica
+                bodySmall: TextStyle(
+                  fontFamily: 'SanFrancisco',
+                  fontSize: 14,
+                ), // controla: numeros de fecha del calendario mod. 1
+                labelLarge: TextStyle(
+                  fontFamily: 'SanFrancisco',
+                  fontWeight: FontWeight.bold,
+                ), // controla: botones de aceptar y cancelar mod. 1 y mod. 2
+                labelSmall: TextStyle(
+                  fontFamily: 'SanFrancisco',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ), // controla: seleccionar fecha mod. 1 y mod. 2
               ),
               colorScheme: Theme.of(context).colorScheme.copyWith(
                     primary: const Color(0xFFFF0000),

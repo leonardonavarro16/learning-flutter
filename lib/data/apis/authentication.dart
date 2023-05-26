@@ -12,10 +12,21 @@ class AuthenticationAPI extends BaseAPI {
     );
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      Map<String, dynamic> loginInfo = jsonDecode(response.body);
+      await downloadUserImage(loginInfo);
+
+      return loginInfo;
     } else {
       final error = jsonDecode(response.body)['error'];
       throw Exception(error);
+    }
+  }
+
+  Future<void> downloadUserImage(Map<String, dynamic> rawUser) async {
+    bool downloadImage = rawUser['user']['image'] != null;
+    if (downloadImage) {
+      rawUser['user']['image'] =
+          await getBytesFromUrl(rawUser['user']['image']);
     }
   }
 }

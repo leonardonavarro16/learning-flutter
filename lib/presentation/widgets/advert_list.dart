@@ -223,12 +223,11 @@ class _AdvertPreview extends StatelessWidget {
                   indent: 35,
                   endIndent: 25,
                 ),
-                const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  padding: const EdgeInsets.only(left: 30, right: 30),
                   child: TextView(
                       text: advert.description,
-                      fontSize: 10.5,
+                      fontSize: 12,
                       color: Colors.white,
                       textAlign: TextAlign.center),
                 ),

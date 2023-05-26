@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   const SearchAppBar({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: _isExpanded ? null : const Text('My App'),
+      title: _isExpanded ? null : const TextView(text: 'My app'),
       leading: IconButton(
         icon: const Icon(Icons.search),
         onPressed: _toggleSearchBar,

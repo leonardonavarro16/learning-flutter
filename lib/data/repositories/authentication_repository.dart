@@ -7,6 +7,7 @@ class AuthenticationRepository {
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     Map<String, dynamic> response = await _api.login(email, password);
+    print(response['user']);
     return {
       'token': response['token'],
       'user': User.fromMap(response['user']),

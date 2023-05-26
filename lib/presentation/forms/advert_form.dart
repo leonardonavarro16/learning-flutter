@@ -51,14 +51,14 @@ class _AdvertForm extends State<AdvertForm> {
       child: Column(
         children: [
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           MultiFilePickerField(
             onChanged: (List<Uint8List>? bytes) {
               setState(() => imageBytes = bytes);
             },
           ),
-          const SizedBox(height: 15),
+          // const SizedBox(height: 10),
           NameFormField(
             onFieldSubmitted: (_) => _submitForm(),
             initialValue: name,
@@ -67,7 +67,7 @@ class _AdvertForm extends State<AdvertForm> {
             },
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           AgeFormField(
             ageToShow: '$age años',
@@ -77,7 +77,7 @@ class _AdvertForm extends State<AdvertForm> {
             },
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           PhoneFormField(
             onFieldSubmitted: (_) => _submitForm(),
@@ -87,7 +87,7 @@ class _AdvertForm extends State<AdvertForm> {
             },
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           DescriptionFormField(
             onFieldSubmitted: (_) => _submitForm(),
@@ -99,7 +99,7 @@ class _AdvertForm extends State<AdvertForm> {
             },
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           if (_canShowSubmitButton())
             BlocConsumer<AdvertsCubit, AdvertsState>(

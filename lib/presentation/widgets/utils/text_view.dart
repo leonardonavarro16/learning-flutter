@@ -8,6 +8,7 @@ class TextView extends StatelessWidget {
   final double? fontSize;
   final TextAlign? textAlign;
   final TextDecoration? decoration;
+  final String? fontFamily;
   const TextView({
     super.key,
     required this.text,
@@ -16,6 +17,7 @@ class TextView extends StatelessWidget {
     this.fontWeight,
     this.textAlign,
     this.decoration,
+    this.fontFamily = 'SanFrancisco',
   });
 
   @override
@@ -23,7 +25,8 @@ class TextView extends StatelessWidget {
     return Text(
       '$text',
       textAlign: textAlign,
-      style: GoogleFonts.quicksand(
+      style: TextStyle(
+        fontFamily: fontFamily,
         color: color,
         fontWeight: fontWeight,
         fontSize: fontSize,

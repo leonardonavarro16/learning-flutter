@@ -15,13 +15,6 @@ class UserAPI extends BaseAPI {
       Uri.parse('${baseUrl()}/users'),
     );
 
-    print(rawUser['fullname']);
-    print(rawUser['email']);
-    print(rawUser['phone']);
-    print(rawUser['birthdate']);
-    print(rawUser['password']);
-    print(rawUser['age']);
-
     request.fields.addAll({
       'user[email]': rawUser['email'],
       'user[phone]': rawUser['phone'],
@@ -46,10 +39,10 @@ class UserAPI extends BaseAPI {
 
     if (response.statusCode == 201) {
       final responseBody = await response.stream.bytesToString();
-      print(responseBody);
+
       Map<String, dynamic> user = jsonDecode(responseBody);
       await downloadUserImage(user);
-      print(user);
+
       return user;
     } else {
       throw Exception('Failed to create user');

@@ -110,13 +110,11 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                 child: Column(
                   children: [
                     _buildSelectFileBtn(),
-                    const SizedBox(height: 5),
                     TextButton(
                       onPressed: () => cleanFiles(),
                       child: const TextView(
                           text: 'Limpiar selección', color: Colors.red),
                     ),
-                    const SizedBox(height: 5),
                     TextButton(
                       onPressed: () => _removeCurrentImage(),
                       child: const TextView(

@@ -13,7 +13,7 @@ class UserCubit extends Cubit<UserState> {
 
     try {
       User newUser = await _userRepository.create(user, password);
-      print(newUser);
+
       emit(state.copyWith(userStatus: UserStatus.success, user: newUser));
     } catch (error) {
       emit(state.copyWith(
