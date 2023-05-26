@@ -45,7 +45,7 @@ class _ImageSliderState extends State<ImageSlider> {
                   .toList(),
             ),
             Positioned(
-              bottom: 25,
+              bottom: 135,
               left: 0.0,
               right: 0.0,
               child: DotsIndicator(

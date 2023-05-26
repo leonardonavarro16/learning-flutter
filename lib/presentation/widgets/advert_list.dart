@@ -128,38 +128,48 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   Widget _buildModalOpenedContent(BuildContext context) {
-    return Column(
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Stack(
       children: [
-        if (advert.images.length == 1)
-          FittedBox(
-            fit: BoxFit.cover,
-            child: Image.memory(advert.images.first, fit: BoxFit.cover),
-          ),
-        if (advert.images.length > 1)
-          FittedBox(
-            fit: BoxFit.cover,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.888,
-              width: MediaQuery.of(context).size.width,
-              child: ImageSlider(
-                images: advert.images,
+        Column(
+          children: [
+            if (advert.images.length == 1)
+              SizedBox(
+                height: screenHeight,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    Image.memory(advert.images.first, fit: BoxFit.cover),
+                  ],
+                ),
               ),
-            ),
-          ),
+            if (advert.images.length > 1)
+              FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: ImageSlider(
+                    images: advert.images,
+                  ),
+                ),
+              ),
+          ],
+        ),
         Positioned(
           bottom: 0,
-          // left: 0,
-          // right: 0,
+          left: 0,
+          right: 0,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.305,
+            height: screenHeight * 0.33,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
+                topLeft: Radius.circular(35),
+                topRight: Radius.circular(35),
               ),
               gradient: LinearGradient(
                 colors: [
-                  Colors.black,
+                  Color.fromARGB(255, 22, 0, 0),
                   Color(0xFFFF0000),
                 ],
                 begin: Alignment.center,
@@ -169,73 +179,84 @@ class _AdvertPreview extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                Row(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextView(
-                          text: advert.name,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        const TextView(
-                          text: 'Barranquilla',
-                          color: Color.fromARGB(155, 255, 255, 255),
-                          fontSize: 10,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: const [
-                        TextView(
-                          text: '4.5',
-                          color: Color.fromARGB(155, 255, 255, 255),
-                          fontSize: 12,
-                        ),
-                        SizedBox(width: 2.5),
-                        Icon(
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextView(
+                            text: advert.name,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          const TextView(
+                            text: 'Barranquilla',
+                            color: Color.fromARGB(155, 255, 255, 255),
+                            fontSize: 10,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: const [
+                          TextView(
+                            text: '4.5',
+                            color: Color.fromARGB(155, 255, 255, 255),
+                            fontSize: 12,
+                          ),
+                          SizedBox(width: 2.5),
+                          Icon(
                             color: Colors.yellow,
                             size: 10,
-                            CupertinoIcons.star_fill),
-                      ],
-                    ),
-                    TextView(
-                      text: '${advert.age} años',
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(155, 255, 255, 255),
-                      fontSize: 10,
-                    ),
-                    const TextView(
-                      text: '24 horas',
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-                  ],
+                            CupertinoIcons.star_fill,
+                          ),
+                        ],
+                      ),
+                      TextView(
+                        text: '${advert.age} años',
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(155, 255, 255, 255),
+                        fontSize: 10,
+                      ),
+                      const TextView(
+                        text: '24 horas',
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ],
+                  ),
                 ),
                 const Divider(
-                  color: Color.fromARGB(155, 255, 255, 255), //color of divider
+                  color: Color.fromARGB(155, 255, 255, 255),
                   height: 10,
                   thickness: 1,
                   indent: 35,
                   endIndent: 25,
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                    left: 35,
+                    right: 35,
+                    bottom: 15,
+                  ),
                   child: TextView(
-                      text: advert.description,
-                      fontSize: 12,
-                      color: Colors.white,
-                      textAlign: TextAlign.center),
+                    text: advert.description,
+                    fontSize: 12,
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const SizedBox(height: 15),
                 CustomButton(
-                  height: 60,
-                  width: 170,
                   text: formatPhoneNumber(advert.phoneNumber),
+                  borderRadius: 15,
+                  fontSize: 20,
+                  height: 55,
+                  width: 250,
                   onPressed: () {},
                 ),
               ],
