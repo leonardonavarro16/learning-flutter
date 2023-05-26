@@ -57,7 +57,12 @@ class UserAPI extends BaseAPI {
       token: token,
     );
     if (response.statusCode == 200) {
-      return jsonDecode(response.body)['user'];
+      final responseBody = await response.body;
+
+      Map<String, dynamic> user = jsonDecode(responseBody)['user'];
+      print(user);
+      await downloadUserImage(user);
+      return user;
     } else {
       final error = jsonDecode(response.body)['error'];
       throw Exception(error);

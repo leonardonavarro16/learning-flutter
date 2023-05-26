@@ -5,10 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// todo: hay que refactorizar el código -> separar componente de botón y componente de foto de perfil, también aplicarlo en MultiFilePickerField
-
 class ImagePickerButton extends StatefulWidget {
-  final Function onChanged;
+  final Function(Uint8List) onChanged;
 
   const ImagePickerButton({Key? key, required this.onChanged})
       : super(key: key);
@@ -18,6 +16,7 @@ class ImagePickerButton extends StatefulWidget {
 }
 
 class _ImagePickerButtonState extends State<ImagePickerButton> {
+  Uint8List? image;
   final FilePicker _filePicker = FilePicker.platform;
   FilePickerResult? result;
   bool isLoading = false;
@@ -27,11 +26,26 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          width: 150,
-          height: 150,
-          child: ClipOval(
-            child: Image.asset('user_default1.jpg'),
+        ClipOval(
+          child: Stack(
+            children: [
+              SizedBox(
+                width: 150,
+                height: 150,
+                child: (image != null)
+                    ? Image.memory(image!)
+                    : ((_pickedFile != null)
+                        ? Image.memory(
+                            _pickedFile!.bytes!,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset('user_default1.jpg')),
+              ),
+              if (isLoading)
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+            ],
           ),
         ),
         Positioned(
@@ -84,7 +98,9 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
 
       if (result != null) {
         _pickedFile = result!.files.single;
-        widget.onChanged(_pickedFile!.bytes!);
+        // final File file = File(_pickedFile!.path!);
+        // image = await file.readAsBytes();
+        // widget.onChanged(image!);
       }
 
       setState(() {

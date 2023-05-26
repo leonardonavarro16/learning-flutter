@@ -53,84 +53,85 @@ class _ProfileForm extends State<ProfileForm> {
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     return BlocListener<UserCubit, UserState>(
-        listener: (BuildContext context, UserState state) {
-          if (state.userStatus == UserStatus.success) {
-            context.read<AuthenticationCubit>().setUser(state.user!);
-            Navigator.pushReplacementNamed(context, Routes.indexPage);
-          } else if (state.userStatus == UserStatus.failure) {
-            String errorMessage =
-                state.error ?? 'Ocurrió un error al actualizar el usuario';
-            SnackBarUtil.showSnackBar(
-                context,
-                icon: const Icon(Icons.error_outline),
-                backgroundColor: Colors.red,
-                errorMessage);
-          }
-        },
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 25,
+      listener: (BuildContext context, UserState state) {
+        if (state.userStatus == UserStatus.success) {
+          context.read<AuthenticationCubit>().setUser(state.user!);
+          Navigator.pushReplacementNamed(context, Routes.indexPage);
+        } else if (state.userStatus == UserStatus.failure) {
+          String errorMessage =
+              state.error ?? 'Ocurrió un error al actualizar el usuario';
+          SnackBarUtil.showSnackBar(
+              context,
+              icon: const Icon(Icons.error_outline),
+              backgroundColor: Colors.red,
+              errorMessage);
+        }
+      },
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 25,
+          ),
+          if (isLogged)
+            TextView(
+              text: '$name',
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
             ),
-            if (isLogged)
-              TextView(
-                text: '$name',
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            const SizedBox(
-              height: 25,
-            ),
-            ImagePickerButton(
-              onChanged: (Uint8List? bytes) {
-                setState(() => image = bytes);
-              },
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            NameFormField(
-              initialValue: name,
-              onChange: (String? value, bool valid) {
-                setState(() => name = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            DatePickerField(
-              initialValue: birthdate,
-              onChange: (int value, DateTime selectedBirthdate) {
-                _setFirstState(value);
-                _setSecondState(selectedBirthdate);
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            PhoneFormField(
-              initialValue: phoneNumber,
-              onChange: (String? value, bool valid) {
-                setState(() => phoneNumber = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            EmailFormField(
-              initialValue: email,
-              onChange: (String? value, bool valid) {
-                setState(() => email = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            // if (_canShowSubmitButton())
-            _buildSubmitButton(),
-          ],
-        ));
+          const SizedBox(
+            height: 25,
+          ),
+          ImagePickerButton(
+            onChanged: (Uint8List? bytes) {
+              setState(() => image = bytes);
+            },
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          NameFormField(
+            initialValue: name,
+            onChange: (String? value, bool valid) {
+              setState(() => name = valid ? value : null);
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          DatePickerField(
+            initialValue: birthdate,
+            onChange: (int value, DateTime selectedBirthdate) {
+              _setFirstState(value);
+              _setSecondState(selectedBirthdate);
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          PhoneFormField(
+            initialValue: phoneNumber,
+            onChange: (String? value, bool valid) {
+              setState(() => phoneNumber = valid ? value : null);
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          EmailFormField(
+            initialValue: email,
+            onChange: (String? value, bool valid) {
+              setState(() => email = valid ? value : null);
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // if (_canShowSubmitButton())
+          _buildSubmitButton(),
+        ],
+      ),
+    );
   }
 
   void _setFirstState(int value) {
