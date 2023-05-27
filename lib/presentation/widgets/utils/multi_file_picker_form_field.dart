@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'image_carousel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MultiFilePickerField extends StatefulWidget {
   final void Function(List<Uint8List>) onChanged;
@@ -34,13 +35,15 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
   @override
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     if (isLoading) return const CustomIndicatorProgress();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (_pickedFiles.isNotEmpty)
-          const TextView(
-            text: 'Fotos del anuncio',
+          TextView(
+            text: t.advertPicturesTitleLinkText,
             color: Colors.white,
             fontSize: 14,
           ),
@@ -112,13 +115,14 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                     _buildSelectFileBtn(),
                     TextButton(
                       onPressed: () => cleanFiles(),
-                      child: const TextView(
-                          text: 'Limpiar selección', color: Colors.red),
+                      child: TextView(
+                          text: t.clearFileButtonLinkText, color: Colors.red),
                     ),
                     TextButton(
                       onPressed: () => _removeCurrentImage(),
-                      child: const TextView(
-                          text: 'Borrar esta imagen', color: Colors.red),
+                      child: TextView(
+                          text: t.deleteThisImageButtonLinkText,
+                          color: Colors.red),
                     ),
                   ],
                 ),

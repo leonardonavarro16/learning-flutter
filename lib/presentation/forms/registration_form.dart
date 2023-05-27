@@ -18,6 +18,7 @@ import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import '../../logic/cubits/authentication_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({Key? key}) : super(key: key);
@@ -54,6 +55,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BlocListener<UserCubit, UserState>(
       listener: (BuildContext context, UserState state) {
         if (state.userStatus == UserStatus.success) {
@@ -135,11 +138,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   ),
                   PasswordFormField(
                     onFieldSubmitted: (_) => _submitForm(),
-                    labelText: 'Confirmar contraseña',
-                    emptyMessage: 'ingrese su contraseña de confirmacion',
+                    labelText: t.confirmPasswordLinkText,
+                    emptyMessage: t.enterConfirmPasswordLinkText,
                     additionalValidator: (String? value) {
                       if (value != password) {
-                        return 'La contraseña no coincide ';
+                        return t.passwordDoesNotMatchLinkText;
                       }
                       return null;
                     },
@@ -169,12 +172,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   Widget _buildSubmitButton() {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BlocBuilder<UserCubit, UserState>(
       builder: (BuildContext context, UserState state) {
         if (state.userStatus == UserStatus.loading) {
           return const CustomIndicatorProgress();
         } else {
-          return CustomButton(text: 'Crear cuenta', onPressed: _submitForm);
+          return CustomButton(
+              text: t.createUserButtonLinkText, onPressed: _submitForm);
         }
       },
     );

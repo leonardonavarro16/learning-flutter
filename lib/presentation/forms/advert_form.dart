@@ -10,6 +10,8 @@ import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';
 import '../router/app_router.dart';
@@ -45,6 +47,8 @@ class _AdvertForm extends State<AdvertForm> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return Form(
       key: _formKey,
       child: Column(
@@ -118,7 +122,7 @@ class _AdvertForm extends State<AdvertForm> {
                   icon: const Icon(Icons.person_off_outlined),
                   backgroundColor: Colors.green,
                   textColor: Colors.black,
-                  'El anuncio ha sido creado exitosamente!',
+                  t.createdSuccessfullAdvertLinkText,
                 );
                 Navigator.pushReplacementNamed(context, Routes.indexPage);
               }
@@ -144,8 +148,10 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Widget _buildSubmitButton() {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return CustomButton(
-      text: 'Enviar',
+      text: t.sendButtonLinkText,
       onPressed: () {
         Advert advert = _buildAdvert();
         String? token = context.read<AuthenticationCubit>().state.token;

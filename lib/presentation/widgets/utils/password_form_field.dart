@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'base_text_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PasswordFormField extends StatelessWidget {
   final void Function(String? value, bool valid) onChange;
@@ -20,16 +21,18 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       decoration: InputDecoration(
-        labelText: labelText ?? 'Contraseña',
+        labelText: labelText ?? t.passwordLinkText,
         filled: true,
         fillColor: Colors.white,
       ),
       obscureText: true,
       validator: (String? value) {
         if (value == null || value.isEmpty) {
-          return emptyMessage ?? 'ingrese su contraseña';
+          return emptyMessage ?? t.enterPasswordLinkText;
         }
         if (additionalValidator != null) return additionalValidator!(value);
         return null;

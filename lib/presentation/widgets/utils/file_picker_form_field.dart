@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FilePickerField extends StatefulWidget {
   final Function onChanged;
@@ -28,6 +29,8 @@ class _FilePickerField extends State<FilePickerField> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -36,9 +39,9 @@ class _FilePickerField extends State<FilePickerField> {
           Center(
             child: TextButton(
               onPressed: () => pickFile(),
-              child: const TextView(
-                text: 'Selecciona un archivo',
-                color: Color.fromARGB(255, 235, 91, 81),
+              child: TextView(
+                text: t.selectFileButtonLinkText,
+                color: const Color.fromARGB(255, 235, 91, 81),
               ),
             ),
           ),
@@ -46,9 +49,9 @@ class _FilePickerField extends State<FilePickerField> {
           Center(
             child: TextButton(
               onPressed: () => clearFile(),
-              child: const TextView(
-                  text: 'Limpiar archivo',
-                  color: Color.fromARGB(255, 235, 91, 81)),
+              child: TextView(
+                  text: t.clearFileButtonLinkText,
+                  color: const Color.fromARGB(255, 235, 91, 81)),
             ),
           ),
         if (!isLoading && _pickedFile != null)

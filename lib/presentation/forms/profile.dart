@@ -19,6 +19,7 @@ import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import '../../logic/states/authentication.dart';
 import '../widgets/utils/age_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({super.key});
@@ -147,13 +148,16 @@ class _ProfileForm extends State<ProfileForm> {
   // }
 
   Widget _buildSubmitButton() {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
+
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
         builder: (BuildContext context, AuthenticationState state) {
       if (state.authenticationStatus == AuthenticationStatus.loading) {
         return const CustomIndicatorProgress();
       } else {
         return CustomButton(
-          text: 'Editar',
+          text: t.editButtonLinkText,
           onPressed: () {
             User user = _buildUser();
             String token =

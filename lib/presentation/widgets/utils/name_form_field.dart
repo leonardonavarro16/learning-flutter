@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NameFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
@@ -14,24 +15,26 @@ class NameFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
         fieldValue: initialValue,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           // prefixIcon: Icon(Icons.person),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'Nombre',
+          labelText: t.nameLinkText,
         ),
         onChange: onChange,
         onFieldSubmitted: onFieldSubmitted,
         validator: (String? value) {
           if (value == null || value.isEmpty) {
-            return 'Ingrese su nombre completo';
+            return t.nameValidCompleteLinkText;
           }
           final nameRegExp = RegExp(
               r"^\s*([A-Za-z][A-Za-zñÑ]*(?:\s+[A-Za-z][A-Za-zñÑ]*)*\.?\s*)$");
           if (!nameRegExp.hasMatch(value)) {
-            return 'Ingrese un nombre válido';
+            return t.nameValidLinkText;
           }
           return null;
         });

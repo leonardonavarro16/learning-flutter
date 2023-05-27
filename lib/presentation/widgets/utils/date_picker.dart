@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DatePickerField extends StatefulWidget {
   final Function onChange;
@@ -38,6 +39,8 @@ class _DatePickerState extends State<DatePickerField> {
   }
 
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return TextFormField(
       initialValue: widget.fieldValue,
       readOnly: true,
@@ -75,14 +78,14 @@ class _DatePickerState extends State<DatePickerField> {
             color: Color(0xFFFF0000),
           ),
         ),
-        labelText: 'Fecha de nacimiento',
+        labelText: t.birthdateLabelLinkText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
         ),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Ingrese su fecha de nacimiento';
+          return t.enterBirthdateLinkText;
         }
 
         final birthday = DateFormat('dd-MM-yyyy').parse(value);
@@ -95,7 +98,7 @@ class _DatePickerState extends State<DatePickerField> {
 
         if (age <= 18) {
           hasError = true;
-          return 'Debes ser mayor a 18 años para registrarte';
+          return t.mustBeOlderErrorLinkText;
         }
 
         hasError = false;

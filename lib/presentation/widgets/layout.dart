@@ -5,6 +5,7 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_menu.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../router/app_router.dart';
 
@@ -14,6 +15,8 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
 
     return LayoutBuilder(
@@ -69,13 +72,13 @@ class Layout extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                const DrawerHeader(
-                  decoration: BoxDecoration(
+                DrawerHeader(
+                  decoration: const BoxDecoration(
                     color: Color.fromARGB(216, 243, 89, 89),
                   ),
                   child: Center(
                     child: TextView(
-                      text: 'Bienvenido a Sluts for Cash!',
+                      text: t.welcomeTitleLinkText,
                       color: Colors.black,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -88,7 +91,7 @@ class Layout extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(context, Routes.indexPage);
                   },
-                  title: const TextView(text: 'Listar anuncios'),
+                  title: TextView(text: t.listAdvertLinkText),
                   leading: const Icon(Icons.post_add_outlined),
                   iconColor: Colors.red,
                   textColor: const Color.fromARGB(215, 255, 255, 255),
@@ -99,7 +102,7 @@ class Layout extends StatelessWidget {
                       Navigator.pushReplacementNamed(
                           context, Routes.createAdvertPage);
                     },
-                    title: const TextView(text: 'Crear anuncio'),
+                    title: TextView(text: t.createAdvertLinkText),
                     leading: const Icon(Icons.announcement_outlined),
                     iconColor: Colors.red,
                     textColor: const Color.fromARGB(215, 255, 255, 255),
@@ -120,7 +123,7 @@ class Layout extends StatelessWidget {
                           context, Routes.editProfile);
                       // Handle onTap for settings
                     },
-                    title: const TextView(text: 'Editar perfil'),
+                    title: TextView(text: t.editButtonLinkText),
                     leading: const Icon(Icons.settings),
                     iconColor: Colors.red,
                     textColor: const Color.fromARGB(215, 255, 255, 255),

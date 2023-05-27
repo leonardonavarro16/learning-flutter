@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'base_text_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmailFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
@@ -16,20 +17,19 @@ class EmailFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       fieldValue: initialValue,
-      decoration: const InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        labelText: 'Correo electrónico',
-      ),
+      decoration: InputDecoration(
+          filled: true, fillColor: Colors.white, labelText: t.emailLinkText),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Correo electrónico';
+          return t.emailLinkText;
         }
         final emailRegex = RegExp(r'^[\w-zñ\.]+@([\w-zñ]+\.)+[\w-z]{2,4}$');
         if (!emailRegex.hasMatch(value)) {
-          return 'Ingrese un correo electrónico válido';
+          return t.emailLabelLinkText;
         }
         return null;
       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DescriptionFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
@@ -19,18 +20,20 @@ class DescriptionFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       maxLines: maxLines,
       minLines: maxLines,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           // prefixIcon: Icon(Icons.person_add_alt_outlined),
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           filled: true,
           fillColor: Colors.white,
-          labelText: 'Ingrese una descripción: (max. 100 caracteres)'),
+          labelText: t.descriptionLabelLinkText),
       inputFormatters: maxLength == null
           ? null
           : <TextInputFormatter>[LengthLimitingTextInputFormatter(maxLength)],

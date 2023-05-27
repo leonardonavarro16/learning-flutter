@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgeFormField extends StatefulWidget {
   final int minAge;
   final int maxAge;
   final Function onChange;
-  final String label;
+  final String? label;
   final String? ageToShow;
   final int? initialValue;
 
@@ -14,7 +15,7 @@ class AgeFormField extends StatefulWidget {
       required this.onChange,
       this.minAge = 18,
       this.maxAge = 65,
-      this.label = 'Selecciona tu edad:',
+      this.label,
       this.initialValue,
       this.ageToShow});
 
@@ -41,9 +42,12 @@ class _SliderInputState extends State<AgeFormField> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return Column(
       children: [
-        TextView(text: widget.label, fontSize: 12, color: Colors.white),
+        TextView(
+            text: t.selectYourAgeLinkText, fontSize: 12, color: Colors.white),
         if (widget.ageToShow != null)
           TextView(
             text: widget.ageToShow,

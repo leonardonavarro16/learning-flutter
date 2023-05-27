@@ -45,7 +45,7 @@ class _ImageSliderState extends State<ImageSlider> {
                   .toList(),
             ),
             Positioned(
-              bottom: 135,
+              bottom: 150,
               left: 0.0,
               right: 0.0,
               child: DotsIndicator(
@@ -53,7 +53,7 @@ class _ImageSliderState extends State<ImageSlider> {
                 position: _currentImageIndex,
                 decorator: DotsDecorator(
                   activeColor: Colors.white,
-                  activeSize: const Size(7, 7),
+                  activeSize: const Size(8, 8),
                   color: Colors.grey[400]!,
                   size: const Size(4, 4),
                 ),

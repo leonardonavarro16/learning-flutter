@@ -161,7 +161,7 @@ class _AdvertPreview extends StatelessWidget {
           left: 0,
           right: 0,
           child: Container(
-            height: screenHeight * 0.33,
+            height: screenHeight * 0.35,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(35),

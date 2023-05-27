@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PhoneFormField extends StatelessWidget {
   final void Function(String?, bool) onChange;
@@ -14,11 +15,13 @@ class PhoneFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
         fieldValue: initialValue,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             // prefixIcon: Icon(Icons.phone_android_outlined),
-            labelText: '(+57) Celular',
+            labelText: t.phoneLinkText,
             filled: true,
             fillColor: Colors.white),
         keyboardType: TextInputType.phone,
@@ -26,14 +29,14 @@ class PhoneFormField extends StatelessWidget {
         onFieldSubmitted: onFieldSubmitted,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Ingrese su numero teléfonico';
+            return t.phoneLabelLinkText;
           }
           final phoneRegex = RegExp(r'[0-9]');
           if (!phoneRegex.hasMatch(value)) {
-            return 'Ingresa un número teléfonico válido';
+            return t.phoneValidNumberLinkText;
           }
           if (value.length < 10) {
-            return 'El número telefónico debe tener al menos 10 dígitos';
+            return t.phoneValidDigitsLinkText;
           }
 
           return null;

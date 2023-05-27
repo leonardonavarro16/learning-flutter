@@ -7,6 +7,7 @@ import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/password_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../router/app_router.dart';
 
@@ -24,14 +25,15 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, AuthenticationState state) {
         if (state.authenticationStatus == AuthenticationStatus.successLogin) {
           Navigator.pushReplacementNamed(context, Routes.indexPage);
         } else if (state.authenticationStatus ==
             AuthenticationStatus.failureLogin) {
-          String errorMessage =
-              state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';
+          String errorMessage = state.error ?? t.mainErrorStatusLinkText;
           SnackBarUtil.showSnackBar(
               context,
               icon: const Icon(Icons.error_outline),
@@ -74,12 +76,15 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Widget _buildSubmitButton() {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
       builder: (BuildContext context, AuthenticationState state) {
         if (state.authenticationStatus == AuthenticationStatus.loading) {
           return const CustomIndicatorProgress();
         } else {
-          return CustomButton(text: 'Ingresar', onPressed: _submitForm);
+          return CustomButton(
+              text: t.logInButtonLinkText, onPressed: _submitForm);
         }
       },
     );
