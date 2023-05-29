@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
@@ -18,7 +16,6 @@ import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../data/models/user.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import '../../logic/states/authentication.dart';
-import '../widgets/utils/age_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -29,8 +26,8 @@ class ProfileForm extends StatefulWidget {
 }
 
 class _ProfileForm extends State<ProfileForm> {
+  String? id;
   String? name;
-  int? age;
   String? phoneNumber;
   String? email;
   DateTime? birthdate;
@@ -40,8 +37,8 @@ class _ProfileForm extends State<ProfileForm> {
   void initState() {
     AuthenticationState state = context.read<AuthenticationCubit>().state;
     if (state.isLoggedIn()) {
+      id = state.user?.id;
       name = state.user?.name;
-      age = state.user?.age;
       phoneNumber = state.user?.phoneNumber;
       email = state.user?.email;
       birthdate = state.user?.birthdate;
@@ -53,19 +50,20 @@ class _ProfileForm extends State<ProfileForm> {
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
-    return BlocListener<UserCubit, UserState>(
-      listener: (BuildContext context, UserState state) {
-        if (state.userStatus == UserStatus.success) {
-          context.read<AuthenticationCubit>().setUser(state.user!);
+    return BlocListener<AuthenticationCubit, AuthenticationState>(
+      listener: (BuildContext context, AuthenticationState state) {
+        if (state.authenticationStatus == AuthenticationStatus.updateSuccess) {
           Navigator.pushReplacementNamed(context, Routes.indexPage);
-        } else if (state.userStatus == UserStatus.failure) {
+        } else if (state.authenticationStatus ==
+            AuthenticationStatus.updateFailure) {
           String errorMessage =
               state.error ?? 'Ocurrió un error al actualizar el usuario';
           SnackBarUtil.showSnackBar(
-              context,
-              icon: const Icon(Icons.error_outline),
-              backgroundColor: Colors.red,
-              errorMessage);
+            context,
+            icon: const Icon(Icons.error_outline),
+            backgroundColor: Colors.red,
+            errorMessage,
+          );
         }
       },
       child: Column(
@@ -84,6 +82,7 @@ class _ProfileForm extends State<ProfileForm> {
             height: 25,
           ),
           ImagePickerButton(
+            initialValue: image,
             onChanged: (Uint8List? bytes) {
               setState(() => image = bytes);
             },
@@ -103,8 +102,7 @@ class _ProfileForm extends State<ProfileForm> {
           DatePickerField(
             initialValue: birthdate,
             onChange: (int value, DateTime selectedBirthdate) {
-              _setFirstState(value);
-              _setSecondState(selectedBirthdate);
+              setState(() => birthdate = selectedBirthdate);
             },
           ),
           const SizedBox(
@@ -135,14 +133,6 @@ class _ProfileForm extends State<ProfileForm> {
     );
   }
 
-  void _setFirstState(int value) {
-    setState(() => age = value);
-  }
-
-  void _setSecondState(DateTime selectedBirthdate) {
-    setState(() => birthdate = selectedBirthdate);
-  }
-
   // bool _canShowSubmitButton() {
   //   return name != null && age != null && phoneNumber != null;
   // }
@@ -160,12 +150,7 @@ class _ProfileForm extends State<ProfileForm> {
           text: t.editButtonLinkText,
           onPressed: () {
             User user = _buildUser();
-            String token =
-                BlocProvider.of<AuthenticationCubit>(context).state.token!;
-
-            user.id =
-                BlocProvider.of<AuthenticationCubit>(context).state.user!.id;
-            BlocProvider.of<UserCubit>(context).update(user, token);
+            BlocProvider.of<AuthenticationCubit>(context).update(user);
           },
         );
       }
@@ -174,8 +159,8 @@ class _ProfileForm extends State<ProfileForm> {
 
   User _buildUser() {
     return User(
+      id: id,
       name: name!,
-      age: age!,
       phoneNumber: phoneNumber!,
       email: email!,
       birthdate: birthdate!,

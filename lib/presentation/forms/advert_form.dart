@@ -39,7 +39,6 @@ class _AdvertForm extends State<AdvertForm> {
     AuthenticationState state = context.read<AuthenticationCubit>().state;
     if (state.isLoggedIn()) {
       name = state.user!.name;
-      age = state.user!.age;
       phoneNumber = state.user!.phoneNumber;
     }
     super.initState();

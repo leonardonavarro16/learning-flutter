@@ -1,6 +1,13 @@
 import 'package:swc_front/data/models/user.dart';
 
-enum AuthenticationStatus { initial, loading, successLogin, failureLogin }
+enum AuthenticationStatus {
+  initial,
+  loading,
+  successLogin,
+  failureLogin,
+  updateSuccess,
+  updateFailure,
+}
 
 class AuthenticationState {
   final User? user;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,7 +15,7 @@ class DatePickerField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DatePickerState createState() => _DatePickerState();
+  State<DatePickerField> createState() => _DatePickerState();
 }
 
 class _DatePickerState extends State<DatePickerField> {
@@ -38,6 +37,7 @@ class _DatePickerState extends State<DatePickerField> {
     selectedDate = widget.initialValue;
   }
 
+  @override
   Widget build(BuildContext context) {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');

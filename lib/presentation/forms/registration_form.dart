@@ -45,12 +45,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   void _setDefaultImage() async {
-    ByteData? byteData = await rootBundle.load('user_default1.jpg');
-    if (byteData != null) {
-      setState(() {
-        image = byteData.buffer.asUint8List();
-      });
-    }
+    ByteData byteData = await rootBundle.load('user_default1.jpg');
+    setState(() {
+      image = byteData.buffer.asUint8List();
+    });
   }
 
   @override
@@ -59,12 +57,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
     if (t == null) throw Exception('AppLocalizations not found');
     return BlocListener<UserCubit, UserState>(
       listener: (BuildContext context, UserState state) {
-        if (state.userStatus == UserStatus.success) {
-          context
-              .read<AuthenticationCubit>()
-              .login(state.user!.email, password!);
+        if (state.userStatus == UserStatus.createSuccess) {
+          context.read<AuthenticationCubit>().login(
+              context.read<AuthenticationCubit>().state.user!.email, password!);
           Navigator.pushReplacementNamed(context, Routes.indexPage);
-        } else if (state.userStatus == UserStatus.failure) {
+        } else if (state.userStatus == UserStatus.createFailure) {
           String errorMessage =
               state.error ?? 'Ocurrió un error. Por favor inténtalo de nuevo.';
 
@@ -189,7 +186,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   User _buildUser() {
     return User(
       name: name!,
-      age: age!,
       phoneNumber: phoneNumber!,
       email: email!,
       birthdate: birthdate!,

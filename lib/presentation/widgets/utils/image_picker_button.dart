@@ -6,10 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 
 class ImagePickerButton extends StatefulWidget {
-  final Function(Uint8List) onChanged;
+  final Function(Uint8List?)? onChanged;
+  final Uint8List? initialValue;
 
-  const ImagePickerButton({Key? key, required this.onChanged})
-      : super(key: key);
+  const ImagePickerButton({
+    Key? key,
+    this.onChanged,
+    this.initialValue,
+  }) : super(key: key);
 
   @override
   State<ImagePickerButton> createState() => _ImagePickerButtonState();
@@ -20,6 +24,12 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
   FilePickerResult? result;
   bool isLoading = false;
   Uint8List? _pickedFile;
+
+  @override
+  void initState() {
+    super.initState();
+    _pickedFile = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +108,7 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
 
       if (result != null) {
         _pickedFile = result!.files.single.bytes;
-        // widget.onChanged(image!);
+        if (widget.onChanged != null) widget.onChanged!(_pickedFile);
       }
 
       setState(() {

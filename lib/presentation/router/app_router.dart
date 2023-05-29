@@ -31,9 +31,7 @@ class AppRouter {
             builder: (_) => BlocProvider.value(
                 value: _advertsCubit, child: const IndexPage()));
       case Routes.editProfile:
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                value: _userCubit, child: const EditProfilePage()));
+        return MaterialPageRoute(builder: (_) => const EditProfilePage());
       case Routes.loginPage:
         return MaterialPageRoute(builder: (_) => const LoginPage());
 

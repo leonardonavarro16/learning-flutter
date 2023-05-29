@@ -1,17 +1,15 @@
 import 'dart:typed_data';
 
 class User {
+  String? id;
   String name;
-  int age;
   String phoneNumber;
   String email;
   DateTime birthdate;
   Uint8List? image;
-  int? id;
 
   User({
     required this.name,
-    required this.age,
     required this.phoneNumber,
     required this.email,
     required this.birthdate,
@@ -20,11 +18,9 @@ class User {
   });
 
   static User fromMap(Map<String, dynamic> userData) {
-    print("userData = $userData");
     return User(
-      id: userData['id'],
+      id: userData['id'].toString(),
       name: userData['fullname'],
-      age: userData['age'],
       phoneNumber: userData['phone'],
       email: userData['email'],
       birthdate: DateTime.parse(userData['birthdate']),
@@ -34,9 +30,8 @@ class User {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id.toString(),
+      'id': id,
       'fullname': name,
-      'age': age,
       'phone': phoneNumber,
       'email': email,
       'birthdate': birthdate.toString(),

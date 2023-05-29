@@ -28,6 +28,22 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  Future<void> update(User updatedUser) async {
+    emit(state.copyWith(authenticationStatus: AuthenticationStatus.loading));
+    try {
+      User user = await _repo.update(updatedUser, state.token!);
+      emit(state.copyWith(
+        authenticationStatus: AuthenticationStatus.updateSuccess,
+        user: user,
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+        authenticationStatus: AuthenticationStatus.updateFailure,
+        error: error.toString(),
+      ));
+    }
+  }
+
   bool isLogged() {
     return state.token != null && state.user != null;
   }
