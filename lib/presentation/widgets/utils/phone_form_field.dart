@@ -21,7 +21,7 @@ class PhoneFormField extends StatelessWidget {
         fieldValue: initialValue,
         decoration: InputDecoration(
             // prefixIcon: Icon(Icons.phone_android_outlined),
-            labelText: t.phoneLinkText,
+            labelText: t.phonLinkText,
             filled: true,
             fillColor: Colors.white),
         keyboardType: TextInputType.phone,

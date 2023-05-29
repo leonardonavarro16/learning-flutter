@@ -43,7 +43,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
       children: [
         if (_pickedFiles.isNotEmpty)
           TextView(
-            text: t.advertPicturesTitleLinkText,
+            text: t.advertPicturesLinkText,
             color: Colors.white,
             fontSize: 14,
           ),
