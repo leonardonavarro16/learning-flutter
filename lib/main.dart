@@ -22,6 +22,9 @@ class SwcApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Colors.red, // Cambia el color del cursor aquí
+          ),
           primaryColor: const Color(0xFFFF0000),
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,

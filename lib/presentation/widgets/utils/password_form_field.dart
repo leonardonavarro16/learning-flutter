@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'base_text_form_field.dart';
@@ -25,6 +26,7 @@ class PasswordFormField extends StatelessWidget {
     if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       decoration: InputDecoration(
+        suffixIcon: const Icon(Icons.visibility),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         labelText: labelText ?? t.passwordLinkText,
         filled: true,

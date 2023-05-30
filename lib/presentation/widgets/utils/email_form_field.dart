@@ -23,26 +23,27 @@ class EmailFormField extends StatelessWidget {
     return BaseTextFormField(
       fieldValue: initialValue,
       decoration: InputDecoration(
-          suffixIcon: const Icon(
+          floatingLabelStyle: const TextStyle(
+            color: Color(0xFFFF0000),
+          ),
+          prefixIcon: const Icon(
             CupertinoIcons.envelope,
             color: Colors.grey,
           ),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
           filled: true,
           fillColor: Colors.white,
           labelText: t.emailLinkText),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return t.emailLinkText;
+          return t.emailEmptyErrorMessage;
         }
         final emailRegex = RegExp(r'^[\w-zñ\.]+@([\w-zñ]+\.)+[\w-z]{2,4}$');
         if (!emailRegex.hasMatch(value)) {
-          return t.emailLabelLinkText;
+          return t.emailInvalidFormatErrorMessage;
         }
         return null;
       },
       onChange: (String? value, bool isValid) {
-        // Javi, esto es lo que convierte en minusculas antes de registrar en el backend
         onChange(value?.toLowerCase(), isValid);
       },
       onFieldSubmitted: onFieldSubmitted,

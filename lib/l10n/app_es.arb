@@ -25,7 +25,7 @@
   "logInButtonLinkText": "ingresar" ,
   "descriptionLabelLinkText": "Ingrese una descripción: (max. 100 caracteres)",
   "emailLinkText" : "Correo electrónico",
-  "emailLabelLinkText": "Ingrese un correo electrónico válido",
+  "emailInvalidFormatErrorMessage": "Ingrese un correo electrónico válido",
   "phonLinkText" : "Celular",
   "phoneLabelLinkText" : "Ingrese su numero teléfonico",
   "phoneValidNumberLinkText": "Ingresa un número teléfonico válido",
@@ -36,5 +36,6 @@
   "passwordLinkText": "Contraseña",
   "enterPasswordLinkText":"ingrese su contraseña",
   "createdSuccessfullAdvertLinkText": "El anuncio ha sido creado exitosamente!",
-  "welcomeTitleLinkText" : "Bienvenidos a Slut for cash!"
+  "welcomeTitleLinkText" : "Bienvenidos a Slut for cash!",
+  "emailEmptyErrorMessage" : "El campo email no puede estár vacío"
 }

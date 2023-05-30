@@ -26,6 +26,7 @@ class _DatePickerState extends State<DatePickerField> {
   bool hasError = false;
   DateTime? lastSelectedDate;
   DateTime? selectedDate;
+  String? formattedInitialValue;
 
   @override
   void initState() {
@@ -35,6 +36,10 @@ class _DatePickerState extends State<DatePickerField> {
       const Duration(days: 365 * 100),
     );
     selectedDate = widget.initialValue;
+    if (widget.initialValue != null) {
+      formattedInitialValue =
+          DateFormat('dd-MM-yyyy').format(widget.initialValue!);
+    }
   }
 
   @override
@@ -42,7 +47,7 @@ class _DatePickerState extends State<DatePickerField> {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return TextFormField(
-      initialValue: widget.fieldValue,
+      initialValue: formattedInitialValue,
       readOnly: true,
       // style: GoogleFonts.quicksand(),
       style: const TextStyle(fontFamily: 'SanFrancisco'),

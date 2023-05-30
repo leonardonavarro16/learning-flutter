@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,7 +22,10 @@ class NameFormField extends StatelessWidget {
         fieldValue: initialValue,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          // prefixIcon: Icon(Icons.person),
+          prefixIcon: const Icon(
+            CupertinoIcons.person,
+            color: Colors.grey,
+          ),
           filled: true,
           fillColor: Colors.white,
           labelText: t.nameLinkText,

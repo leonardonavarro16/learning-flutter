@@ -50,8 +50,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = MediaQuery.of(context).size.width * 0.02;
-    // final double fontSize = 15;
+    InputDecoration defaultDecoration = _buildDefaultDecoration();
 
     return TextFormField(
       // style: GoogleFonts.quicksand(),
@@ -62,73 +61,17 @@ class _BaseTextFormField extends State<BaseTextFormField> {
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText,
       decoration: widget.decoration == null
-          ? InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              iconColor: const Color(0xFFFF0000),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.03,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              errorText: _getErrorText(_controller.text))
+          ? defaultDecoration
           : widget.decoration!.copyWith(
-              border: const OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Color(0xFFFF0000),
-                ),
-              ),
+              border: widget.decoration?.border ?? defaultDecoration.border,
+              enabledBorder: widget.decoration?.enabledBorder ??
+                  defaultDecoration.enabledBorder,
+              focusedBorder: widget.decoration?.focusedBorder ??
+                  defaultDecoration.focusedBorder,
+              errorBorder: widget.decoration?.errorBorder ??
+                  defaultDecoration.errorBorder,
+              focusedErrorBorder: widget.decoration?.focusedErrorBorder ??
+                  defaultDecoration.focusedErrorBorder,
               errorText: _getErrorText(_controller.text),
             ),
       validator: _getErrorText,
@@ -154,5 +97,24 @@ class _BaseTextFormField extends State<BaseTextFormField> {
     } else {
       return widget.validator!(value);
     }
+  }
+
+  InputDecoration _buildDefaultDecoration() {
+    OutlineInputBorder defaultBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(30),
+      borderSide: const BorderSide(
+        width: 1,
+        color: Color(0xFFFF0000),
+      ),
+    );
+
+    return InputDecoration(
+      border: defaultBorder,
+      enabledBorder: defaultBorder,
+      focusedBorder: defaultBorder,
+      errorBorder: defaultBorder,
+      focusedErrorBorder: defaultBorder,
+      errorText: _getErrorText(_controller.text),
+    );
   }
 }

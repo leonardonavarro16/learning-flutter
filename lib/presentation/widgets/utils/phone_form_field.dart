@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
@@ -21,7 +22,10 @@ class PhoneFormField extends StatelessWidget {
         fieldValue: initialValue,
         decoration: InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            // prefixIcon: Icon(Icons.phone_android_outlined),
+            prefixIcon: const Icon(
+              CupertinoIcons.device_phone_portrait,
+              color: Colors.grey,
+            ),
             labelText: t.phonLinkText,
             filled: true,
             fillColor: Colors.white),

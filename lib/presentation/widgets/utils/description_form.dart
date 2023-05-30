@@ -27,7 +27,10 @@ class DescriptionFormField extends StatelessWidget {
       maxLines: maxLines,
       minLines: maxLines,
       decoration: InputDecoration(
-          suffixIcon: const Icon(CupertinoIcons.doc_person),
+          prefixIcon: const Icon(
+            CupertinoIcons.doc_person,
+            color: Colors.grey,
+          ),
           border: const OutlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding:
