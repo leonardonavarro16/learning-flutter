@@ -95,7 +95,7 @@ class _AdvertForm extends State<AdvertForm> {
             onFieldSubmitted: (_) => _submitForm(),
             maxLines: 5,
             minLines: 1,
-            maxLength: 1000,
+            maxLength: 131,
             onChange: (String? value, bool valid) {
               setState(() => description = valid ? value : null);
             },

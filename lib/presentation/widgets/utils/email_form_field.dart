@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'base_text_form_field.dart';
@@ -22,7 +23,11 @@ class EmailFormField extends StatelessWidget {
     return BaseTextFormField(
       fieldValue: initialValue,
       decoration: InputDecoration(
-          filled: true, fillColor: Colors.white, labelText: t.emailLinkText),
+          suffixIcon: const Icon(CupertinoIcons.envelope),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          filled: true,
+          fillColor: Colors.white,
+          labelText: t.emailLinkText),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return t.emailLinkText;

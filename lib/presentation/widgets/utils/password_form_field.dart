@@ -25,6 +25,7 @@ class PasswordFormField extends StatelessWidget {
     if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       decoration: InputDecoration(
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         labelText: labelText ?? t.passwordLinkText,
         filled: true,
         fillColor: Colors.white,

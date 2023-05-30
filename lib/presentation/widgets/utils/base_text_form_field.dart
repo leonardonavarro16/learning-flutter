@@ -63,6 +63,7 @@ class _BaseTextFormField extends State<BaseTextFormField> {
       obscureText: widget.obscureText,
       decoration: widget.decoration == null
           ? InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
               iconColor: const Color(0xFFFF0000),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(

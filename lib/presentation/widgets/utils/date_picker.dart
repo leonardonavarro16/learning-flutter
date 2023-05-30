@@ -48,6 +48,7 @@ class _DatePickerState extends State<DatePickerField> {
       style: const TextStyle(fontFamily: 'SanFrancisco'),
       controller: _date,
       decoration: InputDecoration(
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         filled: true,
         fillColor: Colors.white,
         focusedErrorBorder: OutlineInputBorder(

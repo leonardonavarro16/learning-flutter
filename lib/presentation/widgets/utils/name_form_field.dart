@@ -20,6 +20,7 @@ class NameFormField extends StatelessWidget {
     return BaseTextFormField(
         fieldValue: initialValue,
         decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           // prefixIcon: Icon(Icons.person),
           filled: true,
           fillColor: Colors.white,

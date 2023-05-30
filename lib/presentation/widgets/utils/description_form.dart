@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
@@ -26,7 +27,7 @@ class DescriptionFormField extends StatelessWidget {
       maxLines: maxLines,
       minLines: maxLines,
       decoration: InputDecoration(
-          // prefixIcon: Icon(Icons.person_add_alt_outlined),
+          suffixIcon: const Icon(CupertinoIcons.doc_person),
           border: const OutlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding:

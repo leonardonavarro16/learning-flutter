@@ -20,6 +20,7 @@ class PhoneFormField extends StatelessWidget {
     return BaseTextFormField(
         fieldValue: initialValue,
         decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             // prefixIcon: Icon(Icons.phone_android_outlined),
             labelText: t.phonLinkText,
             filled: true,
