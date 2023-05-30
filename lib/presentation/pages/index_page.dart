@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/search_appbar.dart';
@@ -35,7 +36,7 @@ class IndexPage extends StatelessWidget {
                       child: SizedBox(
                         height: 40,
                         width: 40,
-                        child: Image.asset('gradient_logo_swc.png'),
+                        child: SvgPicture.asset('assets/Logo rojo.svg'),
                       ),
                     )
                   ],

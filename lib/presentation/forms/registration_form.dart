@@ -19,6 +19,7 @@ import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({Key? key}) : super(key: key);
@@ -78,7 +79,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
           SizedBox(
             height: 175,
             width: 175,
-            child: Image.asset('white_logo_swc.png'),
+            child: SvgPicture.asset(
+              'assets/Logo blanco.svg',
+            ),
           ),
           Form(
             key: _formKey,

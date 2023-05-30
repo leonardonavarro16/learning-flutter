@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../router/app_router.dart';
@@ -24,7 +25,9 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: 165,
                   width: 165,
-                  child: Image.asset('white_logo_swc.png'),
+                  child: SvgPicture.asset(
+                    'assets/Logo blanco.svg',
+                  ),
                 ),
                 const LoginForm(),
                 InkWell(

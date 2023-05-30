@@ -23,7 +23,10 @@ class EmailFormField extends StatelessWidget {
     return BaseTextFormField(
       fieldValue: initialValue,
       decoration: InputDecoration(
-          suffixIcon: const Icon(CupertinoIcons.envelope),
+          suffixIcon: const Icon(
+            CupertinoIcons.envelope,
+            color: Colors.grey,
+          ),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           filled: true,
           fillColor: Colors.white,
