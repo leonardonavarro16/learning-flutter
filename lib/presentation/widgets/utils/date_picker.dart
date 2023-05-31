@@ -1,17 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+//TODO: dejar una sola variable entre en pickedDate, el selectedDate y lastSelectedDate
+//TODO: dejar una sola variable entre el initialValue y el fieldValue
+
 class DatePickerField extends StatefulWidget {
   final Function onChange;
   final DateTime? initialValue;
-  final String? fieldValue;
 
   const DatePickerField({
     Key? key,
     required this.onChange,
     this.initialValue,
-    this.fieldValue,
   }) : super(key: key);
 
   @override
@@ -31,15 +33,13 @@ class _DatePickerState extends State<DatePickerField> {
   @override
   void initState() {
     super.initState();
-    _date.text = widget.fieldValue ?? '';
+    _date.text = widget.initialValue == null
+        ? ''
+        : DateFormat('dd-MM-yyyy').format(widget.initialValue!);
     dateCenturyAgo = currentDate.subtract(
       const Duration(days: 365 * 100),
     );
     selectedDate = widget.initialValue;
-    if (widget.initialValue != null) {
-      formattedInitialValue =
-          DateFormat('dd-MM-yyyy').format(widget.initialValue!);
-    }
   }
 
   @override
@@ -53,6 +53,10 @@ class _DatePickerState extends State<DatePickerField> {
       style: const TextStyle(fontFamily: 'SanFrancisco'),
       controller: _date,
       decoration: InputDecoration(
+        prefixIcon: const Icon(
+          CupertinoIcons.calendar,
+          color: Colors.grey,
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         filled: true,
         fillColor: Colors.white,
@@ -84,7 +88,9 @@ class _DatePickerState extends State<DatePickerField> {
             color: Color(0xFFFF0000),
           ),
         ),
-        labelText: t.birthdateLabelLinkText,
+        labelText: selectedDate == null
+            ? t.birthdateLabelLinkText
+            : DateFormat('dd-MM-yyyy').format(selectedDate!),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
         ),
@@ -175,6 +181,7 @@ class _DatePickerState extends State<DatePickerField> {
         );
         if (pickedDate != null) {
           lastSelectedDate = pickedDate;
+          selectedDate = pickedDate;
           setState(() {
             _date.text = DateFormat('dd-MM-yyyy').format(pickedDate!);
             int age = getAge();
