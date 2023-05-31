@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-//TODO: dejar una sola variable entre en pickedDate, el selectedDate y lastSelectedDate
-//TODO: dejar una sola variable entre el initialValue y el fieldValue
-
 class DatePickerField extends StatefulWidget {
   final Function onChange;
   final DateTime? initialValue;
@@ -26,9 +23,6 @@ class _DatePickerState extends State<DatePickerField> {
   late DateTime dateCenturyAgo;
   DateTime? pickedDate;
   bool hasError = false;
-  DateTime? lastSelectedDate;
-  DateTime? selectedDate;
-  String? formattedInitialValue;
 
   @override
   void initState() {
@@ -39,7 +33,7 @@ class _DatePickerState extends State<DatePickerField> {
     dateCenturyAgo = currentDate.subtract(
       const Duration(days: 365 * 100),
     );
-    selectedDate = widget.initialValue;
+    pickedDate = widget.initialValue;
   }
 
   @override
@@ -47,7 +41,6 @@ class _DatePickerState extends State<DatePickerField> {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return TextFormField(
-      initialValue: formattedInitialValue,
       readOnly: true,
       // style: GoogleFonts.quicksand(),
       style: const TextStyle(fontFamily: 'SanFrancisco'),
@@ -88,9 +81,9 @@ class _DatePickerState extends State<DatePickerField> {
             color: Color(0xFFFF0000),
           ),
         ),
-        labelText: selectedDate == null
+        labelText: pickedDate == null
             ? t.birthdateLabelLinkText
-            : DateFormat('dd-MM-yyyy').format(selectedDate!),
+            : DateFormat('dd-MM-yyyy').format(pickedDate!),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
         ),
@@ -119,7 +112,7 @@ class _DatePickerState extends State<DatePickerField> {
       onTap: () async {
         pickedDate = await showDatePicker(
           context: context,
-          initialDate: selectedDate ?? currentDate,
+          initialDate: pickedDate ?? currentDate,
           firstDate: dateCenturyAgo,
           lastDate: currentDate,
           builder: (context, child) => Theme(
@@ -180,8 +173,6 @@ class _DatePickerState extends State<DatePickerField> {
           ),
         );
         if (pickedDate != null) {
-          lastSelectedDate = pickedDate;
-          selectedDate = pickedDate;
           setState(() {
             _date.text = DateFormat('dd-MM-yyyy').format(pickedDate!);
             int age = getAge();
