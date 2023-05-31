@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'base_text_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class PasswordFormField extends StatelessWidget {
+class PasswordFormField extends StatefulWidget {
   final void Function(String? value, bool valid) onChange;
   final Function? additionalValidator;
   final String? emptyMessage;
@@ -12,13 +12,20 @@ class PasswordFormField extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
 
   const PasswordFormField({
-    super.key,
+    Key? key,
     required this.onChange,
     this.additionalValidator,
     this.emptyMessage,
     this.labelText,
     this.onFieldSubmitted,
-  });
+  }) : super(key: key);
+
+  @override
+  _PasswordFormFieldState createState() => _PasswordFormFieldState();
+}
+
+class _PasswordFormFieldState extends State<PasswordFormField> {
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +33,33 @@ class PasswordFormField extends StatelessWidget {
     if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       decoration: InputDecoration(
-        suffixIcon: const Icon(Icons.visibility),
+        suffixIcon: InkWell(
+          onTap: () {
+            setState(() {
+              obscureText = !obscureText;
+            });
+          },
+          child: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        labelText: labelText ?? t.passwordLinkText,
+        labelText: widget.labelText ?? t.passwordLinkText,
         filled: true,
         fillColor: Colors.white,
       ),
-      obscureText: true,
+      obscureText: obscureText,
       validator: (String? value) {
         if (value == null || value.isEmpty) {
-          return emptyMessage ?? t.enterPasswordLinkText;
+          return widget.emptyMessage ?? t.enterPasswordLinkText;
         }
-        if (additionalValidator != null) return additionalValidator!(value);
+        if (widget.additionalValidator != null) {
+          return widget.additionalValidator!(value);
+        }
         return null;
       },
       onChange: (String? value, bool valid) {
-        onChange(value, valid);
+        widget.onChange(value, valid);
       },
-      onFieldSubmitted: onFieldSubmitted,
+      onFieldSubmitted: widget.onFieldSubmitted,
     );
   }
 }
