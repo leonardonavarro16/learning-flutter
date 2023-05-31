@@ -39,7 +39,9 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
               obscureText = !obscureText;
             });
           },
-          child: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+          child: Icon(
+              color: Colors.red,
+              obscureText ? Icons.visibility : Icons.visibility_off),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         labelText: widget.labelText ?? t.passwordLinkText,

@@ -72,7 +72,7 @@ class _AdvertForm extends State<AdvertForm> {
             height: 10,
           ),
           AgeFormField(
-            ageToShow: '$age años',
+            ageToShow: age == null ? '18 años' : '$age años',
             initialValue: age,
             onChange: (int value) {
               setState(() => age = value);
