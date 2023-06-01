@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/presentation/widgets/utils/bottom_menu.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
-import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../router/app_router.dart';
 
 class Layout extends StatelessWidget {
   final Widget content;
@@ -67,71 +63,7 @@ class Layout extends StatelessWidget {
           //   preferredSize: Size.fromHeight(constraints.maxHeight * 0.075),
           //   child: const NavBar(),
           // ),
-          drawer: Drawer(
-            backgroundColor: Colors.black,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(216, 243, 89, 89),
-                  ),
-                  child: Center(
-                    child: TextView(
-                      text: t.welcomeTitleLinkText,
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-
-                ListTile(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, Routes.indexPage);
-                  },
-                  title: TextView(text: t.listAdvertLinkText),
-                  leading: const Icon(Icons.post_add_outlined),
-                  iconColor: Colors.red,
-                  textColor: const Color.fromARGB(215, 255, 255, 255),
-                ),
-                if (isLogged)
-                  ListTile(
-                    onTap: () {
-                      Navigator.pushReplacementNamed(
-                          context, Routes.createAdvertPage);
-                    },
-                    title: TextView(text: t.createAdvertLinkText),
-                    leading: const Icon(Icons.announcement_outlined),
-                    iconColor: Colors.red,
-                    textColor: const Color.fromARGB(215, 255, 255, 255),
-                  ),
-                // ListTile(
-                //   onTap: () {
-                //     Navigator.pushReplacementNamed(context, Routes.testingPage);
-                //   },
-                //   title: const Text('Testeo de página'),
-                //   leading: const Icon(Icons.auto_fix_high),
-                //   iconColor: Colors.blue,
-                //   textColor: const Color.fromARGB(215, 255, 255, 255),
-                // ),
-                if (isLogged)
-                  ListTile(
-                    onTap: () {
-                      Navigator.pushReplacementNamed(
-                          context, Routes.editProfile);
-                      // Handle onTap for settings
-                    },
-                    title: TextView(text: t.editButtonLinkText),
-                    leading: const Icon(Icons.settings),
-                    iconColor: Colors.red,
-                    textColor: const Color.fromARGB(215, 255, 255, 255),
-                  ),
-              ],
-            ),
-          ),
-          bottomNavigationBar: AppleMusicBottomSheet(),
+          bottomNavigationBar: BottomNavigator(),
         );
       },
     );

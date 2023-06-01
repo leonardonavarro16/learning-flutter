@@ -6,12 +6,12 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 
-class AppleMusicBottomSheet extends StatefulWidget {
+class BottomNavigator extends StatefulWidget {
   @override
-  _AppleMusicBottomSheetState createState() => _AppleMusicBottomSheetState();
+  _BottomNavigatorState createState() => _BottomNavigatorState();
 }
 
-class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
+class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 0;
 
   @override
@@ -31,7 +31,6 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
               ? MainAxisAlignment.spaceEvenly
               : MainAxisAlignment.spaceBetween,
           selectedIndex: _selectedIndex,
-          backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
           color: Colors.grey,
           activeColor: const Color(0xFFFF0000),
           padding: const EdgeInsets.all(5),
@@ -43,26 +42,29 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
 
             switch (index) {
               case 0:
-                Navigator.pushNamed(context, Routes.indexPage);
+                Navigator.pushReplacementNamed(context, Routes.indexPage);
                 break;
               case 1:
                 !isLogged
-                    ? Navigator.pushNamed(context, Routes.loginPage)
-                    : Navigator.pushNamed(context, Routes.createAdvertPage);
+                    ? Navigator.pushReplacementNamed(context, Routes.loginPage)
+                    : Navigator.pushReplacementNamed(
+                        context, Routes.createAdvertPage);
                 break;
               case 2:
-                Navigator.pushNamed(context, Routes.loginPage);
+                Navigator.pushReplacementNamed(context, Routes.loginPage);
                 break;
               case 3:
                 !isLogged
-                    ? Navigator.pushNamed(context, Routes.loginPage)
-                    : Navigator.pushNamed(context, Routes.editProfile);
+                    ? Navigator.pushReplacementNamed(context, Routes.loginPage)
+                    : Navigator.pushReplacementNamed(
+                        context, Routes.editProfile);
 
                 break;
             }
           },
           tabs: [
             const GButton(
+              text: 'Home',
               iconSize: 30,
               icon: CupertinoIcons.house_alt,
             ),
@@ -73,10 +75,16 @@ class _AppleMusicBottomSheetState extends State<AppleMusicBottomSheet> {
               ),
             if (isLogged)
               const GButton(
+                iconSize: 42.5,
+                icon: CupertinoIcons.add_circled_solid,
+              ),
+            if (isLogged)
+              const GButton(
                 iconSize: 30,
                 icon: CupertinoIcons.square_stack_3d_down_right,
               ),
             const GButton(
+              text: 'Perfil',
               iconSize: 30,
               icon: CupertinoIcons.person_badge_plus,
             ),
