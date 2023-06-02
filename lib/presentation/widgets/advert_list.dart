@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/like_buttom.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
@@ -109,7 +110,7 @@ class _AdvertPreview extends StatelessWidget {
           _buildModalOpenedContent(context),
         ]);
       },
-      child: _buildModalClosedContent(),
+      child: _buildModalClosedContent(context),
     );
   }
 
@@ -156,6 +157,14 @@ class _AdvertPreview extends StatelessWidget {
                 ),
               ),
           ],
+        ),
+        Positioned(
+          top: 16,
+          left: 16,
+          child: HeartIconContainer(
+            height: 50,
+            width: 50,
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -263,10 +272,10 @@ class _AdvertPreview extends StatelessWidget {
                         text: formatPhoneNumber(advert.phoneNumber)));
                     showDialog(
                       context: context,
-                      barrierDismissible:
-                          false, // Evita que el diálogo se cierre al hacer clic fuera de él
+                      // barrierDismissible:
+                      //     false, // Evita que el diálogo se cierre al hacer clic fuera de él
                       builder: (context) {
-                        Future.delayed(const Duration(seconds: 3), () {
+                        Future.delayed(const Duration(milliseconds: 1200), () {
                           Navigator.of(context).pop();
                         });
 
@@ -288,15 +297,15 @@ class _AdvertPreview extends StatelessWidget {
                                 text:
                                     'El número de teléfono se ha copiado al portapapeles.',
                               ),
-                              actions: [
-                                CustomButton(
-                                  borderRadius: 15,
-                                  text: 'Aceptar',
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
+                              // actions: [
+                              //   CustomButton(
+                              //     borderRadius: 15,
+                              //     text: 'Aceptar',
+                              //     onPressed: () {
+                              //       Navigator.of(context).pop();
+                              //     },
+                              //   ),
+                              // ],
                             );
                           },
                         );
@@ -312,7 +321,7 @@ class _AdvertPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildModalClosedContent() {
+  Widget _buildModalClosedContent(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(5),
       child: Center(
@@ -328,72 +337,15 @@ class _AdvertPreview extends StatelessWidget {
                     : Image.memory(advert.images.first),
               ),
               Positioned(
+                  top: 5,
+                  right: 5,
+                  // padding: const EdgeInsets.only(right: 3, top: 3),
+                  child: HeartIconContainer()),
+              Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextView(
-                            text: advert.name,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          Row(
-                            children: const [
-                              TextView(
-                                text: '4.5',
-                                color: Color.fromARGB(155, 255, 255, 255),
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              SizedBox(width: 2.5),
-                              Icon(
-                                  color: Colors.white,
-                                  size: 9,
-                                  CupertinoIcons.star_fill),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          const TextView(
-                            text: 'Barranquilla',
-                            color: Color.fromARGB(155, 255, 255, 255),
-                            fontSize: 10,
-                          ),
-                          TextView(
-                            text: '${advert.age} años',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                          const TextView(
-                            text: '24 horas',
-                            color: Color.fromARGB(155, 255, 255, 255),
-                            fontSize: 10,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                child: _modalClosedContainerContent(),
               ),
             ],
           ),
@@ -401,4 +353,66 @@ class _AdvertPreview extends StatelessWidget {
       ),
     );
   }
+
+  Widget _modalClosedContainerContent() => Container(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.7),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextView(
+                  text: advert.name,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                Row(
+                  children: const [
+                    TextView(
+                      text: '4.5',
+                      color: Color.fromARGB(155, 255, 255, 255),
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(width: 2.5),
+                    Icon(
+                        color: Colors.white, size: 9, CupertinoIcons.star_fill),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                const TextView(
+                  text: 'Barranquilla',
+                  color: Color.fromARGB(155, 255, 255, 255),
+                  fontSize: 10,
+                ),
+                TextView(
+                  text: '${advert.age} años',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 10,
+                ),
+                const TextView(
+                  text: '24 horas',
+                  color: Color.fromARGB(155, 255, 255, 255),
+                  fontSize: 10,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }
