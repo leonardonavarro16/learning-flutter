@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/presentation/pages/default_page.dart';
 import 'package:swc_front/presentation/pages/index_page.dart';
@@ -16,45 +17,87 @@ class Routes {
   static const String loginPage = '/login-page';
   static const String createAdvertPage = '/create-advert';
   static const String registrationPage = '/registration-page';
-  // static const String testingPage = '/testing-page';
+  static const String notFoundPage = '/not-found';
 }
 
 class AppRouter {
   final AdvertsCubit _advertsCubit = AdvertsCubit();
   final UserCubit _userCubit = UserCubit();
+  final NavigationCubit _navigationCubit = NavigationCubit();
 
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.indexPage:
+        _navigationCubit.setSelectedIndex(0);
         _advertsCubit.fetchAdverts();
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                value: _advertsCubit, child: const IndexPage()));
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _advertsCubit),
+              BlocProvider.value(value: _navigationCubit),
+            ],
+            child: const IndexPage(),
+          ),
+        );
+
       case Routes.editProfile:
-        return MaterialPageRoute(builder: (_) => const EditProfilePage());
+        _navigationCubit.setSelectedIndex(3);
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _navigationCubit),
+            ],
+            child: const EditProfilePage(),
+          ),
+        );
+
       case Routes.loginPage:
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        _navigationCubit.setSelectedIndex(2);
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _navigationCubit),
+            ],
+            child: const LoginPage(),
+          ),
+        );
 
       case Routes.createAdvertPage:
+        _navigationCubit.setSelectedIndex(1);
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: _advertsCubit,
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _advertsCubit),
+              BlocProvider.value(value: _navigationCubit),
+            ],
             child: const CreateAdvertPage(),
           ),
         );
 
       case Routes.registrationPage:
+        _navigationCubit.setSelectedIndex(1);
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                value: _userCubit, child: const RegistrationPage()));
-      // case Routes.testingPage:
-      //   return MaterialPageRoute(builder: (_) => const TestingPage());
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _userCubit),
+              BlocProvider.value(value: _navigationCubit),
+            ],
+            child: const RegistrationPage(),
+          ),
+        );
 
       default:
+        _navigationCubit.setSelectedIndex(0);
         _advertsCubit.fetchAdverts();
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                value: _advertsCubit, child: const IndexPage()));
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _advertsCubit),
+              BlocProvider.value(value: _navigationCubit),
+            ],
+            child: const IndexPage(),
+          ),
+        );
     }
   }
 

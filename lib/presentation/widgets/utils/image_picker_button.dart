@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class ImagePickerButton extends StatefulWidget {
   final Function(Uint8List?)? onChanged;
@@ -42,9 +43,30 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
                 width: 150,
                 height: 150,
                 child: (_pickedFile != null)
-                    ? Image.memory(
-                        _pickedFile!,
-                        fit: BoxFit.cover,
+                    ? InkWell(
+                        onTap: () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: Colors.black.withOpacity(0.25),
+                                title: const TextView(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    textAlign: TextAlign.center,
+                                    text: 'Profile Picture'),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(16))),
+                                content: Image.memory(
+                                  _pickedFile!,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }),
+                        child: Image.memory(
+                          _pickedFile!,
+                          fit: BoxFit.cover,
+                        ),
                       )
                     : Image.asset('user_default1.jpg'),
               ),

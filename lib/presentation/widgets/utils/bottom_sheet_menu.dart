@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 
@@ -12,8 +13,6 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
@@ -30,16 +29,13 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           mainAxisAlignment: !isLogged
               ? MainAxisAlignment.spaceEvenly
               : MainAxisAlignment.spaceBetween,
-          selectedIndex: _selectedIndex,
+          selectedIndex: context.watch<NavigationCubit>().state.selectedIndex,
           color: Colors.grey,
           activeColor: const Color(0xFFFF0000),
           padding: const EdgeInsets.all(5),
           gap: 8,
           onTabChange: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-
+            context.read<NavigationCubit>().setSelectedIndex(index);
             switch (index) {
               case 0:
                 Navigator.pushReplacementNamed(context, Routes.indexPage);
@@ -54,17 +50,22 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                 Navigator.pushReplacementNamed(context, Routes.loginPage);
                 break;
               case 3:
-                !isLogged
-                    ? Navigator.pushReplacementNamed(context, Routes.loginPage)
-                    : Navigator.pushReplacementNamed(
-                        context, Routes.editProfile);
+                // !isLogged
+                //     ? Navigator.pushReplacementNamed(context, Routes.loginPage)
+                Navigator.pushReplacementNamed(context, Routes.editProfile);
 
                 break;
+
+              // case 4:
+              //   Navigator.pushReplacementNamed(
+              //       context, Routes.registrationPage);
+
+              //   break;
             }
           },
           tabs: [
             const GButton(
-              text: 'Home',
+              // text: 'Home',
               iconSize: 30,
               icon: CupertinoIcons.house_alt,
             ),
@@ -73,18 +74,18 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                 iconSize: 30,
                 icon: CupertinoIcons.suit_heart,
               ),
-            if (isLogged)
-              const GButton(
-                iconSize: 42.5,
-                icon: CupertinoIcons.add_circled_solid,
-              ),
+            // if (isLogged)
+            // GButton(
+            //   iconSize: 42.5,
+            //   icon: CupertinoIcons.add_circled_solid,
+            // ),
             if (isLogged)
               const GButton(
                 iconSize: 30,
                 icon: CupertinoIcons.square_stack_3d_down_right,
               ),
             const GButton(
-              text: 'Perfil',
+              // text: 'Perfil',
               iconSize: 30,
               icon: CupertinoIcons.person_badge_plus,
             ),

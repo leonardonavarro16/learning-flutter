@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
@@ -257,7 +258,51 @@ class _AdvertPreview extends StatelessWidget {
                   fontSize: 20,
                   height: 55,
                   width: 250,
-                  onPressed: () {},
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(
+                        text: formatPhoneNumber(advert.phoneNumber)));
+                    showDialog(
+                      context: context,
+                      barrierDismissible:
+                          false, // Evita que el diálogo se cierre al hacer clic fuera de él
+                      builder: (context) {
+                        Future.delayed(const Duration(seconds: 3), () {
+                          Navigator.of(context).pop();
+                        });
+
+                        return StatefulBuilder(
+                          builder: (context, setState) {
+                            return AlertDialog(
+                              backgroundColor: Colors.black.withOpacity(0.8),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                              ),
+                              title: const TextView(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFF0000),
+                                text: 'Número de teléfono copiado',
+                              ),
+                              content: const TextView(
+                                color: Colors.white,
+                                text:
+                                    'El número de teléfono se ha copiado al portapapeles.',
+                              ),
+                              actions: [
+                                CustomButton(
+                                  borderRadius: 15,
+                                  text: 'Aceptar',
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
                 ),
               ],
             ),

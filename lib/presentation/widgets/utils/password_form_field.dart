@@ -33,7 +33,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
     if (t == null) throw Exception('AppLocalizations not found');
     return BaseTextFormField(
       decoration: InputDecoration(
-        suffixIcon: InkWell(
+        prefixIcon: InkWell(
           onTap: () {
             setState(() {
               obscureText = !obscureText;
