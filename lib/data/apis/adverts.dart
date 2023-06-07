@@ -100,12 +100,13 @@ class AdvertsAPI extends BaseAPI {
   }
 
 // todo: en el metodo unmarkAsFav** del api hacer un delete a /adverts/:id/favorites
+// todo: crear el metodo httpDelete y usarlo
 
   Future<void> unmarkAsFav(String advertId, String token) async {
-    final url = Uri.parse('${baseUrl()}/adverts/$advertId/favorites');
-
-    final response =
-        await http.delete(url); //TODO: crear el metodo httpDelete y usarlo
+    final response = await httpDelete(
+      '${baseUrl()}/adverts/$advertId/favorites',
+      token: token,
+    );
 
     if (response.statusCode != 200) {
       String? error = response.body.isEmpty
