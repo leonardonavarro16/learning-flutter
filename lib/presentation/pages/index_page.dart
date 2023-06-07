@@ -4,15 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
-import 'package:swc_front/presentation/widgets/utils/search_appbar.dart';
 import 'package:swc_front/presentation/widgets/utils/search_bar.dart';
 import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../logic/cubits/adverts.dart';
 import '../../logic/states/adverts.dart';
 import '../widgets/advert_list.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
@@ -22,7 +19,7 @@ class IndexPage extends StatelessWidget {
     return Layout(
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
-          if (state.status == AdvertsStatus.success) {
+          if (state.status == AdvertsStatus.indexSuccess) {
             return Column(
               children: [
                 Row(
@@ -60,7 +57,7 @@ class IndexPage extends StatelessWidget {
                 ),
               ],
             );
-          } else if (state.status == AdvertsStatus.failure) {
+          } else if (state.status == AdvertsStatus.indexFailure) {
             return TextView(text: state.error, color: Colors.red);
           } else {
             return const Center(child: CustomIndicatorProgress());

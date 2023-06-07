@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/advert.dart';
-import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
-import 'package:swc_front/presentation/widgets/utils/like_buttom.dart';
-import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+import 'package:swc_front/logic/cubits/adverts.dart';
+import 'package:swc_front/presentation/widgets/utils/modal_opened_content.dart';
+import 'package:swc_front/presentation/widgets/utils/fav_icon_container.dart';
+import 'package:swc_front/presentation/widgets/utils/modal_closed_content.dart';
+import '../../logic/cubits/authentication_cubit.dart';
 import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
@@ -114,21 +115,6 @@ class _AdvertPreview extends StatelessWidget {
     );
   }
 
-  String formatPhoneNumber(String phoneNumber) {
-    final regex = RegExp(r'^(\d{3})(\d{3})(\d{4})$');
-    final match = regex.firstMatch(phoneNumber);
-
-    if (match != null) {
-      final group1 = match.group(1);
-      final group2 = match.group(2);
-      final group3 = match.group(3);
-
-      return '$group1 $group2 $group3';
-    } else {
-      return phoneNumber;
-    }
-  }
-
   Widget _buildModalOpenedContent(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Stack(
@@ -161,160 +147,23 @@ class _AdvertPreview extends StatelessWidget {
         Positioned(
           top: 16,
           left: 16,
-          child: HeartIconContainer(
+          child: FavIconContainer(
+            selected: advert.isFav,
             height: 50,
             width: 50,
+            onTap: () {
+              String? token = context.read<AuthenticationCubit>().state.token;
+              if (token == null) return;
+              context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
+            },
           ),
         ),
         Positioned(
           bottom: 0,
           left: 0,
           right: 0,
-          child: Container(
-            height: screenHeight * 0.35,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
-              ),
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 22, 0, 0),
-                  Color(0xFFFF0000),
-                ],
-                begin: Alignment.center,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextView(
-                            text: advert.name,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          const TextView(
-                            text: 'Barranquilla',
-                            color: Color.fromARGB(155, 255, 255, 255),
-                            fontSize: 10,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: const [
-                          TextView(
-                            text: '4.5',
-                            color: Color.fromARGB(155, 255, 255, 255),
-                            fontSize: 12,
-                          ),
-                          SizedBox(width: 2.5),
-                          Icon(
-                            color: Colors.yellow,
-                            size: 10,
-                            CupertinoIcons.star_fill,
-                          ),
-                        ],
-                      ),
-                      TextView(
-                        text: '${advert.age} años',
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(155, 255, 255, 255),
-                        fontSize: 10,
-                      ),
-                      const TextView(
-                        text: '24 horas',
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  color: Color.fromARGB(155, 255, 255, 255),
-                  height: 10,
-                  thickness: 1,
-                  indent: 35,
-                  endIndent: 25,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    left: 35,
-                    right: 35,
-                    bottom: 15,
-                  ),
-                  child: TextView(
-                    text: advert.description,
-                    fontSize: 12,
-                    color: Colors.white,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                CustomButton(
-                  text: formatPhoneNumber(advert.phoneNumber),
-                  borderRadius: 15,
-                  fontSize: 20,
-                  height: 55,
-                  width: 250,
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(
-                        text: formatPhoneNumber(advert.phoneNumber)));
-                    showDialog(
-                      context: context,
-                      // barrierDismissible:
-                      //     false, // Evita que el diálogo se cierre al hacer clic fuera de él
-                      builder: (context) {
-                        Future.delayed(const Duration(milliseconds: 1200), () {
-                          Navigator.of(context).pop();
-                        });
-
-                        return StatefulBuilder(
-                          builder: (context, setState) {
-                            return AlertDialog(
-                              backgroundColor: Colors.black.withOpacity(0.8),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                              ),
-                              title: const TextView(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFFF0000),
-                                text: 'Número de teléfono copiado',
-                              ),
-                              content: const TextView(
-                                color: Colors.white,
-                                text:
-                                    'El número de teléfono se ha copiado al portapapeles.',
-                              ),
-                              // actions: [
-                              //   CustomButton(
-                              //     borderRadius: 15,
-                              //     text: 'Aceptar',
-                              //     onPressed: () {
-                              //       Navigator.of(context).pop();
-                              //     },
-                              //   ),
-                              // ],
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
+          child: ModalOpenedContainerContent(
+            advert: advert,
           ),
         ),
       ],
@@ -322,6 +171,9 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   Widget _buildModalClosedContent(BuildContext context) {
+    print(advert.id);
+    print(advert.isFav);
+
     return Container(
       margin: const EdgeInsets.all(5),
       child: Center(
@@ -337,15 +189,26 @@ class _AdvertPreview extends StatelessWidget {
                     : Image.memory(advert.images.first),
               ),
               Positioned(
-                  top: 5,
-                  right: 5,
-                  // padding: const EdgeInsets.only(right: 3, top: 3),
-                  child: HeartIconContainer()),
+                top: 5,
+                right: 5,
+                // padding: const EdgeInsets.only(right: 3, top: 3),
+                child: FavIconContainer(
+                  selected: advert.isFav,
+                  onTap: () {
+                    String? token =
+                        context.read<AuthenticationCubit>().state.token;
+                    if (token == null) return;
+                    context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
+                  },
+                ),
+              ),
               Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: _modalClosedContainerContent(),
+                child: ModalClosedContainerContent(
+                  advert: advert,
+                ),
               ),
             ],
           ),
@@ -353,66 +216,4 @@ class _AdvertPreview extends StatelessWidget {
       ),
     );
   }
-
-  Widget _modalClosedContainerContent() => Container(
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.7),
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(15),
-            bottomRight: Radius.circular(15),
-          ),
-        ),
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView(
-                  text: advert.name,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                Row(
-                  children: const [
-                    TextView(
-                      text: '4.5',
-                      color: Color.fromARGB(155, 255, 255, 255),
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(width: 2.5),
-                    Icon(
-                        color: Colors.white, size: 9, CupertinoIcons.star_fill),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                const TextView(
-                  text: 'Barranquilla',
-                  color: Color.fromARGB(155, 255, 255, 255),
-                  fontSize: 10,
-                ),
-                TextView(
-                  text: '${advert.age} años',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 10,
-                ),
-                const TextView(
-                  text: '24 horas',
-                  color: Color.fromARGB(155, 255, 255, 255),
-                  fontSize: 10,
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
 }

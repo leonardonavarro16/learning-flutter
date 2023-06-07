@@ -16,11 +16,13 @@ abstract class BaseAPI {
     return baseUrl;
   }
 
-  Future<Response> httpGet(String url) {
-    return get(Uri.parse(url));
+  Future<Response> httpGet(String url, {String? token}) {
+    Map<String, String>? headers =
+        token == null ? null : {'Authorization': "Bearer $token"};
+    return get(Uri.parse(url), headers: headers);
   }
 
-  Future<Response> httpPost(String url, {required String body, String? token}) {
+  Future<Response> httpPost(String url, {String? body, String? token}) {
     Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8'
     };

@@ -9,17 +9,17 @@ class AdvertsCubit extends Cubit<AdvertsState> {
 
   AdvertsCubit() : super(AdvertsState.initial());
 
-  Future<void> fetchAdverts() async {
+  Future<void> fetchAdverts(String? token) async {
     emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
-      List<Advert> adverts = await _advertRepository.fetchAll();
+      List<Advert> adverts = await _advertRepository.fetchAll(token);
       emit(state.copyWith(
-        advertsStatus: AdvertsStatus.success,
+        advertsStatus: AdvertsStatus.indexSuccess,
         adverts: adverts,
       ));
     } catch (error) {
       emit(state.copyWith(
-          advertsStatus: AdvertsStatus.failure, error: error.toString()));
+          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
     }
   }
 
@@ -29,12 +29,40 @@ class AdvertsCubit extends Cubit<AdvertsState> {
       Advert createdAdvert = await _advertRepository.create(advert, token);
       state.adverts.add(createdAdvert);
       emit(state.copyWith(
-        advertsStatus: AdvertsStatus.success,
+        advertsStatus: AdvertsStatus.indexSuccess,
         adverts: state.adverts,
       ));
     } catch (error) {
       emit(state.copyWith(
-          advertsStatus: AdvertsStatus.failure, error: error.toString()));
+          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
+    }
+  }
+
+// todo: revisar si hay alguna manera de simplificar la condición
+  Future<void> toggleAdvertFav(Advert advert, String token) async {
+    try {
+      emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+      print('prueba de que entra en AdvertsStatus.loading');
+      print(advert.isFav);
+      advert.isFav = !advert.isFav;
+      print(advert.isFav);
+      (advert.isFav == true)
+          ? _advertRepository.markAsFav(advert.id!, token)
+          : _advertRepository.unmarkAsFav(advert.id!, token);
+      List<Advert> adverts = state.adverts.map((Advert adv) {
+        if (adv.id == advert.id) return advert;
+        return adv;
+      }).toList();
+      emit(
+        state.copyWith(
+          adverts: adverts,
+          advertsStatus: AdvertsStatus.indexSuccess,
+        ),
+      );
+    } catch (error) {
+      print('prueba de que entra en error');
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
     }
   }
 }

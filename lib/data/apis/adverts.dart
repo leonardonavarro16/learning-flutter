@@ -52,8 +52,8 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
-  Future<List<dynamic>> fetchAll() async {
-    final response = await httpGet('${baseUrl()}/adverts');
+  Future<List<dynamic>> fetchAll(String? token) async {
+    final response = await httpGet('${baseUrl()}/adverts', token: token);
     if (response.statusCode == 200) {
       List<dynamic> rawAdverts = jsonDecode(response.body);
       return await Future.wait(
@@ -80,6 +80,38 @@ class AdvertsAPI extends BaseAPI {
           },
         ).cast<Future<Uint8List>>(),
       );
+    }
+  }
+
+// todo: en el metodo markAsFav** del api hacer un post a /adverts/:id/favorites
+
+  Future<void> markAsFav(String advertId, String token) async {
+    final response = await httpPost(
+      '${baseUrl()}/adverts/$advertId/favorites',
+      token: token,
+    );
+
+    if (response.statusCode != 200) {
+      String? error = response.body.isEmpty
+          ? 'Error: status code ${response.statusCode}'
+          : jsonDecode(response.body)['error']['message'];
+      throw Exception(error);
+    }
+  }
+
+// todo: en el metodo unmarkAsFav** del api hacer un delete a /adverts/:id/favorites
+
+  Future<void> unmarkAsFav(String advertId, String token) async {
+    final url = Uri.parse('${baseUrl()}/adverts/$advertId/favorites');
+
+    final response =
+        await http.delete(url); //TODO: crear el metodo httpDelete y usarlo
+
+    if (response.statusCode != 200) {
+      String? error = response.body.isEmpty
+          ? 'Error: status code ${response.statusCode}'
+          : jsonDecode(response.body)['error']['message'];
+      throw Exception(error);
     }
   }
 }

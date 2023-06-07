@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
@@ -8,6 +10,7 @@ import 'package:swc_front/presentation/pages/login_page.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
 
 import '../../logic/cubits/adverts.dart';
+import '../../logic/cubits/authentication_cubit.dart';
 import '../pages/create_advert_page.dart';
 import '../pages/edit_profile.dart';
 
@@ -24,12 +27,15 @@ class AppRouter {
   final AdvertsCubit _advertsCubit = AdvertsCubit();
   final UserCubit _userCubit = UserCubit();
   final NavigationCubit _navigationCubit = NavigationCubit();
+  final AuthenticationCubit authenticationCubit;
+
+  AppRouter({required this.authenticationCubit});
 
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.indexPage:
         _navigationCubit.setSelectedIndex(0);
-        _advertsCubit.fetchAdverts();
+        _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -88,7 +94,7 @@ class AppRouter {
 
       default:
         _navigationCubit.setSelectedIndex(0);
-        _advertsCubit.fetchAdverts();
+        _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [

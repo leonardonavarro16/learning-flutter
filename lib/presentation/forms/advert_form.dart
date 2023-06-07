@@ -106,7 +106,7 @@ class _AdvertForm extends State<AdvertForm> {
           if (_canShowSubmitButton())
             BlocConsumer<AdvertsCubit, AdvertsState>(
                 listener: (BuildContext context, AdvertsState state) {
-              if (state.status == AdvertsStatus.failure) {
+              if (state.status == AdvertsStatus.indexFailure) {
                 String errorMessage = state.error;
                 SnackBarUtil.showSnackBar(
                   context,
@@ -115,7 +115,7 @@ class _AdvertForm extends State<AdvertForm> {
                   textColor: Colors.black,
                   errorMessage,
                 );
-              } else if (state.status == AdvertsStatus.success) {
+              } else if (state.status == AdvertsStatus.indexSuccess) {
                 SnackBarUtil.showSnackBar(
                   context,
                   icon: const Icon(Icons.person_off_outlined),

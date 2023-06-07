@@ -4,8 +4,8 @@ import '../models/advert.dart';
 class AdvertRepository {
   final AdvertsAPI _api = AdvertsAPI();
 
-  Future<List<Advert>> fetchAll() async {
-    List<dynamic> rawAdverts = await _api.fetchAll();
+  Future<List<Advert>> fetchAll(String? token) async {
+    List<dynamic> rawAdverts = await _api.fetchAll(token);
     return rawAdverts.map<Advert>((dynamic rawAdvert) {
       return Advert.fromMap(rawAdvert);
     }).toList();
@@ -14,5 +14,13 @@ class AdvertRepository {
   Future<Advert> create(Advert advert, String token) async {
     Map<String, dynamic> rawAdvert = await _api.create(advert.toMap(), token);
     return Advert.fromMap(rawAdvert);
+  }
+
+  Future<void> markAsFav(String advertId, String token) async {
+    await _api.markAsFav(advertId, token);
+  }
+
+  Future<void> unmarkAsFav(String advertId, String token) async {
+    await _api.unmarkAsFav(advertId, token);
   }
 }

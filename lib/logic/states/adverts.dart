@@ -1,7 +1,12 @@
 import '../../data/models/advert.dart';
 import 'base.dart';
 
-enum AdvertsStatus { initial, loading, success, failure }
+enum AdvertsStatus {
+  initial,
+  loading,
+  indexSuccess,
+  indexFailure,
+}
 
 class AdvertsState extends BaseState {
   final List<Advert> adverts;

@@ -12,13 +12,15 @@ void main() async {
 }
 
 class SwcApp extends StatelessWidget {
-  final AppRouter _appRouter = AppRouter();
+  final AuthenticationCubit authenticationCubit = AuthenticationCubit();
   SwcApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => AuthenticationCubit(),
+    final AppRouter appRouter =
+        AppRouter(authenticationCubit: authenticationCubit);
+    return BlocProvider.value(
+      value: authenticationCubit,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -29,7 +31,7 @@ class SwcApp extends StatelessWidget {
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        onGenerateRoute: _appRouter.onGenerateRoute,
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
   }
