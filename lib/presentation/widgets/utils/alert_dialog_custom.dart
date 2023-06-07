@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog({super.key});
+  final String? titleText;
+  final String? contentText;
+  final bool hasButton;
+  final VoidCallback? onButtonPressed;
+  final String? buttonText;
+
+  const CustomAlertDialog({
+    Key? key,
+    this.titleText,
+    this.contentText,
+    this.hasButton = true,
+    this.onButtonPressed,
+    this.buttonText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,24 +25,34 @@ class CustomAlertDialog extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30)),
       ),
-      title: const TextView(
+      title: TextView(
         fontWeight: FontWeight.bold,
-        color: Color(0xFFFF0000),
-        text: 'Número de teléfono copiado',
+        color: const Color(0xFFFF0000),
+        text: titleText,
       ),
-      content: const TextView(
+      content: TextView(
         color: Colors.white,
-        text: 'El número de teléfono se ha copiado al portapapeles.',
+        text: contentText,
       ),
-      // actions: [
-      //   CustomButton(
-      //     borderRadius: 15,
-      //     text: 'Aceptar',
-      //     onPressed: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //   ),
-      // ],
+      actions: _buildActions(context),
     );
+  }
+
+  // es un List porque cubre el parametro de actions que es un array.
+  List<Widget> _buildActions(BuildContext context) {
+    if (hasButton) {
+      return [
+        CustomButton(
+          borderRadius: 15,
+          text: buttonText ?? 'Aceptar',
+          onPressed: onButtonPressed ??
+              () {
+                Navigator.of(context).pop();
+              },
+        ),
+      ];
+    } else {
+      return [];
+    }
   }
 }

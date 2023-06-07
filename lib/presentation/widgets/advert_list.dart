@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
+import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_opened_content.dart';
 import 'package:swc_front/presentation/widgets/utils/fav_icon_container.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_closed_content.dart';
@@ -153,7 +155,26 @@ class _AdvertPreview extends StatelessWidget {
             width: 50,
             onTap: () {
               String? token = context.read<AuthenticationCubit>().state.token;
-              if (token == null) return;
+              if (token == null) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    Future.delayed(const Duration(seconds: 30), () {
+                      Navigator.of(context).pop();
+                    });
+                    return CustomAlertDialog(
+                      onButtonPressed: () => Navigator.pushReplacementNamed(
+                          context, Routes.loginPage),
+                      buttonText: 'Ingresar',
+                      hasButton: true,
+                      titleText: 'Acción inválida:',
+                      contentText:
+                          'Para marcar este anuncio en favoritos accede a tu cuenta.',
+                    );
+                  },
+                );
+                return;
+              }
               context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
             },
           ),
@@ -197,7 +218,27 @@ class _AdvertPreview extends StatelessWidget {
                   onTap: () {
                     String? token =
                         context.read<AuthenticationCubit>().state.token;
-                    if (token == null) return;
+                    if (token == null) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          Future.delayed(const Duration(seconds: 30), () {
+                            Navigator.of(context).pop();
+                          });
+                          return CustomAlertDialog(
+                            onButtonPressed: () =>
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.loginPage),
+                            buttonText: 'Ingresar',
+                            hasButton: true,
+                            titleText: 'Acción inválida:',
+                            contentText:
+                                'Para marcar este anuncio en favoritos accede a tu cuenta.',
+                          );
+                        },
+                      );
+                      return;
+                    }
                     context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
                   },
                 ),
