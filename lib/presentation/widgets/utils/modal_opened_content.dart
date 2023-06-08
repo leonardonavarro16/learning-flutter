@@ -131,8 +131,9 @@ class ModalOpenedContainerContent extends StatelessWidget {
                   return StatefulBuilder(
                     builder: (context, setState) {
                       return const CustomAlertDialog(
+                        content: TextView(text: 'Número de teléfono copiado'),
                         hasButton: false,
-                        titleText: 'Número de teléfono copiado',
+                        // titleText: 'Número de teléfono copiado',
                         contentText:
                             'El número de teléfono se ha copiado al portapapeles.',
                       );

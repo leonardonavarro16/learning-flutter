@@ -1,12 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
+import 'package:swc_front/presentation/forms/login_form.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_opened_content.dart';
 import 'package:swc_front/presentation/widgets/utils/fav_icon_container.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_closed_content.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../logic/cubits/authentication_cubit.dart';
 import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
@@ -151,25 +155,93 @@ class _AdvertPreview extends StatelessWidget {
           left: 16,
           child: FavIconContainer(
             selected: advert.isFav,
-            height: 50,
-            width: 50,
             onTap: () {
               String? token = context.read<AuthenticationCubit>().state.token;
               if (token == null) {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    Future.delayed(const Duration(seconds: 30), () {
+                    Future.delayed(const Duration(minutes: 1), () {
                       Navigator.of(context).pop();
                     });
                     return CustomAlertDialog(
-                      onButtonPressed: () => Navigator.pushReplacementNamed(
-                          context, Routes.loginPage),
-                      buttonText: 'Ingresar',
-                      hasButton: true,
-                      titleText: 'Acción inválida:',
-                      contentText:
-                          'Para marcar este anuncio en favoritos accede a tu cuenta.',
+                      hasButton: false,
+                      title: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Icon(
+                                CupertinoIcons.xmark_square_fill,
+                                shadows: [
+                                  BoxShadow(
+                                      color: Colors.black,
+                                      offset: Offset(0, 2),
+                                      blurRadius: 5.0)
+                                ],
+                                size: 32.5,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          const TextView(
+                            fontSize: 14,
+                            text: 'Accede para marcar como favorito!',
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            // height: 140,
+                            width: 140,
+                            child: SvgPicture.asset(
+                              'assets/Logo blanco.svg',
+                            ),
+                          ),
+                        ],
+                      ),
+                      content: Container(
+                        height: 240,
+                        width: 400,
+                        child: ListView(
+                          children: [
+                            Column(
+                              children: [
+                                const LoginForm(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const TextView(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.white,
+                                        text: '¿No tienes una cuenta?'),
+                                    // SizedBox(height: 15),
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pushReplacementNamed(
+                                                context,
+                                                Routes.registrationPage),
+                                        child: const TextView(
+                                          fontSize: 14,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                          text: 'Registrate',
+                                        )),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     );
                   },
                 );
@@ -192,9 +264,6 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   Widget _buildModalClosedContent(BuildContext context) {
-    print(advert.id);
-    print(advert.isFav);
-
     return Container(
       margin: const EdgeInsets.all(5),
       child: Center(
@@ -222,18 +291,88 @@ class _AdvertPreview extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          Future.delayed(const Duration(seconds: 30), () {
+                          Future.delayed(const Duration(minutes: 1), () {
                             Navigator.of(context).pop();
                           });
                           return CustomAlertDialog(
-                            onButtonPressed: () =>
-                                Navigator.pushReplacementNamed(
-                                    context, Routes.loginPage),
-                            buttonText: 'Ingresar',
-                            hasButton: true,
-                            titleText: 'Acción inválida:',
-                            contentText:
-                                'Para marcar este anuncio en favoritos accede a tu cuenta.',
+                            hasButton: false,
+                            title: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Icon(
+                                      CupertinoIcons.xmark_square_fill,
+                                      shadows: [
+                                        BoxShadow(
+                                            color: Colors.black,
+                                            offset: Offset(0, 2),
+                                            blurRadius: 5.0)
+                                      ],
+                                      size: 32.5,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                const TextView(
+                                  fontSize: 14,
+                                  text: 'Accede para marcar como favorito!',
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Container(
+                                  // height: 140,
+                                  width: 140,
+                                  child: SvgPicture.asset(
+                                    'assets/Logo blanco.svg',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            content: Container(
+                              height: 240,
+                              width: 400,
+                              child: ListView(
+                                children: [
+                                  Column(
+                                    children: [
+                                      const LoginForm(),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const TextView(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.white,
+                                              text: '¿No tienes una cuenta?'),
+                                          // SizedBox(height: 15),
+                                          TextButton(
+                                              onPressed: () => Navigator
+                                                  .pushReplacementNamed(context,
+                                                      Routes.registrationPage),
+                                              child: const TextView(
+                                                fontSize: 14,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red,
+                                                text: 'Registrate',
+                                              )),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
                           );
                         },
                       );

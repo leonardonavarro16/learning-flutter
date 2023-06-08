@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
+
 import 'package:mime/mime.dart';
 
 import 'package:swc_front/data/apis/base.dart';

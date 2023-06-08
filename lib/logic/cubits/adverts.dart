@@ -42,10 +42,9 @@ class AdvertsCubit extends Cubit<AdvertsState> {
   Future<void> toggleAdvertFav(Advert advert, String token) async {
     try {
       emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
-      print('prueba de que entra en AdvertsStatus.loading');
-      print(advert.isFav);
+
       advert.isFav = !advert.isFav;
-      print(advert.isFav);
+
       (advert.isFav == true)
           ? _advertRepository.markAsFav(advert.id!, token)
           : _advertRepository.unmarkAsFav(advert.id!, token);
@@ -60,7 +59,6 @@ class AdvertsCubit extends Cubit<AdvertsState> {
         ),
       );
     } catch (error) {
-      print('prueba de que entra en error');
       emit(state.copyWith(
           advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
     }

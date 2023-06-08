@@ -45,7 +45,6 @@ class _LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: [
-            const SizedBox(height: 15),
             EmailFormField(
               onChange: (String? value, bool valid) {
                 if (valid) setState(() => email = value);

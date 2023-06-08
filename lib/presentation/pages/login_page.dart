@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
             width: constraints.maxWidth * 0.8,
             child: Column(
               children: [
-                // const SizedBox(height: 15),
+                const SizedBox(height: 15),
                 SizedBox(
                   height: 165,
                   width: 165,
@@ -29,6 +29,7 @@ class LoginPage extends StatelessWidget {
                     'assets/Logo blanco.svg',
                   ),
                 ),
+                // const SizedBox(height: 15),
                 const LoginForm(),
                 InkWell(
                   onTap: () {
