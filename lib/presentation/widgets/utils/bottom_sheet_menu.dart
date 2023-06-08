@@ -4,6 +4,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
+import 'package:swc_front/presentation/pages/fav_advert_page.dart';
+import 'package:swc_front/presentation/pages/fav_advert_page.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 
@@ -47,7 +49,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                         context, Routes.createAdvertPage);
                 break;
               case 2:
-                Navigator.pushReplacementNamed(context, Routes.loginPage);
+                Navigator.pushReplacementNamed(context, Routes.favoritesPage);
                 break;
               case 3:
                 // !isLogged
@@ -56,11 +58,10 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
                 break;
 
-              // case 4:
-              //   Navigator.pushReplacementNamed(
-              //       context, Routes.registrationPage);
+              case 4:
+                Navigator.pushReplacementNamed(context, Routes.favoritesPage);
 
-              //   break;
+                break;
             }
           },
           tabs: [
@@ -89,6 +90,12 @@ class _BottomNavigatorState extends State<BottomNavigator> {
               iconSize: 30,
               icon: CupertinoIcons.person_badge_plus,
             ),
+            if (isLogged)
+              const GButton(
+                // text: 'Perfil',
+                iconSize: 30,
+                icon: CupertinoIcons.airplane,
+              ),
           ],
         ),
       ),
