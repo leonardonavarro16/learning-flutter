@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-
+import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 
 import 'package:swc_front/data/apis/base.dart';
@@ -83,8 +83,6 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
-// todo: en el metodo markAsFav** del api hacer un post a /adverts/:id/favorites
-
   Future<void> markAsFav(String advertId, String token) async {
     final response = await httpPost(
       '${baseUrl()}/adverts/$advertId/favorites',
@@ -98,9 +96,6 @@ class AdvertsAPI extends BaseAPI {
       throw Exception(error);
     }
   }
-
-// todo: en el metodo unmarkAsFav** del api hacer un delete a /adverts/:id/favorites
-// todo: crear el metodo httpDelete y usarlo
 
   Future<void> unmarkAsFav(String advertId, String token) async {
     final response = await httpDelete(

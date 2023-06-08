@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class StoryBubble extends StatelessWidget {
   final String? child;
 
-  StoryBubble({this.child});
+  const StoryBubble({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {

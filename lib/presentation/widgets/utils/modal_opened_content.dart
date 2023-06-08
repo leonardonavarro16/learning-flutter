@@ -18,6 +18,7 @@ class ModalOpenedContainerContent extends StatelessWidget {
       this.availability = '24 horas',
       this.rate = '4.5'});
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.35,

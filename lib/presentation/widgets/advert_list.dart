@@ -166,7 +166,7 @@ class _AdvertPreview extends StatelessWidget {
                     });
                     return CustomAlertDialog(
                       hasButton: false,
-                      title: Column(
+                      header: Column(
                         children: [
                           Align(
                             alignment: Alignment.topRight,
@@ -187,7 +187,7 @@ class _AdvertPreview extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 8),
                           const TextView(
                             fontSize: 14,
                             text: 'Accede para marcar como favorito!',
@@ -296,7 +296,7 @@ class _AdvertPreview extends StatelessWidget {
                           });
                           return CustomAlertDialog(
                             hasButton: false,
-                            title: Column(
+                            header: Column(
                               children: [
                                 Align(
                                   alignment: Alignment.topRight,
@@ -317,7 +317,7 @@ class _AdvertPreview extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 5),
+                                const SizedBox(height: 8),
                                 const TextView(
                                   fontSize: 14,
                                   text: 'Accede para marcar como favorito!',

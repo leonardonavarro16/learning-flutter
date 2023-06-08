@@ -38,7 +38,6 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     }
   }
 
-// todo: revisar si hay alguna manera de simplificar la condición
   Future<void> toggleAdvertFav(Advert advert, String token) async {
     try {
       emit(state.copyWith(advertsStatus: AdvertsStatus.loading));

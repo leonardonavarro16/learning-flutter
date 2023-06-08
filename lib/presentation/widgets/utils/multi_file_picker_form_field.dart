@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
-import 'image_carousel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MultiFilePickerField extends StatefulWidget {
@@ -101,7 +100,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                         size: const Size(4, 4),
                       ),
                     )
-                  : SizedBox(), // Opcional: Si no hay imágenes seleccionadas, se muestra un SizedBox
+                  : const SizedBox(), // Opcional: Si no hay imágenes seleccionadas, se muestra un SizedBox
             ),
             if (_pickedFiles.isEmpty) Center(child: _buildSelectFileBtn()),
             if (_pickedFiles.isNotEmpty)

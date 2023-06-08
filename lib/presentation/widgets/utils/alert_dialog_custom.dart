@@ -9,7 +9,7 @@ class CustomAlertDialog extends StatelessWidget {
   final Widget? content;
   final VoidCallback? onButtonPressed;
   final String? buttonText;
-  final Widget? title;
+  final Widget? header;
 
   const CustomAlertDialog({
     Key? key,
@@ -19,7 +19,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.onButtonPressed,
     this.buttonText,
     this.content,
-    this.title,
+    this.header,
   }) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class CustomAlertDialog extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30)),
       ),
-      title: title ??
+      title: header ??
           TextView(
             fontWeight: FontWeight.bold,
             color: const Color(0xFFFF0000),
