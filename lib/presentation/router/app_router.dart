@@ -49,7 +49,7 @@ class AppRouter {
         );
 
       case Routes.editProfile:
-        _navigationCubit.setSelectedIndex(3);
+        _navigationCubit.setSelectedIndex(4);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -60,7 +60,7 @@ class AppRouter {
         );
 
       case Routes.loginPage:
-        _navigationCubit.setSelectedIndex(2);
+        _navigationCubit.setSelectedIndex(3);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -71,7 +71,7 @@ class AppRouter {
         );
 
       case Routes.createAdvertPage:
-        _navigationCubit.setSelectedIndex(1);
+        _navigationCubit.setSelectedIndex(2);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -83,7 +83,7 @@ class AppRouter {
         );
 
       case Routes.registrationPage:
-        _navigationCubit.setSelectedIndex(1);
+        _navigationCubit.setSelectedIndex(3);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -95,7 +95,7 @@ class AppRouter {
         );
 
       case Routes.favoritesPage:
-        _navigationCubit.setSelectedIndex(5);
+        _navigationCubit.setSelectedIndex(1);
         return MaterialPageRoute(
             builder: (_) => MultiBlocProvider(providers: [
                   BlocProvider.value(value: _advertsCubit),

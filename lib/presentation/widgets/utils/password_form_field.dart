@@ -39,7 +39,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
             });
           },
           child: Icon(
-              color: Colors.red,
+              color: const Color(0xFFFF0000),
               obscureText ? Icons.visibility : Icons.visibility_off),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.never,

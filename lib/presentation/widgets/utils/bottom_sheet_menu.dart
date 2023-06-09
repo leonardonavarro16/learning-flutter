@@ -4,12 +4,12 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
-import 'package:swc_front/presentation/pages/fav_advert_page.dart';
-import 'package:swc_front/presentation/pages/fav_advert_page.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 
 class BottomNavigator extends StatefulWidget {
+  const BottomNavigator({super.key});
+
   @override
   _BottomNavigatorState createState() => _BottomNavigatorState();
 }
@@ -26,7 +26,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       blur: 20,
       color: const Color.fromRGBO(0, 0, 0, 0.6),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
         child: GNav(
           mainAxisAlignment: !isLogged
               ? MainAxisAlignment.spaceEvenly
@@ -46,56 +48,49 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                 !isLogged
                     ? Navigator.pushReplacementNamed(context, Routes.loginPage)
                     : Navigator.pushReplacementNamed(
-                        context, Routes.createAdvertPage);
+                        context, Routes.favoritesPage);
                 break;
               case 2:
-                Navigator.pushReplacementNamed(context, Routes.favoritesPage);
+                Navigator.pushReplacementNamed(
+                    context, Routes.createAdvertPage);
                 break;
               case 3:
-                // !isLogged
-                //     ? Navigator.pushReplacementNamed(context, Routes.loginPage)
-                Navigator.pushReplacementNamed(context, Routes.editProfile);
+                Navigator.pushReplacementNamed(context, Routes.loginPage);
 
                 break;
 
               case 4:
-                Navigator.pushReplacementNamed(context, Routes.favoritesPage);
+                Navigator.pushReplacementNamed(context, Routes.editProfile);
 
                 break;
             }
           },
           tabs: [
-            const GButton(
+            GButton(
               // text: 'Home',
-              iconSize: 30,
+              iconSize: !isLogged ? 32.5 : 27.5,
               icon: CupertinoIcons.house_alt,
             ),
             if (isLogged)
               const GButton(
-                iconSize: 30,
+                iconSize: 27.5,
                 icon: CupertinoIcons.suit_heart,
               ),
-            // if (isLogged)
-            // GButton(
-            //   iconSize: 42.5,
-            //   icon: CupertinoIcons.add_circled_solid,
-            // ),
             if (isLogged)
               const GButton(
-                iconSize: 30,
+                iconSize: 47.5,
+                icon: CupertinoIcons.add_circled_solid,
+              ),
+            if (isLogged)
+              const GButton(
+                iconSize: 27.5,
                 icon: CupertinoIcons.square_stack_3d_down_right,
               ),
-            const GButton(
+            GButton(
               // text: 'Perfil',
-              iconSize: 30,
+              iconSize: !isLogged ? 32.5 : 27.5,
               icon: CupertinoIcons.person_badge_plus,
             ),
-            if (isLogged)
-              const GButton(
-                // text: 'Perfil',
-                iconSize: 30,
-                icon: CupertinoIcons.airplane,
-              ),
           ],
         ),
       ),

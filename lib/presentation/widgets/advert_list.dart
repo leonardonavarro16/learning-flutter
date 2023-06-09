@@ -191,7 +191,7 @@ class _AdvertPreview extends StatelessWidget {
                           const TextView(
                             fontSize: 14,
                             text: 'Accede para marcar como favorito!',
-                            color: Colors.red,
+                            color: Color(0xFFFF0000),
                             fontWeight: FontWeight.bold,
                           ),
                           const SizedBox(
@@ -232,7 +232,7 @@ class _AdvertPreview extends StatelessWidget {
                                           fontSize: 14,
                                           decoration: TextDecoration.underline,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.red,
+                                          color: Color(0xFFFF0000),
                                           text: 'Registrate',
                                         )),
                                   ],
@@ -321,7 +321,7 @@ class _AdvertPreview extends StatelessWidget {
                                 const TextView(
                                   fontSize: 14,
                                   text: 'Accede para marcar como favorito!',
-                                  color: Colors.red,
+                                  color: Color(0xFFFF0000),
                                   fontWeight: FontWeight.bold,
                                 ),
                                 const SizedBox(
@@ -363,7 +363,7 @@ class _AdvertPreview extends StatelessWidget {
                                                 decoration:
                                                     TextDecoration.underline,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.red,
+                                                color: Color(0xFFFF0000),
                                                 text: 'Registrate',
                                               )),
                                         ],

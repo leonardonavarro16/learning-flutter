@@ -17,21 +17,19 @@ class CreateAdvertPage extends StatelessWidget {
         return Layout(
           content: Center(
             child: SizedBox(
-              width: constraints.maxWidth * 0.65,
+              width: constraints.maxWidth * 0.8,
               child: ListView(
                 children: [
-                  const SizedBox(height: 8.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: SvgPicture.asset('assets/Logo rojo.svg'),
-                      ),
-                    ],
+                  const SizedBox(height: 15.0),
+                  Container(
+                    alignment: Alignment.topRight,
+                    padding: const EdgeInsets.only(top: 3, right: 20),
+                    child: SvgPicture.asset(
+                      'assets/Logo rojo.svg',
+                      height: 55,
+                    ),
                   ),
-                  // const SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   TextView(
                     text: t.newAdvertTitleLinkText,
                     textAlign: TextAlign.center,
@@ -39,7 +37,7 @@ class CreateAdvertPage extends StatelessWidget {
                     fontSize: 20,
                     color: Colors.white,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 15),
                   const AdvertForm(),
                 ],
               ),

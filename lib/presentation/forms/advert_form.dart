@@ -111,7 +111,7 @@ class _AdvertForm extends State<AdvertForm> {
                 SnackBarUtil.showSnackBar(
                   context,
                   icon: const Icon(Icons.error_outline),
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color(0xFFFF0000),
                   textColor: Colors.black,
                   errorMessage,
                 );

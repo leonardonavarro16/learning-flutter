@@ -25,7 +25,7 @@ class SwcApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Colors.red, // Cambia el color del cursor aquí
+            cursorColor: Color(0xFFFF0000), // Cambia el color del cursor aquí
           ),
           primaryColor: const Color(0xFFFF0000),
         ),

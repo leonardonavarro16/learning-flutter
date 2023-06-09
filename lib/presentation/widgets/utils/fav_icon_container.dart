@@ -30,7 +30,7 @@ class FavIconContainer extends StatelessWidget {
                 blurRadius: 5.0,
               ),
             ],
-            color: selected ? Colors.red : Colors.grey,
+            color: selected ? const Color(0xFFFF0000) : Colors.grey,
             size: selected ? 25 : 20.5,
             selected ? Icons.favorite : Icons.favorite_border,
           ),

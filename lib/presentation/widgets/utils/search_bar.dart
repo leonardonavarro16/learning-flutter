@@ -17,9 +17,10 @@ class _SearchTextFieldExampleState extends State<SearchTextFieldExample> {
     return CupertinoTheme(
       data: const CupertinoThemeData(
         primaryColor:
-            Colors.red, // establece el color rojo como el color primario
+            Color(0xFFFF0000), // establece el color rojo como el color primario
         textTheme: CupertinoTextThemeData(
-          primaryColor: Colors.red, // establece el color azul para el texto
+          primaryColor:
+              Color(0xFFFF0000), // establece el color azul para el texto
         ),
       ),
       child: Center(

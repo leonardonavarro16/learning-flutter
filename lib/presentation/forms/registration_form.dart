@@ -69,7 +69,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
           SnackBarUtil.showSnackBar(
             context,
             icon: const Icon(Icons.error_outline),
-            backgroundColor: Colors.red,
+            backgroundColor: const Color(0xFFFF0000),
             errorMessage,
           );
         }

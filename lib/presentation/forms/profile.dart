@@ -61,7 +61,7 @@ class _ProfileForm extends State<ProfileForm> {
           SnackBarUtil.showSnackBar(
             context,
             icon: const Icon(Icons.error_outline),
-            backgroundColor: Colors.red,
+            backgroundColor: const Color(0xFFFF0000),
             errorMessage,
           );
         }
