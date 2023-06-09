@@ -44,6 +44,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  void logout() {
+    emit(AuthenticationState.initial());
+  }
+
   bool isLogged() {
     return state.token != null && state.user != null;
   }

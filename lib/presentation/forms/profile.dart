@@ -128,6 +128,8 @@ class _ProfileForm extends State<ProfileForm> {
           ),
           // if (_canShowSubmitButton())
           _buildSubmitButton(),
+          const SizedBox(height: 20),
+          _buildLogoutButton(),
         ],
       ),
     );
@@ -167,4 +169,26 @@ class _ProfileForm extends State<ProfileForm> {
       image: image!,
     );
   }
+
+  Widget _buildLogoutButton() {
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      builder: (BuildContext context, AuthenticationState state) {
+        if (state.authenticationStatus == AuthenticationStatus.loading) {
+          return const CustomIndicatorProgress();
+        } else {
+          return CustomButton(
+            text: 'Logout',
+            onPressed: () {
+              BlocProvider.of<AuthenticationCubit>(context).logout();
+              Navigator.pushReplacementNamed(context, Routes.indexPage);
+            },
+          );
+        }
+      },
+    );
+  }
+
+  // User _buildUserWithNullToken() {
+  //   return context.read<AuthenticationCubit>().state.user!;
+  // }
 }

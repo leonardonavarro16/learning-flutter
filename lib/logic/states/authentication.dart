@@ -7,6 +7,7 @@ enum AuthenticationStatus {
   failureLogin,
   updateSuccess,
   updateFailure,
+  successLogout
 }
 
 class AuthenticationState {
