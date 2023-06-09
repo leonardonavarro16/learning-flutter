@@ -66,10 +66,10 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                 break;
             }
 
-            if (index == 1 && isLogged) {
-              // Si se selecciona la pestaña de favoritos y el usuario está logueado
-              context.read<AdvertsCubit>().fetchFavAdverts(token);
-            }
+            // if (index == 1 && isLogged) {
+            //   // Si se selecciona la pestaña de favoritos y el usuario está logueado
+            //   context.read<AdvertsCubit>().fetchFavAdverts(token);
+            // }
           },
           tabs: [
             GButton(

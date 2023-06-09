@@ -47,7 +47,18 @@ class AppRouter {
             child: const IndexPage(),
           ),
         );
-
+      case Routes.favoritesPage:
+        _navigationCubit.setSelectedIndex(1);
+        _advertsCubit.fetchFavAdverts(authenticationCubit.state.token);
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _advertsCubit),
+              BlocProvider.value(value: _navigationCubit),
+            ],
+            child: const FavAdvertsPage(),
+          ),
+        );
       case Routes.editProfile:
         _navigationCubit.setSelectedIndex(4);
         return MaterialPageRoute(
@@ -93,14 +104,6 @@ class AppRouter {
             child: const RegistrationPage(),
           ),
         );
-
-      case Routes.favoritesPage:
-        _navigationCubit.setSelectedIndex(1);
-        return MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(providers: [
-                  BlocProvider.value(value: _advertsCubit),
-                  BlocProvider.value(value: _navigationCubit),
-                ], child: const FavAdvertsPage()));
 
       default:
         _navigationCubit.setSelectedIndex(0);
