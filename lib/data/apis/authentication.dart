@@ -42,7 +42,7 @@ class AuthenticationAPI extends BaseAPI {
       final responseBody = await response.stream.bytesToString();
       return jsonDecode(responseBody)['user'];
     } else {
-      throw Exception('Error en la solicitud: ${response.statusCode}');
+      throw Exception('Error: ${response.statusCode}');
     }
   }
 }

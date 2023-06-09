@@ -8,7 +8,6 @@ import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
-import 'package:swc_front/presentation/widgets/utils/age_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/date_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
@@ -59,8 +58,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
     return BlocListener<UserCubit, UserState>(
       listener: (BuildContext context, UserState state) {
         if (state.userStatus == UserStatus.createSuccess) {
-          context.read<AuthenticationCubit>().login(
-              context.read<AuthenticationCubit>().state.user!.email, password!);
+          context.read<AuthenticationCubit>().login(email!, password!);
           Navigator.pushReplacementNamed(context, Routes.indexPage);
         } else if (state.userStatus == UserStatus.createFailure) {
           String errorMessage =
