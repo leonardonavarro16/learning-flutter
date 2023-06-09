@@ -68,6 +68,22 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
+  Future<List<dynamic>> fetchFav(String? token) async {
+    final response = await httpGet('${baseUrl()}/favorites', token: token);
+    if (response.statusCode == 200) {
+      List<dynamic> rawAdverts = jsonDecode(response.body);
+      return await Future.wait(
+        rawAdverts.map((rawAdvert) async {
+          await downloadAdvertImages(rawAdvert);
+          return rawAdvert;
+        }),
+      );
+    } else {
+      final error = jsonDecode(response.body)['error'];
+      throw Exception(error);
+    }
+  }
+
   Future<void> downloadAdvertImages(Map<String, dynamic> rawAdvert) async {
     bool downloadImages = rawAdvert['images'] != null &&
         rawAdvert['images'] is List &&

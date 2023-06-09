@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/presentation/pages/default_page.dart';
-import 'package:swc_front/presentation/pages/fav_advert_page.dart';
+import 'package:swc_front/presentation/pages/fav_adverts_page.dart';
 import 'package:swc_front/presentation/pages/index_page.dart';
 import 'package:swc_front/presentation/pages/login_page.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
@@ -100,7 +100,7 @@ class AppRouter {
             builder: (_) => MultiBlocProvider(providers: [
                   BlocProvider.value(value: _advertsCubit),
                   BlocProvider.value(value: _navigationCubit),
-                ], child: const FavoritesPage()));
+                ], child: const FavAdvertsPage()));
 
       default:
         _navigationCubit.setSelectedIndex(0);

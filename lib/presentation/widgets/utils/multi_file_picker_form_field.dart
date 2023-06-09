@@ -74,7 +74,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                     options: CarouselOptions(
                         // animateToClosest: true,
                         enableInfiniteScroll:
-                            _pickedFiles.length >= 3 ? true : false,
+                            (_pickedFiles.length) >= 3 ? true : false,
                         autoPlay: false,
                         enlargeCenterPage: true,
                         aspectRatio: 1.4,

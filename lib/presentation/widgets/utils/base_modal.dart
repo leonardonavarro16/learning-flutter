@@ -29,7 +29,6 @@ class BaseModal extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: AlertDialog(
             title: title,
-            // todo: change this propertie in order to dont allow to be scrolleable!
             content: SingleChildScrollView(
               child: ListBody(children: children),
             ),

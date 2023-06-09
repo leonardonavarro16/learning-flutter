@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
@@ -18,6 +19,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
+    String? token = context.read<AuthenticationCubit>().state.token;
+    // Obtén el token de autenticación desde donde corresponda
+
     return BlurryContainer(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(35),
@@ -56,18 +60,19 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                 break;
               case 3:
                 Navigator.pushReplacementNamed(context, Routes.loginPage);
-
                 break;
-
               case 4:
                 Navigator.pushReplacementNamed(context, Routes.editProfile);
-
                 break;
+            }
+
+            if (index == 1 && isLogged) {
+              // Si se selecciona la pestaña de favoritos y el usuario está logueado
+              context.read<AdvertsCubit>().fetchFavAdverts(token);
             }
           },
           tabs: [
             GButton(
-              // text: 'Home',
               iconSize: !isLogged ? 32.5 : 27.5,
               icon: CupertinoIcons.house_alt,
             ),
@@ -87,7 +92,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                 icon: CupertinoIcons.square_stack_3d_down_right,
               ),
             GButton(
-              // text: 'Perfil',
               iconSize: !isLogged ? 32.5 : 27.5,
               icon: CupertinoIcons.person_badge_plus,
             ),

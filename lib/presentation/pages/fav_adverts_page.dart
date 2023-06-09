@@ -8,8 +8,8 @@ import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
-class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({Key? key}) : super(key: key);
+class FavAdvertsPage extends StatelessWidget {
+  const FavAdvertsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,13 @@ class FavoritesPage extends StatelessWidget {
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
           if (state.status == AdvertsStatus.indexSuccess) {
-            final favoriteAdverts =
-                state.adverts.where((advert) => advert.isFav).toList();
-
-            if (favoriteAdverts.isEmpty) {
+            if (state.adverts.isEmpty) {
               return const Center(
-                  child: TextView(
-                text: 'No favorite adverts',
-                color: Colors.white,
-              ));
+                child: TextView(
+                  text: 'No favorite adverts',
+                  color: Colors.white,
+                ),
+              );
             }
 
             return Column(
@@ -44,7 +42,6 @@ class FavoritesPage extends StatelessWidget {
                   fontSize: 20,
                   text: 'Mis anuncios favoritos',
                   color: Colors.white,
-                  // fontWeight: FontWeight.bold,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
@@ -52,7 +49,7 @@ class FavoritesPage extends StatelessWidget {
                   child: ListView(
                     children: [
                       AdverList(
-                        adverts: favoriteAdverts,
+                        adverts: state.adverts,
                       ),
                     ],
                   ),
@@ -60,7 +57,10 @@ class FavoritesPage extends StatelessWidget {
               ],
             );
           } else if (state.status == AdvertsStatus.indexFailure) {
-            return TextView(text: state.error, color: const Color(0xFFFF0000));
+            return TextView(
+              text: state.error,
+              color: const Color(0xFFFF0000),
+            );
           } else {
             return const Center(child: CustomIndicatorProgress());
           }

@@ -23,6 +23,22 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     }
   }
 
+  Future<void> fetchFavAdverts(String? token) async {
+    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+    try {
+      List<Advert> adverts = await _advertRepository.fetchFav(token);
+      emit(state.copyWith(
+        advertsStatus: AdvertsStatus.indexSuccess,
+        adverts: adverts,
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
+    }
+
+    // return state.adverts.where((advert) => advert.isFav).toList();
+  }
+
   Future<void> createAdvert(Advert advert, String token) async {
     try {
       emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
