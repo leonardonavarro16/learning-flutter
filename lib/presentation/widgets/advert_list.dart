@@ -45,47 +45,111 @@ class AdverList extends StatelessWidget {
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
+                InkWell(
+                  onTap: () {
                     if (itemsPerPage > 0) {
                       currentPage--;
                       context.read<AdvertsCubit>().previousPage(token);
                     }
                   },
-                  child: const Icon(CupertinoIcons.arrow_left_square_fill),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 18, 18, 18),
+                        borderRadius: BorderRadius.circular(10)),
+                    height: 40,
+                    width: 40,
+                    child: const Icon(
+                        size: 20,
+                        color: Colors.white,
+                        Icons.arrow_back_ios_rounded),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
                 ),
                 if (decreasedCurrentPageIndex > 0)
-                  TextView(
-                    text: '$decreasedCurrentPageIndex',
-                    color: Colors.red,
+                  Container(
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 18, 18, 18),
+                        borderRadius: BorderRadius.circular(10)),
+                    height: 40,
+                    width: 40,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: TextView(
+                        fontWeight: FontWeight.bold,
+                        text: '$decreasedCurrentPageIndex',
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 const SizedBox(
                   width: 10,
                 ),
-                TextView(
-                  text: '$currentPageIndex ',
-                  color: Colors.red,
+                Container(
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: const Color(0xFFFF0000), width: 2),
+                      color: const Color.fromARGB(255, 18, 18, 18),
+                      borderRadius: BorderRadius.circular(10)),
+                  height: 40,
+                  width: 40,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: TextView(
+                      fontWeight: FontWeight.bold,
+                      text: '$currentPageIndex ',
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 if (adverts.length >= itemsPerPage)
-                  TextView(
-                    text: '$increasedCurrentPageIndex',
-                    color: Colors.red,
+                  Container(
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 18, 18, 18),
+                        borderRadius: BorderRadius.circular(10)),
+                    height: 40,
+                    width: 40,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: TextView(
+                        fontWeight: FontWeight.bold,
+                        text: '$increasedCurrentPageIndex',
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ElevatedButton(
-                  onPressed: () {
+                const SizedBox(
+                  width: 10,
+                ),
+                InkWell(
+                  onTap: () {
                     if (adverts.length >= itemsPerPage) {
                       currentPage++;
                       context.read<AdvertsCubit>().nextPage(token);
                     }
                   },
-                  child: const Icon(CupertinoIcons.arrow_right_square_fill),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 18, 18, 18),
+                        borderRadius: BorderRadius.circular(10)),
+                    height: 40,
+                    width: 40,
+                    child: const Icon(
+                        size: 20,
+                        color: Colors.white,
+                        Icons.arrow_forward_ios_rounded),
+                  ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 10,
             ),
             SizedBox(
               width: constraints.maxWidth,
