@@ -35,30 +35,53 @@ class AdverList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? token = context.read<AuthenticationCubit>().state.token;
+    int currentPageIndex = context.watch<AdvertsCubit>().state.currentPage;
+    int decreasedCurrentPageIndex = currentPageIndex - 1;
+    int increasedCurrentPageIndex = currentPageIndex + 1;
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         setConstraints(constraints);
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // if (currentPage > 0) {
-                    currentPage--;
-                    context.read<AdvertsCubit>().previousPage(token);
+                    if (itemsPerPage > 0) {
+                      currentPage--;
+                      context.read<AdvertsCubit>().previousPage(token);
+                    }
                   },
-                  // },
                   child: const Icon(CupertinoIcons.arrow_left_square_fill),
                 ),
+                if (decreasedCurrentPageIndex > 0)
+                  TextView(
+                    text: '$decreasedCurrentPageIndex',
+                    color: Colors.red,
+                  ),
+                const SizedBox(
+                  width: 10,
+                ),
+                TextView(
+                  text: '$currentPageIndex ',
+                  color: Colors.red,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                if (adverts.length >= itemsPerPage)
+                  TextView(
+                    text: '$increasedCurrentPageIndex',
+                    color: Colors.red,
+                  ),
                 ElevatedButton(
                   onPressed: () {
-                    // int totalPages = (adverts.length / itemsPerPage).ceil();
-                    // if (currentPage < totalPages - 1) {
-                    currentPage++;
-                    context.read<AdvertsCubit>().nextPage(token);
-                    // }
+                    if (adverts.length >= itemsPerPage) {
+                      currentPage++;
+                      context.read<AdvertsCubit>().nextPage(token);
+                    }
                   },
                   child: const Icon(CupertinoIcons.arrow_right_square_fill),
                 ),
