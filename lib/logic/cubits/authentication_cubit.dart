@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import '../../data/models/user.dart';
 import '../../data/repositories/authentication_repository.dart';
 
-class AuthenticationCubit extends Cubit<AuthenticationState> {
+class AuthenticationCubit extends Cubit<AuthenticationState>
+    with HydratedMixin {
   final AuthenticationRepository _repo = AuthenticationRepository();
 
   AuthenticationCubit() : super(AuthenticationState.initial());
@@ -50,5 +52,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   bool isLogged() {
     return state.token != null && state.user != null;
+  }
+
+  @override
+  AuthenticationState? fromJson(Map<String, dynamic> json) {
+    return AuthenticationState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthenticationState state) {
+    return state.toMap();
   }
 }

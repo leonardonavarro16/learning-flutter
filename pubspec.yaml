@@ -51,6 +51,8 @@ dependencies:
   google_fonts: ^4.0.4
   persistent_bottom_nav_bar: ^5.0.2
   flutter_svg: ^2.0.5
+  hydrated_bloc: ^9.1.1
+  path_provider: ^2.0.15
   
   
 dependency_overrides:

@@ -16,11 +16,18 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
+  bool _isDisposed = false;
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     String? token = context.read<AuthenticationCubit>().state.token;
-    // Obtén el token de autenticación desde donde corresponda
 
     return BlurryContainer(
       borderRadius: const BorderRadius.only(
@@ -43,33 +50,33 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           padding: const EdgeInsets.all(5),
           gap: 8,
           onTabChange: (index) {
-            context.read<NavigationCubit>().setSelectedIndex(index);
-            switch (index) {
-              case 0:
-                Navigator.pushReplacementNamed(context, Routes.indexPage);
-                break;
-              case 1:
-                !isLogged
-                    ? Navigator.pushReplacementNamed(context, Routes.loginPage)
-                    : Navigator.pushReplacementNamed(
-                        context, Routes.favoritesPage);
-                break;
-              case 2:
-                Navigator.pushReplacementNamed(
-                    context, Routes.createAdvertPage);
-                break;
-              case 3:
-                Navigator.pushReplacementNamed(context, Routes.loginPage);
-                break;
-              case 4:
-                Navigator.pushReplacementNamed(context, Routes.editProfile);
-                break;
+            if (!_isDisposed) {
+              setState(() {
+                context.read<NavigationCubit>().setSelectedIndex(index);
+                switch (index) {
+                  case 0:
+                    Navigator.pushReplacementNamed(context, Routes.indexPage);
+                    break;
+                  case 1:
+                    !isLogged
+                        ? Navigator.pushReplacementNamed(
+                            context, Routes.loginPage)
+                        : Navigator.pushReplacementNamed(
+                            context, Routes.favoritesPage);
+                    break;
+                  case 2:
+                    Navigator.pushReplacementNamed(
+                        context, Routes.createAdvertPage);
+                    break;
+                  case 3:
+                    Navigator.pushReplacementNamed(context, Routes.loginPage);
+                    break;
+                  case 4:
+                    Navigator.pushReplacementNamed(context, Routes.editProfile);
+                    break;
+                }
+              });
             }
-
-            // if (index == 1 && isLogged) {
-            //   // Si se selecciona la pestaña de favoritos y el usuario está logueado
-            //   context.read<AdvertsCubit>().fetchFavAdverts(token);
-            // }
           },
           tabs: [
             GButton(
