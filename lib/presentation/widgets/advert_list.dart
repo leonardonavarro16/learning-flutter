@@ -19,27 +19,61 @@ class AdverList extends StatelessWidget {
   int colsPerRow = 0;
   double colsWidth = 0;
   int rowsCount = 0;
+
   BoxConstraints constraints = const BoxConstraints();
   final double spaceBetweenCols;
   final List<Advert> adverts;
+  final int itemsPerPage;
+  int currentPage = 0;
   AdverList({
     super.key,
     required this.adverts,
     this.spaceBetweenCols = 10,
+    this.itemsPerPage = 10,
   });
 
   @override
   Widget build(BuildContext context) {
+    String? token = context.read<AuthenticationCubit>().state.token;
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      setConstraints(constraints);
-      return SizedBox(
-        width: constraints.maxWidth,
-        child: Table(
-          children: generateTableRows(constraints),
-        ),
-      );
-    });
+      builder: (BuildContext context, BoxConstraints constraints) {
+        setConstraints(constraints);
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // if (currentPage > 0) {
+                    currentPage--;
+                    context.read<AdvertsCubit>().previousPage(token);
+                  },
+                  // },
+                  child: const Icon(CupertinoIcons.arrow_left_square_fill),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // int totalPages = (adverts.length / itemsPerPage).ceil();
+                    // if (currentPage < totalPages - 1) {
+                    currentPage++;
+                    context.read<AdvertsCubit>().nextPage(token);
+                    // }
+                  },
+                  child: const Icon(CupertinoIcons.arrow_right_square_fill),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: constraints.maxWidth,
+              child: Table(
+                children: generateTableRows(constraints),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   List<TableRow> generateTableRows(BoxConstraints constraints) {
@@ -48,7 +82,16 @@ class AdverList extends StatelessWidget {
     colsWidth = calculateColsWidth();
     rowsCount = calculateRowsCount();
 
-    for (int rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
+    int startIndex = currentPage * itemsPerPage;
+    int endIndex = (currentPage + 1) * itemsPerPage;
+    endIndex = endIndex > adverts.length ? adverts.length : endIndex;
+    // La expresión startIndex ~/ colsPerRow calcula el índice de fila truncado en la generación de filas de la tabla.
+    // El operador ~/ realiza una división entera y trunca el resultado eliminando los decimales.
+    // La división entera truncada elimina los decimales sin redondear el cociente.
+
+    for (int rowIndex = startIndex ~/ colsPerRow;
+        rowIndex < (endIndex - 1) ~/ colsPerRow + 1;
+        rowIndex++) {
       List<Widget> advertPreviews = generateTableRow(rowIndex);
       while (advertPreviews.length < colsPerRow) {
         advertPreviews.add(Container());

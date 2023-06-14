@@ -6,21 +6,37 @@ import '../states/adverts.dart';
 
 class AdvertsCubit extends Cubit<AdvertsState> {
   final AdvertRepository _advertRepository = AdvertRepository();
+  final int perPage = 10; // Número de anuncios por página
 
   AdvertsCubit() : super(AdvertsState.initial());
 
-  Future<void> fetchAdverts(String? token) async {
+  Future<void> fetchAdverts(String? token, {int page = 1}) async {
     emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
-      List<Advert> adverts = await _advertRepository.fetchAll(token);
+      List<Advert> adverts =
+          await _advertRepository.fetchAll(token, page: page, perPage: perPage);
       emit(state.copyWith(
         advertsStatus: AdvertsStatus.indexSuccess,
         adverts: adverts,
+        currentPage: page,
       ));
     } catch (error) {
       emit(state.copyWith(
-          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
+        advertsStatus: AdvertsStatus.indexFailure,
+        error: error.toString(),
+      ));
     }
+  }
+
+  Future<void> nextPage(String? token) async {
+    int nextPage = state.currentPage + 1;
+    await fetchAdverts(token, page: nextPage);
+  }
+
+  Future<void> previousPage(String? token) async {
+    int previousPage = state.currentPage - 1;
+    if (previousPage < 1) return;
+    await fetchAdverts(token, page: previousPage);
   }
 
   Future<void> fetchFavAdverts(String? token) async {

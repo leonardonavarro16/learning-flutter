@@ -52,8 +52,11 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
-  Future<List<dynamic>> fetchAll(String? token) async {
-    final response = await httpGet('${baseUrl()}/adverts', token: token);
+  Future<List<dynamic>> fetchAll(String? token,
+      {int page = 1, int perPage = 10}) async {
+    final response = await httpGet(
+        '${baseUrl()}/adverts?page=$page&per_page=$perPage',
+        token: token);
     if (response.statusCode == 200) {
       List<dynamic> rawAdverts = jsonDecode(response.body);
       return await Future.wait(

@@ -4,8 +4,10 @@ import '../models/advert.dart';
 class AdvertRepository {
   final AdvertsAPI _api = AdvertsAPI();
 
-  Future<List<Advert>> fetchAll(String? token) async {
-    List<dynamic> rawAdverts = await _api.fetchAll(token);
+  Future<List<Advert>> fetchAll(String? token,
+      {int page = 1, int perPage = 10}) async {
+    List<dynamic> rawAdverts =
+        await _api.fetchAll(token, page: page, perPage: perPage);
     return rawAdverts.map<Advert>((dynamic rawAdvert) {
       return Advert.fromMap(rawAdvert);
     }).toList();
