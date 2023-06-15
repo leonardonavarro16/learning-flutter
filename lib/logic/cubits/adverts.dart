@@ -39,20 +39,31 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     await fetchAdverts(token, page: previousPage);
   }
 
-  Future<void> fetchFavAdverts(String? token) async {
+  Future<void> fetchFavAdverts(String? token, {int page = 1}) async {
     emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
-      List<Advert> adverts = await _advertRepository.fetchFav(token);
+      List<Advert> adverts =
+          await _advertRepository.fetchFav(token, page: page, perPage: perPage);
       emit(state.copyWith(
         advertsStatus: AdvertsStatus.indexSuccess,
         adverts: adverts,
+        currentFavPage: page,
       ));
     } catch (error) {
       emit(state.copyWith(
           advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
     }
+  }
 
-    // return state.adverts.where((advert) => advert.isFav).toList();
+  Future<void> nextFavPage(String? token) async {
+    int nextFavPage = state.currentFavPage + 1;
+    await fetchFavAdverts(token, page: nextFavPage);
+  }
+
+  Future<void> previousFavPage(String? token) async {
+    int previousFavPage = state.currentFavPage - 1;
+    if (previousFavPage < 1) return;
+    await fetchFavAdverts(token, page: previousFavPage);
   }
 
   Future<void> createAdvert(Advert advert, String token) async {

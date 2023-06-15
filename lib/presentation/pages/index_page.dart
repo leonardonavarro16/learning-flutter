@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
+import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
 import 'package:swc_front/presentation/widgets/utils/search_bar.dart';
 import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
@@ -16,6 +18,13 @@ class IndexPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? token = context.read<AuthenticationCubit>().state.token;
+    int currentFavPageIndex = context.watch<AdvertsCubit>().state.currentPage;
+    int decreasedCurrentPageIndex = currentFavPageIndex - 1;
+    int increasedCurrentPageIndex = currentFavPageIndex + 1;
+    int itemsPerPage = 10;
+    int currentPage = 0;
+
     return Layout(
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
@@ -52,7 +61,26 @@ class IndexPage extends StatelessWidget {
                 // SPACE DESIGNED TO ADVERTS POST AS LISTVIEW
                 Expanded(
                   child: ListView(
-                    children: [AdverList(adverts: state.adverts)],
+                    children: [
+                      AdverList(adverts: state.adverts),
+                      PaginationRow(
+                        currentPageIndex: currentFavPageIndex,
+                        increasedCurrentPageIndex: increasedCurrentPageIndex,
+                        decreasedCurrentPageIndex: decreasedCurrentPageIndex,
+                        onNextPage: () {
+                          if (state.adverts.length >= itemsPerPage) {
+                            currentPage++;
+                            context.read<AdvertsCubit>().nextPage(token);
+                          }
+                        },
+                        onPreviousPage: () {
+                          if (itemsPerPage > 0) {
+                            currentPage--;
+                            context.read<AdvertsCubit>().previousPage(token);
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

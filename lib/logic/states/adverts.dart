@@ -13,8 +13,10 @@ class AdvertsState extends BaseState {
   final String error;
   final AdvertsStatus status;
   final int currentPage;
+  final int currentFavPage;
 
   AdvertsState({
+    required this.currentFavPage,
     required this.adverts,
     required this.error,
     required this.status,
@@ -27,6 +29,7 @@ class AdvertsState extends BaseState {
       error: '',
       status: AdvertsStatus.initial,
       currentPage: 1,
+      currentFavPage: 1,
     );
   }
 
@@ -35,12 +38,14 @@ class AdvertsState extends BaseState {
     String? error,
     AdvertsStatus? advertsStatus,
     int? currentPage,
+    int? currentFavPage,
   }) {
     return AdvertsState(
       error: error ?? this.error,
       adverts: adverts ?? this.adverts,
       status: advertsStatus ?? this.status,
       currentPage: currentPage ?? this.currentPage,
+      currentFavPage: currentFavPage ?? this.currentFavPage,
     );
   }
 }

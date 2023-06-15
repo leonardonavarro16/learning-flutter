@@ -13,8 +13,10 @@ class AdvertRepository {
     }).toList();
   }
 
-  Future<List<Advert>> fetchFav(String? token) async {
-    List<dynamic> rawAdverts = await _api.fetchFav(token);
+  Future<List<Advert>> fetchFav(String? token,
+      {int page = 1, int perPage = 10}) async {
+    List<dynamic> rawAdverts =
+        await _api.fetchFav(token, page: page, perPage: perPage);
     return rawAdverts.map<Advert>((dynamic rawAdvert) {
       return Advert.fromMap(rawAdvert);
     }).toList();

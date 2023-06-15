@@ -71,8 +71,11 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
-  Future<List<dynamic>> fetchFav(String? token) async {
-    final response = await httpGet('${baseUrl()}/favorites', token: token);
+  Future<List<dynamic>> fetchFav(String? token,
+      {int page = 1, int perPage = 10}) async {
+    final response = await httpGet(
+        '${baseUrl()}/favorites?page=$page&per_page=$perPage',
+        token: token);
     if (response.statusCode == 200) {
       List<dynamic> rawAdverts = jsonDecode(response.body);
       return await Future.wait(

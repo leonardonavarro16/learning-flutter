@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/presentation/widgets/advert_list.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
+import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class FavAdvertsPage extends StatelessWidget {
@@ -13,6 +15,13 @@ class FavAdvertsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? token = context.read<AuthenticationCubit>().state.token;
+    int currentFavPageIndex =
+        context.watch<AdvertsCubit>().state.currentFavPage;
+    int decreasedCurrentPageIndex = currentFavPageIndex - 1;
+    int increasedCurrentPageIndex = currentFavPageIndex + 1;
+    int itemsPerPage = 10;
+    int currentFavPage = 0;
     return Layout(
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
@@ -50,6 +59,23 @@ class FavAdvertsPage extends StatelessWidget {
                     children: [
                       AdverList(
                         adverts: state.adverts,
+                      ),
+                      PaginationRow(
+                        currentPageIndex: currentFavPageIndex,
+                        increasedCurrentPageIndex: increasedCurrentPageIndex,
+                        decreasedCurrentPageIndex: decreasedCurrentPageIndex,
+                        onNextPage: () {
+                          if (state.adverts.length >= itemsPerPage) {
+                            currentFavPage++;
+                            context.read<AdvertsCubit>().nextFavPage(token);
+                          }
+                        },
+                        onPreviousPage: () {
+                          if (itemsPerPage > 0) {
+                            currentFavPage--;
+                            context.read<AdvertsCubit>().previousFavPage(token);
+                          }
+                        },
                       ),
                     ],
                   ),
