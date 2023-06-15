@@ -60,23 +60,29 @@ class FavAdvertsPage extends StatelessWidget {
                       AdverList(
                         adverts: state.adverts,
                       ),
-                      PaginationRow(
-                        currentPageIndex: currentFavPageIndex,
-                        increasedCurrentPageIndex: increasedCurrentPageIndex,
-                        decreasedCurrentPageIndex: decreasedCurrentPageIndex,
-                        onNextPage: () {
-                          if (state.adverts.length >= itemsPerPage) {
-                            currentFavPage++;
-                            context.read<AdvertsCubit>().nextFavPage(token);
-                          }
-                        },
-                        onPreviousPage: () {
-                          if (itemsPerPage > 0) {
-                            currentFavPage--;
-                            context.read<AdvertsCubit>().previousFavPage(token);
-                          }
-                        },
-                      ),
+                      const SizedBox(height: 15),
+                      if (state.adverts.length == itemsPerPage ||
+                          state.adverts.length < 10)
+                        PaginationIndex(
+                          currentPageIndex: currentFavPageIndex,
+                          increasedCurrentPageIndex: increasedCurrentPageIndex,
+                          decreasedCurrentPageIndex: decreasedCurrentPageIndex,
+                          onNextPage: () {
+                            if (state.adverts.length >= itemsPerPage) {
+                              currentFavPage++;
+                              context.read<AdvertsCubit>().nextFavPage(token);
+                            }
+                          },
+                          onPreviousPage: () {
+                            if (itemsPerPage > 0) {
+                              currentFavPage--;
+                              context
+                                  .read<AdvertsCubit>()
+                                  .previousFavPage(token);
+                            }
+                          },
+                        ),
+                      const SizedBox(height: 15)
                     ],
                   ),
                 ),

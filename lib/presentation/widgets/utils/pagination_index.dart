@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
-class PaginationRow extends StatelessWidget {
+class PaginationIndex extends StatelessWidget {
   final int currentPageIndex;
   final int decreasedCurrentPageIndex;
   final int increasedCurrentPageIndex;
   final Function() onPreviousPage;
   final Function() onNextPage;
 
-  const PaginationRow({
+  const PaginationIndex({
     required this.currentPageIndex,
     required this.decreasedCurrentPageIndex,
     required this.increasedCurrentPageIndex,
@@ -18,6 +20,7 @@ class PaginationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int? advertCount = context.read<AdvertsCubit>().state.adverts.length;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -74,7 +77,7 @@ class PaginationRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        if (increasedCurrentPageIndex > 0)
+        if (advertCount >= 10)
           Container(
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 18, 18, 18),

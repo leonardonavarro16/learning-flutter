@@ -63,12 +63,13 @@ class IndexPage extends StatelessWidget {
                   child: ListView(
                     children: [
                       AdverList(adverts: state.adverts),
-                      PaginationRow(
+                      const SizedBox(height: 15),
+                      PaginationIndex(
                         currentPageIndex: currentFavPageIndex,
                         increasedCurrentPageIndex: increasedCurrentPageIndex,
                         decreasedCurrentPageIndex: decreasedCurrentPageIndex,
                         onNextPage: () {
-                          if (state.adverts.length >= itemsPerPage) {
+                          if (state.adverts.length >= 10) {
                             currentPage++;
                             context.read<AdvertsCubit>().nextPage(token);
                           }
@@ -80,6 +81,7 @@ class IndexPage extends StatelessWidget {
                           }
                         },
                       ),
+                      const SizedBox(height: 15)
                     ],
                   ),
                 ),
