@@ -34,11 +34,6 @@ class AdverList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? token = context.read<AuthenticationCubit>().state.token;
-    int currentPageIndex = context.watch<AdvertsCubit>().state.currentPage;
-    int decreasedCurrentPageIndex = currentPageIndex - 1;
-    int increasedCurrentPageIndex = currentPageIndex + 1;
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         setConstraints(constraints);

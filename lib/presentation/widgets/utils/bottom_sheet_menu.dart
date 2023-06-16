@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
@@ -27,7 +26,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
-    String? token = context.read<AuthenticationCubit>().state.token;
 
     return BlurryContainer(
       borderRadius: const BorderRadius.only(

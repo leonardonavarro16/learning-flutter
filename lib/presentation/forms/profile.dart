@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/date_picker.dart';

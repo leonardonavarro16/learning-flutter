@@ -1,5 +1,3 @@
-import 'package:swc_front/data/models/user.dart';
-
 class NavigationState {
   final String? error;
   final int selectedIndex;

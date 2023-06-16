@@ -61,7 +61,7 @@ class PaginationIndex extends StatelessWidget {
         const SizedBox(width: 10),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFFF0000), width: 2),
+            border: Border.all(color: Colors.white, width: 2),
             color: const Color.fromARGB(255, 18, 18, 18),
             borderRadius: BorderRadius.circular(10),
           ),

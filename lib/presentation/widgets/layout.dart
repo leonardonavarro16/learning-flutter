@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,7 +11,6 @@ class Layout extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
-    bool isLogged = context.watch<AuthenticationCubit>().isLogged();
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
