@@ -10,6 +10,7 @@ class CustomAlertDialog extends StatelessWidget {
   final VoidCallback? onButtonPressed;
   final String? buttonText;
   final Widget? header;
+  final List<Widget>? actions;
 
   const CustomAlertDialog({
     Key? key,
@@ -20,6 +21,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.buttonText,
     this.content,
     this.header,
+    this.actions,
   }) : super(key: key);
 
   @override
@@ -40,7 +42,7 @@ class CustomAlertDialog extends StatelessWidget {
             color: Colors.white,
             text: contentText,
           ),
-      actions: _buildActions(context),
+      actions: actions ?? _buildActions(context),
     );
   }
 

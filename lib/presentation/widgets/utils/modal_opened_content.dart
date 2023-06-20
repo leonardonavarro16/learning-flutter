@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/data/models/advert.dart';
+import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
@@ -60,8 +61,8 @@ class ModalOpenedContainerContent extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     TextView(
                       text: '4.5',
                       color: Color.fromARGB(155, 255, 255, 255),
@@ -96,19 +97,29 @@ class ModalOpenedContainerContent extends StatelessWidget {
             indent: 35,
             endIndent: 25,
           ),
-          Container(
-            padding: const EdgeInsets.only(
-              top: 20,
-              left: 35,
-              right: 35,
-              bottom: 15,
-            ),
-            child: TextView(
-              text: advert.description,
-              fontSize: 12,
-              color: Colors.white,
-              textAlign: TextAlign.center,
-            ),
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  left: 35,
+                  right: 35,
+                  bottom: 15,
+                ),
+                child: TextView(
+                  text: advert.description,
+                  fontSize: 12,
+                  color: Colors.white,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              AdTagEditor(
+                tags: advert.adTags,
+                onTagsChanged: (tags) {
+                  advert.adTags = tags;
+                },
+              ),
+            ],
           ),
           const SizedBox(height: 15),
           CustomButton(

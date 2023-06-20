@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
+import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
@@ -33,6 +34,7 @@ class _AdvertForm extends State<AdvertForm> {
   String? description;
   List<Uint8List>? imageBytes;
   bool initialized = false;
+  List<String>? adTags;
 
   @override
   void initState() {
@@ -86,6 +88,14 @@ class _AdvertForm extends State<AdvertForm> {
             initialValue: phoneNumber,
             onChange: (String? value, bool valid) {
               setState(() => phoneNumber = valid ? value : null);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          AdTagEditor(
+            onTagsChanged: (List<String> tags) {
+              setState(() => adTags = tags);
             },
           ),
           const SizedBox(
