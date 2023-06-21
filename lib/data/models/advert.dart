@@ -8,10 +8,10 @@ class Advert {
   String phoneNumber;
   String description;
   bool isFav;
-  List<String>? adTags;
+  List<String>? ad_tags;
 
   Advert({
-    this.adTags,
+    this.ad_tags,
     this.id,
     this.isFav = false,
     required this.phoneNumber,
@@ -23,15 +23,16 @@ class Advert {
 
   static Advert fromMap(Map<String, dynamic> advertData) {
     return Advert(
-        id: advertData['id'].toString(),
-        images:
-            (advertData['images'] as List<dynamic>).cast<Uint8List>().toList(),
-        name: advertData['name'],
-        age: advertData['age'],
-        phoneNumber: advertData['phone'],
-        description: advertData['description'],
-        isFav: advertData['is_fav'],
-        adTags: advertData['adTags']);
+      id: advertData['id'].toString(),
+      images:
+          (advertData['images'] as List<dynamic>).cast<Uint8List>().toList(),
+      name: advertData['name'],
+      age: advertData['age'],
+      phoneNumber: advertData['phone'],
+      description: advertData['description'],
+      isFav: advertData['is_fav'],
+      ad_tags: (advertData['ad_tags'] as String?)?.split(','),
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -42,7 +43,7 @@ class Advert {
       'description': description,
       'phone': phoneNumber,
       'images': images,
-      'adTags': adTags,
+      'ad_tags': ad_tags?.join(','),
     };
   }
 }

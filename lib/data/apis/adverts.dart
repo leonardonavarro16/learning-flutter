@@ -23,9 +23,12 @@ class AdvertsAPI extends BaseAPI {
       'advert[age]': advert['age'].toString(),
       'advert[phone]': advert['phone'],
       'advert[description]': advert['description'],
+      'advert[ad_tags]': advert['ad_tags'],
     });
+    // // Convert ad_tags to JSON and assign it to the field
+    // final adTagsJson = jsonEncode(advert['ad_tags']);
+    // request.fields['advert[ad_tags]'] = adTagsJson;
 
-    // Add image files to the request
     for (int i = 0; i < advert['images'].length; i++) {
       final bytes = advert['images'][i];
       final mimeType = lookupMimeType('', headerBytes: bytes);

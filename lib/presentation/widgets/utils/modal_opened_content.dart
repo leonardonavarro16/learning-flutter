@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swc_front/data/models/advert.dart';
-import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
@@ -12,12 +11,14 @@ class ModalOpenedContainerContent extends StatelessWidget {
   final String location;
   final String availability;
   final String rate;
-  const ModalOpenedContainerContent(
-      {super.key,
-      required this.advert,
-      this.location = 'Barranquilla',
-      this.availability = '24 horas',
-      this.rate = '4.5'});
+
+  const ModalOpenedContainerContent({
+    Key? key,
+    required this.advert,
+    this.location = 'Barranquilla',
+    this.availability = '24 horas',
+    this.rate = '4.5',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,28 @@ class ModalOpenedContainerContent extends StatelessWidget {
           ),
           Column(
             children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: advert.ad_tags?.length,
+                itemBuilder: (context, index) {
+                  final tag = advert.ad_tags![index];
+                  return Chip(
+                    backgroundColor: const Color(0xFFFF0000),
+                    label: TextView(
+                      text: tag,
+                      color: Colors.white,
+                    ),
+                    deleteIcon: const Icon(
+                      CupertinoIcons.xmark,
+                      color: Colors.white,
+                      size: 10,
+                    ),
+                    onDeleted: () {
+                      // Eliminar etiqueta
+                    },
+                  );
+                },
+              ),
               Container(
                 padding: const EdgeInsets.only(
                   top: 20,
@@ -113,12 +136,6 @@ class ModalOpenedContainerContent extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              AdTagEditor(
-                tags: advert.adTags,
-                onTagsChanged: (tags) {
-                  advert.adTags = tags;
-                },
-              ),
             ],
           ),
           const SizedBox(height: 15),
@@ -130,7 +147,8 @@ class ModalOpenedContainerContent extends StatelessWidget {
             width: 250,
             onPressed: () {
               Clipboard.setData(
-                  ClipboardData(text: formatPhoneNumber(advert.phoneNumber)));
+                ClipboardData(text: formatPhoneNumber(advert.phoneNumber)),
+              );
               showDialog(
                 context: context,
                 // barrierDismissible:

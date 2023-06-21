@@ -34,7 +34,7 @@ class _AdvertForm extends State<AdvertForm> {
   String? description;
   List<Uint8List>? imageBytes;
   bool initialized = false;
-  List<String>? adTags;
+  List<String>? ad_tags;
 
   @override
   void initState() {
@@ -94,8 +94,9 @@ class _AdvertForm extends State<AdvertForm> {
             height: 10,
           ),
           AdTagEditor(
+            onFieldSubmitted: (_) => _submitForm(),
             onTagsChanged: (List<String> tags) {
-              setState(() => adTags = tags);
+              setState(() => ad_tags = tags);
             },
           ),
           const SizedBox(
@@ -153,7 +154,8 @@ class _AdvertForm extends State<AdvertForm> {
         phoneNumber != null &&
         description != null &&
         description != '' &&
-        imageBytes != null;
+        imageBytes != null &&
+        ad_tags != null;
   }
 
   Widget _buildSubmitButton() {
@@ -171,12 +173,17 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Advert _buildAdvert() {
+    print(ad_tags);
+    print(ad_tags);
+    print(ad_tags);
+    print(name);
     return Advert(
         description: description!,
         age: age!,
         name: name!,
         phoneNumber: phoneNumber!,
-        images: imageBytes!);
+        images: imageBytes!,
+        ad_tags: ad_tags!);
   }
 
   void _submitForm() {

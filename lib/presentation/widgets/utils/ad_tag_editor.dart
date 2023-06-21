@@ -8,10 +8,12 @@ import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:flutter/services.dart';
 
 class AdTagEditor extends StatefulWidget {
+  final void Function(String)? onFieldSubmitted;
   final List<String>? tags;
   final Function(List<String>)? onTagsChanged;
 
-  const AdTagEditor({Key? key, this.tags, this.onTagsChanged})
+  const AdTagEditor(
+      {Key? key, this.tags, this.onTagsChanged, this.onFieldSubmitted})
       : super(key: key);
 
   @override
