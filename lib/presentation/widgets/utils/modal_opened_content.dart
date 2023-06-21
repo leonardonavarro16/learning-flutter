@@ -100,28 +100,23 @@ class ModalOpenedContainerContent extends StatelessWidget {
           ),
           Column(
             children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: advert.ad_tags?.length,
-                itemBuilder: (context, index) {
-                  final tag = advert.ad_tags![index];
-                  return Chip(
-                    backgroundColor: const Color(0xFFFF0000),
-                    label: TextView(
-                      text: tag,
-                      color: Colors.white,
-                    ),
-                    deleteIcon: const Icon(
-                      CupertinoIcons.xmark,
-                      color: Colors.white,
-                      size: 10,
-                    ),
-                    onDeleted: () {
-                      // Eliminar etiqueta
-                    },
-                  );
-                },
+              const SizedBox(
+                height: 15,
               ),
+              if (advert.ad_tags != null && advert.ad_tags!.isNotEmpty)
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: advert.ad_tags!.map((tag) {
+                    return Chip(
+                      backgroundColor: const Color(0xFFFF0000),
+                      label: TextView(
+                        text: tag,
+                        color: Colors.white,
+                      ),
+                    );
+                  }).toList(),
+                ),
               Container(
                 padding: const EdgeInsets.only(
                   top: 20,

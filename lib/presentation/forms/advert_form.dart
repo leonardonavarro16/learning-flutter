@@ -154,8 +154,7 @@ class _AdvertForm extends State<AdvertForm> {
         phoneNumber != null &&
         description != null &&
         description != '' &&
-        imageBytes != null &&
-        ad_tags != null;
+        imageBytes != null;
   }
 
   Widget _buildSubmitButton() {
@@ -173,17 +172,13 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Advert _buildAdvert() {
-    print(ad_tags);
-    print(ad_tags);
-    print(ad_tags);
-    print(name);
     return Advert(
         description: description!,
         age: age!,
         name: name!,
         phoneNumber: phoneNumber!,
         images: imageBytes!,
-        ad_tags: ad_tags!);
+        ad_tags: ad_tags);
   }
 
   void _submitForm() {
