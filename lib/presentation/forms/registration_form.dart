@@ -151,7 +151,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   const SizedBox(
                     height: 15,
                   ),
-                  _buildSubmitButton(),
+                  if (_canBuildSubmitButton()) _buildSubmitButton(),
                 ],
               ),
             ),
@@ -159,6 +159,22 @@ class _RegistrationFormState extends State<RegistrationForm> {
         ],
       ),
     );
+  }
+
+  bool _canBuildSubmitButton() {
+    // print(name);
+    // print(birthdate);
+    // print(email);
+    // print(phoneNumber);
+    // print(password);
+    // print(confirmPassword);
+
+    return name != null &&
+        birthdate != null &&
+        phoneNumber != null &&
+        password != null &&
+        confirmPassword != null &&
+        email != null;
   }
 
   void _setAge(int value) {
