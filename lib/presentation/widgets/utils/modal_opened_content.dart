@@ -62,8 +62,8 @@ class ModalOpenedContainerContent extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Row(
-                  children: [
+                Row(
+                  children: const [
                     TextView(
                       text: '4.5',
                       color: Color.fromARGB(155, 255, 255, 255),
