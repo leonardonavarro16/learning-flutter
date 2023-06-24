@@ -104,18 +104,21 @@ class ModalOpenedContainerContent extends StatelessWidget {
                 height: 15,
               ),
               if (advert.ad_tags != null && advert.ad_tags!.isNotEmpty)
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: advert.ad_tags!.map((tag) {
-                    return Chip(
-                      backgroundColor: const Color(0xFFFF0000),
-                      label: TextView(
-                        text: tag,
-                        color: Colors.white,
-                      ),
-                    );
-                  }).toList(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: advert.ad_tags!.map((tag) {
+                      return Chip(
+                        backgroundColor: const Color(0xFFFF0000),
+                        label: TextView(
+                          text: tag,
+                          color: Colors.white,
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
               Container(
                 padding: const EdgeInsets.only(

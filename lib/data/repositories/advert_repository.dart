@@ -13,6 +13,10 @@ class AdvertRepository {
     }).toList();
   }
 
+  Future<List<String>> getAllAdTags(String? token) async {
+    return _api.getAllAdTags(token);
+  }
+
   Future<List<Advert>> fetchFav(String? token,
       {int page = 1, int perPage = 10}) async {
     List<dynamic> rawAdverts =

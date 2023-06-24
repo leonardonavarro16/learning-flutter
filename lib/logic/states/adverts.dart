@@ -10,6 +10,7 @@ enum AdvertsStatus {
 
 class AdvertsState extends BaseState {
   final List<Advert> adverts;
+  final List<String> adTags;
   final String error;
   final AdvertsStatus status;
   final int currentPage;
@@ -18,6 +19,7 @@ class AdvertsState extends BaseState {
   AdvertsState({
     required this.currentFavPage,
     required this.adverts,
+    required this.adTags,
     required this.error,
     required this.status,
     required this.currentPage,
@@ -30,6 +32,7 @@ class AdvertsState extends BaseState {
       status: AdvertsStatus.initial,
       currentPage: 1,
       currentFavPage: 1,
+      adTags: [],
     );
   }
 
@@ -39,6 +42,7 @@ class AdvertsState extends BaseState {
     AdvertsStatus? advertsStatus,
     int? currentPage,
     int? currentFavPage,
+    List<String>? adTags,
   }) {
     return AdvertsState(
       error: error ?? this.error,
@@ -46,6 +50,7 @@ class AdvertsState extends BaseState {
       status: advertsStatus ?? this.status,
       currentPage: currentPage ?? this.currentPage,
       currentFavPage: currentFavPage ?? this.currentFavPage,
+      adTags: adTags ?? this.adTags,
     );
   }
 }

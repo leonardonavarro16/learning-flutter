@@ -28,6 +28,19 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     }
   }
 
+  Future<void> getAllAdTags(String? token) async {
+    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+    try {
+      List<String> adTags = await _advertRepository.getAllAdTags(token);
+      emit(state.copyWith(adTags: adTags));
+    } catch (error) {
+      emit(state.copyWith(
+        advertsStatus: AdvertsStatus.indexFailure,
+        error: error.toString(),
+      ));
+    }
+  }
+
   Future<void> nextPage(String? token) async {
     int nextPage = state.currentPage + 1;
     await fetchAdverts(token, page: nextPage);

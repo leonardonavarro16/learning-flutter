@@ -23,6 +23,7 @@ class EmailFormField extends StatelessWidget {
     return BaseTextFormField(
       fieldValue: initialValue,
       decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           floatingLabelStyle: const TextStyle(
             color: Color(0xFFFF0000),
           ),

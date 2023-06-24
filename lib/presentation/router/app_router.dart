@@ -36,6 +36,7 @@ class AppRouter {
       case Routes.indexPage:
         _navigationCubit.setSelectedIndex(0);
         _advertsCubit.fetchAdverts(authenticationCubit.state.token);
+        _advertsCubit.getAllAdTags(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -105,6 +106,7 @@ class AppRouter {
 
       default:
         _navigationCubit.setSelectedIndex(0);
+        _advertsCubit.getAllAdTags(authenticationCubit.state.token);
         _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
