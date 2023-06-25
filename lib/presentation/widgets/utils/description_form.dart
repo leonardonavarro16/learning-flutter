@@ -37,7 +37,7 @@ class DescriptionFormField extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           filled: true,
           fillColor: Colors.white,
-          labelText: t.descriptionLabelLinkText),
+          hintText: t.descriptionLabelLinkText),
       inputFormatters: maxLength == null
           ? null
           : <TextInputFormatter>[LengthLimitingTextInputFormatter(maxLength)],

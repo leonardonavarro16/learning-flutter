@@ -1,14 +1,9 @@
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/advert.dart';
-import 'package:swc_front/logic/cubits/adverts.dart';
-import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/tag_selector_field.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 // import 'package:swc_front/presentation/widgets/utils/custom_range_slider.dart';
 
@@ -29,6 +24,8 @@ class FilterWidget extends StatefulWidget {
 class _FilterWidgetState extends State<FilterWidget> {
   String? nameFilter;
   int? ageFilter;
+  String? selectedTagsText;
+  List<String> selectedChips = [];
   List<String>? tagsFilter;
   List<bool> isSelected = [
     true,
@@ -185,47 +182,16 @@ class _FilterWidgetState extends State<FilterWidget> {
                   const SizedBox(
                     height: 15,
                   ),
-                  BaseTextFormField(
+                  TagSelectorField(
+                    adTags: widget.adTags,
                     onChange: (value, _) {
                       setState(() {
                         ageFilter = value!.isNotEmpty ? int.parse(value) : null;
                       });
                     },
-                    decoration: const InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      prefixIcon: Icon(
-                        CupertinoIcons.tag_circle,
-                        color: Colors.grey,
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'tags',
-                    ),
                   ),
                   const SizedBox(
                     height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 1,
-                      children: widget.adTags.map((tag) {
-                        return Chip(
-                          backgroundColor: const Color(0xFFFF0000),
-                          label: TextView(
-                            text: tag,
-                            color: Colors.white,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const SizedBox(
-                    height: 30,
                   ),
                 ],
               ),
@@ -236,113 +202,3 @@ class _FilterWidgetState extends State<FilterWidget> {
     );
   }
 }
-
-// Widget _buildFilterForm() {
-//   return Column(
-//     children: [
-//       BaseTextFormField(
-//         onChange: (value, _) {
-//           setState(() {
-//             nameFilter = value!.isNotEmpty ? value : null;
-//           });
-//         },
-//         decoration: const InputDecoration(
-//           floatingLabelBehavior: FloatingLabelBehavior.never,
-//           prefixIcon: Icon(
-//             CupertinoIcons.circle_grid_hex_fill,
-//             color: Colors.grey,
-//           ),
-//           filled: true,
-//           fillColor: Colors.white,
-//           labelText: 'Name',
-//         ),
-//       ),
-//       const SizedBox(
-//         height: 15,
-//       ),
-//       // CustomRangeSlider(
-//       //   onChanged: (value) {
-//       //     setState(() {
-//       //       ageFilter = value ? int.parse(value) : null;
-//       //     });
-//       //   },
-//       // ),
-//       // BaseTextFormField(
-//       //   onChange: (value, _) {
-//       //     setState(() {
-//       //       ageFilter = value!.isNotEmpty ? int.parse(value) : null;
-//       //     });
-//       //   },
-//       //   keyboardType: TextInputType.number,
-//       //   decoration: const InputDecoration(
-//       //     floatingLabelBehavior: FloatingLabelBehavior.never,
-//       //     prefixIcon: Icon(
-//       //       CupertinoIcons.person,
-//       //       color: Colors.grey,
-//       //     ),
-//       //     filled: true,
-//       //     fillColor: Colors.white,
-//       //     labelText: 'Age',
-//       //   ),
-//       // ),
-//       const SizedBox(
-//         height: 15,
-//       ),
-//       BaseTextFormField(
-//         onChange: (value, _) {
-//           setState(() {
-//             ageFilter = value!.isNotEmpty ? int.parse(value) : null;
-//           });
-//         },
-//         decoration: const InputDecoration(
-//           floatingLabelBehavior: FloatingLabelBehavior.never,
-//           prefixIcon: Icon(
-//             CupertinoIcons.tag_circle,
-//             color: Colors.grey,
-//           ),
-//           filled: true,
-//           fillColor: Colors.white,
-//           labelText: 'tags',
-//         ),
-//       ),
-//       const SizedBox(
-//         height: 30,
-//       ),
-//       // Tags filter implementation goes here
-//       CustomButton(
-//         text: 'Apply Filters',
-//         onPressed: () {
-//           // Call the method to apply the filters and perform the search
-//           _applyFilters();
-//           Navigator.pop(context);
-//         },
-//       ),
-//     ],
-//   );
-// }
-
-//   void _applyFilters() {
-//     // Call the method to fetch the filtered data using the filters (nameFilter, ageFilter, tagsFilter)
-//     // For example:
-//     List<Advert> filteredAdverts =
-//         fetchFilteredAdverts(nameFilter, ageFilter, tagsFilter);
-
-//     // Update the UI with the filtered data (e.g., using a callback function)
-//     // For example:
-//     widget.onFiltersApplied(filteredAdverts);
-//   }
-// }
-
-// // Implement the fetchFilteredAdverts method according to your data source and filtering logic
-// List<Advert> fetchFilteredAdverts(
-//     String? nameFilter, int? ageFilter, List<String>? tagsFilter) {
-//   // Retrieve the adverts based on the provided filters
-//   // Apply the filters to your data source (e.g., API call or local list)
-
-//   // Return the filtered list of adverts
-//   // For example:
-//   List<Advert> filteredAdverts = []; // Placeholder for filtered adverts
-//   // Apply the filters to your data and populate filteredAdverts
-
-//   return filteredAdverts;
-// }
