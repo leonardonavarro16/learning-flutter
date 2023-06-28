@@ -1,21 +1,26 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 class AdvertSearchField extends StatefulWidget {
-  final Function(String, bool) onChange;
+  final Function(String, bool)? onChange;
   final String? searchText;
+  final int debounce;
 
   const AdvertSearchField({
     Key? key,
-    required this.onChange,
+    this.onChange,
     this.searchText,
+    this.debounce = 1000,
   }) : super(key: key);
 
   @override
-  _AdvertSearchFieldState createState() => _AdvertSearchFieldState();
+  State<AdvertSearchField> createState() => _AdvertSearchFieldState();
 }
 
 class _AdvertSearchFieldState extends State<AdvertSearchField> {
   late TextEditingController _textEditingController;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -42,9 +47,12 @@ class _AdvertSearchFieldState extends State<AdvertSearchField> {
         color: const Color.fromARGB(255, 20, 20, 20),
       ),
       onChanged: (value) {
-        if (widget.onChange != null) {
-          widget.onChange(value, true);
-        }
+        if (widget.onChange == null) return;
+        if (_timer != null && _timer!.isActive) _timer!.cancel();
+        _timer = Timer(
+          Duration(milliseconds: widget.debounce),
+          () => widget.onChange!(value, true),
+        );
       },
     );
   }

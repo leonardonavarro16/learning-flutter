@@ -29,113 +29,104 @@ class IndexPage extends StatelessWidget {
     int currentPage = 0;
 
     return Layout(
-      content: BlocListener<AdvertsCubit, AdvertsState>(
-        listener: (BuildContext context, AdvertsState state) {
-          if (state.status == AdvertsStatus.indexSuccess) {
-            // Aquí puedes agregar cualquier lógica adicional que necesites al recibir el estado exitoso
-          } else if (state.status == AdvertsStatus.indexFailure) {
-            // Aquí puedes manejar el estado de fallo y mostrar cualquier mensaje de error necesario
-          }
-        },
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 30, top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 250,
-                    height: 40,
-                    child: AdvertSearchField(
-                      searchText: searchText,
-                      onChange: (value, shouldSearch) {
-                        if (value.length >= 3) {
-                          context
-                              .read<AdvertsCubit>()
-                              .fetchAdverts(token, searchText: value);
-                        } else if (value.isEmpty) {
-                          context.read<AdvertsCubit>().fetchAdverts(token);
-                        }
-                      },
-                    ),
+      content: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 30, top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 250,
+                  height: 40,
+                  child: AdvertSearchField(
+                    searchText: searchText,
+                    onChange: (value, shouldSearch) {
+                      if (value.length >= 3) {
+                        context
+                            .read<AdvertsCubit>()
+                            .fetchAdverts(token, searchText: value);
+                      } else if (value.isEmpty) {
+                        context.read<AdvertsCubit>().fetchAdverts(token);
+                      }
+                    },
                   ),
-                  SvgPicture.asset(
-                    'assets/Logo rojo.svg',
-                    height: 50,
-                    width: 50,
-                  )
-                ],
-              ),
+                ),
+                SvgPicture.asset(
+                  'assets/Logo rojo.svg',
+                  height: 50,
+                  width: 50,
+                )
+              ],
             ),
-            SizedBox(
-              height: 120,
-              child: ListView.builder(
-                itemCount: 20,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return const StoryBubble();
-                },
-              ),
+          ),
+          SizedBox(
+            height: 120,
+            child: ListView.builder(
+              itemCount: 20,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return const StoryBubble();
+              },
             ),
-            Expanded(
-              child: BlocBuilder<AdvertsCubit, AdvertsState>(
-                builder: (BuildContext context, AdvertsState state) {
-                  if (state.status == AdvertsStatus.indexSuccess) {
-                    List<Advert> filteredAdverts = state.adverts;
+          ),
+          Expanded(
+            child: BlocBuilder<AdvertsCubit, AdvertsState>(
+              builder: (BuildContext context, AdvertsState state) {
+                if (state.status == AdvertsStatus.indexSuccess) {
+                  List<Advert> filteredAdverts = state.adverts;
 
-                    if (searchText != null && searchText!.length >= 3) {
-                      filteredAdverts = state.adverts
-                          .where((advert) => advert.name
-                              .toLowerCase()
-                              .contains(searchText!.toLowerCase()))
-                          .toList();
-                    }
-
-                    if (filteredAdverts.isEmpty) {
-                      return const Center(
-                        child: TextView(
-                          text: 'No se encontraron anuncios',
-                          color: Colors.white,
-                        ),
-                      );
-                    }
-
-                    return ListView(
-                      children: [
-                        AdverList(adverts: filteredAdverts),
-                        const SizedBox(height: 15),
-                        PaginationIndex(
-                          currentPageIndex: currentFavPageIndex,
-                          increasedCurrentPageIndex: increasedCurrentPageIndex,
-                          decreasedCurrentPageIndex: decreasedCurrentPageIndex,
-                          onNextPage: () {
-                            if (filteredAdverts.length >= 10) {
-                              currentPage++;
-                              context.read<AdvertsCubit>().nextPage(token);
-                            }
-                          },
-                          onPreviousPage: () {
-                            if (itemsPerPage > 0) {
-                              currentPage--;
-                              context.read<AdvertsCubit>().previousPage(token);
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 15)
-                      ],
-                    );
-                  } else if (state.status == AdvertsStatus.indexFailure) {
-                    return TextView(
-                        text: state.error, color: const Color(0xFFFF0000));
-                  } else {
-                    return const Center(child: CustomIndicatorProgress());
+                  if (searchText != null && searchText!.length >= 3) {
+                    filteredAdverts = state.adverts
+                        .where((advert) => advert.name
+                            .toLowerCase()
+                            .contains(searchText!.toLowerCase()))
+                        .toList();
                   }
-                },
-              ),
+
+                  if (filteredAdverts.isEmpty) {
+                    return const Center(
+                      child: TextView(
+                        text: 'No se encontraron anuncios',
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+
+                  return ListView(
+                    children: [
+                      AdverList(adverts: filteredAdverts),
+                      const SizedBox(height: 15),
+                      PaginationIndex(
+                        currentPageIndex: currentFavPageIndex,
+                        increasedCurrentPageIndex: increasedCurrentPageIndex,
+                        decreasedCurrentPageIndex: decreasedCurrentPageIndex,
+                        onNextPage: () {
+                          if (filteredAdverts.length >= 10) {
+                            currentPage++;
+                            context.read<AdvertsCubit>().nextPage(token);
+                          }
+                        },
+                        onPreviousPage: () {
+                          if (itemsPerPage > 0) {
+                            currentPage--;
+                            context.read<AdvertsCubit>().previousPage(token);
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 15)
+                    ],
+                  );
+                } else if (state.status == AdvertsStatus.indexFailure) {
+                  return TextView(
+                      text: state.error, color: const Color(0xFFFF0000));
+                } else {
+                  return const Center(child: CustomIndicatorProgress());
+                }
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
