@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 
 import 'package:swc_front/presentation/widgets/layout.dart';
-import 'package:swc_front/presentation/widgets/utils/advert_filter.dart';
+import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
 import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
@@ -17,7 +15,9 @@ import '../../logic/states/adverts.dart';
 import '../widgets/advert_list.dart';
 
 class IndexPage extends StatelessWidget {
-  const IndexPage({super.key});
+  final String? searchText;
+
+  const IndexPage({Key? key, this.searchText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,77 +28,114 @@ class IndexPage extends StatelessWidget {
     int itemsPerPage = 10;
     int currentPage = 0;
 
-    print("dotenv.env['API_URL'] = ${dotenv.env['API_URL']}");
-
     return Layout(
-      content: BlocBuilder<AdvertsCubit, AdvertsState>(
-        builder: (BuildContext context, AdvertsState state) {
+      content: BlocListener<AdvertsCubit, AdvertsState>(
+        listener: (BuildContext context, AdvertsState state) {
           if (state.status == AdvertsStatus.indexSuccess) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 30, top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FilterWidget(
-                        adTags: state.adTags,
-                        adverts: state.adverts,
-                      ),
-                      SvgPicture.asset(
-                        'assets/Logo rojo.svg',
-                        height: 50,
-                        width: 50,
-                      )
-                    ],
-                  ),
-                ),
-                // const SearchAppBar(),
-                SizedBox(
-                  height: 120,
-                  child: ListView.builder(
-                      itemCount: 20,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return StoryBubble();
-                      }),
-                ),
-
-                // SPACE DESIGNED TO ADVERTS POST AS LISTVIEW
-                Expanded(
-                  child: ListView(
-                    children: [
-                      AdverList(adverts: state.adverts),
-                      const SizedBox(height: 15),
-                      PaginationIndex(
-                        currentPageIndex: currentFavPageIndex,
-                        increasedCurrentPageIndex: increasedCurrentPageIndex,
-                        decreasedCurrentPageIndex: decreasedCurrentPageIndex,
-                        onNextPage: () {
-                          if (state.adverts.length >= 10) {
-                            currentPage++;
-                            context.read<AdvertsCubit>().nextPage(token);
-                          }
-                        },
-                        onPreviousPage: () {
-                          if (itemsPerPage > 0) {
-                            currentPage--;
-                            context.read<AdvertsCubit>().previousPage(token);
-                          }
-                        },
-                      ),
-                      const SizedBox(height: 15)
-                    ],
-                  ),
-                ),
-              ],
-            );
+            // Aquí puedes agregar cualquier lógica adicional que necesites al recibir el estado exitoso
           } else if (state.status == AdvertsStatus.indexFailure) {
-            return TextView(text: state.error, color: const Color(0xFFFF0000));
-          } else {
-            return const Center(child: CustomIndicatorProgress());
+            // Aquí puedes manejar el estado de fallo y mostrar cualquier mensaje de error necesario
           }
         },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 30, top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 250,
+                    height: 40,
+                    child: AdvertSearchField(
+                      searchText: searchText,
+                      onChange: (value, shouldSearch) {
+                        if (value.length >= 3) {
+                          context
+                              .read<AdvertsCubit>()
+                              .fetchAdverts(token, searchText: value);
+                        } else if (value.isEmpty) {
+                          context.read<AdvertsCubit>().fetchAdverts(token);
+                        }
+                      },
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    'assets/Logo rojo.svg',
+                    height: 50,
+                    width: 50,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 120,
+              child: ListView.builder(
+                itemCount: 20,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return const StoryBubble();
+                },
+              ),
+            ),
+            Expanded(
+              child: BlocBuilder<AdvertsCubit, AdvertsState>(
+                builder: (BuildContext context, AdvertsState state) {
+                  if (state.status == AdvertsStatus.indexSuccess) {
+                    List<Advert> filteredAdverts = state.adverts;
+
+                    if (searchText != null && searchText!.length >= 3) {
+                      filteredAdverts = state.adverts
+                          .where((advert) => advert.name
+                              .toLowerCase()
+                              .contains(searchText!.toLowerCase()))
+                          .toList();
+                    }
+
+                    if (filteredAdverts.isEmpty) {
+                      return const Center(
+                        child: TextView(
+                          text: 'No se encontraron anuncios',
+                          color: Colors.white,
+                        ),
+                      );
+                    }
+
+                    return ListView(
+                      children: [
+                        AdverList(adverts: filteredAdverts),
+                        const SizedBox(height: 15),
+                        PaginationIndex(
+                          currentPageIndex: currentFavPageIndex,
+                          increasedCurrentPageIndex: increasedCurrentPageIndex,
+                          decreasedCurrentPageIndex: decreasedCurrentPageIndex,
+                          onNextPage: () {
+                            if (filteredAdverts.length >= 10) {
+                              currentPage++;
+                              context.read<AdvertsCubit>().nextPage(token);
+                            }
+                          },
+                          onPreviousPage: () {
+                            if (itemsPerPage > 0) {
+                              currentPage--;
+                              context.read<AdvertsCubit>().previousPage(token);
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 15)
+                      ],
+                    );
+                  } else if (state.status == AdvertsStatus.indexFailure) {
+                    return TextView(
+                        text: state.error, color: const Color(0xFFFF0000));
+                  } else {
+                    return const Center(child: CustomIndicatorProgress());
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

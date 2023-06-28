@@ -16,11 +16,9 @@ class _SearchTextFieldExampleState extends State<SearchTextFieldExample> {
   Widget build(BuildContext context) {
     return CupertinoTheme(
       data: const CupertinoThemeData(
-        primaryColor:
-            Color(0xFFFF0000), // establece el color rojo como el color primario
+        primaryColor: Color(0xFFFF0000),
         textTheme: CupertinoTextThemeData(
-          primaryColor:
-              Color(0xFFFF0000), // establece el color azul para el texto
+          primaryColor: Color(0xFFFF0000),
         ),
       ),
       child: Center(

@@ -6,15 +6,16 @@ import '../states/adverts.dart';
 
 class AdvertsCubit extends Cubit<AdvertsState> {
   final AdvertRepository _advertRepository = AdvertRepository();
-  final int perPage = 10; // Número de anuncios por página
+  final int perPage = 10;
 
   AdvertsCubit() : super(AdvertsState.initial());
 
-  Future<void> fetchAdverts(String? token, {int page = 1}) async {
+  Future<void> fetchAdverts(String? token,
+      {int page = 1, String? searchText}) async {
     emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
-      List<Advert> adverts =
-          await _advertRepository.fetchAll(token, page: page, perPage: perPage);
+      List<Advert> adverts = await _advertRepository.fetchAll(token,
+          page: page, perPage: perPage, searchText: searchText);
       emit(state.copyWith(
         advertsStatus: AdvertsStatus.indexSuccess,
         adverts: adverts,

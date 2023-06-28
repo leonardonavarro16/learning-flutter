@@ -16,8 +16,6 @@ class TagSelectorField extends StatefulWidget {
 }
 
 class _TagSelectorFieldState extends State<TagSelectorField> {
-  String? nameFilter;
-  int? ageFilter;
   String? selectedTagsText;
   List<String> selectedChips = [];
   List<String>? tagsFilter;
