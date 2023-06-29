@@ -15,15 +15,16 @@ class AdvertsState extends BaseState {
   final AdvertsStatus status;
   final int currentPage;
   final int currentFavPage;
+  final int currentMyAdsPage;
 
-  AdvertsState({
-    required this.currentFavPage,
-    required this.adverts,
-    required this.adTags,
-    required this.error,
-    required this.status,
-    required this.currentPage,
-  });
+  AdvertsState(
+      {required this.currentFavPage,
+      required this.adverts,
+      required this.adTags,
+      required this.error,
+      required this.status,
+      required this.currentPage,
+      required this.currentMyAdsPage});
 
   factory AdvertsState.initial() {
     return AdvertsState(
@@ -33,17 +34,18 @@ class AdvertsState extends BaseState {
       currentPage: 1,
       currentFavPage: 1,
       adTags: [],
+      currentMyAdsPage: 1,
     );
   }
 
-  AdvertsState copyWith({
-    List<Advert>? adverts,
-    String? error,
-    AdvertsStatus? advertsStatus,
-    int? currentPage,
-    int? currentFavPage,
-    List<String>? adTags,
-  }) {
+  AdvertsState copyWith(
+      {List<Advert>? adverts,
+      String? error,
+      AdvertsStatus? advertsStatus,
+      int? currentPage,
+      int? currentFavPage,
+      List<String>? adTags,
+      int? currentMyAdsPage}) {
     return AdvertsState(
       error: error ?? this.error,
       adverts: adverts ?? this.adverts,
@@ -51,6 +53,7 @@ class AdvertsState extends BaseState {
       currentPage: currentPage ?? this.currentPage,
       currentFavPage: currentFavPage ?? this.currentFavPage,
       adTags: adTags ?? this.adTags,
+      currentMyAdsPage: currentMyAdsPage ?? this.currentMyAdsPage,
     );
   }
 }

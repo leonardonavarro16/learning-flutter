@@ -13,8 +13,11 @@ class AdvertRepository {
     }).toList();
   }
 
-  Future<List<String>> getAllAdTags(String? token) async {
-    return _api.getAllAdTags(token);
+  Future<List<Advert>> fetchMyAds(String? token) async {
+    List<dynamic> myAdverts = await _api.fetchMyAds(token);
+    return myAdverts.map<Advert>((dynamic rawAdvert) {
+      return Advert.fromMap(rawAdvert);
+    }).toList();
   }
 
   Future<List<Advert>> fetchFav(String? token,
@@ -24,6 +27,10 @@ class AdvertRepository {
     return rawAdverts.map<Advert>((dynamic rawAdvert) {
       return Advert.fromMap(rawAdvert);
     }).toList();
+  }
+
+  Future<List<String>> getAllAdTags(String? token) async {
+    return _api.getAllAdTags(token);
   }
 
   Future<Advert> create(Advert advert, String token) async {

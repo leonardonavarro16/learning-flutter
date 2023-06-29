@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/data/repositories/advert_repository.dart';
 
 import '../../data/models/advert.dart';
@@ -29,6 +30,39 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     }
   }
 
+  Future<void> fetchMyAds(String? token) async {
+    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+    try {
+      List<Advert> adverts = await _advertRepository.fetchMyAds(token);
+      emit(state.copyWith(
+        advertsStatus: AdvertsStatus.indexSuccess,
+        adverts: adverts,
+        currentMyAdsPage: state.currentMyAdsPage,
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+        advertsStatus: AdvertsStatus.indexFailure,
+        error: error.toString(),
+      ));
+    }
+  }
+
+  Future<void> fetchFavAdverts(String? token, {int page = 1}) async {
+    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+    try {
+      List<Advert> adverts =
+          await _advertRepository.fetchFav(token, page: page, perPage: perPage);
+      emit(state.copyWith(
+        advertsStatus: AdvertsStatus.indexSuccess,
+        adverts: adverts,
+        currentFavPage: page,
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
+    }
+  }
+
   Future<void> getAllAdTags(String? token) async {
     emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
     try {
@@ -51,22 +85,6 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     int previousPage = state.currentPage - 1;
     if (previousPage < 1) return;
     await fetchAdverts(token, page: previousPage);
-  }
-
-  Future<void> fetchFavAdverts(String? token, {int page = 1}) async {
-    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
-    try {
-      List<Advert> adverts =
-          await _advertRepository.fetchFav(token, page: page, perPage: perPage);
-      emit(state.copyWith(
-        advertsStatus: AdvertsStatus.indexSuccess,
-        adverts: adverts,
-        currentFavPage: page,
-      ));
-    } catch (error) {
-      emit(state.copyWith(
-          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
-    }
   }
 
   Future<void> nextFavPage(String? token) async {

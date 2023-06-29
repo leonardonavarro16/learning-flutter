@@ -67,7 +67,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                         context, Routes.createAdvertPage);
                     break;
                   case 3:
-                    Navigator.pushReplacementNamed(context, Routes.loginPage);
+                    Navigator.pushReplacementNamed(context, Routes.myAdsPage);
                     break;
                   case 4:
                     Navigator.pushReplacementNamed(context, Routes.editProfile);

@@ -72,6 +72,24 @@ class AdvertsAPI extends BaseAPI {
     }
   }
 
+  Future<List<dynamic>> fetchMyAds(String? token) async {
+    final url = '${baseUrl()}/adverts/user';
+    ;
+    final response = await httpGet(url, token: token);
+    if (response.statusCode == 200) {
+      List<dynamic> rawAdverts = jsonDecode(response.body);
+      return await Future.wait(
+        rawAdverts.map((rawAdvert) async {
+          await downloadAdvertImages(rawAdvert);
+          return rawAdvert;
+        }),
+      );
+    } else {
+      final error = jsonDecode(response.body)['error'];
+      throw Exception(error);
+    }
+  }
+
   Future<List<String>> getAllAdTags(String? token) async {
     final response = await httpGet('${baseUrl()}/adverts/tags', token: token);
     if (response.statusCode == 200) {
