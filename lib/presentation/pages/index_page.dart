@@ -66,7 +66,9 @@ class IndexPage extends StatelessWidget {
               itemCount: 20,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return const StoryBubble();
+                return const StoryBubble(
+                  backgroundImage: ,
+                );
               },
             ),
           ),

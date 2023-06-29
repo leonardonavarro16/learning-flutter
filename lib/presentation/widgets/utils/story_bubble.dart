@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class StoryBubble extends StatelessWidget {
   final String? child;
+  final ImageProvider<Object>? backgroundImage;
 
-  const StoryBubble({super.key, this.child});
+  const StoryBubble({
+    Key? key,
+    this.child,
+    this.backgroundImage,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +28,9 @@ class StoryBubble extends StatelessWidget {
               colors: [Colors.orange, Colors.red],
             ),
           ),
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: 17.5,
-            backgroundImage: AssetImage('avatar_preview_two.jpg'),
+            backgroundImage: backgroundImage,
           ),
         ),
       ),
