@@ -38,13 +38,6 @@ abstract class BaseAPI {
     return put(Uri.parse(url), headers: headers, body: body);
   }
 
-  // Future<Response> httpDelete(String url, {String? body, String? token}) {
-  //   Map<String, String> headers = {
-  //     'Content-Type': 'application/json; charset=UTF-8'
-  //   };
-  //   if (token != null) headers['Authorization'] = "Bearer $token";
-  //   return delete(Uri.parse(url), headers: headers, body: body);
-  // }
   Future<Response> httpDelete(String url, {String? body, String? token}) {
     Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8'

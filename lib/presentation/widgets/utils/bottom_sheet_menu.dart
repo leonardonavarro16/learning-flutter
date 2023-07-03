@@ -32,7 +32,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         topLeft: Radius.circular(35),
         topRight: Radius.circular(35),
       ),
-      blur: 20,
+      blur: 18,
       color: const Color.fromRGBO(0, 0, 0, 0.6),
       child: Padding(
         padding: const EdgeInsets.symmetric(

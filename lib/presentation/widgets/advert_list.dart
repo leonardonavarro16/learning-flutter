@@ -39,9 +39,6 @@ class AdverList extends StatelessWidget {
         setConstraints(constraints);
         return Column(
           children: [
-            const SizedBox(
-              height: 10,
-            ),
             SizedBox(
               width: constraints.maxWidth,
               child: Table(

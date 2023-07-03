@@ -186,8 +186,4 @@ class _ProfileForm extends State<ProfileForm> {
       },
     );
   }
-
-  // User _buildUserWithNullToken() {
-  //   return context.read<AuthenticationCubit>().state.user!;
-  // }
 }

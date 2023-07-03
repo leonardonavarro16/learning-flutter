@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/states/authentication.dart';
 
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
@@ -32,7 +33,8 @@ class IndexPage extends StatelessWidget {
       content: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 30, top: 20),
+            padding:
+                const EdgeInsets.only(left: 20, right: 30, top: 50, bottom: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,26 +54,26 @@ class IndexPage extends StatelessWidget {
                     },
                   ),
                 ),
+                SizedBox(width: 5),
                 SvgPicture.asset(
                   'assets/Logo rojo.svg',
                   height: 50,
                   width: 50,
-                )
+                ),
               ],
             ),
           ),
-          SizedBox(
-            height: 120,
-            child: ListView.builder(
-              itemCount: 20,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return const StoryBubble(
-                  backgroundImage: ,
-                );
-              },
-            ),
-          ),
+          // SizedBox(
+          //   height: 120,
+          //   child: ListView.builder(
+          //     itemCount: 1,
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, index) {
+          //       return const StoryBubble();
+          //     },
+          //   ),
+          // ),
+
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {

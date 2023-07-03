@@ -65,7 +65,7 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
         ),
         Wrap(
           spacing: 8,
-          runSpacing: 8,
+          runSpacing: 2,
           children: _tags.map((tag) {
             return Chip(
               backgroundColor: const Color(0xFFFF0000),
