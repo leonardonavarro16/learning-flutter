@@ -49,6 +49,9 @@ class _ProfileForm extends State<ProfileForm> {
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
+    User? currentUser = context.watch<AuthenticationCubit>().state.user;
+    Uint8List? userImage = currentUser?.image;
+
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, AuthenticationState state) {
         if (state.authenticationStatus == AuthenticationStatus.updateSuccess) {
@@ -81,7 +84,8 @@ class _ProfileForm extends State<ProfileForm> {
             height: 25,
           ),
           ImagePickerButton(
-            initialValue: image,
+            initialValue: image ??
+                userImage, // Utiliza la imagen del usuario si está disponible
             onChanged: (Uint8List? bytes) {
               setState(() => image = bytes);
             },

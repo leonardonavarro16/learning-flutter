@@ -1,15 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
+import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/logic/states/authentication.dart';
-
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
-import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
+import 'package:swc_front/presentation/widgets/utils/stories_tile_widget.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../logic/cubits/adverts.dart';
 import '../../logic/states/adverts.dart';
@@ -23,23 +23,25 @@ class IndexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? token = context.read<AuthenticationCubit>().state.token;
+    User? currentUser = context.watch<AuthenticationCubit>().state.user;
+    bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     int currentFavPageIndex = context.watch<AdvertsCubit>().state.currentPage;
     int decreasedCurrentPageIndex = currentFavPageIndex - 1;
     int increasedCurrentPageIndex = currentFavPageIndex + 1;
     int itemsPerPage = 10;
     int currentPage = 0;
+    double maxWidth = MediaQuery.of(context).size.width;
 
     return Layout(
       content: Column(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(left: 20, right: 30, top: 50, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, right: 30, top: 50),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 250,
+                  width: maxWidth * 0.60,
                   height: 40,
                   child: AdvertSearchField(
                     searchText: searchText,
@@ -54,26 +56,23 @@ class IndexPage extends StatelessWidget {
                     },
                   ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(width: maxWidth * 0.05),
                 SvgPicture.asset(
                   'assets/Logo rojo.svg',
                   height: 50,
-                  width: 50,
+                  width: maxWidth * 0.1,
                 ),
               ],
             ),
           ),
-          // SizedBox(
-          //   height: 120,
-          //   child: ListView.builder(
-          //     itemCount: 1,
-          //     scrollDirection: Axis.horizontal,
-          //     itemBuilder: (context, index) {
-          //       return const StoryBubble();
-          //     },
-          //   ),
-          // ),
-
+          if (isLogged)
+            StoriesTile(
+                username: currentUser!.name,
+                backgroundImage:
+                    // currentUser?.image != null ?
+                    MemoryImage(currentUser.image!)
+                // : null,
+                ),
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {

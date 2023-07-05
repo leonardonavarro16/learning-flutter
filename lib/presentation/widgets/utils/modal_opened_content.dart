@@ -181,14 +181,18 @@ class ModalOpenedContainerContent extends StatelessWidget {
                 );
               },
             ),
-            if (advert.ad_tags != null && advert.ad_tags!.length < 3)
+            if (advert.ad_tags != null && advert.ad_tags!.length > 3)
               const SizedBox(
-                height: 45,
+                height: 20,
               ),
-            if (advert.ad_tags != null && advert.ad_tags!.length < 6)
+            if (advert.ad_tags != null && advert.ad_tags!.length > 6)
               const SizedBox(
-                height: 90,
-              )
+                height: 25,
+              ),
+            if (advert.ad_tags != null && advert.ad_tags!.length > 9)
+              const SizedBox(
+                height: 30,
+              ),
           ],
         ),
       ),

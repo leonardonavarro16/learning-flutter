@@ -4,7 +4,7 @@
 // import 'package:swc_front/logic/states/stories.dart';
 
 // class StoryCubit extends Cubit<StoryState> {
-//   final StoryRepository _storyRepository = StoryRepository();
+//   // final StoryRepository _storyRepository = StoryRepository();
 //   StoryCubit() : super(StoryState.initial());
 
 //   // Método para cargar las historias
