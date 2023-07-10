@@ -121,7 +121,6 @@ class _AdvertForm extends State<AdvertForm> {
                 String errorMessage = state.error;
                 SnackBarUtil.showSnackBar(
                   context,
-                  icon: const Icon(Icons.error_outline),
                   backgroundColor: const Color(0xFFFF0000),
                   textColor: Colors.black,
                   errorMessage,
@@ -129,19 +128,18 @@ class _AdvertForm extends State<AdvertForm> {
               } else if (state.status == AdvertsStatus.indexSuccess) {
                 SnackBarUtil.showSnackBar(
                   context,
-                  icon: const Icon(Icons.person_off_outlined),
                   backgroundColor: Colors.green,
                   textColor: Colors.black,
                   t.createdSuccessfullAdvertLinkText,
                 );
                 Navigator.pushReplacementNamed(context, Routes.indexPage);
+                _buildSubmitButton();
               }
             }, builder: (BuildContext context, AdvertsState state) {
               if (state.status == AdvertsStatus.loading) {
                 return const CustomIndicatorProgress();
-              } else {
-                return _buildSubmitButton();
               }
+              return Container();
             }),
         ],
       ),

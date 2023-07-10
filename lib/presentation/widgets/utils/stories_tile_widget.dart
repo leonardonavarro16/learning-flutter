@@ -29,6 +29,7 @@ class _StoriesTileState extends State<StoriesTile> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = context.watch<AuthenticationCubit>().state.user;
+    bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     return Container(
       height: 100,
       width: double.infinity,
@@ -37,40 +38,46 @@ class _StoriesTileState extends State<StoriesTile> {
         scrollDirection: Axis.horizontal,
         shrinkWrap: false,
         children: [
-          UploadStoryButton(
-            onChanged: (Uint8List? bytes) {
-              setState(() => imageBytes = bytes);
-              if (imageBytes != null) {
-                showDialog(
-                    barrierColor: Colors.black,
-                    context: context,
-                    builder: (context) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.85,
-                              width: MediaQuery.of(context).size.height * 0.9,
-                              child: Image.memory(
-                                imageBytes!,
-                                fit: BoxFit.cover,
+          if (isLogged)
+            UploadStoryButton(
+              onChanged: (Uint8List? bytes) {
+                setState(() => imageBytes = bytes);
+                if (imageBytes != null) {
+                  showDialog(
+                      barrierColor: Colors.black,
+                      context: context,
+                      builder: (context) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.85,
+                                width: MediaQuery.of(context).size.height * 0.9,
+                                child: Image.memory(
+                                  imageBytes!,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              onPressed: () => _submitStory(),
-                              child: TextView(text: 'manda HISTORIA'),
-                            )
-                          ],
-                        ),
-                      );
-                    });
-              }
-            },
-          ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _submitStory(),
+                                child: const TextView(text: 'manda HISTORIA'),
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                } else {
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           BlocConsumer<StoryCubit, StoryState>(
               listener: (BuildContext context, StoryState state) {
             if (state.status == StoryStatus.storySuccess) {

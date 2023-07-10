@@ -15,17 +15,16 @@ import '../../logic/cubits/authentication_cubit.dart';
 import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
-class AdverList extends StatelessWidget {
+class AdvertList extends StatelessWidget {
   int colsPerRow = 0;
   double colsWidth = 0;
   int rowsCount = 0;
-
-  BoxConstraints constraints = const BoxConstraints();
   final double spaceBetweenCols;
   final List<Advert> adverts;
   final int itemsPerPage;
+  BoxConstraints constraints = const BoxConstraints();
   int currentPage = 0;
-  AdverList({
+  AdvertList({
     super.key,
     required this.adverts,
     this.spaceBetweenCols = 10,

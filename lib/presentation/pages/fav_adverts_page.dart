@@ -57,7 +57,7 @@ class FavAdvertsPage extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: [
-                      AdverList(
+                      AdvertList(
                         adverts: state.adverts,
                       ),
                       const SizedBox(height: 15),

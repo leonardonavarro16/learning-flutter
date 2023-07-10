@@ -53,7 +53,7 @@ class MyAdsPage extends StatelessWidget {
                   }
                   return ListView(
                     children: [
-                      AdverList(
+                      AdvertList(
                         adverts: state.adverts,
                       ),
                       const SizedBox(height: 15),

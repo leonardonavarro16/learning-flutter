@@ -169,7 +169,7 @@ class _UploadStoryButtonState extends State<UploadStoryButton> {
         const TextView(
           textAlign: TextAlign.justify,
           text: 'Upload Story',
-          fontSize: 13,
+          fontSize: 12,
           color: Colors.white,
         ),
       ],

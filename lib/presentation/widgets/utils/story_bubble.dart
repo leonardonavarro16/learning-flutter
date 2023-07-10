@@ -1,8 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class StoryBubble extends StatelessWidget {
@@ -39,6 +35,7 @@ class StoryBubble extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               child: Image(
                 image: profilePicture!,
+                fit: BoxFit.cover,
                 height: 65,
                 width: 65,
               ),
@@ -48,7 +45,7 @@ class StoryBubble extends StatelessWidget {
         const SizedBox(height: 6),
         TextView(
           text: username!.split(' ')[0],
-          fontSize: 13,
+          fontSize: 12,
           color: Colors.white,
         )
       ],
