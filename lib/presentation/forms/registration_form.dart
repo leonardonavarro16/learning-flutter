@@ -162,13 +162,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   bool _canBuildSubmitButton() {
-    // print(name);
-    // print(birthdate);
-    // print(email);
-    // print(phoneNumber);
-    // print(password);
-    // print(confirmPassword);
-
     return name != null &&
         birthdate != null &&
         phoneNumber != null &&

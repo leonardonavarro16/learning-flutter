@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
@@ -84,8 +83,7 @@ class _ProfileForm extends State<ProfileForm> {
             height: 25,
           ),
           ImagePickerButton(
-            initialValue: image ??
-                userImage, // Utiliza la imagen del usuario si está disponible
+            initialValue: image ?? userImage,
             onChanged: (Uint8List? bytes) {
               setState(() => image = bytes);
             },

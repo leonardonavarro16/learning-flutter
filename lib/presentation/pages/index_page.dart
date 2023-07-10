@@ -5,12 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/cubits/story_cubit.dart';
+import 'package:swc_front/logic/states/stories.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
 import 'package:swc_front/presentation/widgets/utils/stories_tile_widget.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+import '../../data/models/story.dart';
 import '../../logic/cubits/adverts.dart';
 import '../../logic/states/adverts.dart';
 import '../widgets/advert_list.dart';
@@ -67,12 +70,13 @@ class IndexPage extends StatelessWidget {
           ),
           if (isLogged)
             StoriesTile(
-                username: currentUser!.name,
-                backgroundImage:
-                    // currentUser?.image != null ?
-                    MemoryImage(currentUser.image!)
-                // : null,
-                ),
+              username: currentUser!.name,
+              backgroundImage:
+                  // currentUser?.image != null ?
+                  MemoryImage(currentUser.image!),
+
+              // : null,
+            ),
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {

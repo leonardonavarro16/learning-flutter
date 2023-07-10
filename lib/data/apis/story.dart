@@ -1,62 +1,83 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
+
 import 'package:swc_front/data/apis/base.dart';
-import 'package:swc_front/data/models/story.dart';
 
 class StoryAPI extends BaseAPI {
-  Future<List<Story>> createStory(Map<String, dynamic> storyData) async {
-    try {
-      // Convertir la imagen a bytes
-      Uint8List imageBytes = storyData['image'];
-      String imageUrl = await uploadImage(imageBytes);
+  Future<Map<String, dynamic>> createStory(
+    Map<String, dynamic> story,
+    String? token,
+  ) async {
+    final url = Uri.parse('${baseUrl()}/users/${story['user_id']}/stories');
+    final request = http.MultipartRequest(
+      'POST',
+      url,
+    );
+    request.headers['authorization'] = 'Bearer $token';
 
-      // Actualizar los datos con la URL de la imagen
-      storyData['image'] = imageUrl;
+    // for (int i = 0; i < story['image'].length; i++) {
+    final bytes = story['image'];
+    final mimeType = lookupMimeType('', headerBytes: bytes);
+    final multipartFile = http.MultipartFile.fromBytes(
+      'story[image]',
+      bytes,
+      filename: 'image',
+      contentType: MediaType.parse(mimeType!),
+    );
+    request.files.add(multipartFile);
+    // }
 
-      // Realizar la solicitud POST al API
-      String apiUrl = '${baseUrl()}/stories';
-      String requestBody = json.encode(storyData);
-      http.Response response = await httpPost(apiUrl, body: requestBody);
+    if (token != null) {
+      request.headers['authorization'] = 'Bearer $token';
+    }
 
-      if (response.statusCode == 201) {
-        // La historia se creó correctamente, se espera la respuesta del API
-        Map<String, dynamic> responseData = json.decode(response.body);
-        List<Story> createdStories = [];
-        for (var data in responseData['stories']) {
-          Story story = Story.fromMap(data);
-          createdStories.add(story);
-        }
-        return createdStories;
-      } else {
-        throw Exception('Failed to create story');
-      }
-    } catch (error) {
-      throw Exception('Failed to create story: $error');
+    final response = await request.send();
+
+    if (response.statusCode == 201) {
+      final responseBody = await response.stream.bytesToString();
+      Map<String, dynamic> rawStory = jsonDecode(responseBody);
+
+      await downloadStoriesImages(rawStory);
+
+      return rawStory;
+    } else {
+      throw Exception('Failed to create story');
     }
   }
 
-  Future<String> uploadImage(Uint8List imageBytes) async {
-    try {
-      // Hacer la solicitud POST al API para cargar la imagen
-      String uploadUrl = '${baseUrl()}/upload';
-      http.StreamedResponse response = await formDataPut(
-        uploadUrl,
-        fields: {},
-        files: {'image': imageBytes},
-      );
+  Future<List<dynamic>> fetchStories(String? token) async {
+    final url = '${baseUrl()}/users/stories';
 
-      if (response.statusCode == 200) {
-        // La imagen se cargó correctamente, se espera la respuesta del API
-        String imageUrl =
-            json.decode(await response.stream.bytesToString())['url'];
-        return imageUrl;
-      } else {
-        throw Exception('Failed to upload image');
-      }
-    } catch (error) {
-      throw Exception('Failed to upload image: $error');
+    final response = await httpGet(url, token: token);
+    if (response.statusCode == 200) {
+      List<dynamic> rawStories = jsonDecode(response.body);
+      return await Future.wait(
+        rawStories.map((rawStories) async {
+          await downloadStoriesImages(rawStories);
+          return rawStories;
+        }),
+      );
+    } else {
+      final error = jsonDecode(response.body)['error'];
+      throw Exception(error);
+    }
+  }
+
+  Future<void> downloadStoriesImages(Map<String, dynamic> rawStories) async {
+    bool downloadImages = rawStories['images'] != null &&
+        rawStories['images'] is List &&
+        rawStories['images'].isNotEmpty;
+    if (downloadImages) {
+      rawStories['images'] = await Future.wait(
+        rawStories['images'].map(
+          (imageUrl) async {
+            return await getBytesFromUrl(imageUrl);
+          },
+        ).cast<Future<Uint8List>>(),
+      );
     }
   }
 }

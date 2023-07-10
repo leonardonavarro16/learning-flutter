@@ -152,7 +152,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                             size: const Size(4, 4),
                           ),
                         )
-                      : const SizedBox(), // Opcional: Si no hay imágenes seleccionadas, se muestra un SizedBox
+                      : const SizedBox(),
                 ),
                 const SizedBox(
                   height: 15,

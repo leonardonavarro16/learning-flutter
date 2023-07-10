@@ -4,7 +4,7 @@ class Story {
   String? id;
   Uint8List? image;
 
-  Story({required this.id, required this.image});
+  Story({this.id, required this.image});
 
   static Story fromMap(Map<String, dynamic> storyData) {
     return Story(

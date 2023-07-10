@@ -17,11 +17,13 @@ class AdvertsCubit extends Cubit<AdvertsState> {
     try {
       List<Advert> adverts = await _advertRepository.fetchAll(token,
           page: page, perPage: perPage, searchText: searchText);
-      emit(state.copyWith(
-        advertsStatus: AdvertsStatus.indexSuccess,
-        adverts: adverts,
-        currentPage: page,
-      ));
+      emit(
+        state.copyWith(
+          advertsStatus: AdvertsStatus.indexSuccess,
+          adverts: adverts,
+          currentPage: page,
+        ),
+      );
     } catch (error) {
       emit(state.copyWith(
         advertsStatus: AdvertsStatus.indexFailure,
@@ -31,7 +33,9 @@ class AdvertsCubit extends Cubit<AdvertsState> {
   }
 
   Future<void> fetchMyAds(String? token) async {
-    emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+    emit(
+      state.copyWith(advertsStatus: AdvertsStatus.loading),
+    );
     try {
       List<Advert> adverts = await _advertRepository.fetchMyAds(token);
       emit(state.copyWith(
@@ -100,7 +104,9 @@ class AdvertsCubit extends Cubit<AdvertsState> {
 
   Future<void> createAdvert(Advert advert, String token) async {
     try {
-      emit(state.copyWith(advertsStatus: AdvertsStatus.loading));
+      emit(
+        state.copyWith(advertsStatus: AdvertsStatus.loading),
+      );
       Advert createdAdvert = await _advertRepository.create(advert, token);
       state.adverts.add(createdAdvert);
       emit(state.copyWith(
@@ -108,8 +114,12 @@ class AdvertsCubit extends Cubit<AdvertsState> {
         adverts: state.adverts,
       ));
     } catch (error) {
-      emit(state.copyWith(
-          advertsStatus: AdvertsStatus.indexFailure, error: error.toString()));
+      emit(
+        state.copyWith(
+          advertsStatus: AdvertsStatus.indexFailure,
+          error: error.toString(),
+        ),
+      );
     }
   }
 

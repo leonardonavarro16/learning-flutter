@@ -1,18 +1,21 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/data/models/story.dart';
+import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/cubits/story_cubit.dart';
+import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
-class StoriesTile extends StatefulWidget {
-  final String? child;
-  final String? username;
+import 'custom_button.dart';
 
+class StoriesTile extends StatefulWidget {
+  final String? username;
   final ImageProvider<Object>? backgroundImage;
 
   StoriesTile({
     Key? key,
-    this.child,
     this.username,
     this.backgroundImage,
   }) : super(key: key);
@@ -23,6 +26,8 @@ class StoriesTile extends StatefulWidget {
 
 class _StoriesTileState extends State<StoriesTile> {
   Uint8List? image;
+  String? id;
+
   @override
   Widget build(BuildContext context) {
     final firstName = widget.username?.split(' ')[0];
@@ -37,15 +42,33 @@ class _StoriesTileState extends State<StoriesTile> {
           UploadStoryButton(
             onChanged: (Uint8List? bytes) {
               setState(() => image = bytes);
+              if (image != null) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Column(
+                        children: [
+                          CustomAlertDialog(
+                            hasButton: false,
+                            header: TextView(
+                              text: 'Preview Story',
+                              color: Colors.white,
+                            ),
+                            content: Image.memory(
+                              image!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          CustomButton(
+                            text: 'Upload',
+                            onPressed: () => _submitStory(),
+                          ),
+                        ],
+                      );
+                    });
+              }
             },
           ),
-          _createStory(),
-          _createStory(),
-          _createStory(),
-          _createStory(),
-          _createStory(),
-          _createStory(),
-          _createStory(),
           _createStory(),
         ],
       ),
@@ -93,4 +116,15 @@ class _StoriesTileState extends State<StoriesTile> {
           )
         ],
       );
+
+  Story _builStory() {
+    return Story(image: image!, id: id);
+  }
+
+  void _submitStory() {
+    Story story = _builStory();
+    String? token = context.read<AuthenticationCubit>().state.token;
+    if (token == null) throw Exception('Token is missing');
+    context.read<StoryCubit>().createStory(story, token);
+  }
 }
