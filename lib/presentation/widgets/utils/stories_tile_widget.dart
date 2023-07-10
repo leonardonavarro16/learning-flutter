@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/story.dart';
+import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/story_cubit.dart';
-import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
+import 'package:swc_front/logic/states/stories.dart';
+import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
+import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
+import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
-import 'custom_button.dart';
-
 class StoriesTile extends StatefulWidget {
-  final String? username;
-  final ImageProvider<Object>? backgroundImage;
-
   StoriesTile({
     Key? key,
-    this.username,
-    this.backgroundImage,
   }) : super(key: key);
 
   @override
@@ -25,12 +23,12 @@ class StoriesTile extends StatefulWidget {
 }
 
 class _StoriesTileState extends State<StoriesTile> {
-  Uint8List? image;
+  Uint8List? imageBytes;
   String? id;
 
   @override
   Widget build(BuildContext context) {
-    final firstName = widget.username?.split(' ')[0];
+    User? currentUser = context.watch<AuthenticationCubit>().state.user;
     return Container(
       height: 100,
       width: double.infinity,
@@ -41,84 +39,73 @@ class _StoriesTileState extends State<StoriesTile> {
         children: [
           UploadStoryButton(
             onChanged: (Uint8List? bytes) {
-              setState(() => image = bytes);
-              if (image != null) {
+              setState(() => imageBytes = bytes);
+              if (imageBytes != null) {
                 showDialog(
+                    barrierColor: Colors.black,
                     context: context,
                     builder: (context) {
-                      return Column(
-                        children: [
-                          CustomAlertDialog(
-                            hasButton: false,
-                            header: TextView(
-                              text: 'Preview Story',
-                              color: Colors.white,
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.85,
+                              width: MediaQuery.of(context).size.height * 0.9,
+                              child: Image.memory(
+                                imageBytes!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                            content: Image.memory(
-                              image!,
-                              fit: BoxFit.cover,
+                            const SizedBox(
+                              height: 10,
                             ),
-                          ),
-                          CustomButton(
-                            text: 'Upload',
-                            onPressed: () => _submitStory(),
-                          ),
-                        ],
+                            ElevatedButton(
+                              onPressed: () => _submitStory(),
+                              child: TextView(text: 'manda HISTORIA'),
+                            )
+                          ],
+                        ),
                       );
                     });
               }
             },
           ),
-          _createStory(),
+          BlocConsumer<StoryCubit, StoryState>(
+              listener: (BuildContext context, StoryState state) {
+            if (state.status == StoryStatus.storySuccess) {
+              String errorMessage = state.error;
+              SnackBarUtil.showSnackBar(
+                context,
+                backgroundColor: const Color(0xFFFF0000),
+                textColor: Colors.black,
+                errorMessage,
+              );
+            } else if (state.status == StoryStatus.failure) {
+              SnackBarUtil.showSnackBar(
+                  context,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.black,
+                  'Story has been uploaded correctly');
+              Navigator.pushReplacementNamed(context, Routes.indexPage);
+            }
+          }, builder: (BuildContext context, StoryState state) {
+            if (state.status == StoryStatus.loading) {
+              return const CustomIndicatorProgress();
+            } else {
+              return StoryBubble(
+                profilePicture: MemoryImage(currentUser!.image!),
+                username: currentUser.name,
+              );
+            }
+          }),
         ],
       ),
     );
   }
 
-  _createStory() => Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(width: 3),
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 76, 5, 0),
-                  Color(0xFFFF0000),
-                ],
-                stops: [
-                  0.1,
-                  1,
-                ],
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-              ),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(2),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image(
-                  image: widget.backgroundImage!,
-                  height: 65,
-                  width: 65,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          TextView(
-            text: widget.username?.split(' ')[0],
-            fontSize: 13,
-            color: Colors.white,
-          )
-        ],
-      );
-
   Story _builStory() {
-    return Story(image: image!, id: id);
+    return Story(image: imageBytes!, id: id);
   }
 
   void _submitStory() {

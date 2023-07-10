@@ -26,7 +26,6 @@ class IndexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? token = context.read<AuthenticationCubit>().state.token;
-    User? currentUser = context.watch<AuthenticationCubit>().state.user;
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     int currentFavPageIndex = context.watch<AdvertsCubit>().state.currentPage;
     int decreasedCurrentPageIndex = currentFavPageIndex - 1;
@@ -68,15 +67,7 @@ class IndexPage extends StatelessWidget {
               ],
             ),
           ),
-          if (isLogged)
-            StoriesTile(
-              username: currentUser!.name,
-              backgroundImage:
-                  // currentUser?.image != null ?
-                  MemoryImage(currentUser.image!),
-
-              // : null,
-            ),
+          if (isLogged) StoriesTile(),
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {
