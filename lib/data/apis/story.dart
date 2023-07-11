@@ -9,16 +9,12 @@ import 'package:swc_front/data/apis/base.dart';
 class StoryAPI extends BaseAPI {
   Future<Map<String, dynamic>> createStory(
     Map<String, dynamic> story,
-    String? token,
+    String token,
   ) async {
     final url = Uri.parse('${baseUrl()}/users/${story['user_id']}/stories');
-    final request = http.MultipartRequest(
-      'POST',
-      url,
-    );
+    final request = http.MultipartRequest('POST', url);
     request.headers['authorization'] = 'Bearer $token';
 
-    // for (int i = 0; i < story['image'].length; i++) {
     final bytes = story['image'];
     final mimeType = lookupMimeType('', headerBytes: bytes);
     final multipartFile = http.MultipartFile.fromBytes(
@@ -28,11 +24,6 @@ class StoryAPI extends BaseAPI {
       contentType: MediaType.parse(mimeType!),
     );
     request.files.add(multipartFile);
-    // }
-
-    if (token != null) {
-      request.headers['authorization'] = 'Bearer $token';
-    }
 
     final response = await request.send();
 
@@ -44,7 +35,7 @@ class StoryAPI extends BaseAPI {
 
       return rawStory;
     } else {
-      throw Exception('Failed to create story');
+      throw Exception('XXX');
     }
   }
 
@@ -55,9 +46,10 @@ class StoryAPI extends BaseAPI {
     if (response.statusCode == 200) {
       List<dynamic> rawStories = jsonDecode(response.body);
       return await Future.wait(
-        rawStories.map((rawStories) async {
-          await downloadStoriesImages(rawStories);
-          return rawStories;
+        rawStories.map((rawStory) async {
+          await downloadStoriesImages(rawStory);
+
+          return rawStory;
         }),
       );
     } else {
@@ -66,17 +58,15 @@ class StoryAPI extends BaseAPI {
     }
   }
 
-  Future<void> downloadStoriesImages(Map<String, dynamic> rawStories) async {
-    bool downloadImages = rawStories['images'] != null &&
-        rawStories['images'] is List &&
-        rawStories['images'].isNotEmpty;
+  Future<void> downloadStoriesImages(Map<String, dynamic> rawStory) async {
+    bool downloadImages = rawStory['image'] != null &&
+        rawStory['image'] is List &&
+        rawStory['image'].isNotEmpty;
     if (downloadImages) {
-      rawStories['images'] = await Future.wait(
-        rawStories['images'].map(
-          (imageUrl) async {
-            return await getBytesFromUrl(imageUrl);
-          },
-        ).cast<Future<Uint8List>>(),
+      rawStory['image'] = await Future.wait(
+        rawStory['image'].map((imageUrl) async {
+          return await getBytesFromUrl(imageUrl);
+        }).cast<Future<Uint8List>>(),
       );
     }
   }

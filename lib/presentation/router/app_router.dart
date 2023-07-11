@@ -9,6 +9,7 @@ import 'package:swc_front/presentation/pages/index_page.dart';
 import 'package:swc_front/presentation/pages/login_page.dart';
 import 'package:swc_front/presentation/pages/my_ads_page.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
+import 'package:swc_front/presentation/pages/story_page.dart';
 
 import '../../logic/cubits/adverts.dart';
 import '../../logic/cubits/authentication_cubit.dart';
@@ -24,6 +25,7 @@ class Routes {
   static const String notFoundPage = '/not-found';
   static const String favoritesPage = '/favorites-page';
   static const String myAdsPage = '/my-ads-page';
+  static const String storyPage = '/story_page';
 }
 
 class AppRouter {
@@ -114,24 +116,39 @@ class AppRouter {
         _navigationCubit.setSelectedIndex(3);
         _advertsCubit.fetchMyAds(authenticationCubit.state.token);
         return MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider.value(
-                      value: _navigationCubit,
-                    ),
-                    BlocProvider.value(
-                      value: _advertsCubit,
-                    ),
-                  ],
-                  child: MyAdsPage(
-                    currentMyAdsPage: _advertsCubit.state.currentMyAdsPage,
-                  ),
-                ));
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _navigationCubit,
+              ),
+              BlocProvider.value(
+                value: _advertsCubit,
+              ),
+            ],
+            child: MyAdsPage(
+              currentMyAdsPage: _advertsCubit.state.currentMyAdsPage,
+            ),
+          ),
+        );
+
+      case Routes.storyPage:
+        _navigationCubit.setSelectedIndex(6);
+        _storyCubit.fetchStories(authenticationCubit.state.token);
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _storyCubit),
+              BlocProvider.value(value: _navigationCubit)
+            ],
+            child: StoryPage(stories: _storyCubit.state.stories),
+          ),
+        );
 
       default:
         _navigationCubit.setSelectedIndex(0);
-        // _advertsCubit.getAllAdTags(authenticationCubit.state.token);
+        // _storyCubit.fetchStories(authenticationCubit.state.token);
         _advertsCubit.fetchAdverts(authenticationCubit.state.token);
+        // _advertsCubit.getAllAdTags(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [

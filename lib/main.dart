@@ -7,7 +7,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'presentation/router/app_router.dart';
 
 void main() async {
@@ -36,7 +35,7 @@ class SwcApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Color(0xFFFF0000), // Cambia el color del cursor aquí
+            cursorColor: Color(0xFFFF0000),
           ),
           primaryColor: const Color(0xFFFF0000),
         ),

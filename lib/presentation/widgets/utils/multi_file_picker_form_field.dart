@@ -136,24 +136,18 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                       );
                     }).toList(),
                   ),
-                Positioned(
-                  top: 50,
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: _pickedFiles.isNotEmpty
-                      ? DotsIndicator(
-                          dotsCount: _pickedFiles.length,
-                          position: _currentImageIndex,
-                          decorator: DotsDecorator(
-                            activeColor: Colors.white,
-                            activeSize: const Size(7, 7),
-                            color: Colors.grey[400]!,
-                            size: const Size(4, 4),
-                          ),
-                        )
-                      : const SizedBox(),
-                ),
+                _pickedFiles.isNotEmpty
+                    ? DotsIndicator(
+                        dotsCount: _pickedFiles.length,
+                        position: _currentImageIndex,
+                        decorator: DotsDecorator(
+                          activeColor: Colors.white,
+                          activeSize: const Size(7, 7),
+                          color: Colors.grey[400]!,
+                          size: const Size(4, 4),
+                        ),
+                      )
+                    : const SizedBox(),
                 const SizedBox(
                   height: 15,
                 ),

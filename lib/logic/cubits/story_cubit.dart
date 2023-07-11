@@ -13,7 +13,7 @@ class StoryCubit extends Cubit<StoryState> {
       emit(
         state.copyWith(status: StoryStatus.loading),
       );
-      Story createdStory = await _storyRepository.createStory(story, token);
+      Story createdStory = await _storyRepository.createStory(story, token!);
       state.stories.add(createdStory);
       emit(state.copyWith(
         status: StoryStatus.storySuccess,

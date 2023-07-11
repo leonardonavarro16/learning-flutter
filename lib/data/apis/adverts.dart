@@ -63,12 +63,28 @@ class AdvertsAPI extends BaseAPI {
       return await Future.wait(
         rawAdverts.map((rawAdvert) async {
           await downloadAdvertImages(rawAdvert);
+
           return rawAdvert;
         }),
       );
     } else {
       final error = jsonDecode(response.body)['error'];
       throw Exception(error);
+    }
+  }
+
+  Future<void> downloadAdvertImages(Map<String, dynamic> rawAdvert) async {
+    bool downloadImages = rawAdvert['images'] != null &&
+        rawAdvert['images'] is List &&
+        rawAdvert['images'].isNotEmpty;
+    if (downloadImages) {
+      rawAdvert['images'] = await Future.wait(
+        rawAdvert['images'].map(
+          (imageUrl) async {
+            return await getBytesFromUrl(imageUrl);
+          },
+        ).cast<Future<Uint8List>>(),
+      );
     }
   }
 
@@ -117,21 +133,6 @@ class AdvertsAPI extends BaseAPI {
     } else {
       final error = jsonDecode(response.body)['error'];
       throw Exception(error);
-    }
-  }
-
-  Future<void> downloadAdvertImages(Map<String, dynamic> rawAdvert) async {
-    bool downloadImages = rawAdvert['images'] != null &&
-        rawAdvert['images'] is List &&
-        rawAdvert['images'].isNotEmpty;
-    if (downloadImages) {
-      rawAdvert['images'] = await Future.wait(
-        rawAdvert['images'].map(
-          (imageUrl) async {
-            return await getBytesFromUrl(imageUrl);
-          },
-        ).cast<Future<Uint8List>>(),
-      );
     }
   }
 

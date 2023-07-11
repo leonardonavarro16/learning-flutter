@@ -5,17 +5,16 @@ import 'package:swc_front/data/models/story.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/story_cubit.dart';
-import 'package:swc_front/logic/states/stories.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
-import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
-import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
-import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
 class StoriesTile extends StatefulWidget {
+  // final List<Story> stories;
   StoriesTile({
     Key? key,
+    // required this.stories,
   }) : super(key: key);
 
   @override
@@ -78,34 +77,40 @@ class _StoriesTileState extends State<StoriesTile> {
                 }
               },
             ),
-          BlocConsumer<StoryCubit, StoryState>(
-              listener: (BuildContext context, StoryState state) {
-            if (state.status == StoryStatus.storySuccess) {
-              String errorMessage = state.error;
-              SnackBarUtil.showSnackBar(
-                context,
-                backgroundColor: const Color(0xFFFF0000),
-                textColor: Colors.black,
-                errorMessage,
-              );
-            } else if (state.status == StoryStatus.failure) {
-              SnackBarUtil.showSnackBar(
-                  context,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.black,
-                  'Story has been uploaded correctly');
-              Navigator.pushReplacementNamed(context, Routes.indexPage);
-            }
-          }, builder: (BuildContext context, StoryState state) {
-            if (state.status == StoryStatus.loading) {
-              return const CustomIndicatorProgress();
-            } else {
-              return StoryBubble(
-                profilePicture: MemoryImage(currentUser!.image!),
-                username: currentUser.name,
-              );
-            }
-          }),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: CustomButton(
+              text: 'show stories',
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, Routes.storyPage),
+            ),
+          ),
+          // BlocConsumer<StoryCubit, StoryState>(
+          //     listener: (BuildContext context, StoryState state) {
+          //   if (state.status == StoryStatus.failure) {
+          //     String errorMessage = state.error;
+          //     SnackBarUtil.showSnackBar(
+          //       context,
+          //       backgroundColor: const Color(0xFFFF0000),
+          //       textColor: Colors.black,
+          //       errorMessage,
+          //     );
+          //     Navigator.pushReplacementNamed(context, Routes.indexPage);
+          //   } else if (state.status == StoryStatus.storySuccess) {
+          //     SnackBarUtil.showSnackBar(
+          //         context,
+          //         backgroundColor: Colors.green,
+          //         textColor: Colors.black,
+          //         'Story has been uploaded correctly');
+          //     Navigator.pushReplacementNamed(context, Routes.indexPage);
+          //   }
+          // }, builder: (BuildContext context, StoryState state) {
+          //   if (state.status == StoryStatus.loading) {
+          //     return const CustomIndicatorProgress();
+          //   } else {
+          //     return Container();
+          //   }
+          // }),
         ],
       ),
     );

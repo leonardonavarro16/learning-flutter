@@ -210,7 +210,7 @@ class _UploadStoryButtonState extends State<UploadStoryButton> {
 
       if (result != null) {
         _pickedFile = result!.files.single.bytes;
-        if (widget.onChanged != null) widget.onChanged(_pickedFile!);
+        widget.onChanged(_pickedFile!);
         // print('Picked file: $_pickedFile');
       }
 

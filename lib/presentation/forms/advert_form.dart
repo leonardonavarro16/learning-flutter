@@ -114,39 +114,44 @@ class _AdvertForm extends State<AdvertForm> {
           const SizedBox(
             height: 10,
           ),
-          if (_canShowSubmitButton())
-            BlocConsumer<AdvertsCubit, AdvertsState>(
-                listener: (BuildContext context, AdvertsState state) {
-              if (state.status == AdvertsStatus.indexFailure) {
-                String errorMessage = state.error;
-                SnackBarUtil.showSnackBar(
-                  context,
-                  backgroundColor: const Color(0xFFFF0000),
-                  textColor: Colors.black,
-                  errorMessage,
-                );
-              } else if (state.status == AdvertsStatus.indexSuccess) {
-                SnackBarUtil.showSnackBar(
-                  context,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.black,
-                  t.createdSuccessfullAdvertLinkText,
-                );
-                Navigator.pushReplacementNamed(context, Routes.indexPage);
-                _buildSubmitButton();
-              }
-            }, builder: (BuildContext context, AdvertsState state) {
-              if (state.status == AdvertsStatus.loading) {
-                return const CustomIndicatorProgress();
-              }
-              return Container();
-            }),
+          // todo: check if this works correclty then
+          // if (_canShowSubmitButton())
+          BlocConsumer<AdvertsCubit, AdvertsState>(
+              listener: (BuildContext context, AdvertsState state) {
+            if (state.status == AdvertsStatus.indexFailure) {
+              String errorMessage = state.error;
+              SnackBarUtil.showSnackBar(
+                context,
+                backgroundColor: const Color(0xFFFF0000),
+                textColor: Colors.black,
+                errorMessage,
+              );
+            } else if (state.status == AdvertsStatus.indexSuccess) {
+              SnackBarUtil.showSnackBar(
+                context,
+                backgroundColor: Colors.green,
+                textColor: Colors.black,
+                t.createdSuccessfullAdvertLinkText,
+              );
+              Navigator.pushReplacementNamed(context, Routes.indexPage);
+            }
+          }, builder: (BuildContext context, AdvertsState state) {
+            if (state.status == AdvertsStatus.loading) {
+              return const CustomIndicatorProgress();
+            }
+            return Container();
+          }),
         ],
       ),
     );
   }
 
   bool _canShowSubmitButton() {
+    // print('name: $name');
+    // print('age: $age');
+    // print('phoneNumber: $phoneNumber');
+    // print('description: $description');
+    // print('imageBytes: $imageBytes');
     return name != null &&
         age != null &&
         phoneNumber != null &&
@@ -155,19 +160,25 @@ class _AdvertForm extends State<AdvertForm> {
         imageBytes != null;
   }
 
-  Widget _buildSubmitButton() {
-    AppLocalizations? t = AppLocalizations.of(context);
-    if (t == null) throw Exception('AppLocalizations not found');
-    return CustomButton(
-      text: t.sendButtonLinkText,
-      onPressed: () {
-        Advert advert = _buildAdvert();
-        String? token = context.read<AuthenticationCubit>().state.token;
-        if (token == null) throw Exception('Token is missing');
-        context.read<AdvertsCubit>().createAdvert(advert, token);
-      },
-    );
-  }
+  // Widget _buildSubmitButton() {
+  //   print('____________________________');
+  //   print('name: $name');
+  //   print('age: $age');
+  //   print('phoneNumber: $phoneNumber');
+  //   print('description: $description');
+  //   print('imageBytes: $imageBytes');
+  //   AppLocalizations? t = AppLocalizations.of(context);
+  //   if (t == null) throw Exception('AppLocalizations not found');
+  //   return CustomButton(
+  //     text: t.sendButtonLinkText,
+  //     onPressed: () {
+  //       Advert advert = _buildAdvert();
+  //       String? token = context.read<AuthenticationCubit>().state.token;
+  //       if (token == null) throw Exception('Token is missing');
+  //       context.read<AdvertsCubit>().createAdvert(advert, token);
+  //     },
+  //   );
+  // }
 
   Advert _buildAdvert() {
     return Advert(

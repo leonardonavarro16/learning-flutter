@@ -67,29 +67,33 @@ class IndexPage extends StatelessWidget {
               ],
             ),
           ),
-          BlocBuilder<StoryCubit, StoryState>(
-              builder: (BuildContext context, StoryState state) {
-            if (state.status == StoryStatus.storySuccess) {
-              List<Story> stories = state.stories;
+          // BlocBuilder<StoryCubit, StoryState>(
+          //     builder: (BuildContext context, StoryState state) {
+          //   print(state.stories.length);
+          //   if (state.status == StoryStatus.storySuccess) {
+          //     List<Story> stories = state.stories;
 
-              if (stories.isEmpty) {
-                return const Center(
-                  child: TextView(
-                    text: 'No se encontraron historias',
-                    color: Colors.white,
-                  ),
-                );
-              }
-              return StoriesTile();
-            } else if (state.status == StoryStatus.failure) {
-              return TextView(
-                text: state.error,
-                color: const Color(0xFFFF0000),
-              );
-            } else {
-              return const Center(child: CustomIndicatorProgress());
-            }
-          }),
+          //     if (stories.isEmpty) {
+          //       return const Center(
+          //         child: TextView(
+          //           text: 'No se encontraron historias',
+          //           color: Colors.white,
+          //         ),
+          //       );
+          //     }
+          //     return
+          StoriesTile(
+              // stories: state.stories,
+              ),
+          //   } else if (state.status == StoryStatus.failure) {
+          //     return const TextView(
+          //       text: 'esa vaina no carga nada',
+          //       color: Color(0xFFFF0000),
+          //     );
+          //   } else {
+          //     return const Center(child: CustomIndicatorProgress());
+          //   }
+          // }),
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {

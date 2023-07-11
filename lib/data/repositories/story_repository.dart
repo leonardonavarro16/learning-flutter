@@ -5,7 +5,7 @@ import 'package:swc_front/data/repositories/base.dart';
 class StoryRepository extends BaseRepository {
   final StoryAPI _api = StoryAPI();
 
-  Future<Story> createStory(Story story, String? token) async {
+  Future<Story> createStory(Story story, String token) async {
     Map<String, dynamic> rawStory =
         await _api.createStory(story.toMap(), token);
     return Story.fromMap(rawStory);
