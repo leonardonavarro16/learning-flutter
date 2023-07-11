@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:swc_front/data/models/story.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
@@ -12,9 +13,10 @@ import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
 class StoriesTile extends StatefulWidget {
   // final List<Story> stories;
+  // Uint8List profilePic;
   StoriesTile({
     Key? key,
-    // required this.stories,
+    // required this.profilePic,
   }) : super(key: key);
 
   @override
@@ -47,25 +49,103 @@ class _StoriesTileState extends State<StoriesTile> {
                       context: context,
                       builder: (context) {
                         return SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Stack(
                             children: [
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.85,
-                                width: MediaQuery.of(context).size.height * 0.9,
-                                child: Image.memory(
-                                  imageBytes!,
-                                  fit: BoxFit.cover,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.85,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.9,
+                                    child: Image.memory(
+                                      imageBytes!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  ElevatedButton.icon(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              const Color.fromARGB(
+                                                  255, 43, 43, 43)),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                      ),
+                                    ),
+                                    icon: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10, bottom: 10, left: 16),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          border: Border.all(
+                                              width: 1.2, color: Colors.white),
+                                        ),
+                                        child: Container(
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: Container(),
+
+                                            // Image.memory(
+                                            //   widget.profilePic,
+                                            //   height: 25,
+                                            //   width: 25,
+                                            //   fit: BoxFit.cover,
+                                            // ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      _submitStory();
+                                      // Navigator.pushReplacementNamed(
+                                      //     context, Routes.indexPage);
+                                    },
+                                    label: const Padding(
+                                      padding: EdgeInsets.only(right: 16),
+                                      child: TextView(
+                                        text: ' Add Story',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Positioned(
+                                top: 20,
+                                left: 8,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color:
+                                          const Color.fromARGB(255, 60, 60, 60),
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child: Icon(
+                                        Icons.arrow_back_ios_new_rounded,
+                                        size: 27.5,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: () => _submitStory(),
-                                child: const TextView(text: 'manda HISTORIA'),
-                              )
                             ],
                           ),
                         );

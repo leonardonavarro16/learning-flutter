@@ -138,7 +138,7 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider.value(value: _storyCubit),
-              BlocProvider.value(value: _navigationCubit)
+              BlocProvider.value(value: _navigationCubit),
             ],
             child: StoryPage(stories: _storyCubit.state.stories),
           ),

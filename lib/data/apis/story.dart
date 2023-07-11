@@ -48,7 +48,7 @@ class StoryAPI extends BaseAPI {
       return await Future.wait(
         rawStories.map((rawStory) async {
           await downloadStoriesImages(rawStory);
-
+          print(rawStory);
           return rawStory;
         }),
       );
@@ -59,15 +59,10 @@ class StoryAPI extends BaseAPI {
   }
 
   Future<void> downloadStoriesImages(Map<String, dynamic> rawStory) async {
-    bool downloadImages = rawStory['image'] != null &&
-        rawStory['image'] is List &&
-        rawStory['image'].isNotEmpty;
+    bool downloadImages =
+        rawStory['image'] != null && rawStory['image'].isNotEmpty;
     if (downloadImages) {
-      rawStory['image'] = await Future.wait(
-        rawStory['image'].map((imageUrl) async {
-          return await getBytesFromUrl(imageUrl);
-        }).cast<Future<Uint8List>>(),
-      );
+      rawStory['image'] = await getBytesFromUrl(rawStory['image']);
     }
   }
 }
