@@ -31,8 +31,8 @@ class StoryCubit extends Cubit<StoryState> {
 
   Future<void> fetchAllStories(String? token) async {
     emit(state.copyWith(status: StoryStatus.loading));
+    List<Story> stories = await _storyRepository.fetchStories(token);
     try {
-      List<Story> stories = await _storyRepository.fetchStories(token);
       // print('Print puesto en cubit; daleee ${stories.length}');
       emit(
         state.copyWith(

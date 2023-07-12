@@ -70,7 +70,7 @@ class IndexPage extends StatelessWidget {
           BlocConsumer<StoryCubit, StoryState>(
             listener: (context, state) {
               // print(
-              //     'print del BlocConsumer en IndexPage ${state.stories.length}');
+
               if (state.status == StoryStatus.storySuccess) {
                 List<Story> stories = state.stories;
 
@@ -94,14 +94,21 @@ class IndexPage extends StatelessWidget {
               if (state.status == StoryStatus.storySuccess) {
                 List<Story> stories = state.stories;
 
-                if (stories.isEmpty) {
-                  return const Center(
-                    child: TextView(
-                      text: 'No se encontraron historias',
-                      color: Colors.white,
-                    ),
-                  );
-                }
+                // if (stories.isEmpty) {
+                //   return Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       StoriesView(
+                //         stories: state.stories,
+                //       ),
+                //       const TextView(
+                //         text: 'No se encontraron historias',
+                //         color: Colors.red,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ],
+                //   );
+                // }
 
                 return StoriesView(
                   stories: state.stories,

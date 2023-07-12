@@ -1,8 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class StoryBubble extends StatelessWidget {
-  final ImageProvider<Object>? profilePicture;
+  final Uint8List? profilePicture;
   final String? username;
   const StoryBubble(
       {super.key, required this.profilePicture, required this.username});
@@ -33,8 +35,8 @@ class StoryBubble extends StatelessWidget {
             padding: const EdgeInsets.all(2),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: Image(
-                image: profilePicture!,
+              child: Image.memory(
+                profilePicture!,
                 fit: BoxFit.cover,
                 height: 65,
                 width: 65,

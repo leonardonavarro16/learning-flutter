@@ -7,16 +7,16 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/story_cubit.dart';
 import 'package:swc_front/logic/states/stories.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
 class StoriesView extends StatefulWidget {
   final List<Story>? stories;
-  // Uint8List profilePic;
+
   StoriesView({
     Key? key,
     required this.stories,
-    // required this.profilePic,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,6 @@ class _StoriesViewState extends State<StoriesView> {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     StoryState state = context.watch<StoryCubit>().state;
 
-    print('Número de stories en StoryView: ${state.stories.length}');
     return Container(
       height: 100,
       width: double.infinity,
@@ -46,32 +45,36 @@ class _StoriesViewState extends State<StoriesView> {
             UploadStoryButton(
               onChanged: (Uint8List? bytes) {
                 setState(() => imageBytes = bytes);
-                if (imageBytes != null) _buildPreviewStory();
+                _buildPreviewStory(currentUser!.image!);
               },
             ),
-          ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: state.stories.length,
-            itemBuilder: (context, index) {
-              Story story = state.stories[index];
-              print(
-                  'print para ver story.image del stories.view ${story.image!}');
-              print(
-                  'print para ver story.image iwecnwncoien ${state.stories[1]}');
-              return Container(
-                width: 70,
-                height: 70,
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: MemoryImage(story.image!),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            },
+          InkWell(
+            child: StoryBubble(
+                profilePicture: currentUser!.image, username: currentUser.name),
+            onTap: () => showDialog(
+                context: context,
+                builder: (context) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: state.stories.length,
+                    itemBuilder: (context, index) {
+                      Story story = state.stories[index];
+                      return Container(
+                        width: 120,
+                        height: 70,
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: MemoryImage(story.image!),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
           ),
         ],
       ),
@@ -89,7 +92,35 @@ class _StoriesViewState extends State<StoriesView> {
     context.read<StoryCubit>().createStory(story, token);
   }
 
-  void _buildPreviewStory() => showDialog(
+  // void _buildStoriesDialog(context) => showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       StoryState state = context.watch<StoryCubit>().state;
+
+  //       return ListView.builder(
+  //         scrollDirection: Axis.horizontal,
+  //         shrinkWrap: true,
+  //         itemCount: state.stories.length,
+  //         itemBuilder: (context, index) {
+  //           Story story = state.stories[index];
+
+  //           return Container(
+  //             width: 70,
+  //             height: 70,
+  //             margin: const EdgeInsets.symmetric(horizontal: 5),
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(10),
+  //               image: DecorationImage(
+  //                 image: MemoryImage(story.image!),
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //       );
+  //     });
+
+  void _buildPreviewStory(Uint8List? userImage) => showDialog(
       barrierColor: Colors.black,
       context: context,
       builder: (context) {
@@ -131,14 +162,12 @@ class _StoriesViewState extends State<StoriesView> {
                         child: Container(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: Container(),
-
-                            // Image.memory(
-                            //   widget.profilePic,
-                            //   height: 25,
-                            //   width: 25,
-                            //   fit: BoxFit.cover,
-                            // ),
+                            child: Image.memory(
+                              userImage!,
+                              height: 25,
+                              width: 25,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
