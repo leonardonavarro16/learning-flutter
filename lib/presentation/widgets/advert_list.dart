@@ -16,11 +16,11 @@ import 'utils/base_modal.dart';
 import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
 class AdvertList extends StatelessWidget {
+  final List<Advert> adverts;
   int colsPerRow = 0;
   double colsWidth = 0;
   int rowsCount = 0;
   final double spaceBetweenCols;
-  final List<Advert> adverts;
   final int itemsPerPage;
   BoxConstraints constraints = const BoxConstraints();
   int currentPage = 0;

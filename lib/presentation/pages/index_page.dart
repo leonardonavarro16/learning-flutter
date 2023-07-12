@@ -1,21 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/logic/cubits/story_cubit.dart';
-import 'package:swc_front/logic/states/stories.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
-import 'package:swc_front/presentation/widgets/utils/stories_tile_widget.dart';
+import 'package:swc_front/presentation/widgets/utils/stories_view.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../data/models/story.dart';
 import '../../logic/cubits/adverts.dart';
+import '../../logic/cubits/story_cubit.dart';
 import '../../logic/states/adverts.dart';
+import '../../logic/states/stories.dart';
 import '../widgets/advert_list.dart';
 
 class IndexPage extends StatelessWidget {
@@ -68,34 +67,50 @@ class IndexPage extends StatelessWidget {
               ],
             ),
           ),
-          // BlocBuilder<StoryCubit, StoryState>(
-          //     builder: (BuildContext context, StoryState state) {
-          //   print(state.stories.length);
-          //   if (state.status == StoryStatus.storySuccess) {
-          //     List<Story> stories = state.stories;
+          BlocConsumer<StoryCubit, StoryState>(
+            listener: (context, state) {
+              // print(
+              //     'print del BlocConsumer en IndexPage ${state.stories.length}');
+              if (state.status == StoryStatus.storySuccess) {
+                List<Story> stories = state.stories;
 
-          //     if (stories.isEmpty) {
-          //       return const Center(
-          //         child: TextView(
-          //           text: 'No se encontraron historias',
-          //           color: Colors.white,
-          //         ),
-          //       );
-          //     }
-          //     return
-          StoriesTile(
-              // profilePic: currentUser!.image!,
-              // stories: state.stories,
-              ),
-          //   } else if (state.status == StoryStatus.failure) {
-          //     return const TextView(
-          //       text: 'esa vaina no carga nada',
-          //       color: Color(0xFFFF0000),
-          //     );
-          //   } else {
-          //     return const Center(child: CustomIndicatorProgress());
-          //   }
-          // }),
+                if (stories.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('No se encontraron historias'),
+                    ),
+                  );
+                }
+              } else if (state.status == StoryStatus.failure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('esa vaina no carga nada'),
+                    backgroundColor: Color(0xFFFF0000),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state.status == StoryStatus.storySuccess) {
+                List<Story> stories = state.stories;
+
+                if (stories.isEmpty) {
+                  return const Center(
+                    child: TextView(
+                      text: 'No se encontraron historias',
+                      color: Colors.white,
+                    ),
+                  );
+                }
+
+                return StoriesView(
+                  stories: state.stories,
+                );
+              } else {
+                return const Center(child: CustomIndicatorProgress());
+              }
+            },
+          ),
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {

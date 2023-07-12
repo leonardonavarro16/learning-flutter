@@ -13,6 +13,7 @@ class StoryRepository extends BaseRepository {
 
   Future<List<Story>> fetchStories(String? token) async {
     List<dynamic> rawStories = await _api.fetchStories(token);
+    print('Print puesto en repo; ${rawStories.length}');
     return rawStories.map<Story>((dynamic rawStories) {
       return Story.fromMap(rawStories);
     }).toList();

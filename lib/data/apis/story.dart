@@ -48,7 +48,7 @@ class StoryAPI extends BaseAPI {
       return await Future.wait(
         rawStories.map((rawStory) async {
           await downloadStoriesImages(rawStory);
-          print(rawStory);
+          // print('Print puesto en API; ${rawStory}');
           return rawStory;
         }),
       );

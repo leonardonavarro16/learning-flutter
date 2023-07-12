@@ -42,7 +42,7 @@ class AppRouter {
       case Routes.indexPage:
         _navigationCubit.setSelectedIndex(0);
         _advertsCubit.fetchAdverts(authenticationCubit.state.token);
-
+        // _storyCubit.fetchAllStories(authenticationCubit.state.token);
         // _advertsCubit.getAllAdTags(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
@@ -131,24 +131,25 @@ class AppRouter {
           ),
         );
 
-      case Routes.storyPage:
-        _navigationCubit.setSelectedIndex(6);
-        _storyCubit.fetchStories(authenticationCubit.state.token);
-        return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: _storyCubit),
-              BlocProvider.value(value: _navigationCubit),
-            ],
-            child: StoryPage(stories: _storyCubit.state.stories),
-          ),
-        );
+      // case Routes.storyPage:
+      //   _navigationCubit.setSelectedIndex(6);
+      //   _storyCubit.fetchAllStories(authenticationCubit.state.token);
+      //   print('print puesto en router ${_storyCubit.state.stories}');
+      //   return MaterialPageRoute(
+      //     builder: (_) => MultiBlocProvider(
+      //       providers: [
+      //         BlocProvider.value(value: _storyCubit),
+      //         BlocProvider.value(value: _navigationCubit),
+      //       ],
+      //       child: StoryPage(),
+      //     ),
+      //   );
 
       default:
-        _navigationCubit.setSelectedIndex(0);
-        // _storyCubit.fetchStories(authenticationCubit.state.token);
-        _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         // _advertsCubit.getAllAdTags(authenticationCubit.state.token);
+        _storyCubit.fetchAllStories(authenticationCubit.state.token);
+        _navigationCubit.setSelectedIndex(0);
+        _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [

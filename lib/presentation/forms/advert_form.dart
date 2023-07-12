@@ -147,11 +147,6 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   bool _canShowSubmitButton() {
-    // print('name: $name');
-    // print('age: $age');
-    // print('phoneNumber: $phoneNumber');
-    // print('description: $description');
-    // print('imageBytes: $imageBytes');
     return name != null &&
         age != null &&
         phoneNumber != null &&
@@ -161,12 +156,7 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   // Widget _buildSubmitButton() {
-  //   print('____________________________');
-  //   print('name: $name');
-  //   print('age: $age');
-  //   print('phoneNumber: $phoneNumber');
-  //   print('description: $description');
-  //   print('imageBytes: $imageBytes');
+
   //   AppLocalizations? t = AppLocalizations.of(context);
   //   if (t == null) throw Exception('AppLocalizations not found');
   //   return CustomButton(

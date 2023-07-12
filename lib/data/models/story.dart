@@ -9,7 +9,7 @@ class Story {
   static Story fromMap(Map<String, dynamic> storyData) {
     return Story(
       id: storyData['id'].toString(),
-      image: (storyData['images']).cast<Uint8List>().toList(),
+      image: storyData['image'],
     );
   }
 
