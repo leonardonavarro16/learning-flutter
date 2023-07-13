@@ -13,11 +13,34 @@ class UserCubit extends Cubit<UserState> {
 
     try {
       User newUser = await _userRepository.create(user, password);
-
-      emit(state.copyWith(userStatus: UserStatus.createSuccess, user: newUser));
+      state.users.add(newUser);
+      emit(
+        state.copyWith(
+            userStatus: UserStatus.createSuccess, users: state.users),
+      );
     } catch (error) {
       emit(state.copyWith(
           userStatus: UserStatus.createFailure, error: error.toString()));
+    }
+  }
+
+  Future<void> fetchUsers(String? token) async {
+    emit(state.copyWith(userStatus: UserStatus.loading));
+    try {
+      List<User> users = await _userRepository.fetchUsers(token);
+      emit(
+        state.copyWith(
+          userStatus: UserStatus.userSuccess,
+          users: users,
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          userStatus: UserStatus.userFailure,
+          error: error.toString(),
+        ),
+      );
     }
   }
 }

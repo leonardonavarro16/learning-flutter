@@ -13,4 +13,11 @@ class UserRepository extends BaseRepository {
     await downloadUserImage(rawUser);
     return User.fromMap(rawUser);
   }
+
+  Future<List<User>> fetchUsers(String? token) async {
+    List<dynamic> rawUsers = await _api.fetchUsers(token);
+    return rawUsers.map<User>((dynamic rawUsers) {
+      return User.fromMap(rawUsers);
+    }).toList();
+  }
 }

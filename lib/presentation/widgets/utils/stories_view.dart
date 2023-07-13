@@ -51,30 +51,8 @@ class _StoriesViewState extends State<StoriesView> {
           InkWell(
             child: StoryBubble(
                 profilePicture: currentUser!.image, username: currentUser.name),
-            onTap: () => showDialog(
-                context: context,
-                builder: (context) {
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: state.stories.length,
-                    itemBuilder: (context, index) {
-                      Story story = state.stories[index];
-                      return Container(
-                        width: 120,
-                        height: 70,
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: MemoryImage(story.image!),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }),
+            onTap: () =>
+                Navigator.pushReplacementNamed(context, Routes.storyPage),
           ),
         ],
       ),

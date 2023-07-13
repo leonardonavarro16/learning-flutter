@@ -41,4 +41,31 @@ class UserAPI extends BaseAPI {
       throw Exception('Failed to create user');
     }
   }
+
+  Future<List<dynamic>> fetchUsers(String? token) async {
+    final url = '${baseUrl()}/users';
+
+    final response = await httpGet(url, token: token);
+    if (response.statusCode == 200) {
+      List<dynamic> rawUsers = jsonDecode(response.body);
+      return await Future.wait(
+        rawUsers.map((rawUser) async {
+          await downloaUsersImages(rawUser);
+
+          return rawUser;
+        }),
+      );
+    } else {
+      final error = jsonDecode(response.body)['error'];
+      throw Exception(error);
+    }
+  }
+
+  Future<void> downloaUsersImages(Map<String, dynamic> rawUser) async {
+    bool downloadImages =
+        rawUser['image'] != null && rawUser['image'].isNotEmpty;
+    if (downloadImages) {
+      rawUser['image'] = await getBytesFromUrl(rawUser['image']);
+    }
+  }
 }
