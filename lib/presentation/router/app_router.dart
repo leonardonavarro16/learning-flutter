@@ -39,6 +39,7 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.indexPage:
+        _userCubit.fetchUsers(authenticationCubit.state.token);
         _navigationCubit.setSelectedIndex(0);
         _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         // _storyCubit.fetchAllStories(authenticationCubit.state.token);
@@ -46,6 +47,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
+              BlocProvider.value(value: _userCubit),
               BlocProvider.value(value: _storyCubit),
               BlocProvider.value(value: _advertsCubit),
               BlocProvider.value(value: _navigationCubit),
@@ -54,7 +56,6 @@ class AppRouter {
           ),
         );
       case Routes.favoritesPage:
-        _userCubit.fetchUsers(authenticationCubit.state.token);
         _navigationCubit.setSelectedIndex(1);
         _advertsCubit.fetchFavAdverts(authenticationCubit.state.token);
         return MaterialPageRoute(
@@ -146,6 +147,7 @@ class AppRouter {
         );
 
       default:
+        _userCubit.fetchUsers(authenticationCubit.state.token);
         // _advertsCubit.getAllAdTags(authenticationCubit.state.token);
 
         _storyCubit.fetchAllStories(authenticationCubit.state.token);
@@ -154,6 +156,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
+              BlocProvider.value(value: _userCubit),
               BlocProvider.value(value: _storyCubit),
               BlocProvider.value(value: _advertsCubit),
               BlocProvider.value(value: _navigationCubit),

@@ -69,8 +69,6 @@ class IndexPage extends StatelessWidget {
           ),
           BlocConsumer<StoryCubit, StoryState>(
             listener: (context, state) {
-              // print(
-
               if (state.status == StoryStatus.storySuccess) {
                 List<Story> stories = state.stories;
 

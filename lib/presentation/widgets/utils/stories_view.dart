@@ -5,7 +5,9 @@ import 'package:swc_front/data/models/story.dart';
 import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/story_cubit.dart';
+import 'package:swc_front/logic/cubits/user.dart';
 import 'package:swc_front/logic/states/stories.dart';
+import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/story_bubble.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
@@ -32,29 +34,38 @@ class _StoriesViewState extends State<StoriesView> {
     User? currentUser = context.watch<AuthenticationCubit>().state.user;
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     StoryState state = context.watch<StoryCubit>().state;
+    UserState stateUser = context.read<UserCubit>().state;
 
     return Container(
       height: 100,
       width: double.infinity,
       margin: const EdgeInsets.only(top: 10, left: 5),
-      child: ListView(
+      child: ListView.builder(
+        itemCount: stateUser.users.length + 1,
         scrollDirection: Axis.horizontal,
         shrinkWrap: false,
-        children: [
-          if (isLogged)
-            UploadStoryButton(
-              onChanged: (Uint8List? bytes) {
-                setState(() => imageBytes = bytes);
-                _buildPreviewStory(currentUser!.image!);
-              },
-            ),
-          InkWell(
-            child: StoryBubble(
-                profilePicture: currentUser!.image, username: currentUser.name),
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, Routes.storyPage),
-          ),
-        ],
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            // Primer elemento
+            if (isLogged) {
+              return UploadStoryButton(
+                onChanged: (Uint8List? bytes) {
+                  setState(() => imageBytes = bytes);
+                },
+              );
+            } else {
+              return SizedBox.shrink();
+            }
+          } else {
+            User user = stateUser.users[index - 1];
+            return InkWell(
+              child:
+                  StoryBubble(profilePicture: user.image, username: user.name),
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, Routes.storyPage),
+            );
+          }
+        },
       ),
     );
   }
