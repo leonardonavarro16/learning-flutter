@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/data/repositories/advert_repository.dart';
 
 import '../../data/models/advert.dart';

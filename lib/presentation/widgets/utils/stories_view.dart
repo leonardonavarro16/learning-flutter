@@ -14,7 +14,18 @@ import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
 class StoriesView extends StatefulWidget {
-  final List<Story>? stories;
+  final Map<String, List<Story>>? stories;
+  // final Map<List<String>, Story>? stories;
+
+  // stories = {
+  //     'user_id_1': Story(),
+  //     'user_id_2': Story(),
+  //   };
+
+  //  stories = {
+  //     ['user_id_1', 'user_id_2']: Story(),
+  //     ['user_id_3']: Story(),
+  //   };
 
   StoriesView({
     Key? key,
@@ -35,18 +46,18 @@ class _StoriesViewState extends State<StoriesView> {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     StoryState state = context.watch<StoryCubit>().state;
     UserState stateUser = context.read<UserCubit>().state;
+    print('aallalalalalalaa    .   .    .   ${state.storiesUsers[0].id}');
 
     return Container(
       height: 100,
       width: double.infinity,
       margin: const EdgeInsets.only(top: 10, left: 5),
       child: ListView.builder(
-        itemCount: stateUser.users.length + 1,
+        itemCount: state.storiesUsers.length + 1,
         scrollDirection: Axis.horizontal,
         shrinkWrap: false,
         itemBuilder: (context, index) {
           if (index == 0) {
-            // Primer elemento
             if (isLogged) {
               return UploadStoryButton(
                 onChanged: (Uint8List? bytes) {
@@ -57,12 +68,17 @@ class _StoriesViewState extends State<StoriesView> {
               return SizedBox.shrink();
             }
           } else {
-            User user = stateUser.users[index - 1];
+            User user = state.storiesUsers[index - 1];
             return InkWell(
-              child:
-                  StoryBubble(profilePicture: user.image, username: user.name),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.storyPage),
+              child: StoryBubble(
+                profilePicture: user.image,
+                username: user.name,
+                user_id: user.id,
+              ),
+              onTap: () => {
+                state.user_id = user.id!,
+                Navigator.pushReplacementNamed(context, Routes.storyPage)
+              },
             );
           }
         },

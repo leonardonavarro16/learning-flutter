@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/story.dart';
+import 'package:swc_front/data/models/user.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/story_cubit.dart';
 import 'package:swc_front/logic/states/stories.dart';
@@ -8,15 +9,15 @@ import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class StoryPage extends StatelessWidget {
-  final List<Story>? stories;
-
-  const StoryPage({this.stories});
+  const StoryPage();
 
   @override
   Widget build(BuildContext context) {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     StoryState state = context.watch<StoryCubit>().state;
     print('Número de stories en StoryPage: ${state.stories.length}');
+    print('JOHN! ${state.stories}');
+    print('JOHN! 2 ${state.stories[state.user_id]}');
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -31,9 +32,9 @@ class StoryPage extends StatelessWidget {
                   width: screenWidth,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.stories.length,
+                    itemCount: state.stories[state.user_id]!.length,
                     itemBuilder: (context, index) {
-                      final story = state.stories[index];
+                      final story = state.stories[state.user_id]![index];
                       return Image.memory(
                         story.image!,
                         fit: BoxFit.cover,

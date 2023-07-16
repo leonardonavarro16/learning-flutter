@@ -11,8 +11,8 @@ class Advert {
   List<String>? ad_tags;
 
   Advert({
-    this.ad_tags,
     this.id,
+    this.ad_tags,
     this.isFav = false,
     required this.phoneNumber,
     required this.age,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
@@ -39,9 +38,8 @@ class StoryAPI extends BaseAPI {
     }
   }
 
-  Future<List<dynamic>> fetchStories(String? token) async {
-    final url = '${baseUrl()}/users/stories';
-
+  Future<List<dynamic>> fetchStories(String? token, String? user_id) async {
+    final url = '${baseUrl()}/stories/users?user_id=$user_id';
     final response = await httpGet(url, token: token);
     if (response.statusCode == 200) {
       List<dynamic> rawStories = jsonDecode(response.body);
@@ -58,11 +56,38 @@ class StoryAPI extends BaseAPI {
     }
   }
 
+  Future<List<dynamic>> fetchStoriesUsers(String? token) async {
+    final url = '${baseUrl()}/users/stories';
+
+    final response = await httpGet(url, token: token);
+    if (response.statusCode == 200) {
+      List<dynamic> rawStoriesUsers = jsonDecode(response.body);
+      return await Future.wait(
+        rawStoriesUsers.map((rawUser) async {
+          await downloaUsersImages(rawUser);
+
+          return rawUser;
+        }),
+      );
+    } else {
+      final error = jsonDecode(response.body)['error'];
+      throw Exception(error);
+    }
+  }
+
   Future<void> downloadStoriesImages(Map<String, dynamic> rawStory) async {
     bool downloadImages =
         rawStory['image'] != null && rawStory['image'].isNotEmpty;
     if (downloadImages) {
       rawStory['image'] = await getBytesFromUrl(rawStory['image']);
+    }
+  }
+
+  Future<void> downloaUsersImages(Map<String, dynamic> rawUser) async {
+    bool downloadImages =
+        rawUser['image'] != null && rawUser['image'].isNotEmpty;
+    if (downloadImages) {
+      rawUser['image'] = await getBytesFromUrl(rawUser['image']);
     }
   }
 }

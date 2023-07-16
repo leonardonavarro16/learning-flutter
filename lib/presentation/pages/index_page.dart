@@ -70,15 +70,15 @@ class IndexPage extends StatelessWidget {
           BlocConsumer<StoryCubit, StoryState>(
             listener: (context, state) {
               if (state.status == StoryStatus.storySuccess) {
-                List<Story> stories = state.stories;
+                // List<Story> stories = state.stories;
 
-                if (stories.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('No se encontraron historias'),
-                    ),
-                  );
-                }
+                // if (stories.isEmpty) {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     const SnackBar(
+                //       content: Text('No se encontraron historias'),
+                //     ),
+                //   );
+                // }
               } else if (state.status == StoryStatus.failure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -90,7 +90,7 @@ class IndexPage extends StatelessWidget {
             },
             builder: (context, state) {
               if (state.status == StoryStatus.storySuccess) {
-                List<Story> stories = state.stories;
+                // List<Story> stories = state.stories;
 
                 // if (stories.isEmpty) {
                 //   return Row(
