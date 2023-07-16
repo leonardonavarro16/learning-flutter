@@ -10,7 +10,6 @@ import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
 import 'package:swc_front/presentation/widgets/utils/stories_view.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
-import '../../data/models/story.dart';
 import '../../logic/cubits/adverts.dart';
 import '../../logic/cubits/story_cubit.dart';
 import '../../logic/states/adverts.dart';

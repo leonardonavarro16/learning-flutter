@@ -62,6 +62,7 @@ class _StoriesViewState extends State<StoriesView> {
               return UploadStoryButton(
                 onChanged: (Uint8List? bytes) {
                   setState(() => imageBytes = bytes);
+                  _buildPreviewStory(currentUser!.image);
                 },
               );
             } else {

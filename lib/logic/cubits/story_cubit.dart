@@ -11,24 +11,24 @@ class StoryCubit extends Cubit<StoryState> {
   StoryCubit() : super(StoryState.initial());
 
   Future<void> createStory(Story story, String? token) async {
-    // try {
-    //   emit(
-    //     state.copyWith(status: StoryStatus.loading),
-    //   );
-    //   Story createdStory = await _storyRepository.createStory(story, token!);
-    //   state.stories[].add(createdStory);
-    //   emit(state.copyWith(
-    //     status: StoryStatus.storySuccess,
-    //     stories: state.stories,
-    //   ));
-    // } catch (error) {
-    //   emit(
-    //     state.copyWith(
-    //       status: StoryStatus.failure,
-    //       error: error.toString(),
-    //     ),
-    //   );
-    // }
+    try {
+      emit(
+        state.copyWith(status: StoryStatus.loading),
+      );
+      Story createdStory = await _storyRepository.createStory(story, token!);
+      state.stories[state.user_id]!.add(createdStory);
+      emit(state.copyWith(
+        status: StoryStatus.storySuccess,
+        stories: state.stories,
+      ));
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: StoryStatus.failure,
+          error: error.toString(),
+        ),
+      );
+    }
   }
 
   Future<void> fetchUserStories(String? token) async {
