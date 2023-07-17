@@ -15,17 +15,6 @@ import 'package:swc_front/presentation/widgets/utils/upload_story_button.dart';
 
 class StoriesView extends StatefulWidget {
   final Map<String, List<Story>>? stories;
-  // final Map<List<String>, Story>? stories;
-
-  // stories = {
-  //     'user_id_1': Story(),
-  //     'user_id_2': Story(),
-  //   };
-
-  //  stories = {
-  //     ['user_id_1', 'user_id_2']: Story(),
-  //     ['user_id_3']: Story(),
-  //   };
 
   StoriesView({
     Key? key,
@@ -46,7 +35,6 @@ class _StoriesViewState extends State<StoriesView> {
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     StoryState state = context.watch<StoryCubit>().state;
     UserState stateUser = context.read<UserCubit>().state;
-    print('aallalalalalalaa    .   .    .   ${state.storiesUsers[0].id}');
 
     return Container(
       height: 100,
@@ -66,7 +54,7 @@ class _StoriesViewState extends State<StoriesView> {
                 },
               );
             } else {
-              return SizedBox.shrink();
+              return SizedBox();
             }
           } else {
             User user = state.storiesUsers[index - 1];
@@ -97,34 +85,6 @@ class _StoriesViewState extends State<StoriesView> {
     if (token == null) throw Exception('Token is missing');
     context.read<StoryCubit>().createStory(story, token);
   }
-
-  // void _buildStoriesDialog(context) => showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       StoryState state = context.watch<StoryCubit>().state;
-
-  //       return ListView.builder(
-  //         scrollDirection: Axis.horizontal,
-  //         shrinkWrap: true,
-  //         itemCount: state.stories.length,
-  //         itemBuilder: (context, index) {
-  //           Story story = state.stories[index];
-
-  //           return Container(
-  //             width: 70,
-  //             height: 70,
-  //             margin: const EdgeInsets.symmetric(horizontal: 5),
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(10),
-  //               image: DecorationImage(
-  //                 image: MemoryImage(story.image!),
-  //                 fit: BoxFit.cover,
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     });
 
   void _buildPreviewStory(Uint8List? userImage) => showDialog(
       barrierColor: Colors.black,

@@ -121,23 +121,6 @@ class _UploadStoryButtonState extends State<UploadStoryButton> {
                                       color: Colors.transparent,
                                       child: ListTile(
                                         onTap: () => pickFile(),
-
-                                        // showDialog(
-                                        //     context: context,
-                                        //     builder: (context) {
-                                        //       return ClipRRect(
-                                        //         child: Column(
-                                        //           children: [
-                                        //             if (_pickedFile!.isEmpty)
-                                        //               TextButton(
-                                        //                   onPressed: pickFile,
-                                        //                   child: const TextView(
-                                        //                       text:
-                                        //                           'sube una historia man')),
-                                        //           ],
-                                        //         ),
-                                        //       );
-                                        //     }),
                                         leading: const Icon(
                                           weight: 100,
                                           color: Colors.white,
@@ -190,7 +173,6 @@ class _UploadStoryButtonState extends State<UploadStoryButton> {
       final fileBytes = await pickedFile.readAsBytes();
       _pickedFile = Uint8List.fromList(fileBytes);
       widget.onChanged(_pickedFile!);
-      // print('Picked file: $_pickedFile');
     }
 
     setState(() {
@@ -211,7 +193,6 @@ class _UploadStoryButtonState extends State<UploadStoryButton> {
       if (result != null) {
         _pickedFile = result!.files.single.bytes;
         widget.onChanged(_pickedFile!);
-        // print('Picked file: $_pickedFile');
       }
 
       setState(() {

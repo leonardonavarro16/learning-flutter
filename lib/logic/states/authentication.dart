@@ -66,9 +66,9 @@ class AuthenticationState {
     return AuthenticationState(
       user: User.fromMap(map['user']), // Convert user from map
       error: map['error'],
+      token: map['token'],
       authenticationStatus: _parseAuthenticationStatus(
           map['authenticationStatus']), // Parse enum from string
-      token: map['token'],
     );
   }
 

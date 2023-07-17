@@ -6,8 +6,10 @@ import 'base.dart';
 enum StoryStatus {
   initial,
   loading,
-  storySuccess,
-  failure,
+  indexSuccess,
+  indexFailure,
+  createSuccess,
+  createFailure,
 }
 
 class StoryState extends BaseState {

@@ -10,10 +10,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState>
 
   AuthenticationCubit() : super(AuthenticationState.initial());
 
-  void setUser(User user) {
-    emit(state.copyWith(user: user));
-  }
-
   Future<void> login(String email, String password) async {
     emit(state.copyWith(authenticationStatus: AuthenticationStatus.loading));
     try {
@@ -44,6 +40,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState>
         error: error.toString(),
       ));
     }
+  }
+
+  void setUser(User user) {
+    emit(state.copyWith(user: user));
   }
 
   void logout() {

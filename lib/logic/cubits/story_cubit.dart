@@ -18,13 +18,13 @@ class StoryCubit extends Cubit<StoryState> {
       Story createdStory = await _storyRepository.createStory(story, token!);
       state.stories[state.user_id]!.add(createdStory);
       emit(state.copyWith(
-        status: StoryStatus.storySuccess,
+        status: StoryStatus.indexSuccess,
         stories: state.stories,
       ));
     } catch (error) {
       emit(
         state.copyWith(
-          status: StoryStatus.failure,
+          status: StoryStatus.createFailure,
           error: error.toString(),
         ),
       );
@@ -39,15 +39,14 @@ class StoryCubit extends Cubit<StoryState> {
       state.stories[state.user_id] = stories;
     }
     try {
-      // print('Print puesto en cubit; daleee ${stories.length}');
       emit(
         state.copyWith(
-            status: StoryStatus.storySuccess, stories: state.stories),
+            status: StoryStatus.indexSuccess, stories: state.stories),
       );
     } catch (error) {
       emit(
         state.copyWith(
-          status: StoryStatus.failure,
+          status: StoryStatus.indexFailure,
           error: error.toString(),
         ),
       );
@@ -65,7 +64,7 @@ class StoryCubit extends Cubit<StoryState> {
     try {
       emit(
         state.copyWith(
-          status: StoryStatus.storySuccess,
+          status: StoryStatus.indexSuccess,
           stories: stories,
           storiesUsers: storiesUsers,
         ),
@@ -73,22 +72,10 @@ class StoryCubit extends Cubit<StoryState> {
     } catch (error) {
       emit(
         state.copyWith(
-          status: StoryStatus.failure,
+          status: StoryStatus.indexFailure,
           error: error.toString(),
         ),
       );
     }
   }
-
-  // Future<void> deleteStory(Story story) async {
-  //   try {
-  //     emit(state.copyWith(status: StoryStatus.loading));
-  //     await _storyRepository.deleteStory(story);
-  //     deleteStory(
-  //         story); // Eliminar la historia del estado después de eliminarla en el backend
-  //   } catch (e) {
-  //     emit(state.copyWith(
-  //         error: 'Error al eliminar la historia', status: StoryStatus.failure));
-  //   }
-  // }
 }

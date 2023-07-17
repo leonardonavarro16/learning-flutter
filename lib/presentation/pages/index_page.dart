@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
-import 'package:swc_front/data/models/user.dart';
+import 'package:swc_front/data/models/story.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
@@ -24,8 +25,6 @@ class IndexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? token = context.read<AuthenticationCubit>().state.token;
-    User? currentUser = context.watch<AuthenticationCubit>().state.user;
-    bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     int currentFavPageIndex = context.watch<AdvertsCubit>().state.currentPage;
     int decreasedCurrentPageIndex = currentFavPageIndex - 1;
     int increasedCurrentPageIndex = currentFavPageIndex + 1;
@@ -58,60 +57,45 @@ class IndexPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: maxWidth * 0.05),
-                SvgPicture.asset(
-                  'assets/Logo rojo.svg',
-                  height: 50,
-                  width: maxWidth * 0.1,
+                InkWell(
+                  child: SvgPicture.asset(
+                    'assets/Logo rojo.svg',
+                    height: 50,
+                    width: maxWidth * 0.1,
+                  ),
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, Routes.indexPage),
                 ),
               ],
             ),
           ),
-          BlocConsumer<StoryCubit, StoryState>(
-            listener: (context, state) {
-              if (state.status == StoryStatus.storySuccess) {
-                // List<Story> stories = state.stories;
-
-                // if (stories.isEmpty) {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     const SnackBar(
-                //       content: Text('No se encontraron historias'),
-                //     ),
-                //   );
-                // }
-              } else if (state.status == StoryStatus.failure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('esa vaina no carga nada'),
-                    backgroundColor: Color(0xFFFF0000),
-                  ),
-                );
-              }
-            },
+          BlocBuilder<StoryCubit, StoryState>(
             builder: (context, state) {
-              if (state.status == StoryStatus.storySuccess) {
-                // List<Story> stories = state.stories;
-
-                // if (stories.isEmpty) {
-                //   return Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       StoriesView(
-                //         stories: state.stories,
-                //       ),
-                //       const TextView(
-                //         text: 'No se encontraron historias',
-                //         color: Colors.red,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ],
-                //   );
-                // }
+              if (state.status == StoryStatus.indexSuccess) {
+                Map<String, List<Story>> stories = state.stories;
+                if (stories.isEmpty) {
+                  return const Center(
+                    child: TextView(
+                      text: 'No se encontraron historias',
+                      color: Colors.white,
+                    ),
+                  );
+                }
 
                 return StoriesView(
                   stories: state.stories,
                 );
+              } else if (state.status == StoryStatus.indexFailure) {
+                return Center(
+                  child: TextView(
+                    text: state.error,
+                    color: Colors.white,
+                  ),
+                );
               } else {
-                return const Center(child: CustomIndicatorProgress());
+                return const Center(
+                  child: CustomIndicatorProgress(),
+                );
               }
             },
           ),
