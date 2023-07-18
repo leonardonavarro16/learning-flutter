@@ -24,7 +24,7 @@ class Layout extends StatelessWidget {
   Widget build(BuildContext context) {
     User? currentUser = context.watch<AuthenticationCubit>().state.user;
     String? token = context.read<AuthenticationCubit>().state.token;
-    double maxWidth = MediaQuery.of(context).size.width;
+
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
@@ -32,48 +32,28 @@ class Layout extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Scaffold(
-          drawer: Drawer(
-            backgroundColor: Colors.black,
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.only(
-                        right: 10, bottom: 10, left: 10, top: 30),
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
-                        child: DrawerHeader(
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                          ),
-                          child: SvgPicture.asset(
-                            'assets/Logo blanco.svg',
+          drawer: Container(
+            width: constraints.maxWidth * 0.22,
+            child: Drawer(
+              backgroundColor: Colors.black,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.only(
+                          right: 10, bottom: 10, left: 10, top: 30),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          child: DrawerHeader(
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/Logo blanco.svg',
+                            ),
                           ),
                         ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        color: const Color.fromARGB(255, 20, 20, 20),
-                        child: ListTile(
-                          leading: const Icon(
-                            CupertinoIcons.house_alt,
-                            color: Color(0xFFFF0000),
-                          ),
-                          title: const TextView(
-                              text: 'Home',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          onTap: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.indexPage);
-                          },
-                        ),
-                      ),
-                      SizedBox(height: isLogged ? 5 : 0),
-                      if (isLogged)
                         Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -81,46 +61,88 @@ class Layout extends StatelessWidget {
                           color: const Color.fromARGB(255, 20, 20, 20),
                           child: ListTile(
                             leading: const Icon(
-                              CupertinoIcons.suit_heart,
+                              CupertinoIcons.house_alt,
                               color: Color(0xFFFF0000),
                             ),
                             title: const TextView(
-                                text: 'My fav Adverts',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                            onTap: () {
-                              !isLogged
-                                  ? Navigator.pushReplacementNamed(
-                                      context, Routes.loginPage)
-                                  : Navigator.pushReplacementNamed(
-                                      context, Routes.favoritesPage);
-                            },
-                          ),
-                        ),
-                      const SizedBox(height: 5),
-                      if (isLogged)
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          color: const Color.fromARGB(255, 20, 20, 20),
-                          child: ListTile(
-                            leading: const Icon(
-                              CupertinoIcons.add_circled_solid,
-                              color: Color(0xFFFF0000),
-                            ),
-                            title: const TextView(
-                                text: 'add a new advert',
+                                text: 'Home',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                             onTap: () {
                               Navigator.pushReplacementNamed(
-                                  context, Routes.createAdvertPage);
+                                  context, Routes.indexPage);
                             },
                           ),
                         ),
-                      SizedBox(height: isLogged ? 5 : 0),
-                      if (isLogged)
+                        SizedBox(height: isLogged ? 5 : 0),
+                        if (isLogged)
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: const Color.fromARGB(255, 20, 20, 20),
+                            child: ListTile(
+                              leading: const Icon(
+                                CupertinoIcons.suit_heart,
+                                color: Color(0xFFFF0000),
+                              ),
+                              title: const TextView(
+                                  text: 'My fav Adverts',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              onTap: () {
+                                !isLogged
+                                    ? Navigator.pushReplacementNamed(
+                                        context, Routes.loginPage)
+                                    : Navigator.pushReplacementNamed(
+                                        context, Routes.favoritesPage);
+                              },
+                            ),
+                          ),
+                        const SizedBox(height: 5),
+                        if (isLogged)
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: const Color.fromARGB(255, 20, 20, 20),
+                            child: ListTile(
+                              leading: const Icon(
+                                CupertinoIcons.add_circled_solid,
+                                color: Color(0xFFFF0000),
+                              ),
+                              title: const TextView(
+                                  text: 'add a new advert',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.createAdvertPage);
+                              },
+                            ),
+                          ),
+                        SizedBox(height: isLogged ? 5 : 0),
+                        if (isLogged)
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: const Color.fromARGB(255, 20, 20, 20),
+                            child: ListTile(
+                                leading: const Icon(
+                                  CupertinoIcons.square_stack_3d_down_right,
+                                  color: Color(0xFFFF0000),
+                                ),
+                                title: const TextView(
+                                    text: 'My adverts',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, Routes.myAdsPage);
+                                }),
+                          ),
+                        const SizedBox(height: 5),
                         Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -128,99 +150,80 @@ class Layout extends StatelessWidget {
                           color: const Color.fromARGB(255, 20, 20, 20),
                           child: ListTile(
                               leading: const Icon(
-                                CupertinoIcons.square_stack_3d_down_right,
+                                CupertinoIcons.person_badge_plus,
                                 color: Color(0xFFFF0000),
                               ),
                               title: const TextView(
-                                  text: 'My adverts',
+                                  text: 'My profile',
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                               onTap: () {
-                                Navigator.pushReplacementNamed(
-                                    context, Routes.myAdsPage);
+                                isLogged
+                                    ? Navigator.pushReplacementNamed(
+                                        context, Routes.editProfile)
+                                    : Navigator.pushReplacementNamed(
+                                        context, Routes.loginPage);
+                                ;
                               }),
                         ),
-                      const SizedBox(height: 5),
-                      Card(
+                      ],
+                    ),
+                  ),
+                  if (!isLogged)
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 10, right: 10, bottom: !isLogged ? 20 : 0),
+                      child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        color: const Color.fromARGB(255, 20, 20, 20),
+                        color: Colors.green,
                         child: ListTile(
-                            leading: const Icon(
-                              CupertinoIcons.person_badge_plus,
-                              color: Color(0xFFFF0000),
-                            ),
                             title: const TextView(
-                                text: 'My profile',
+                                textAlign: TextAlign.center,
+                                text: 'Log In',
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                             onTap: () {
-                              isLogged
-                                  ? Navigator.pushReplacementNamed(
-                                      context, Routes.editProfile)
-                                  : Navigator.pushReplacementNamed(
-                                      context, Routes.loginPage);
-                              ;
+                              Navigator.pushReplacementNamed(
+                                  context, Routes.loginPage);
                             }),
                       ),
-                    ],
-                  ),
-                ),
-                if (!isLogged)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 10, right: 10, bottom: !isLogged ? 20 : 0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: Colors.green,
-                      child: ListTile(
-                          title: const TextView(
-                              textAlign: TextAlign.center,
-                              text: 'Log In',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          onTap: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.loginPage);
-                          }),
                     ),
-                  ),
-                if (isLogged)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 10, right: 10, bottom: isLogged ? 20 : 0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                  if (isLogged)
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 10, right: 10, bottom: isLogged ? 20 : 0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        color: const Color(0xFFFF0000),
+                        child: ListTile(
+                            title: const TextView(
+                                textAlign: TextAlign.center,
+                                text: 'Log Out',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            onTap: () {
+                              BlocProvider.of<AuthenticationCubit>(context)
+                                  .logout();
+                              Navigator.pushReplacementNamed(
+                                  context, Routes.indexPage);
+                            }),
                       ),
-                      color: const Color(0xFFFF0000),
-                      child: ListTile(
-                          title: const TextView(
-                              textAlign: TextAlign.center,
-                              text: 'Log Out',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          onTap: () {
-                            BlocProvider.of<AuthenticationCubit>(context)
-                                .logout();
-                            Navigator.pushReplacementNamed(
-                                context, Routes.indexPage);
-                          }),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
           //! APPBAR ---------------------------------------------------------- X
           appBar: AppBar(
             centerTitle: true,
             title: Container(
-              width: 1000,
+              width: constraints.maxWidth * .55,
               child: AdvertSearchField(
                 searchText: searchText,
                 onChange: (value, shouldSearch) {
@@ -245,23 +248,35 @@ class Layout extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: IconButton(
-                  onPressed: () {
-                    !isLogged
-                        ? Navigator.pushReplacementNamed(
-                            context, Routes.loginPage)
-                        : Navigator.pushReplacementNamed(
-                            context, Routes.editProfile);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.person_crop_circle,
-                    size: 25,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              !isLogged
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: IconButton(
+                        onPressed: () {
+                          !isLogged
+                              ? Navigator.pushReplacementNamed(
+                                  context, Routes.loginPage)
+                              : Navigator.pushReplacementNamed(
+                                  context, Routes.editProfile);
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.person_crop_circle,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, bottom: 10, left: 20, right: 20),
+                      child: InkWell(
+                        child: CircleAvatar(
+                          backgroundImage: MemoryImage(currentUser!.image!),
+                        ),
+                        onTap: () => Navigator.pushReplacementNamed(
+                            context, Routes.editProfile),
+                      ),
+                    ),
             ],
             toolbarHeight: 60,
             backgroundColor: Color.fromARGB(255, 11, 11, 11),
