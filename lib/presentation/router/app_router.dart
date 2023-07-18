@@ -146,7 +146,6 @@ class AppRouter {
       default:
         _navigationCubit.setSelectedIndex(0);
         _storyCubit.fetchAllStoriesUsers(authenticationCubit.state.token);
-
         _storyCubit.fetchUserStories(authenticationCubit.state.token);
         _advertsCubit.fetchAdverts(authenticationCubit.state.token);
         return MaterialPageRoute(

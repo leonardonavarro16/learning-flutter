@@ -5,7 +5,6 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
-import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';

@@ -20,9 +20,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState>
         user: response['user'],
       ));
     } catch (error) {
+      String errorMessage = error.toString();
       emit(state.copyWith(
           authenticationStatus: AuthenticationStatus.failureLogin,
-          error: error.toString()));
+          error: errorMessage));
     }
   }
 
