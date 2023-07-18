@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AdvertSearchField extends StatefulWidget {
   final Function(String, bool)? onChange;
@@ -37,6 +38,7 @@ class _AdvertSearchFieldState extends State<AdvertSearchField> {
   @override
   Widget build(BuildContext context) {
     return CupertinoSearchTextField(
+      itemColor: Colors.white,
       controller: _textEditingController,
       style: const TextStyle(
         fontFamily: 'SanFrancisco',
@@ -44,7 +46,7 @@ class _AdvertSearchFieldState extends State<AdvertSearchField> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: const Color.fromARGB(255, 20, 20, 20),
+        color: Color.fromARGB(255, 41, 41, 41),
       ),
       onChanged: (value) {
         if (widget.onChange == null) return;
