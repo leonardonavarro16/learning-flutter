@@ -40,7 +40,7 @@ class IndexPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
+                SizedBox(
                   width: maxWidth * 0.60,
                   height: 40,
                   child: AdvertSearchField(
