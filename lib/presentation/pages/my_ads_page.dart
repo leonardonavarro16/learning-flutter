@@ -22,16 +22,7 @@ class MyAdsPage extends StatelessWidget {
     return Layout(
       content: Column(
         children: [
-          const SizedBox(height: 15),
-          Container(
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.only(top: 3, right: 15),
-            child: SvgPicture.asset(
-              'assets/Logo rojo.svg',
-              height: 55,
-            ),
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 50),
           const TextView(
             fontSize: 20,
             text: 'Mis anuncios',

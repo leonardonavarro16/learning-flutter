@@ -10,6 +10,10 @@ class CreateAdvertPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return LayoutBuilder(
@@ -17,19 +21,10 @@ class CreateAdvertPage extends StatelessWidget {
         return Layout(
           content: Center(
             child: SizedBox(
-              width: constraints.maxWidth * 0.8,
+              width: desiredWidth,
               child: ListView(
                 children: [
-                  const SizedBox(height: 15.0),
-                  Container(
-                    alignment: Alignment.topRight,
-                    padding: const EdgeInsets.only(top: 3, right: 20),
-                    child: SvgPicture.asset(
-                      'assets/Logo rojo.svg',
-                      height: 55,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 50.0),
                   TextView(
                     text: t.newAdvertTitleLinkText,
                     textAlign: TextAlign.center,

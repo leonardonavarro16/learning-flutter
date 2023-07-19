@@ -190,21 +190,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
     );
   }
 
-  void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // Si todos los campos son válidos, entonces establecemos la imagen.
-      _setDefaultImage();
-
-      // Construimos el objeto User con todos los datos ingresados.
-      User user = _buildUser();
-      context.read<UserCubit>().create(user, password!);
-    }
-  }
-
   void _setDefaultImage() async {
     ByteData byteData = await rootBundle.load('assets/user_default1.jpg');
     setState(() {
       image = byteData.buffer.asUint8List();
     });
+  }
+
+  void _submitForm() {
+    _setDefaultImage();
+    User user = _buildUser();
+
+    context.read<UserCubit>().create(user, password!);
   }
 }
