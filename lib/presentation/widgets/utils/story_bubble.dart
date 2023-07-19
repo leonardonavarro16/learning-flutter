@@ -1,12 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swc_front/logic/cubits/user.dart';
-import 'package:swc_front/logic/states/user.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
-
-import '../../router/app_router.dart';
 
 class StoryBubble extends StatelessWidget {
   final Uint8List? profilePicture;
