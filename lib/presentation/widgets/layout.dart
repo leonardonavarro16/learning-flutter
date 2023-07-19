@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -270,9 +268,15 @@ class Layout extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           top: 10, bottom: 10, left: 20, right: 20),
                       child: InkWell(
-                        child: CircleAvatar(
-                          backgroundImage: MemoryImage(currentUser!.image!),
-                        ),
+                        child: currentUser?.image != null
+                            ? CircleAvatar(
+                                backgroundImage:
+                                    MemoryImage(currentUser!.image!),
+                              )
+                            : const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/user_default1.jpg'),
+                              ),
                         onTap: () => Navigator.pushReplacementNamed(
                             context, Routes.editProfile),
                       ),

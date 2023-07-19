@@ -13,44 +13,50 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Layout(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Layout(
           content: Center(
-        child: SizedBox(
-            width: constraints.maxWidth * 0.8,
-            child: Column(
-              children: [
-                const SizedBox(height: 15),
-                SizedBox(
-                  height: 165,
-                  width: 165,
-                  child: SvgPicture.asset(
-                    'assets/Logo blanco.svg',
-                  ),
-                ),
-                // const SizedBox(height: 15),
-                const LoginForm(),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, Routes.registrationPage);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TextView(
-                      text: t.registrationLinkText,
-                      decoration: TextDecoration.underline,
-                      color: Colors.white,
+            child: SizedBox(
+              width: desiredWidth,
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    height: 165,
+                    width: 165,
+                    child: SvgPicture.asset(
+                      'assets/Logo blanco.svg',
                     ),
                   ),
-                ),
-              ],
-            )),
-      ));
-    });
+                  const LoginForm(),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        Routes.registrationPage,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: TextView(
+                        text: t.registrationLinkText,
+                        decoration: TextDecoration.underline,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
-
-
-//  content: Center(child: SizedBox(width: contrains.maxwidht, child: LoginForm())),

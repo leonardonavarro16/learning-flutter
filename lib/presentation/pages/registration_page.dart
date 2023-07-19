@@ -7,14 +7,18 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Layout(
         content: Center(
           child: SizedBox(
-            width: constraints.maxWidth * 0.8,
-            child: Column(
-              children: const [
+            width: desiredWidth,
+            child: const Column(
+              children: [
                 RegistrationForm(),
               ],
             ),

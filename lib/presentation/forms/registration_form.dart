@@ -39,19 +39,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Uint8List? image;
 
   @override
-  void initState() {
-    super.initState();
-    _setDefaultImage();
-  }
-
-  void _setDefaultImage() async {
-    ByteData byteData = await rootBundle.load('user_default1.jpg');
-    setState(() {
-      image = byteData.buffer.asUint8List();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
@@ -204,7 +191,20 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   void _submitForm() {
-    User user = _buildUser();
-    context.read<UserCubit>().create(user, password!);
+    if (_formKey.currentState?.validate() ?? false) {
+      // Si todos los campos son válidos, entonces establecemos la imagen.
+      _setDefaultImage();
+
+      // Construimos el objeto User con todos los datos ingresados.
+      User user = _buildUser();
+      context.read<UserCubit>().create(user, password!);
+    }
+  }
+
+  void _setDefaultImage() async {
+    ByteData byteData = await rootBundle.load('assets/user_default1.jpg');
+    setState(() {
+      image = byteData.buffer.asUint8List();
+    });
   }
 }

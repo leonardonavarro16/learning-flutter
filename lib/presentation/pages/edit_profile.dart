@@ -9,6 +9,10 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return LayoutBuilder(
@@ -16,7 +20,7 @@ class EditProfilePage extends StatelessWidget {
       return Layout(
         content: Center(
           child: SizedBox(
-            width: constraints.maxWidth * 0.8,
+            width: desiredWidth,
             child: Column(children: [
               const SizedBox(
                 height: 35,
