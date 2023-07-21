@@ -53,7 +53,8 @@ class StoryBubble extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           TextView(
-            text: '$firstName id:$user_id',
+            // text: '$firstName id:$user_id',
+            text: firstName,
             fontSize: 12,
             color: Colors.white,
           )

@@ -140,6 +140,11 @@ class _AdvertPreview extends StatelessWidget {
 
   Widget _buildModalOpenedContent(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isScreenLessThan800 = screenWidth < 800;
     return Stack(
       children: [
         Column(
@@ -147,7 +152,7 @@ class _AdvertPreview extends StatelessWidget {
             if (advert.images.length == 1)
               SizedBox(
                 height: screenHeight,
-                width: MediaQuery.of(context).size.width,
+                width: desiredWidth,
                 child: Column(
                   children: [
                     Image.memory(advert.images.first, fit: BoxFit.cover),

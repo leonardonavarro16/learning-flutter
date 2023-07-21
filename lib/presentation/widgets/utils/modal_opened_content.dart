@@ -22,6 +22,10 @@ class ModalOpenedContainerContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     return Container(
       height: advert.ad_tags != null && advert.ad_tags!.length > 3
           ? MediaQuery.of(context).size.height * 0.38
@@ -65,8 +69,8 @@ class ModalOpenedContainerContent extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       TextView(
                         text: '4.5',
                         color: Color.fromARGB(155, 255, 255, 255),

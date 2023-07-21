@@ -153,8 +153,9 @@ class _StoriesViewState extends State<StoriesView> {
                 ],
               ),
               Positioned(
-                top: 20,
+                top: 50,
                 left: 8,
+                right: 0,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop();
