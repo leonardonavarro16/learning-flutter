@@ -27,9 +27,6 @@ class ModalOpenedContainerContent extends StatelessWidget {
     double mobileScreen = screenWidth * 0.8;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     return Container(
-      height: advert.ad_tags != null && advert.ad_tags!.length > 3
-          ? MediaQuery.of(context).size.height * 0.38
-          : MediaQuery.of(context).size.height * 0.35,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(35),
@@ -44,7 +41,14 @@ class ModalOpenedContainerContent extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: SingleChildScrollView(
+      height: advert.ad_tags != null && advert.ad_tags!.length > 3
+          ? MediaQuery.of(context).size.height * 0.38
+          : MediaQuery.of(context).size.height * 0.35,
+      child: content(context),
+    );
+  }
+
+  content(context) => SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -199,9 +203,7 @@ class ModalOpenedContainerContent extends StatelessWidget {
               ),
           ],
         ),
-      ),
-    );
-  }
+      );
 
   String formatPhoneNumber(String phoneNumber) {
     final regex = RegExp(r'^(\d{3})(\d{3})(\d{4})$');

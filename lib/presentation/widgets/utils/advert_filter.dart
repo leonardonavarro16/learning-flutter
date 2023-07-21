@@ -36,8 +36,8 @@ class _FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Row(
-        children: const [
+      child: const Row(
+        children: [
           Icon(
             Icons.filter_alt_outlined,
             color: Colors.white,

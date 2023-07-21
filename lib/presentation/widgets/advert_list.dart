@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -139,7 +141,7 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   Widget _buildModalOpenedContent(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth * 0.8;
@@ -155,7 +157,11 @@ class _AdvertPreview extends StatelessWidget {
                 width: desiredWidth,
                 child: Column(
                   children: [
-                    Image.memory(advert.images.first, fit: BoxFit.cover),
+                    Image.memory(
+                      advert.images.first,
+                      fit: BoxFit.cover,
+                      height: screenHeight,
+                    ),
                   ],
                 ),
               ),
@@ -180,107 +186,16 @@ class _AdvertPreview extends StatelessWidget {
             onTap: () {
               String? token = context.read<AuthenticationCubit>().state.token;
               if (token == null) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    Future.delayed(const Duration(minutes: 1), () {
-                      Navigator.of(context).pop();
-                    });
-                    return CustomAlertDialog(
-                      hasButton: false,
-                      header: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Icon(
-                                CupertinoIcons.xmark_square_fill,
-                                shadows: [
-                                  BoxShadow(
-                                      color: Colors.black,
-                                      offset: Offset(0, 2),
-                                      blurRadius: 5.0)
-                                ],
-                                size: 32.5,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const TextView(
-                            fontSize: 14,
-                            text: 'Accede para marcar como favorito!',
-                            color: Color(0xFFFF0000),
-                            fontWeight: FontWeight.bold,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            // height: 140,
-                            width: 140,
-                            child: SvgPicture.asset(
-                              'assets/Logo blanco.svg',
-                            ),
-                          ),
-                        ],
-                      ),
-                      content: Container(
-                        height: 240,
-                        width: 400,
-                        child: ListView(
-                          children: [
-                            Column(
-                              children: [
-                                const LoginForm(),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const TextView(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white,
-                                        text: '¿No tienes una cuenta?'),
-                                    // SizedBox(height: 15),
-                                    TextButton(
-                                        onPressed: () =>
-                                            Navigator.pushReplacementNamed(
-                                                context,
-                                                Routes.registrationPage),
-                                        child: const TextView(
-                                          fontSize: 14,
-                                          decoration: TextDecoration.underline,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFFFF0000),
-                                          text: 'Registrate',
-                                        )),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                showLoginDialog(context);
                 return;
               }
               context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
             },
           ),
         ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: ModalOpenedContainerContent(
-            advert: advert,
-          ),
-        ),
+        // ModalOpenedContainerContent(
+        //   advert: advert,
+        // ),
       ],
     );
   }
@@ -303,101 +218,13 @@ class _AdvertPreview extends StatelessWidget {
               Positioned(
                 top: 5,
                 right: 5,
-                // padding: const EdgeInsets.only(right: 3, top: 3),
                 child: FavIconContainer(
                   selected: advert.isFav,
                   onTap: () {
                     String? token =
                         context.read<AuthenticationCubit>().state.token;
                     if (token == null) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          Future.delayed(const Duration(minutes: 1), () {
-                            Navigator.of(context).pop();
-                          });
-                          return CustomAlertDialog(
-                            hasButton: false,
-                            header: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Icon(
-                                      CupertinoIcons.xmark_square_fill,
-                                      shadows: [
-                                        BoxShadow(
-                                            color: Colors.black,
-                                            offset: Offset(0, 2),
-                                            blurRadius: 5.0)
-                                      ],
-                                      size: 32.5,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                const TextView(
-                                  fontSize: 14,
-                                  text: 'Accede para marcar como favorito!',
-                                  color: Color(0xFFFF0000),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  // height: 140,
-                                  width: 140,
-                                  child: SvgPicture.asset(
-                                    'assets/Logo blanco.svg',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            content: Container(
-                              height: 240,
-                              width: 400,
-                              child: ListView(
-                                children: [
-                                  Column(
-                                    children: [
-                                      const LoginForm(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const TextView(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w300,
-                                              color: Colors.white,
-                                              text: '¿No tienes una cuenta?'),
-                                          // SizedBox(height: 15),
-                                          TextButton(
-                                              onPressed: () => Navigator
-                                                  .pushReplacementNamed(context,
-                                                      Routes.registrationPage),
-                                              child: const TextView(
-                                                fontSize: 14,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFFFF0000),
-                                                text: 'Registrate',
-                                              )),
-                                        ],
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                      showLoginDialog(context);
                       return;
                     }
                     context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
@@ -418,4 +245,94 @@ class _AdvertPreview extends StatelessWidget {
       ),
     );
   }
+
+  showLoginDialog(context) => showDialog(
+        context: context,
+        builder: (context) {
+          Future.delayed(
+            const Duration(minutes: 1),
+            () {
+              Navigator.of(context).pop();
+            },
+          );
+          return CustomAlertDialog(
+            hasButton: false,
+            header: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Icon(
+                      CupertinoIcons.xmark_square_fill,
+                      shadows: [
+                        BoxShadow(
+                            color: Colors.black,
+                            offset: Offset(0, 2),
+                            blurRadius: 5.0)
+                      ],
+                      size: 32.5,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const TextView(
+                  fontSize: 14,
+                  text: 'Accede para marcar como favorito!',
+                  color: Color(0xFFFF0000),
+                  fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  // height: 140,
+                  width: 140,
+                  child: SvgPicture.asset(
+                    'assets/Logo blanco.svg',
+                  ),
+                ),
+              ],
+            ),
+            content: Container(
+              height: 240,
+              width: 400,
+              child: ListView(
+                children: [
+                  Column(
+                    children: [
+                      const LoginForm(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const TextView(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white,
+                              text: '¿No tienes una cuenta?'),
+                          // SizedBox(height: 15),
+                          TextButton(
+                            onPressed: () => Navigator.pushReplacementNamed(
+                                context, Routes.registrationPage),
+                            child: const TextView(
+                              fontSize: 14,
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFFF0000),
+                              text: 'Registrate',
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      );
 }

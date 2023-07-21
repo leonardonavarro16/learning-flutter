@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,19 +48,28 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
                         onTap: () => showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                backgroundColor: Colors.black.withOpacity(0.25),
-                                title: const TextView(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    text: 'Profile Picture'),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16))),
-                                content: Image.memory(
-                                  _pickedFile!,
-                                  fit: BoxFit.cover,
+                              return BackdropFilter(
+                                filter:
+                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: AlertDialog(
+                                    backgroundColor:
+                                        Colors.black.withOpacity(0.25),
+                                    title: const TextView(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        text: 'Profile Picture'),
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16))),
+                                    content: Image.memory(
+                                      _pickedFile!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               );
                             }),

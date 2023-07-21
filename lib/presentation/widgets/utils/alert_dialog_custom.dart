@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
@@ -26,23 +28,26 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.black.withOpacity(0.8),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      child: AlertDialog(
+        backgroundColor: Colors.black.withOpacity(0.8),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+        ),
+        title: header ??
+            TextView(
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFFFF0000),
+              text: titleText,
+            ),
+        content: content ??
+            TextView(
+              color: Colors.white,
+              text: contentText,
+            ),
+        actions: actions ?? _buildActions(context),
       ),
-      title: header ??
-          TextView(
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFFFF0000),
-            text: titleText,
-          ),
-      content: content ??
-          TextView(
-            color: Colors.white,
-            text: contentText,
-          ),
-      actions: actions ?? _buildActions(context),
     );
   }
 

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +11,10 @@ class BaseModal extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return BaseModal(title: title, children: children);
+        return BaseModal(
+          title: title,
+          children: children,
+        );
       },
     );
   }
@@ -24,9 +29,8 @@ class BaseModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+        BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: AlertDialog(
             title: title,
             content: SingleChildScrollView(
