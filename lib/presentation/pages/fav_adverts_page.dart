@@ -72,6 +72,8 @@ class FavAdvertsPage extends StatelessWidget {
                                   .previousFavPage(token);
                             }
                           },
+                          onFirstPage: () =>
+                              context.read<AdvertsCubit>().fetchAdverts(token),
                         ),
                       const SizedBox(height: 15)
                     ],

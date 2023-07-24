@@ -9,6 +9,7 @@ class PaginationIndex extends StatelessWidget {
   final int increasedCurrentPageIndex;
   final Function() onPreviousPage;
   final Function() onNextPage;
+  final Function() onFirstPage;
 
   const PaginationIndex({
     required this.currentPageIndex,
@@ -16,6 +17,7 @@ class PaginationIndex extends StatelessWidget {
     required this.increasedCurrentPageIndex,
     required this.onPreviousPage,
     required this.onNextPage,
+    required this.onFirstPage,
   });
 
   @override
@@ -24,94 +26,71 @@ class PaginationIndex extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        InkWell(
+        if (currentPageIndex > 1)
+          paginationButton(
+            onTap: onFirstPage,
+            child: const Icon(
+                size: 20, color: Colors.white, Icons.skip_previous_rounded),
+          ),
+        paginationButton(
           onTap: onPreviousPage,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 18, 18, 18),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            height: 40,
-            width: 40,
-            child: const Icon(
-              size: 20,
-              color: Colors.white,
-              Icons.arrow_back_ios_rounded,
-            ),
-          ),
+          child: const Icon(
+              size: 20, color: Colors.white, Icons.arrow_back_ios_rounded),
         ),
-        const SizedBox(width: 10),
         if (decreasedCurrentPageIndex > 0)
-          Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 18, 18, 18),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            height: 40,
-            width: 40,
-            child: Align(
-              alignment: Alignment.center,
+          paginationButton(
+            onTap: onPreviousPage,
+            child: Center(
               child: TextView(
-                fontWeight: FontWeight.bold,
-                text: '$decreasedCurrentPageIndex',
-                color: Colors.white,
-              ),
+                  fontWeight: FontWeight.bold,
+                  text: '$decreasedCurrentPageIndex',
+                  color: Colors.white),
             ),
           ),
-        const SizedBox(width: 10),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 2),
-            color: const Color.fromARGB(255, 18, 18, 18),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          height: 40,
-          width: 40,
-          child: Align(
-            alignment: Alignment.center,
+        paginationButton(
+          border: Border.all(color: Colors.white, width: 2),
+          child: Center(
             child: TextView(
-              fontWeight: FontWeight.bold,
-              text: '$currentPageIndex ',
-              color: Colors.white,
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        if (advertCount >= 10)
-          Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 18, 18, 18),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            height: 40,
-            width: 40,
-            child: Align(
-              alignment: Alignment.center,
-              child: TextView(
                 fontWeight: FontWeight.bold,
-                text: '$increasedCurrentPageIndex',
-                color: Colors.white,
-              ),
+                text: '$currentPageIndex',
+                color: Colors.white),
+          ),
+          onTap: () {},
+        ),
+        if (advertCount >= 10)
+          paginationButton(
+            onTap: onNextPage,
+            child: Center(
+              child: TextView(
+                  fontWeight: FontWeight.bold,
+                  text: '$increasedCurrentPageIndex',
+                  color: Colors.white),
             ),
           ),
-        const SizedBox(width: 10),
-        InkWell(
+        paginationButton(
           onTap: onNextPage,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 18, 18, 18),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            height: 40,
-            width: 40,
-            child: const Icon(
-              size: 20,
-              color: Colors.white,
-              Icons.arrow_forward_ios_rounded,
-            ),
-          ),
+          child: const Icon(
+              size: 20, color: Colors.white, Icons.arrow_forward_ios_rounded),
         ),
       ],
     );
   }
+
+  Widget paginationButton(
+          {required Widget child, Function()? onTap, BoxBorder? border}) =>
+      Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 18, 18, 18),
+                borderRadius: BorderRadius.circular(10),
+                border: border),
+            height: 40,
+            width: 40,
+            child: child,
+          ),
+        ),
+      );
 }

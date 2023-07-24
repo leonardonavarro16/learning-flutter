@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/data/models/story.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
-import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
-import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
 import 'package:swc_front/presentation/widgets/utils/stories_view.dart';
@@ -142,6 +139,8 @@ class IndexPage extends StatelessWidget {
                             context.read<AdvertsCubit>().previousPage(token);
                           }
                         },
+                        onFirstPage: () =>
+                            context.read<AdvertsCubit>().fetchAdverts(token),
                       ),
                       const SizedBox(height: 15)
                     ],
