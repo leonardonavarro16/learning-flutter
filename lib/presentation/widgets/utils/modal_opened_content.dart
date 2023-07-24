@@ -6,7 +6,7 @@ import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
-class ModalOpenedContainerContent extends StatelessWidget {
+class ModalOpenedContainerContent extends StatefulWidget {
   final Advert advert;
   final String location;
   final String availability;
@@ -15,22 +15,32 @@ class ModalOpenedContainerContent extends StatelessWidget {
   const ModalOpenedContainerContent({
     Key? key,
     required this.advert,
-    this.location = 'Barranquilla',
+    this.location = 'Medellin',
     this.availability = '24 horas',
     this.rate = '4.5',
   }) : super(key: key);
 
   @override
+  State<ModalOpenedContainerContent> createState() =>
+      _ModalOpenedContainerContentState();
+}
+
+class _ModalOpenedContainerContentState
+    extends State<ModalOpenedContainerContent> {
+  @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth * 0.8;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+
     return Container(
+      height: screenHeight * 0.38,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(35),
-          topRight: Radius.circular(35),
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
         ),
         gradient: LinearGradient(
           colors: [
@@ -41,9 +51,6 @@ class ModalOpenedContainerContent extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      height: advert.ad_tags != null && advert.ad_tags!.length > 3
-          ? MediaQuery.of(context).size.height * 0.38
-          : MediaQuery.of(context).size.height * 0.35,
       child: content(context),
     );
   }
@@ -61,7 +68,7 @@ class ModalOpenedContainerContent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextView(
-                        text: advert.name,
+                        text: widget.advert.name,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -89,7 +96,7 @@ class ModalOpenedContainerContent extends StatelessWidget {
                     ],
                   ),
                   TextView(
-                    text: '${advert.age} años',
+                    text: '${widget.advert.age} años',
                     fontWeight: FontWeight.bold,
                     color: const Color.fromARGB(155, 255, 255, 255),
                     fontSize: 10,
@@ -114,13 +121,14 @@ class ModalOpenedContainerContent extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                if (advert.ad_tags != null && advert.ad_tags!.isNotEmpty)
+                if (widget.advert.ad_tags != null &&
+                    widget.advert.ad_tags!.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Wrap(
                       spacing: 8,
-                      runSpacing: 1.2,
-                      children: advert.ad_tags!.map((tag) {
+                      runSpacing: 8,
+                      children: widget.advert.ad_tags!.map((tag) {
                         return Chip(
                           backgroundColor: const Color(0xFFFF0000),
                           label: TextView(
@@ -139,8 +147,8 @@ class ModalOpenedContainerContent extends StatelessWidget {
                     bottom: 15,
                   ),
                   child: TextView(
-                    text: advert.description,
-                    fontSize: 12,
+                    text: widget.advert.description,
+                    fontSize: 14,
                     color: Colors.white,
                     textAlign: TextAlign.center,
                   ),
@@ -149,14 +157,16 @@ class ModalOpenedContainerContent extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomButton(
-              text: formatPhoneNumber(advert.phoneNumber),
+              text: formatPhoneNumber(widget.advert.phoneNumber),
               borderRadius: 15,
               fontSize: 20,
               height: 55,
               width: 250,
               onPressed: () {
                 Clipboard.setData(
-                  ClipboardData(text: formatPhoneNumber(advert.phoneNumber)),
+                  ClipboardData(
+                    text: formatPhoneNumber(widget.advert.phoneNumber),
+                  ),
                 );
                 showDialog(
                   context: context,
@@ -189,15 +199,18 @@ class ModalOpenedContainerContent extends StatelessWidget {
                 );
               },
             ),
-            if (advert.ad_tags != null && advert.ad_tags!.length > 3)
+            if (widget.advert.ad_tags != null &&
+                widget.advert.ad_tags!.length > 3)
               const SizedBox(
                 height: 20,
               ),
-            if (advert.ad_tags != null && advert.ad_tags!.length > 6)
+            if (widget.advert.ad_tags != null &&
+                widget.advert.ad_tags!.length > 6)
               const SizedBox(
                 height: 25,
               ),
-            if (advert.ad_tags != null && advert.ad_tags!.length > 9)
+            if (widget.advert.ad_tags != null &&
+                widget.advert.ad_tags!.length > 9)
               const SizedBox(
                 height: 30,
               ),

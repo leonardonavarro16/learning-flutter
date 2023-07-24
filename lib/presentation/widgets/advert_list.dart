@@ -9,6 +9,7 @@ import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_opened_content.dart';
 import 'package:swc_front/presentation/widgets/utils/fav_icon_container.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_closed_content.dart';
@@ -132,9 +133,15 @@ class _AdvertPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BaseModal.open(context: context, children: [
-          _buildModalOpenedContent(context),
-        ]);
+        BaseModal.open(
+          context: context,
+          children: [
+            _buildModalOpenedContent(context),
+          ],
+        );
+        _showContentBottomSheet(
+          context,
+        );
       },
       child: _buildModalClosedContent(context),
     );
@@ -146,7 +153,7 @@ class _AdvertPreview extends StatelessWidget {
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth * 0.8;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
-    bool isScreenLessThan800 = screenWidth < 800;
+
     return Stack(
       children: [
         Column(
@@ -155,14 +162,10 @@ class _AdvertPreview extends StatelessWidget {
               SizedBox(
                 height: screenHeight,
                 width: desiredWidth,
-                child: Column(
-                  children: [
-                    Image.memory(
-                      advert.images.first,
-                      fit: BoxFit.cover,
-                      height: screenHeight,
-                    ),
-                  ],
+                child: Image.memory(
+                  advert.images.first,
+                  fit: BoxFit.cover,
+                  height: screenHeight * 0.9,
                 ),
               ),
             if (advert.images.length > 1)
@@ -179,23 +182,15 @@ class _AdvertPreview extends StatelessWidget {
           ],
         ),
         Positioned(
-          top: 16,
-          left: 16,
-          child: FavIconContainer(
-            selected: advert.isFav,
-            onTap: () {
-              String? token = context.read<AuthenticationCubit>().state.token;
-              if (token == null) {
-                showLoginDialog(context);
-                return;
-              }
-              context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
-            },
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CustomButton(
+            borderRadius: 0,
+            text: 'Show details',
+            onPressed: () => _showContentBottomSheet(context),
           ),
-        ),
-        // ModalOpenedContainerContent(
-        //   advert: advert,
-        // ),
+        )
       ],
     );
   }
@@ -245,6 +240,26 @@ class _AdvertPreview extends StatelessWidget {
       ),
     );
   }
+
+  _showContentBottomSheet(context) => showModalBottomSheet(
+        context: context,
+        builder: (context) => DraggableScrollableSheet(
+          minChildSize: 0.2,
+          maxChildSize: 0.8,
+          builder: (BuildContext context, ScrollController scrollController) =>
+              SingleChildScrollView(
+            controller: scrollController,
+            child: ModalOpenedContainerContent(
+              advert: advert,
+            ),
+          ),
+        ),
+        barrierColor: Colors.transparent,
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.33,
+        ),
+        backgroundColor: Colors.transparent,
+      );
 
   showLoginDialog(context) => showDialog(
         context: context,
@@ -335,4 +350,33 @@ class _AdvertPreview extends StatelessWidget {
           );
         },
       );
+
+  // showExample(context) => showGeneralDialog(
+  //       barrierDismissible: true,
+  //       barrierLabel: '',
+  //       barrierColor: Colors.black38,
+  //       transitionDuration: Duration(milliseconds: 500),
+  //       pageBuilder: (ctx, anim1, anim2) => AlertDialog(
+  //         title: Text('blured background'),
+  //         content: Text('background should be blured and little bit darker '),
+  //         elevation: 2,
+  //         actions: [
+  //           CustomButton(
+  //             text: 'OK',
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //       transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+  //         filter: ImageFilter.blur(
+  //             sigmaX: 4 * anim1.value, sigmaY: 4 * anim1.value),
+  //         child: FadeTransition(
+  //           child: child,
+  //           opacity: anim1,
+  //         ),
+  //       ),
+  //       context: context,
+  //     );
 }

@@ -27,39 +27,37 @@ class BaseModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double maxHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: AlertDialog(
-            title: title,
-            content: SingleChildScrollView(
-              child: ListBody(children: children),
+          child: Container(
+            child: AlertDialog(
+              title: title,
+              content: SingleChildScrollView(
+                child: ListBody(children: children),
+              ),
+              contentPadding: EdgeInsets.zero,
+              insetPadding: const EdgeInsets.all(0),
+              backgroundColor: Colors.transparent,
             ),
-            contentPadding: EdgeInsets.zero,
-            insetPadding: const EdgeInsets.all(0),
-            actionsPadding: const EdgeInsets.all(0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
-            ),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
           ),
         ),
         Positioned(
-          top: 16,
-          right: 16,
+          top: 20,
+          right: 30,
           child: GestureDetector(
             onTap: () {
               Navigator.of(context).pop();
             },
             child: const Icon(
               CupertinoIcons.xmark_square_fill,
+              size: 50,
               shadows: [
                 BoxShadow(
                     color: Colors.black, offset: Offset(0, 2), blurRadius: 5.0)
               ],
-              size: 45,
               color: Colors.white,
             ),
           ),
