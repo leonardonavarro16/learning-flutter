@@ -37,8 +37,8 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     if (isLoading) {
-      return Column(
-        children: const [
+      return const Column(
+        children: [
           SizedBox(height: 20),
           CustomIndicatorProgress(),
           SizedBox(height: 20),

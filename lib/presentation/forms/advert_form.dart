@@ -5,6 +5,7 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
@@ -114,7 +115,7 @@ class _AdvertForm extends State<AdvertForm> {
             height: 10,
           ),
           // todo: check if this works correclty then
-          // if (_canShowSubmitButton())
+          if (_canShowSubmitButton()) _buildSubmitButton(),
           BlocConsumer<AdvertsCubit, AdvertsState>(
               listener: (BuildContext context, AdvertsState state) {
             if (state.status == AdvertsStatus.indexFailure) {
@@ -140,6 +141,9 @@ class _AdvertForm extends State<AdvertForm> {
             }
             return Container();
           }),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
     );
@@ -154,20 +158,19 @@ class _AdvertForm extends State<AdvertForm> {
         imageBytes != null;
   }
 
-  // Widget _buildSubmitButton() {
-
-  //   AppLocalizations? t = AppLocalizations.of(context);
-  //   if (t == null) throw Exception('AppLocalizations not found');
-  //   return CustomButton(
-  //     text: t.sendButtonLinkText,
-  //     onPressed: () {
-  //       Advert advert = _buildAdvert();
-  //       String? token = context.read<AuthenticationCubit>().state.token;
-  //       if (token == null) throw Exception('Token is missing');
-  //       context.read<AdvertsCubit>().createAdvert(advert, token);
-  //     },
-  //   );
-  // }
+  Widget _buildSubmitButton() {
+    AppLocalizations? t = AppLocalizations.of(context);
+    if (t == null) throw Exception('AppLocalizations not found');
+    return CustomButton(
+      text: t.sendButtonLinkText,
+      onPressed: () {
+        Advert advert = _buildAdvert();
+        String? token = context.read<AuthenticationCubit>().state.token;
+        if (token == null) throw Exception('Token is missing');
+        context.read<AdvertsCubit>().createAdvert(advert, token);
+      },
+    );
+  }
 
   Advert _buildAdvert() {
     return Advert(

@@ -31,8 +31,8 @@ class ModalClosedContainerContent extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   TextView(
                     text: '4.5',
                     color: Color.fromARGB(155, 255, 255, 255),

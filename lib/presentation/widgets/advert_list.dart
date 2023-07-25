@@ -148,6 +148,7 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   Widget _buildModalOpenedContent(BuildContext context) {
+    String? token = context.read<AuthenticationCubit>().state.token;
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double desktopScreen = screenWidth * 0.3;
@@ -180,6 +181,20 @@ class _AdvertPreview extends StatelessWidget {
                 ),
               ),
           ],
+        ),
+        Positioned(
+          top: 20,
+          left: 20,
+          child: FavIconContainer(
+            selected: advert.isFav,
+            onTap: () {
+              if (token == null) {
+                showLoginDialog(context);
+                return;
+              }
+              context.read<AdvertsCubit>().toggleAdvertFav(advert, token);
+            },
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -242,16 +257,11 @@ class _AdvertPreview extends StatelessWidget {
   }
 
   _showContentBottomSheet(context) => showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
-        builder: (context) => DraggableScrollableSheet(
-          minChildSize: 0.2,
-          maxChildSize: 0.8,
-          builder: (BuildContext context, ScrollController scrollController) =>
-              SingleChildScrollView(
-            controller: scrollController,
-            child: ModalOpenedContainerContent(
-              advert: advert,
-            ),
+        builder: (context) => SingleChildScrollView(
+          child: ModalOpenedContainerContent(
+            advert: advert,
           ),
         ),
         barrierColor: Colors.transparent,
