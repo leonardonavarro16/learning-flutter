@@ -138,6 +138,27 @@ class Layout extends StatelessWidget {
                                     context, Routes.myAdsPage);
                               }),
                         ),
+                      SizedBox(height: isLogged ? 5 : 0),
+                      if (isLogged)
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          color: const Color.fromARGB(255, 20, 20, 20),
+                          child: ListTile(
+                              leading: const Icon(
+                                CupertinoIcons.macwindow,
+                                color: Color(0xFFFF0000),
+                              ),
+                              title: const TextView(
+                                  text: 'My Wallet',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.walletPage);
+                              }),
+                        ),
                       const SizedBox(height: 5),
                       Card(
                         shape: RoundedRectangleBorder(
