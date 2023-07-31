@@ -5,13 +5,18 @@ import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
+import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
+import 'package:swc_front/presentation/widgets/utils/custom_table_widget.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/offers_plan_container.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
+import 'package:swc_front/presentation/widgets/utils/pricing_view.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';
@@ -54,9 +59,7 @@ class _AdvertForm extends State<AdvertForm> {
       key: _formKey,
       child: Column(
         children: [
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           MultiFilePickerField(
             onChanged: (List<Uint8List>? bytes) {
               setState(() => imageBytes = bytes);
@@ -114,8 +117,7 @@ class _AdvertForm extends State<AdvertForm> {
           const SizedBox(
             height: 10,
           ),
-          // todo: check if this works correclty then
-          if (_canShowSubmitButton()) _buildSubmitButton(),
+          _buildSubmitButton(),
           BlocConsumer<AdvertsCubit, AdvertsState>(
               listener: (BuildContext context, AdvertsState state) {
             if (state.status == AdvertsStatus.indexFailure) {
@@ -159,6 +161,8 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Widget _buildSubmitButton() {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return CustomButton(
@@ -167,10 +171,49 @@ class _AdvertForm extends State<AdvertForm> {
         Advert advert = _buildAdvert();
         String? token = context.read<AuthenticationCubit>().state.token;
         if (token == null) throw Exception('Token is missing');
-        context.read<AdvertsCubit>().createAdvert(advert, token);
+        showDialog(
+          context: context,
+          builder: (context) => CustomAlertDialog(
+            hasButton: false,
+            header: const Center(
+              child: TextView(
+                text: 'Choose your membership type',
+                color: Color(0xFFFF0000),
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: SizedBox(
+              width: screenWidth * 0.5,
+              child: PricingView(
+                onTap: () =>
+                    context.read<AdvertsCubit>().createAdvert(advert, token),
+              ),
+            ),
+          ),
+        );
       },
     );
   }
+
+  // _buildPricingView(Advert advert, String token) => showDialog(
+  //       context: context,
+  //       builder: (context) => CustomAlertDialog(
+  //         hasButton: false,
+  //         header: const Center(
+  //           child: TextView(
+  //             text: 'Choose your membership type',
+  //             color: Color(0xFFFF0000),
+  //             fontSize: 25,
+  //             fontWeight: FontWeight.bold,
+  //           ),
+  //         ),
+  //         content: PricingView(
+  //           onTap: () =>
+  //               context.read<AdvertsCubit>().createAdvert(advert, token),
+  //         ),
+  //       ),
+  //     );
 
   Advert _buildAdvert() {
     return Advert(

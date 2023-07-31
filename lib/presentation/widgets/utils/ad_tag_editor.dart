@@ -52,7 +52,6 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (_tags.isNotEmpty)
@@ -60,8 +59,8 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
             color: Colors.white,
             text: 'Tags:',
           ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: _tags.isNotEmpty ? 15 : 0,
         ),
         Wrap(
           spacing: 8,
@@ -84,8 +83,8 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
             );
           }).toList(),
         ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: _tags.isNotEmpty ? 15 : 0,
         ),
         Center(
           child: CustomButton(

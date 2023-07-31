@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class TextView extends StatelessWidget {
   final String? text;
+  final String? fontFamily;
   final Color? color;
   final FontWeight? fontWeight;
   final double? fontSize;
   final TextAlign? textAlign;
+  final FontStyle? fontStyle;
   final TextDecoration? decoration;
-  final String? fontFamily;
   const TextView({
     super.key,
     required this.text,
@@ -15,6 +16,7 @@ class TextView extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.textAlign,
+    this.fontStyle,
     this.decoration,
     this.fontFamily = 'SanFrancisco',
   });
@@ -25,6 +27,7 @@ class TextView extends StatelessWidget {
       '$text',
       textAlign: textAlign,
       style: TextStyle(
+        fontStyle: fontStyle,
         fontFamily: fontFamily,
         color: color,
         fontWeight: fontWeight,

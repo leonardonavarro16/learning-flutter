@@ -10,6 +10,7 @@ import 'package:swc_front/presentation/pages/login_page.dart';
 import 'package:swc_front/presentation/pages/my_ads_page.dart';
 import 'package:swc_front/presentation/pages/registration_page.dart';
 import 'package:swc_front/presentation/pages/story_page.dart';
+import 'package:swc_front/presentation/pages/testing_page.dart';
 import 'package:swc_front/presentation/pages/wallet_page.dart';
 import '../../logic/cubits/adverts.dart';
 import '../../logic/cubits/authentication_cubit.dart';
@@ -169,7 +170,7 @@ class AppRouter {
               BlocProvider.value(value: _advertsCubit),
               BlocProvider.value(value: _navigationCubit),
             ],
-            child: const IndexPage(),
+            child: const TestingPage(),
           ),
         );
     }
