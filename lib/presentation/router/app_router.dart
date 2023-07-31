@@ -170,7 +170,7 @@ class AppRouter {
               BlocProvider.value(value: _advertsCubit),
               BlocProvider.value(value: _navigationCubit),
             ],
-            child: const TestingPage(),
+            child: const IndexPage(),
           ),
         );
     }

@@ -1,13 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/presentation/forms/add_payment_method.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
+import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class WalletPage extends StatelessWidget {
   const WalletPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NavigationCubit>(context);
     return Layout(
       content: LayoutBuilder(builder: (context, constraints) {
         return Center(
@@ -78,7 +83,7 @@ class WalletPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPaymentMethod(BuildContext context) => InkWell(
+  Widget _buildPaymentMethod(context) => InkWell(
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
@@ -95,13 +100,22 @@ class WalletPage extends StatelessWidget {
         ),
         onTap: () => showDialog(
           context: context,
-          builder: (BuildContext context) {
-            return const AddPaymentForm();
+          builder: (context) {
+            return const CustomAlertDialog(
+                header: Center(
+                  child: TextView(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    text: 'Añadir método de pago',
+                  ),
+                ),
+                hasButton: false,
+                content: AddPaymentForm());
           },
         ),
       );
 
-  Widget _buildAddPaymentButton(BuildContext context) => Container(
+  Widget _buildAddPaymentButton(context) => Container(
         width: MediaQuery.of(context).size.width,
         height: 60,
         decoration: BoxDecoration(
@@ -118,8 +132,17 @@ class WalletPage extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) {
-                return const AddPaymentForm();
+              builder: (context) {
+                return const CustomAlertDialog(
+                    header: Center(
+                      child: TextView(
+                        color: Colors.white,
+                        text: 'Añadir método de pago',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    hasButton: false,
+                    content: AddPaymentForm());
               },
             );
           },

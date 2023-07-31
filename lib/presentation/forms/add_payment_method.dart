@@ -1,14 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_credit_card/credit_card_form.dart';
-import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:swc_front/logic/cubits/navigation.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 
 class AddPaymentForm extends StatefulWidget {
   final InputDecoration? decoration;
-  const AddPaymentForm({Key? key, this.decoration}) : super(key: key);
+  const AddPaymentForm({Key? key, this.decoration});
 
   @override
   _AddPaymentFormState createState() => _AddPaymentFormState();
@@ -33,123 +32,120 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
       fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black);
 
   @override
-  Widget build(BuildContext context) {
-    InputDecoration defaultDecoration = _buildDefaultDecoration();
-
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) => Layout(
-        content: Center(
-          child: Container(
-            width: constraints.maxWidth * 0.4,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'My Wallets',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CreditCardWidget(
-                  height: 325,
-                  width: 600,
-                  chipColor: Colors.amber,
-                  cardBgColor: const Color.fromARGB(255, 161, 38, 30),
-                  // cardBgColor: const Color.fromARGB(255, 0, 27, 81),
-                  isHolderNameVisible: true,
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  cvvCode: cvvCode,
-                  showBackView: isCvvFocused,
-                  obscureCardNumber: true,
-                  obscureCardCvv: true,
-                  onCreditCardWidgetChange: (CreditCardBrand) {},
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        CreditCardForm(
-                          cardNumber: cardNumber,
-                          expiryDate: expiryDate,
-                          cardHolderName: cardHolderName,
-                          cvvCode: cvvCode,
-                          onCreditCardModelChange: onCreditCardModelChange,
-                          themeColor: const Color.fromARGB(255, 243, 33, 33),
-                          formKey: formKey,
-                          cardNumberDecoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: Colors.white,
-                            filled: true,
-                            errorBorder: defaultOutlineInputBorder,
-                            border: defaultOutlineInputBorder,
-                            enabledBorder: defaultOutlineInputBorder,
-                            disabledBorder: defaultOutlineInputBorder,
-                            focusedErrorBorder: defaultOutlineInputBorder,
-                            focusedBorder: defaultOutlineInputBorder,
-                            labelStyle: defaultLabelSTyle,
-                            labelText: 'Card Number',
-                            hintText: 'xxxx xxxx xxxx xxxx',
-                          ),
-                          expiryDateDecoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: Colors.white,
-                            filled: true,
-                            errorBorder: defaultOutlineInputBorder,
-                            border: defaultOutlineInputBorder,
-                            enabledBorder: defaultOutlineInputBorder,
-                            disabledBorder: defaultOutlineInputBorder,
-                            focusedErrorBorder: defaultOutlineInputBorder,
-                            focusedBorder: defaultOutlineInputBorder,
-                            labelStyle: defaultLabelSTyle,
-                            labelText: 'Expiration Date',
-                            hintText: 'xx/xx',
-                          ),
-                          cvvCodeDecoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: Colors.white,
-                            filled: true,
-                            errorBorder: defaultOutlineInputBorder,
-                            border: defaultOutlineInputBorder,
-                            enabledBorder: defaultOutlineInputBorder,
-                            disabledBorder: defaultOutlineInputBorder,
-                            focusedErrorBorder: defaultOutlineInputBorder,
-                            focusedBorder: defaultOutlineInputBorder,
-                            labelStyle: defaultLabelSTyle,
-                            labelText: 'CVV',
-                            hintText: 'xxx',
-                          ),
-                          cardHolderDecoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: Colors.white,
-                            filled: true,
-                            errorBorder: defaultOutlineInputBorder,
-                            border: defaultOutlineInputBorder,
-                            enabledBorder: defaultOutlineInputBorder,
-                            disabledBorder: defaultOutlineInputBorder,
-                            focusedErrorBorder: defaultOutlineInputBorder,
-                            focusedBorder: defaultOutlineInputBorder,
-                            labelStyle: defaultLabelSTyle,
-                            labelText: 'Card Holder',
-                          ),
+  Widget build(context) {
+    return Material(
+      child: Center(
+        child: Container(
+          color: Colors.black,
+          width: MediaQuery.of(context).size.width * 0.4,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'My Wallets',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.white),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CreditCardWidget(
+                height: 325,
+                width: 600,
+                chipColor: Colors.amber,
+                cardBgColor: const Color.fromARGB(255, 161, 38, 30),
+                // cardBgColor: const Color.fromARGB(255, 0, 27, 81),
+                isHolderNameVisible: true,
+                cardNumber: cardNumber,
+                expiryDate: expiryDate,
+                cardHolderName: cardHolderName,
+                cvvCode: cvvCode,
+                showBackView: isCvvFocused,
+                obscureCardNumber: true,
+                obscureCardCvv: true,
+                onCreditCardWidgetChange: (CreditCardBrand) {},
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CreditCardForm(
+                        cardNumber: cardNumber,
+                        expiryDate: expiryDate,
+                        cardHolderName: cardHolderName,
+                        cvvCode: cvvCode,
+                        onCreditCardModelChange: onCreditCardModelChange,
+                        themeColor: const Color.fromARGB(255, 243, 33, 33),
+                        formKey: formKey,
+                        cardNumberDecoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          fillColor: Colors.white,
+                          filled: true,
+                          errorBorder: defaultOutlineInputBorder,
+                          border: defaultOutlineInputBorder,
+                          enabledBorder: defaultOutlineInputBorder,
+                          disabledBorder: defaultOutlineInputBorder,
+                          focusedErrorBorder: defaultOutlineInputBorder,
+                          focusedBorder: defaultOutlineInputBorder,
+                          labelStyle: defaultLabelSTyle,
+                          labelText: 'Card Number',
+                          hintText: 'xxxx xxxx xxxx xxxx',
                         ),
-                        const SizedBox(
-                          height: 50,
+                        expiryDateDecoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          fillColor: Colors.white,
+                          filled: true,
+                          errorBorder: defaultOutlineInputBorder,
+                          border: defaultOutlineInputBorder,
+                          enabledBorder: defaultOutlineInputBorder,
+                          disabledBorder: defaultOutlineInputBorder,
+                          focusedErrorBorder: defaultOutlineInputBorder,
+                          focusedBorder: defaultOutlineInputBorder,
+                          labelStyle: defaultLabelSTyle,
+                          labelText: 'Expiration Date',
+                          hintText: 'xx/xx',
                         ),
-                        _buildAddPaymentButton(context),
-                      ],
-                    ),
+                        cvvCodeDecoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          fillColor: Colors.white,
+                          filled: true,
+                          errorBorder: defaultOutlineInputBorder,
+                          border: defaultOutlineInputBorder,
+                          enabledBorder: defaultOutlineInputBorder,
+                          disabledBorder: defaultOutlineInputBorder,
+                          focusedErrorBorder: defaultOutlineInputBorder,
+                          focusedBorder: defaultOutlineInputBorder,
+                          labelStyle: defaultLabelSTyle,
+                          labelText: 'CVV',
+                          hintText: 'xxx',
+                        ),
+                        cardHolderDecoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          fillColor: Colors.white,
+                          filled: true,
+                          errorBorder: defaultOutlineInputBorder,
+                          border: defaultOutlineInputBorder,
+                          enabledBorder: defaultOutlineInputBorder,
+                          disabledBorder: defaultOutlineInputBorder,
+                          focusedErrorBorder: defaultOutlineInputBorder,
+                          focusedBorder: defaultOutlineInputBorder,
+                          labelStyle: defaultLabelSTyle,
+                          labelText: 'Card Holder',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      _buildAddPaymentButton(context),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -183,7 +179,7 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
     });
   }
 
-  Widget _buildAddPaymentButton(BuildContext context) => Container(
+  Widget _buildAddPaymentButton(context) => Container(
         width: kIsWeb
             ? MediaQuery.of(context).size.width * .9
             : MediaQuery.of(context).size.width * .3,

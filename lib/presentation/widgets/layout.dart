@@ -5,6 +5,8 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
+import 'package:swc_front/logic/cubits/navigation.dart';
+import 'package:swc_front/logic/states/nagivation.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +24,7 @@ class Layout extends StatelessWidget {
   Widget build(BuildContext context) {
     User? currentUser = context.watch<AuthenticationCubit>().state.user;
     String? token = context.read<AuthenticationCubit>().state.token;
-
+    int navState = context.read<NavigationCubit>().state.selectedIndex;
     bool isLogged = context.watch<AuthenticationCubit>().isLogged();
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
@@ -238,21 +240,23 @@ class Layout extends StatelessWidget {
           //! APPBAR ---------------------------------------------------------- X
           appBar: AppBar(
             centerTitle: true,
-            title: Container(
-              width: constraints.maxWidth * .55,
-              child: AdvertSearchField(
-                searchText: searchText,
-                onChange: (value, shouldSearch) {
-                  if (value.length >= 3) {
-                    context
-                        .read<AdvertsCubit>()
-                        .fetchAdverts(token, searchText: value);
-                  } else if (value.isEmpty) {
-                    context.read<AdvertsCubit>().fetchAdverts(token);
-                  }
-                },
-              ),
-            ),
+            title: navState == 0
+                ? Container(
+                    width: constraints.maxWidth * .55,
+                    child: AdvertSearchField(
+                      searchText: searchText,
+                      onChange: (value, shouldSearch) {
+                        if (value.length >= 3) {
+                          context
+                              .read<AdvertsCubit>()
+                              .fetchAdverts(token, searchText: value);
+                        } else if (value.isEmpty) {
+                          context.read<AdvertsCubit>().fetchAdverts(token);
+                        }
+                      },
+                    ),
+                  )
+                : Container(),
             actions: [
               IconButton(
                 onPressed: () {
