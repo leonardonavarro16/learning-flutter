@@ -43,28 +43,30 @@ class _LoginFormState extends State<LoginForm> {
       },
       child: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            EmailFormField(
-              onChange: (String? value, bool valid) {
-                if (valid) setState(() => email = value);
-              },
-              onFieldSubmitted: (_) => _submitForm(),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            PasswordFormField(
-                onFieldSubmitted: (_) => _submitForm(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              EmailFormField(
                 onChange: (String? value, bool valid) {
-                  if (valid) setState(() => password = value);
-                }),
-            const SizedBox(
-              height: 25,
-            ),
-            if (_canBuildSubmitButton()) _buildSubmitButton(),
-            const SizedBox(height: 15)
-          ],
+                  if (valid) setState(() => email = value);
+                },
+                onFieldSubmitted: (_) => _submitForm(),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              PasswordFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    if (valid) setState(() => password = value);
+                  }),
+              const SizedBox(
+                height: 25,
+              ),
+              if (_canBuildSubmitButton()) _buildSubmitButton(),
+              const SizedBox(height: 15)
+            ],
+          ),
         ),
       ),
     );

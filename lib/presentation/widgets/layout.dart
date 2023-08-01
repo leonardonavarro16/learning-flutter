@@ -10,6 +10,7 @@ import 'package:swc_front/logic/states/nagivation.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:swc_front/presentation/widgets/utils/bottom_sheet_menu.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 import '../../data/models/user.dart';
@@ -349,7 +350,7 @@ class Layout extends StatelessWidget {
               ],
             ),
           ),
-          // bottomNavigationBar: BottomNavigator(),
+          bottomNavigationBar: BottomNavigator(),
         );
       },
     );

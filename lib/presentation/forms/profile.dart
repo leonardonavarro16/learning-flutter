@@ -172,19 +172,11 @@ class _ProfileForm extends State<ProfileForm> {
   }
 
   Widget _buildLogoutButton() {
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
-      builder: (BuildContext context, AuthenticationState state) {
-        if (state.authenticationStatus == AuthenticationStatus.loading) {
-          return const CustomIndicatorProgress();
-        } else {
-          return CustomButton(
-            text: 'Logout',
-            onPressed: () {
-              BlocProvider.of<AuthenticationCubit>(context).logout();
-              Navigator.pushReplacementNamed(context, Routes.indexPage);
-            },
-          );
-        }
+    return CustomButton(
+      text: 'Logout',
+      onPressed: () {
+        BlocProvider.of<AuthenticationCubit>(context).logout();
+        Navigator.pushReplacementNamed(context, Routes.indexPage);
       },
     );
   }

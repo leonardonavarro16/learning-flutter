@@ -32,40 +32,6 @@ class IndexPage extends StatelessWidget {
     return Layout(
       content: Column(
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 20, right: 30, top: 50),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       // SizedBox(
-          //       //   width: maxWidth * 0.60,
-          //       //   height: 40,
-          //       //   child: AdvertSearchField(
-          //       //     searchText: searchText,
-          //       //     onChange: (value, shouldSearch) {
-          //       //       if (value.length >= 3) {
-          //       //         context
-          //       //             .read<AdvertsCubit>()
-          //       //             .fetchAdverts(token, searchText: value);
-          //       //       } else if (value.isEmpty) {
-          //       //         context.read<AdvertsCubit>().fetchAdverts(token);
-          //       //       }
-          //       //     },
-          //       //   ),
-          //       // ),
-          //       SizedBox(width: maxWidth * 0.05),
-          //       InkWell(
-          //         child: SvgPicture.asset(
-          //           'assets/Logo rojo.svg',
-          //           height: 50,
-          //           width: maxWidth * 0.1,
-          //         ),
-          //         onTap: () =>
-          //             Navigator.pushReplacementNamed(context, Routes.indexPage),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           BlocBuilder<StoryCubit, StoryState>(
             builder: (context, state) {
               if (state.status == StoryStatus.indexSuccess) {

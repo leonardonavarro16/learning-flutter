@@ -57,98 +57,100 @@ class _AdvertForm extends State<AdvertForm> {
     if (t == null) throw Exception('AppLocalizations not found');
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          MultiFilePickerField(
-            onChanged: (List<Uint8List>? bytes) {
-              setState(() => imageBytes = bytes);
-            },
-          ),
-          NameFormField(
-            onFieldSubmitted: (_) => _submitForm(),
-            initialValue: name,
-            onChange: (String? value, bool valid) {
-              setState(() => name = valid ? value : null);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          AgeFormField(
-            ageToShow: age == null ? '18 años' : '$age años',
-            initialValue: age,
-            onChange: (int value) {
-              setState(() => age = value);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          PhoneFormField(
-            onFieldSubmitted: (_) => _submitForm(),
-            initialValue: phoneNumber,
-            onChange: (String? value, bool valid) {
-              setState(() => phoneNumber = valid ? value : null);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          AdTagEditor(
-            onFieldSubmitted: (_) => _submitForm(),
-            onTagsChanged: (List<String> tags) {
-              setState(() => ad_tags = tags);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          DescriptionFormField(
-            onFieldSubmitted: (_) => _submitForm(),
-            maxLines: 5,
-            minLines: 1,
-            maxLength: 131,
-            onChange: (String? value, bool valid) {
-              setState(() => description = valid ? value : null);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const SizedBox(height: 10),
-          // ... Los campos de formulario existentes ...
-          if (_canShowSubmitButton()) _buildSubmitButton(),
-          BlocConsumer<AdvertsCubit, AdvertsState>(
-            listener: (BuildContext context, AdvertsState state) {
-              if (state.status == AdvertsStatus.indexFailure) {
-                String errorMessage = state.error;
-                SnackBarUtil.showSnackBar(
-                  context,
-                  backgroundColor: const Color(0xFFFF0000),
-                  textColor: Colors.black,
-                  errorMessage,
-                );
-              } else if (state.status == AdvertsStatus.indexSuccess) {
-                SnackBarUtil.showSnackBar(
-                  context,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.black,
-                  t.createdSuccessfullAdvertLinkText,
-                );
-                Navigator.pushReplacementNamed(context, Routes.indexPage);
-              }
-            },
-            builder: (BuildContext context, AdvertsState state) {
-              if (state.status == AdvertsStatus.loading) {
-                return const CustomIndicatorProgress();
-              }
-              return Container();
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            MultiFilePickerField(
+              onChanged: (List<Uint8List>? bytes) {
+                setState(() => imageBytes = bytes);
+              },
+            ),
+            NameFormField(
+              onFieldSubmitted: (_) => _submitForm(),
+              initialValue: name,
+              onChange: (String? value, bool valid) {
+                setState(() => name = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            AgeFormField(
+              ageToShow: age == null ? '18 años' : '$age años',
+              initialValue: age,
+              onChange: (int value) {
+                setState(() => age = value);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            PhoneFormField(
+              onFieldSubmitted: (_) => _submitForm(),
+              initialValue: phoneNumber,
+              onChange: (String? value, bool valid) {
+                setState(() => phoneNumber = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            AdTagEditor(
+              onFieldSubmitted: (_) => _submitForm(),
+              onTagsChanged: (List<String> tags) {
+                setState(() => ad_tags = tags);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            DescriptionFormField(
+              onFieldSubmitted: (_) => _submitForm(),
+              maxLines: 5,
+              minLines: 1,
+              maxLength: 131,
+              onChange: (String? value, bool valid) {
+                setState(() => description = valid ? value : null);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const SizedBox(height: 10),
+            // ... Los campos de formulario existentes ...
+            if (_canShowSubmitButton()) _buildSubmitButton(),
+            BlocConsumer<AdvertsCubit, AdvertsState>(
+              listener: (BuildContext context, AdvertsState state) {
+                if (state.status == AdvertsStatus.indexFailure) {
+                  String errorMessage = state.error;
+                  SnackBarUtil.showSnackBar(
+                    context,
+                    backgroundColor: const Color(0xFFFF0000),
+                    textColor: Colors.black,
+                    errorMessage,
+                  );
+                } else if (state.status == AdvertsStatus.indexSuccess) {
+                  SnackBarUtil.showSnackBar(
+                    context,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.black,
+                    t.createdSuccessfullAdvertLinkText,
+                  );
+                  Navigator.pushReplacementNamed(context, Routes.indexPage);
+                }
+              },
+              builder: (BuildContext context, AdvertsState state) {
+                if (state.status == AdvertsStatus.loading) {
+                  return const CustomIndicatorProgress();
+                }
+                return Container();
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       ),
     );
   }

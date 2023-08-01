@@ -17,10 +17,12 @@ class RegistrationPage extends StatelessWidget {
         content: Center(
           child: SizedBox(
             width: desiredWidth,
-            child: const Column(
-              children: [
-                RegistrationForm(),
-              ],
+            child: const SingleChildScrollView(
+              child: Column(
+                children: [
+                  RegistrationForm(),
+                ],
+              ),
             ),
           ),
         ),

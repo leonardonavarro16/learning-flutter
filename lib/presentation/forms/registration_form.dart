@@ -70,77 +70,75 @@ class _RegistrationFormState extends State<RegistrationForm> {
           ),
           Form(
             key: _formKey,
-            child: Center(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  NameFormField(
-                    onFieldSubmitted: (_) => _submitForm(),
-                    onChange: (String? value, bool valid) {
-                      setState(() => name = valid ? value : null);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  EmailFormField(
-                    onFieldSubmitted: (_) => _submitForm(),
-                    onChange: (String? value, bool valid) {
-                      setState(() => email = valid ? value : null);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  PhoneFormField(
-                    onFieldSubmitted: (_) => _submitForm(),
-                    onChange: (String? value, bool valid) {
-                      setState(() => phoneNumber = valid ? value : null);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  DatePickerField(
-                    onChange: (int value, DateTime selectedBirthdate) {
-                      _setAge(value);
-                      _setBirthdate(selectedBirthdate);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  PasswordFormField(
-                    onFieldSubmitted: (_) => _submitForm(),
-                    onChange: (String? value, bool valid) {
-                      setState(() => password = valid ? value : null);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  PasswordFormField(
-                    onFieldSubmitted: (_) => _submitForm(),
-                    labelText: t.confirmPasswordLinkText,
-                    emptyMessage: t.enterConfirmPasswordLinkText,
-                    additionalValidator: (String? value) {
-                      if (value != password) {
-                        return t.passwordDoesNotMatchLinkText;
-                      }
-                      return null;
-                    },
-                    onChange: (String? value, bool valid) {
-                      setState(() => confirmPassword = valid ? value : null);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  if (_canBuildSubmitButton()) _buildSubmitButton(),
-                ],
-              ),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                NameFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => name = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                EmailFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => email = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                PhoneFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => phoneNumber = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                DatePickerField(
+                  onChange: (int value, DateTime selectedBirthdate) {
+                    _setAge(value);
+                    _setBirthdate(selectedBirthdate);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                PasswordFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  onChange: (String? value, bool valid) {
+                    setState(() => password = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                PasswordFormField(
+                  onFieldSubmitted: (_) => _submitForm(),
+                  labelText: t.confirmPasswordLinkText,
+                  emptyMessage: t.enterConfirmPasswordLinkText,
+                  additionalValidator: (String? value) {
+                    if (value != password) {
+                      return t.passwordDoesNotMatchLinkText;
+                    }
+                    return null;
+                  },
+                  onChange: (String? value, bool valid) {
+                    setState(() => confirmPassword = valid ? value : null);
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                if (_canBuildSubmitButton()) _buildSubmitButton(),
+              ],
             ),
           ),
         ],
