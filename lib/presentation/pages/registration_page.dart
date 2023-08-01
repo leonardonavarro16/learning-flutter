@@ -14,7 +14,8 @@ class RegistrationPage extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Layout(
-        content: Center(
+        content: Align(
+          alignment: Alignment.topCenter,
           child: SizedBox(
             width: desiredWidth,
             child: const SingleChildScrollView(

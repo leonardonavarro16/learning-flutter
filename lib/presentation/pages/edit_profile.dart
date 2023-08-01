@@ -12,27 +12,31 @@ class EditProfilePage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth * 0.8;
-    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
+    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Layout(
-        content: Center(
+        content: Align(
+          alignment: Alignment.topCenter,
           child: SizedBox(
             width: desiredWidth,
-            child: Column(children: [
-              const SizedBox(
-                height: 50,
-              ),
-              TextView(
-                  text: t.myProfileTitleLinkText,
-                  textAlign: TextAlign.center,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
-                  color: Colors.white),
-              const ProfileForm(),
-            ]),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                SizedBox(
+                  height: isLargeScreen ? 20 : 10,
+                ),
+                TextView(
+                    text: t.myProfileTitleLinkText,
+                    textAlign: TextAlign.center,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    color: Colors.white),
+                const ProfileForm(),
+              ]),
+            ),
           ),
         ),
       );

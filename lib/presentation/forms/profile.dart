@@ -1,7 +1,9 @@
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
+import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/date_picker.dart';
 import 'package:swc_front/presentation/widgets/utils/email_form_field.dart';
@@ -129,8 +131,8 @@ class _ProfileForm extends State<ProfileForm> {
           ),
           // if (_canShowSubmitButton())
           _buildSubmitButton(),
-          const SizedBox(height: 20),
-          _buildLogoutButton(),
+          const SizedBox(height: 10),
+          Align(alignment: Alignment.centerRight, child: _buildLogoutButton()),
         ],
       ),
     );
@@ -172,11 +174,72 @@ class _ProfileForm extends State<ProfileForm> {
   }
 
   Widget _buildLogoutButton() {
-    return CustomButton(
-      text: 'Logout',
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+          const Color(0xFFFF0000),
+        ),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      ),
+      icon: const Icon(Icons.logout_rounded),
+      label: const TextView(
+        text: 'Logout',
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
       onPressed: () {
-        BlocProvider.of<AuthenticationCubit>(context).logout();
-        Navigator.pushReplacementNamed(context, Routes.indexPage);
+        showDialog(
+            context: context,
+            builder: (_) {
+              return CustomAlertDialog(
+                hasButton: false,
+                header: Column(
+                  children: [
+                    SizedBox(
+                      height: 15,
+                    ),
+                    const TextView(
+                      text: 'Are you sure to Log out?',
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    )
+                  ],
+                ),
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustomButton(
+                      height: 40,
+                      width: 100,
+                      text: 'Cancel',
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CustomButton(
+                      height: 40,
+                      width: 100,
+                      text: 'Logout',
+                      onPressed: () {
+                        BlocProvider.of<AuthenticationCubit>(context).logout();
+                        Navigator.pushReplacementNamed(
+                            context, Routes.indexPage);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            });
       },
     );
   }

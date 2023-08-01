@@ -14,6 +14,11 @@ class FavAdvertsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    bool isLargeScreen = screenWidth > 800;
+    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
     String? token = context.read<AuthenticationCubit>().state.token;
     int currentFavPageIndex =
         context.watch<AdvertsCubit>().state.currentFavPage;
@@ -34,51 +39,47 @@ class FavAdvertsPage extends StatelessWidget {
               );
             }
 
-            return Column(
-              children: [
-                const SizedBox(height: 50),
-                const TextView(
-                  fontSize: 20,
-                  text: 'Mis anuncios favoritos',
-                  color: Colors.white,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      AdvertList(
-                        adverts: state.adverts,
-                      ),
-                      const SizedBox(height: 15),
-                      if (state.adverts.length == itemsPerPage ||
-                          state.adverts.length < 10)
-                        PaginationIndex(
-                          currentPageIndex: currentFavPageIndex,
-                          increasedCurrentPageIndex: increasedCurrentPageIndex,
-                          decreasedCurrentPageIndex: decreasedCurrentPageIndex,
-                          onNextPage: () {
-                            if (state.adverts.length >= itemsPerPage) {
-                              currentFavPage++;
-                              context.read<AdvertsCubit>().nextFavPage(token);
-                            }
-                          },
-                          onPreviousPage: () {
-                            if (itemsPerPage > 0) {
-                              currentFavPage--;
-                              context
-                                  .read<AdvertsCubit>()
-                                  .previousFavPage(token);
-                            }
-                          },
-                          onFirstPage: () =>
-                              context.read<AdvertsCubit>().fetchAdverts(token),
-                        ),
-                      const SizedBox(height: 15)
-                    ],
+            return Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: isLargeScreen ? 50 : 10,
                   ),
-                ),
-              ],
+                  const TextView(
+                    fontSize: 20,
+                    text: 'Mis anuncios favoritos',
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: isLargeScreen ? 20 : 10),
+                  AdvertList(
+                    adverts: state.adverts,
+                  ),
+                  const SizedBox(height: 15),
+                  if (state.adverts.length == itemsPerPage ||
+                      state.adverts.length < 10)
+                    PaginationIndex(
+                      currentPageIndex: currentFavPageIndex,
+                      increasedCurrentPageIndex: increasedCurrentPageIndex,
+                      decreasedCurrentPageIndex: decreasedCurrentPageIndex,
+                      onNextPage: () {
+                        if (state.adverts.length >= itemsPerPage) {
+                          currentFavPage++;
+                          context.read<AdvertsCubit>().nextFavPage(token);
+                        }
+                      },
+                      onPreviousPage: () {
+                        if (itemsPerPage > 0) {
+                          currentFavPage--;
+                          context.read<AdvertsCubit>().previousFavPage(token);
+                        }
+                      },
+                      onFirstPage: () =>
+                          context.read<AdvertsCubit>().fetchAdverts(token),
+                    ),
+                  const SizedBox(height: 15)
+                ],
+              ),
             );
           } else if (state.status == AdvertsStatus.indexFailure) {
             return TextView(

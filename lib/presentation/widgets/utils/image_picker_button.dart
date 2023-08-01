@@ -63,8 +63,10 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
                                         textAlign: TextAlign.center,
                                         text: 'Profile Picture'),
                                     shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(16))),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(16),
+                                      ),
+                                    ),
                                     content: Image.memory(
                                       _pickedFile!,
                                       fit: BoxFit.cover,

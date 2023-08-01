@@ -32,36 +32,36 @@ class IndexPage extends StatelessWidget {
     return Layout(
       content: Column(
         children: [
-          BlocBuilder<StoryCubit, StoryState>(
-            builder: (context, state) {
-              if (state.status == StoryStatus.indexSuccess) {
-                Map<String, List<Story>> stories = state.stories;
-                if (stories.isEmpty) {
-                  return const Center(
-                    child: TextView(
-                      text: 'No se encontraron historias',
-                      color: Colors.white,
-                    ),
-                  );
-                }
+          // BlocBuilder<StoryCubit, StoryState>(
+          //   builder: (context, state) {
+          //     if (state.status == StoryStatus.indexSuccess) {
+          //       Map<String, List<Story>> stories = state.stories;
+          //       if (stories.isEmpty) {
+          //         return const Center(
+          //           child: TextView(
+          //             text: 'No se encontraron historias',
+          //             color: Colors.white,
+          //           ),
+          //         );
+          //       }
 
-                return StoriesView(
-                  stories: state.stories,
-                );
-              } else if (state.status == StoryStatus.indexFailure) {
-                return Center(
-                  child: TextView(
-                    text: state.error,
-                    color: Colors.white,
-                  ),
-                );
-              } else {
-                return const Center(
-                  child: CustomIndicatorProgress(),
-                );
-              }
-            },
-          ),
+          //       return StoriesView(
+          //         stories: state.stories,
+          //       );
+          //     } else if (state.status == StoryStatus.indexFailure) {
+          //       return Center(
+          //         child: TextView(
+          //           text: state.error,
+          //           color: Colors.white,
+          //         ),
+          //       );
+          //     } else {
+          //       return const Center(
+          //         child: CustomIndicatorProgress(),
+          //       );
+          //     }
+          //   },
+          // ),
           Expanded(
             child: BlocBuilder<AdvertsCubit, AdvertsState>(
               builder: (BuildContext context, AdvertsState state) {

@@ -16,13 +16,20 @@ class MyAdsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    bool isLargeScreen = screenWidth > 800;
+    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
     String? token = context.read<AuthenticationCubit>().state.token;
     int currentPage = context.watch<AdvertsCubit>().state.currentMyAdsPage;
 
     return Layout(
       content: Column(
         children: [
-          const SizedBox(height: 50),
+          SizedBox(
+            height: isLargeScreen ? 50 : 10,
+          ),
           const TextView(
             fontSize: 20,
             text: 'Mis anuncios',
