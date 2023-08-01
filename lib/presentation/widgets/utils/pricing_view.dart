@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
-import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class PricingView extends StatefulWidget {
-  final void Function() onTap;
   const PricingView({
     super.key,
-    required this.onTap,
   });
 
   @override
@@ -26,6 +22,14 @@ class _PricingViewState extends State<PricingView> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const Center(
+            child: TextView(
+              text: 'Choose your membership type',
+              color: Color(0xFFFF0000),
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Container(
             height: MediaQuery.of(context).size.height * 0.40,
             // width: desiredWidth,
@@ -81,13 +85,6 @@ class _PricingViewState extends State<PricingView> {
                 text:
                     'Opción $selectedCardIndex seleccionado: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum sapien eu urna malesuada, quis volutpat elit posuere. Quisque vehicula, eros at tristique dignissim, justo urna fermentum nisl, vel pharetra velit odio eu metus. Aenean eu urna et velit tristique interdum. Nulla facilisi. Etiam vestibulum ligula ut nulla fermentum, nec varius metus dictum. Nam cursus dapibus erat, non tincidunt mi fermentum in.',
                 color: Colors.white,
-              ),
-            ),
-          if (selectedCardIndex != 0)
-            Center(
-              child: CustomButton(
-                text: 'Submit advert',
-                onPressed: widget.onTap,
               ),
             ),
         ],

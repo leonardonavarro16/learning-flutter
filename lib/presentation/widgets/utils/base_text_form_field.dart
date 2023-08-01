@@ -11,7 +11,9 @@ class BaseTextFormField extends StatefulWidget {
   final int? minLines;
   final String? fieldValue;
   final bool obscureText;
+  final TextAlign? textAlign;
   final void Function(String)? onFieldSubmitted;
+  final bool readOnly;
   const BaseTextFormField({
     super.key,
     required this.onChange,
@@ -24,6 +26,8 @@ class BaseTextFormField extends StatefulWidget {
     this.fieldValue,
     this.obscureText = false,
     this.onFieldSubmitted,
+    this.readOnly = false,
+    this.textAlign,
   });
 
   @override
@@ -52,6 +56,8 @@ class _BaseTextFormField extends State<BaseTextFormField> {
     InputDecoration defaultDecoration = _buildDefaultDecoration();
 
     return TextFormField(
+      textAlign: widget.textAlign ?? TextAlign.start,
+      readOnly: widget.readOnly,
       // style: GoogleFonts.quicksand(),
       style: const TextStyle(fontFamily: 'SanFrancisco'),
       maxLines: widget.maxLines,

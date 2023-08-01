@@ -25,7 +25,7 @@ import '../widgets/utils/age_form_field.dart';
 import '../widgets/utils/multi_file_picker_form_field.dart';
 
 class AdvertForm extends StatefulWidget {
-  const AdvertForm({super.key});
+  const AdvertForm({Key? key}) : super(key: key);
 
   @override
   State<AdvertForm> createState() => _AdvertForm();
@@ -59,13 +59,11 @@ class _AdvertForm extends State<AdvertForm> {
       key: _formKey,
       child: Column(
         children: [
-          const SizedBox(height: 10),
           MultiFilePickerField(
             onChanged: (List<Uint8List>? bytes) {
               setState(() => imageBytes = bytes);
             },
           ),
-          // const SizedBox(height: 10),
           NameFormField(
             onFieldSubmitted: (_) => _submitForm(),
             initialValue: name,
@@ -117,32 +115,36 @@ class _AdvertForm extends State<AdvertForm> {
           const SizedBox(
             height: 10,
           ),
-          _buildSubmitButton(),
+          const SizedBox(height: 10),
+          // ... Los campos de formulario existentes ...
+          if (_canShowSubmitButton()) _buildSubmitButton(),
           BlocConsumer<AdvertsCubit, AdvertsState>(
-              listener: (BuildContext context, AdvertsState state) {
-            if (state.status == AdvertsStatus.indexFailure) {
-              String errorMessage = state.error;
-              SnackBarUtil.showSnackBar(
-                context,
-                backgroundColor: const Color(0xFFFF0000),
-                textColor: Colors.black,
-                errorMessage,
-              );
-            } else if (state.status == AdvertsStatus.indexSuccess) {
-              SnackBarUtil.showSnackBar(
-                context,
-                backgroundColor: Colors.green,
-                textColor: Colors.black,
-                t.createdSuccessfullAdvertLinkText,
-              );
-              Navigator.pushReplacementNamed(context, Routes.indexPage);
-            }
-          }, builder: (BuildContext context, AdvertsState state) {
-            if (state.status == AdvertsStatus.loading) {
-              return const CustomIndicatorProgress();
-            }
-            return Container();
-          }),
+            listener: (BuildContext context, AdvertsState state) {
+              if (state.status == AdvertsStatus.indexFailure) {
+                String errorMessage = state.error;
+                SnackBarUtil.showSnackBar(
+                  context,
+                  backgroundColor: const Color(0xFFFF0000),
+                  textColor: Colors.black,
+                  errorMessage,
+                );
+              } else if (state.status == AdvertsStatus.indexSuccess) {
+                SnackBarUtil.showSnackBar(
+                  context,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.black,
+                  t.createdSuccessfullAdvertLinkText,
+                );
+                Navigator.pushReplacementNamed(context, Routes.indexPage);
+              }
+            },
+            builder: (BuildContext context, AdvertsState state) {
+              if (state.status == AdvertsStatus.loading) {
+                return const CustomIndicatorProgress();
+              }
+              return Container();
+            },
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -162,71 +164,56 @@ class _AdvertForm extends State<AdvertForm> {
 
   Widget _buildSubmitButton() {
     double screenWidth = MediaQuery.of(context).size.width;
-
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return CustomButton(
       text: t.sendButtonLinkText,
-      onPressed: () {
-        Advert advert = _buildAdvert();
-        String? token = context.read<AuthenticationCubit>().state.token;
-        if (token == null) throw Exception('Token is missing');
-        showDialog(
-          context: context,
-          builder: (context) => CustomAlertDialog(
-            hasButton: false,
-            header: const Center(
-              child: TextView(
-                text: 'Choose your membership type',
-                color: Color(0xFFFF0000),
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            content: SizedBox(
-              width: screenWidth * 0.5,
-              child: PricingView(
-                onTap: () =>
-                    context.read<AdvertsCubit>().createAdvert(advert, token),
-              ),
-            ),
-          ),
-        );
-      },
+      onPressed:
+          _showPricingDialog, // Llama directamente a _submitForm cuando se presione el botón
     );
   }
 
-  // _buildPricingView(Advert advert, String token) => showDialog(
-  //       context: context,
-  //       builder: (context) => CustomAlertDialog(
-  //         hasButton: false,
-  //         header: const Center(
-  //           child: TextView(
-  //             text: 'Choose your membership type',
-  //             color: Color(0xFFFF0000),
-  //             fontSize: 25,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-  //         content: PricingView(
-  //           onTap: () =>
-  //               context.read<AdvertsCubit>().createAdvert(advert, token),
-  //         ),
-  //       ),
-  //     );
+  void _showPricingDialog() {
+    Advert advert = _buildAdvert();
+    String? token = context.read<AuthenticationCubit>().state.token;
+    if (token == null) {
+      throw Exception('Token is missing');
+    }
+    showDialog(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<AdvertsCubit>(),
+        child: CustomAlertDialog(
+          hasButton: false,
+          header: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: PricingView(),
+          ),
+          content: CustomButton(
+            onPressed: () {
+              _submitForm();
+              Navigator.pop(_);
+            },
+            text: 'manda esa vaina',
+          ),
+        ),
+      ),
+    );
+  }
 
   Advert _buildAdvert() {
     return Advert(
-        description: description!,
-        age: age!,
-        name: name!,
-        phoneNumber: phoneNumber!,
-        images: imageBytes!,
-        ad_tags: ad_tags);
+      description: description!,
+      age: age!,
+      name: name!,
+      phoneNumber: phoneNumber!,
+      images: imageBytes!,
+      ad_tags: ad_tags,
+    );
   }
 
   void _submitForm() {
-    if (_canShowSubmitButton()) {
+    if (_formKey.currentState!.validate()) {
       Advert advert = _buildAdvert();
       String? token = context.read<AuthenticationCubit>().state.token;
       if (token == null) throw Exception('Token is missing');
