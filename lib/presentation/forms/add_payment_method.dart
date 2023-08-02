@@ -33,121 +33,122 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
 
   @override
   Widget build(context) {
-    return Material(
-      child: Center(
-        child: Container(
-          color: Colors.black,
-          width: MediaQuery.of(context).size.width * 0.4,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                'My Wallets',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Colors.white),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              CreditCardWidget(
-                height: 325,
-                width: 600,
-                chipColor: Colors.amber,
-                cardBgColor: const Color.fromARGB(255, 161, 38, 30),
-                // cardBgColor: const Color.fromARGB(255, 0, 27, 81),
-                isHolderNameVisible: true,
-                cardNumber: cardNumber,
-                expiryDate: expiryDate,
-                cardHolderName: cardHolderName,
-                cvvCode: cvvCode,
-                showBackView: isCvvFocused,
-                obscureCardNumber: true,
-                obscureCardCvv: true,
-                onCreditCardWidgetChange: (CreditCardBrand) {},
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      CreditCardForm(
-                        cardNumber: cardNumber,
-                        expiryDate: expiryDate,
-                        cardHolderName: cardHolderName,
-                        cvvCode: cvvCode,
-                        onCreditCardModelChange: onCreditCardModelChange,
-                        themeColor: const Color.fromARGB(255, 243, 33, 33),
-                        formKey: formKey,
-                        cardNumberDecoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          fillColor: Colors.white,
-                          filled: true,
-                          errorBorder: defaultOutlineInputBorder,
-                          border: defaultOutlineInputBorder,
-                          enabledBorder: defaultOutlineInputBorder,
-                          disabledBorder: defaultOutlineInputBorder,
-                          focusedErrorBorder: defaultOutlineInputBorder,
-                          focusedBorder: defaultOutlineInputBorder,
-                          labelStyle: defaultLabelSTyle,
-                          labelText: 'Card Number',
-                          hintText: 'xxxx xxxx xxxx xxxx',
-                        ),
-                        expiryDateDecoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          fillColor: Colors.white,
-                          filled: true,
-                          errorBorder: defaultOutlineInputBorder,
-                          border: defaultOutlineInputBorder,
-                          enabledBorder: defaultOutlineInputBorder,
-                          disabledBorder: defaultOutlineInputBorder,
-                          focusedErrorBorder: defaultOutlineInputBorder,
-                          focusedBorder: defaultOutlineInputBorder,
-                          labelStyle: defaultLabelSTyle,
-                          labelText: 'Expiration Date',
-                          hintText: 'xx/xx',
-                        ),
-                        cvvCodeDecoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          fillColor: Colors.white,
-                          filled: true,
-                          errorBorder: defaultOutlineInputBorder,
-                          border: defaultOutlineInputBorder,
-                          enabledBorder: defaultOutlineInputBorder,
-                          disabledBorder: defaultOutlineInputBorder,
-                          focusedErrorBorder: defaultOutlineInputBorder,
-                          focusedBorder: defaultOutlineInputBorder,
-                          labelStyle: defaultLabelSTyle,
-                          labelText: 'CVV',
-                          hintText: 'xxx',
-                        ),
-                        cardHolderDecoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          fillColor: Colors.white,
-                          filled: true,
-                          errorBorder: defaultOutlineInputBorder,
-                          border: defaultOutlineInputBorder,
-                          enabledBorder: defaultOutlineInputBorder,
-                          disabledBorder: defaultOutlineInputBorder,
-                          focusedErrorBorder: defaultOutlineInputBorder,
-                          focusedBorder: defaultOutlineInputBorder,
-                          labelStyle: defaultLabelSTyle,
-                          labelText: 'Card Holder',
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      _buildAddPaymentButton(context),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    bool isLargeScreen = screenWidth > 800;
+    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
+    return Container(
+      color: Colors.black,
+      width: isLargeScreen
+          ? MediaQuery.of(context).size.width * 0.4
+          : MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
           ),
-        ),
+          const Text(
+            'My Wallets',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          CreditCardWidget(
+            height: isLargeScreen ? 325 : 230,
+            width: 600,
+            chipColor: Colors.amber,
+            cardBgColor: const Color.fromARGB(255, 161, 38, 30),
+            // cardBgColor: const Color.fromARGB(255, 0, 27, 81),
+            isHolderNameVisible: true,
+            cardNumber: cardNumber,
+            expiryDate: expiryDate,
+            cardHolderName: cardHolderName,
+            cvvCode: cvvCode,
+            showBackView: isCvvFocused,
+            obscureCardNumber: true,
+            obscureCardCvv: true,
+            onCreditCardWidgetChange: (CreditCardBrand) {},
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CreditCardForm(
+                    cardNumber: cardNumber,
+                    expiryDate: expiryDate,
+                    cardHolderName: cardHolderName,
+                    cvvCode: cvvCode,
+                    onCreditCardModelChange: onCreditCardModelChange,
+                    themeColor: const Color.fromARGB(255, 243, 33, 33),
+                    formKey: formKey,
+                    cardNumberDecoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      fillColor: Colors.white,
+                      filled: true,
+                      errorBorder: defaultOutlineInputBorder,
+                      border: defaultOutlineInputBorder,
+                      enabledBorder: defaultOutlineInputBorder,
+                      disabledBorder: defaultOutlineInputBorder,
+                      focusedErrorBorder: defaultOutlineInputBorder,
+                      focusedBorder: defaultOutlineInputBorder,
+                      labelStyle: defaultLabelSTyle,
+                      labelText: 'Card Number',
+                      hintText: 'xxxx xxxx xxxx xxxx',
+                    ),
+                    expiryDateDecoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      fillColor: Colors.white,
+                      filled: true,
+                      errorBorder: defaultOutlineInputBorder,
+                      border: defaultOutlineInputBorder,
+                      enabledBorder: defaultOutlineInputBorder,
+                      disabledBorder: defaultOutlineInputBorder,
+                      focusedErrorBorder: defaultOutlineInputBorder,
+                      focusedBorder: defaultOutlineInputBorder,
+                      labelStyle: defaultLabelSTyle,
+                      labelText: 'Expiration Date',
+                      hintText: 'xx/xx',
+                    ),
+                    cvvCodeDecoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      fillColor: Colors.white,
+                      filled: true,
+                      errorBorder: defaultOutlineInputBorder,
+                      border: defaultOutlineInputBorder,
+                      enabledBorder: defaultOutlineInputBorder,
+                      disabledBorder: defaultOutlineInputBorder,
+                      focusedErrorBorder: defaultOutlineInputBorder,
+                      focusedBorder: defaultOutlineInputBorder,
+                      labelStyle: defaultLabelSTyle,
+                      labelText: 'CVV',
+                      hintText: 'xxx',
+                    ),
+                    cardHolderDecoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      fillColor: Colors.white,
+                      filled: true,
+                      errorBorder: defaultOutlineInputBorder,
+                      border: defaultOutlineInputBorder,
+                      enabledBorder: defaultOutlineInputBorder,
+                      disabledBorder: defaultOutlineInputBorder,
+                      focusedErrorBorder: defaultOutlineInputBorder,
+                      focusedBorder: defaultOutlineInputBorder,
+                      labelStyle: defaultLabelSTyle,
+                      labelText: 'Card Holder',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  _buildAddPaymentButton(context),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -218,12 +218,20 @@ class _AdvertPreview extends StatelessWidget {
           width: width,
           child: Stack(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: advert.images.isEmpty
-                    ? Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU')
-                    : Image.memory(advert.images.first),
+              AspectRatio(
+                aspectRatio: 9 / 16, // Relación de aspecto fija 9/16
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: advert.images.isEmpty
+                      ? Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZNQZI9chyqtlvn6KNfid_ACsf4O-NiKn9Cw&usqp=CAU',
+                          fit: BoxFit.cover,
+                        )
+                      : Image.memory(
+                          advert.images.first,
+                          fit: BoxFit.cover,
+                        ),
+                ),
               ),
               Positioned(
                 top: 5,

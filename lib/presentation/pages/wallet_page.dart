@@ -12,15 +12,24 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationCubit>(context);
-    return Layout(
-      content: LayoutBuilder(builder: (context, constraints) {
-        return Center(
-          child: Container(
-            height: constraints.maxHeight * .8,
-            width: constraints.maxWidth * .5,
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth * 0.8;
+    bool isLargeScreen = screenWidth > 800;
+    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
+
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Layout(
+        content: Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: desiredWidth,
             child: Column(
               children: [
+                const SizedBox(
+                  height: 10,
+                ),
                 const Text(
                   'My Wallets',
                   style: TextStyle(
@@ -54,7 +63,6 @@ class WalletPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    width: constraints.maxWidth * .3,
                     child: Column(
                       children: [
                         _buildPaymentMethod(context),
@@ -69,7 +77,7 @@ class WalletPage extends StatelessWidget {
                         const Spacer(),
                         _buildAddPaymentButton(context),
                         const SizedBox(
-                          height: 30,
+                          height: 100,
                         ),
                       ],
                     ),
@@ -78,9 +86,9 @@ class WalletPage extends StatelessWidget {
               ],
             ),
           ),
-        );
-      }),
-    );
+        ),
+      );
+    });
   }
 
   Widget _buildPaymentMethod(context) => InkWell(
@@ -100,17 +108,13 @@ class WalletPage extends StatelessWidget {
         ),
         onTap: () => showDialog(
           context: context,
-          builder: (context) {
-            return const CustomAlertDialog(
-                header: Center(
-                  child: TextView(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    text: 'Añadir método de pago',
-                  ),
+          builder: (_) {
+            return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.black,
+                  title: TextView(text: 'Add payment method'),
                 ),
-                hasButton: false,
-                content: AddPaymentForm());
+                body: Center(child: AddPaymentForm()));
           },
         ),
       );
@@ -132,7 +136,7 @@ class WalletPage extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (context) {
+              builder: (_) {
                 return const CustomAlertDialog(
                     header: Center(
                       child: TextView(
