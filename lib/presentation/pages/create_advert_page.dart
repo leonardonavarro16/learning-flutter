@@ -12,26 +12,26 @@ class CreateAdvertPage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth * 0.8;
-    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
+    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Layout(
-          content: Center(
+          content: Align(
+            alignment: Alignment.topCenter,
             child: SizedBox(
               width: desiredWidth,
               child: ListView(
                 children: [
-                  const SizedBox(height: 50.0),
+                  SizedBox(height: isLargeScreen ? 50 : 10),
                   TextView(
-                    text: t.newAdvertTitleLinkText,
-                    textAlign: TextAlign.center,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(height: 15),
+                      text: t.newAdvertTitleLinkText,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
                   const AdvertForm(),
                 ],
               ),

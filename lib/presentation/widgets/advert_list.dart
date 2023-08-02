@@ -152,8 +152,9 @@ class _AdvertPreview extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double desktopScreen = screenWidth * 0.3;
-    double mobileScreen = screenWidth * 0.8;
+    double mobileScreen = screenWidth;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
 
     return Stack(
       children: [
@@ -166,7 +167,7 @@ class _AdvertPreview extends StatelessWidget {
                 child: Image.memory(
                   advert.images.first,
                   fit: BoxFit.cover,
-                  height: screenHeight * 0.9,
+                  height: screenHeight,
                 ),
               ),
             if (advert.images.length > 1)
@@ -219,7 +220,7 @@ class _AdvertPreview extends StatelessWidget {
           child: Stack(
             children: [
               AspectRatio(
-                aspectRatio: 9 / 16, // Relación de aspecto fija 9/16
+                aspectRatio: 9 / 16,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: advert.images.isEmpty
@@ -266,17 +267,18 @@ class _AdvertPreview extends StatelessWidget {
 
   _showContentBottomSheet(context) => showModalBottomSheet(
         isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width > 800
+              ? MediaQuery.of(context).size.width * 0.33
+              : MediaQuery.of(context).size.width,
+        ),
         context: context,
         builder: (context) => SingleChildScrollView(
           child: ModalOpenedContainerContent(
             advert: advert,
           ),
         ),
-        barrierColor: Colors.transparent,
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.33,
-        ),
-        backgroundColor: Colors.transparent,
       );
 
   showLoginDialog(context) => showDialog(

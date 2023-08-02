@@ -104,6 +104,7 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
       builder: (context) {
         String newTag = '';
         return CustomAlertDialog(
+          hasButton: false,
           header: const TextView(
             text: 'Agregar Tag',
             color: Colors.white,
@@ -124,15 +125,6 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
                 labelText: '# type a tag'),
           ),
           actions: [
-            CustomButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              text: 'Cancelar',
-            ),
-            const SizedBox(
-              width: 3.5,
-            ),
             CustomButton(
               onPressed: () {
                 if (newTag.isNotEmpty) {

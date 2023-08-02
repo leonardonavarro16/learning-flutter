@@ -35,6 +35,7 @@ class _ModalOpenedContainerContentState
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth * 0.8;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
 
     return Container(
       decoration: const BoxDecoration(
@@ -63,7 +64,6 @@ class _ModalOpenedContainerContentState
               color: Colors.white,
               thickness: 2.5,
             ),
-            const SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
@@ -77,35 +77,37 @@ class _ModalOpenedContainerContentState
                 },
                 children: [
                   ExpansionPanel(
-                    canTapOnHeader: true,
                     backgroundColor: Colors.transparent,
                     headerBuilder: (BuildContext context, bool isExpanded) =>
                         Column(
                       children: [
-                        Stack(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextView(
-                                        text: widget.advert.name,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    const TextView(
-                                        text: 'Barranquilla',
-                                        color:
-                                            Color.fromARGB(155, 255, 255, 255),
-                                        fontSize: 12),
-                                  ],
-                                ),
-                                const Row(
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextView(
+                                      text: widget.advert.name,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  const TextView(
+                                      text: 'Barranquilla',
+                                      color: Color.fromARGB(155, 255, 255, 255),
+                                      fontSize: 12),
+                                ],
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: Row(
                                   children: [
                                     TextView(
                                         text: '4.5',
@@ -119,43 +121,26 @@ class _ModalOpenedContainerContentState
                                         CupertinoIcons.star_fill),
                                   ],
                                 ),
-                                TextView(
-                                    text: '${widget.advert.age} años',
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color.fromARGB(
-                                        155, 255, 255, 255),
-                                    fontSize: 12),
-                                const TextView(
-                                    text: '24 horas',
-                                    color: Colors.white,
-                                    fontSize: 12),
-                              ],
-                            ),
-                            Positioned(
-                              right: -15,
-                              child: IconButton(
-                                iconSize: 30,
-                                onPressed: () {
-                                  setState(() {
-                                    _isExpanded = !isExpanded;
-                                  });
-                                },
-                                icon: Icon(
-                                  !_isExpanded
-                                      ? Icons.keyboard_arrow_up_sharp
-                                      : Icons.keyboard_arrow_down_sharp,
-                                  color: Colors.white,
-                                ),
                               ),
-                            ),
-                          ],
+                              TextView(
+                                  text: '${widget.advert.age} años',
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(155, 255, 255, 255),
+                                  fontSize: 12),
+                              const TextView(
+                                  text: '24 horas',
+                                  color: Colors.white,
+                                  fontSize: 12),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         const Divider(
                           indent: 50,
-                          color: Color.fromARGB(155, 255, 255, 255),
+                          color: Color.fromARGB(185, 255, 255, 255),
                           thickness: 0.7,
                         ),
                       ],
@@ -163,16 +148,13 @@ class _ModalOpenedContainerContentState
                     isExpanded: _isExpanded,
                     body: Column(
                       children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
                         if (widget.advert.ad_tags != null &&
                             widget.advert.ad_tags!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             child: Wrap(
                               spacing: 8,
-                              runSpacing: 8,
+                              runSpacing: isLargeScreen ? 8 : -2.5,
                               children: widget.advert.ad_tags!.map((tag) {
                                 return Chip(
                                   backgroundColor: const Color(0xFFFF0000),
@@ -186,11 +168,7 @@ class _ModalOpenedContainerContentState
                           ),
                         Container(
                           padding: const EdgeInsets.only(
-                            top: 20,
-                            left: 35,
-                            right: 35,
-                            bottom: 15,
-                          ),
+                              top: 15, left: 35, right: 35, bottom: 15),
                           child: TextView(
                             text: widget.advert.description,
                             fontSize: 16,
