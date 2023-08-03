@@ -157,7 +157,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
                     children: [
                       _buildClearFileBtn(),
                       const SizedBox(width: 15),
-                      _buildRemoveFileBtn(),
+                      if (_pickedFiles.length > 1) _buildRemoveFileBtn(),
                       const SizedBox(width: 15),
                       _buildSelectFileBtn(),
                     ],
