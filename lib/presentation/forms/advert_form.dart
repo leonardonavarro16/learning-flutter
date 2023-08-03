@@ -170,8 +170,7 @@ class _AdvertForm extends State<AdvertForm> {
     if (t == null) throw Exception('AppLocalizations not found');
     return CustomButton(
       text: t.sendButtonLinkText,
-      onPressed:
-          _showPricingDialog, // Llama directamente a _submitForm cuando se presione el botón
+      onPressed: _showPricingDialog,
     );
   }
 

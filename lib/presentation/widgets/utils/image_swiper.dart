@@ -44,21 +44,26 @@ class _ImageSliderState extends State<ImageSlider> {
                   )
                   .toList(),
             ),
-            Positioned(
-              bottom: 150,
-              left: 0.0,
-              right: 0.0,
-              child: DotsIndicator(
-                dotsCount: widget.images.length,
-                position: _currentImageIndex,
-                decorator: DotsDecorator(
-                  activeColor: Colors.white,
-                  activeSize: const Size(8, 8),
-                  color: Colors.grey[400]!,
-                  size: const Size(4, 4),
+            if (widget.images.isNotEmpty)
+              Positioned(
+                bottom: 150,
+                left: 0.0,
+                right: 0.0,
+                child: DotsIndicator(
+                  key:
+                      UniqueKey(), // Unique key to force the DotsIndicator to rebuild
+                  dotsCount: widget.images.length,
+                  position: _currentImageIndex < widget.images.length
+                      ? _currentImageIndex
+                      : 0,
+                  decorator: DotsDecorator(
+                    activeColor: Colors.white,
+                    activeSize: const Size(8, 8),
+                    color: Colors.grey[400]!,
+                    size: const Size(4, 4),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ],

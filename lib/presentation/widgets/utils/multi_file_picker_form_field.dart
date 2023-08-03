@@ -202,9 +202,16 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
     });
   }
 
+  void _updateCurrentImageIndex() {
+    if (_currentImageIndex >= _pickedFiles.length) {
+      _currentImageIndex = _pickedFiles.length - 1;
+    }
+  }
+
   void _removeCurrentImage() {
     setState(() {
       _pickedFiles.removeAt(_currentImageIndex);
+      _updateCurrentImageIndex();
     });
   }
 

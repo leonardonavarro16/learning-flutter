@@ -19,6 +19,7 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final OutlineInputBorder defaultOutlineInputBorder = OutlineInputBorder(
@@ -57,6 +58,8 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
             height: 10,
           ),
           CreditCardWidget(
+            backgroundImage: 'card_bg.png',
+            isSwipeGestureEnabled: true,
             height: isLargeScreen ? 325 : 230,
             width: 600,
             chipColor: Colors.amber,
