@@ -5,6 +5,8 @@ enum AdvertsStatus {
   initial,
   loading,
   indexSuccess,
+  createSuccess,
+  createFailure,
   indexFailure,
 }
 

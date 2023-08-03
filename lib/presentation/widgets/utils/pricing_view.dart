@@ -19,6 +19,7 @@ class _PricingViewState extends State<PricingView> {
     double desktopScreen = screenWidth * 0.32;
     double mobileScreen = screenWidth * 0.6;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -72,21 +73,21 @@ class _PricingViewState extends State<PricingView> {
             height: 20,
           ),
           if (selectedCardIndex == 0)
-            const Center(
-              child: TextView(
-                text:
-                    'Opción FREE seleccionada: El dicho sabio es una urna de masculinidad, y el importante caído es un posadero. El vehículo, el rostro con cuello o, menos urgente, es desagradable, y la virtud del faro debe ser odiada por mi esposo. Un lago y la plaza pueden haber perdido el momento de beber. ',
-                color: Colors.white,
+            // const Center(
+            //   child: TextView(
+            //     text:
+            //         'Opción FREE seleccionada: El dicho sabio es una urna de masculinidad, y el importante caído es un posadero. El vehículo, el rostro con cuello o, menos urgente, es desagradable, y la virtud del faro debe ser odiada por mi esposo. Un lago y la plaza pueden haber perdido el momento de beber. ',
+            //     color: Colors.white,
+            //   ),
+            // ),
+            if (selectedCardIndex != 0)
+              Center(
+                child: TextView(
+                  text:
+                      'Opción $selectedCardIndex seleccionado: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum sapien eu urna malesuada, quis volutpat elit posuere. Quisque vehicula, eros at tristique dignissim, justo urna fermentum nisl, vel pharetra velit odio eu metus. Aenean eu urna et velit tristique interdum. Nulla facilisi. Etiam vestibulum ligula ut nulla fermentum, nec varius metus dictum. Nam cursus dapibus erat, non tincidunt mi fermentum in.',
+                  color: Colors.white,
+                ),
               ),
-            ),
-          if (selectedCardIndex != 0)
-            Center(
-              child: TextView(
-                text:
-                    'Opción $selectedCardIndex seleccionado: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum sapien eu urna malesuada, quis volutpat elit posuere. Quisque vehicula, eros at tristique dignissim, justo urna fermentum nisl, vel pharetra velit odio eu metus. Aenean eu urna et velit tristique interdum. Nulla facilisi. Etiam vestibulum ligula ut nulla fermentum, nec varius metus dictum. Nam cursus dapibus erat, non tincidunt mi fermentum in.',
-                color: Colors.white,
-              ),
-            ),
         ],
       ),
     );

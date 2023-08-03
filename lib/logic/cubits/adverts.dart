@@ -109,13 +109,13 @@ class AdvertsCubit extends Cubit<AdvertsState> {
       Advert createdAdvert = await _advertRepository.create(advert, token);
       state.adverts.add(createdAdvert);
       emit(state.copyWith(
-        advertsStatus: AdvertsStatus.indexSuccess,
+        advertsStatus: AdvertsStatus.createSuccess,
         adverts: state.adverts,
       ));
     } catch (error) {
       emit(
         state.copyWith(
-          advertsStatus: AdvertsStatus.indexFailure,
+          advertsStatus: AdvertsStatus.createFailure,
           error: error.toString(),
         ),
       );

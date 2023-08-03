@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/cubits/navigation.dart';
-import 'package:swc_front/logic/states/nagivation.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/advert_search_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

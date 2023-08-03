@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
@@ -129,21 +131,24 @@ class _AdvertForm extends State<AdvertForm> {
                     textColor: Colors.black,
                     errorMessage,
                   );
-                } else if (state.status == AdvertsStatus.indexSuccess) {
+                } else if (state.status == AdvertsStatus.createSuccess) {
+                  Navigator.pushReplacementNamed(context, Routes.indexPage);
                   SnackBarUtil.showSnackBar(
                     context,
                     backgroundColor: Colors.green,
                     textColor: Colors.black,
                     t.createdSuccessfullAdvertLinkText,
                   );
-                  Navigator.pushReplacementNamed(context, Routes.indexPage);
                 }
               },
-              builder: (BuildContext context, AdvertsState state) {
+              builder: (BuildContext _, AdvertsState state) {
                 if (state.status == AdvertsStatus.loading) {
                   return const CustomIndicatorProgress();
+                } else if (state.status == AdvertsStatus.createSuccess) {
+                  return Container();
+                } else {
+                  return Container();
                 }
-                return Container();
               },
             ),
             const SizedBox(

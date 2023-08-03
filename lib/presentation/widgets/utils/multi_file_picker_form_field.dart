@@ -181,8 +181,9 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
       result = await _filePicker.pickFiles(
         type: FileType.image,
         allowMultiple: false,
+        withData: true,
       );
-      Uint8List? bytes = result?.files.single.bytes;
+      Uint8List? bytes = result!.files.single.bytes;
 
       if (bytes != null) {
         _pickedFiles.add(bytes);
@@ -234,11 +235,13 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
             ),
           ],
         ),
-        child: const Icon(
-          CupertinoIcons.camera_fill,
+        child: Icon(
+          _pickedFiles.isEmpty
+              ? CupertinoIcons.camera_fill
+              : CupertinoIcons.add,
           color: Colors.white,
           size: 30,
-          shadows: [
+          shadows: const [
             BoxShadow(
                 color: Colors.black, offset: Offset(0, 2), blurRadius: 5.0)
           ],
