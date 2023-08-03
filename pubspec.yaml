@@ -55,6 +55,7 @@ dependencies:
   path_provider: ^2.0.15
   image_picker: ^1.0.0
   flutter_credit_card: ^3.0.7
+  marquee_text: ^2.5.0+1
 
   
   

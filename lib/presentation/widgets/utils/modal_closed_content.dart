@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee_text/marquee_text.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
@@ -25,11 +26,18 @@ class ModalClosedContainerContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextView(
-                text: advert.name,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+              Expanded(
+                child: MarqueeText(
+                  speed: 10,
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    text: advert.name,
+                  ),
+                ),
               ),
               const Row(
                 children: [

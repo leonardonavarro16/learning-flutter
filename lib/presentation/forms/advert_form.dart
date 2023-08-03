@@ -9,16 +9,13 @@ import 'package:swc_front/logic/states/authentication.dart';
 import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
-import 'package:swc_front/presentation/widgets/utils/custom_table_widget.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
-import 'package:swc_front/presentation/widgets/utils/offers_plan_container.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/pricing_view.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';

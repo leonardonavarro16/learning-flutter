@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:marquee_text/marquee_text.dart';
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
@@ -91,11 +92,16 @@ class _ModalOpenedContainerContentState
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextView(
+                                  MarqueeText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                       text: widget.advert.name,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                    ),
+                                  ),
                                   const SizedBox(
                                     height: 5,
                                   ),
