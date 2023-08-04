@@ -23,21 +23,23 @@ class _PricingViewState extends State<PricingView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const Center(
+          Center(
             child: TextView(
               text: 'Choose your membership type',
               color: Color(0xFFFF0000),
-              fontSize: 25,
+              fontSize: isLargeScreen ? 25 : 18,
               fontWeight: FontWeight.bold,
             ),
           ),
+          const SizedBox(height: 10),
           Container(
-            height: MediaQuery.of(context).size.height * 0.40,
+            height: isLargeScreen
+                ? MediaQuery.of(context).size.height * 0.4
+                : MediaQuery.of(context).size.height * 0.35,
             // width: desiredWidth,
             child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 1,
-                mainAxisExtent: 180,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: isLargeScreen ? 280 : 135,
                 // mainAxisSpacing: 0,
                 crossAxisSpacing: 0,
                 crossAxisCount: 2,
@@ -49,9 +51,11 @@ class _PricingViewState extends State<PricingView> {
                     timeText: '',
                     offerText: 'FREE',
                     onTap: () {
-                      setState(() {
-                        selectedCardIndex = index;
-                      });
+                      setState(
+                        () {
+                          selectedCardIndex = index;
+                        },
+                      );
                     },
                     isSelected: selectedCardIndex == index,
                   );
@@ -69,25 +73,25 @@ class _PricingViewState extends State<PricingView> {
               },
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           if (selectedCardIndex == 0)
-            // const Center(
-            //   child: TextView(
-            //     text:
-            //         'Opción FREE seleccionada: El dicho sabio es una urna de masculinidad, y el importante caído es un posadero. El vehículo, el rostro con cuello o, menos urgente, es desagradable, y la virtud del faro debe ser odiada por mi esposo. Un lago y la plaza pueden haber perdido el momento de beber. ',
-            //     color: Colors.white,
-            //   ),
-            // ),
-            if (selectedCardIndex != 0)
-              Center(
-                child: TextView(
-                  text:
-                      'Opción $selectedCardIndex seleccionado: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum sapien eu urna malesuada, quis volutpat elit posuere. Quisque vehicula, eros at tristique dignissim, justo urna fermentum nisl, vel pharetra velit odio eu metus. Aenean eu urna et velit tristique interdum. Nulla facilisi. Etiam vestibulum ligula ut nulla fermentum, nec varius metus dictum. Nam cursus dapibus erat, non tincidunt mi fermentum in.',
-                  color: Colors.white,
-                ),
+            Center(
+              child: TextView(
+                fontSize: isLargeScreen ? 20 : 10,
+                text:
+                    'Opción FREE seleccionada: El dicho sabio es una urna de masculinidad, y el importante caído es un posadero. El vehículo, el rostro con cuello o, menos urgente, es desagradable, y la virtud del faro debe ser odiada por mi esposo. Un lago y la plaza pueden haber perdido el momento de beber. ',
+                color: Colors.white,
               ),
+            ),
+          if (selectedCardIndex != 0)
+            Center(
+              child: TextView(
+                fontSize: isLargeScreen ? 20 : 10,
+                text:
+                    'Opción $selectedCardIndex seleccionado: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum sapien eu urna malesuada, quis volutpat elit posuere. Quisque vehicula, eros at tristique dignissim, justo urna fermentum nisl, vel pharetra velit odio eu metus. Aenean eu urna et velit tristique interdum. Nulla facilisi. Etiam vestibulum ligula ut nulla fermentum, nec varius metus dictum. Nam cursus dapibus erat, non tincidunt mi fermentum in.',
+                color: Colors.white,
+              ),
+            ),
         ],
       ),
     );
@@ -115,6 +119,11 @@ class OfferContentWidget extends StatefulWidget {
 class _OfferContentWidgetState extends State<OfferContentWidget> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.32;
+    double mobileScreen = screenWidth * 0.6;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
     return InkWell(
       onTap: widget.onTap,
       child: Padding(
@@ -131,38 +140,40 @@ class _OfferContentWidgetState extends State<OfferContentWidget> {
                 width: 2.0,
               ),
             ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                TextView(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                  text: widget.timeText ?? '12 MONTHS MEMBERSHIP',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextView(
-                  fontSize: 30,
-                  text: widget.offerText ?? '9.99 /MONTH',
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.amber,
-                    child: Icon(
-                      CupertinoIcons.cart_fill,
-                      color: Colors.black,
+            child: Padding(
+              padding: const EdgeInsets.all(2),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  TextView(
+                    fontSize: isLargeScreen ? 16 : 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber,
+                    text: widget.timeText ?? '12 MONTHS MEMBERSHIP',
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextView(
+                    fontSize: isLargeScreen ? 30 : 11,
+                    text: widget.offerText ?? '9.99 /MONTH',
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.amber,
+                      child: Icon(
+                        CupertinoIcons.cart_fill,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
