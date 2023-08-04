@@ -174,8 +174,8 @@ class _AdvertPreview extends StatelessWidget {
               FittedBox(
                 fit: BoxFit.cover,
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                  width: desiredWidth,
                   child: ImageSlider(
                     images: advert.images,
                   ),

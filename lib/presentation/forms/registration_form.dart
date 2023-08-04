@@ -39,6 +39,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Uint8List? image;
 
   @override
+  void initState() {
+    if (image == null) {
+      _setDefaultImage();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');

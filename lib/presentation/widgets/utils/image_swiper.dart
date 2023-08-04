@@ -17,55 +17,56 @@ class _ImageSliderState extends State<ImageSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desktopScreen = screenWidth * 0.3;
+    double mobileScreen = screenWidth;
+    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
+    bool isLargeScreen = screenWidth > 800;
+    return Stack(
       children: [
-        Stack(
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: false,
-                enlargeCenterPage: true,
-                aspectRatio: 9 / 16,
-                viewportFraction: 1,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                onPageChanged: (index, _) {
-                  setState(() {
-                    _currentImageIndex = index;
-                  });
-                },
-              ),
-              items: widget.images
-                  .map(
-                    (image) => Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Image.memory(image, fit: BoxFit.cover),
-                    ),
-                  )
-                  .toList(),
+        SizedBox(
+          height: screenHeight,
+          width: desiredWidth,
+          child: CarouselSlider(
+            options: CarouselOptions(
+              autoPlay: false,
+              enlargeCenterPage: true,
+              aspectRatio: 0.1,
+              viewportFraction: 1,
+              enlargeStrategy: CenterPageEnlargeStrategy.height,
+              onPageChanged: (index, _) {
+                setState(() {
+                  _currentImageIndex = index;
+                });
+              },
             ),
-            if (widget.images.isNotEmpty)
-              Positioned(
-                bottom: 150,
-                left: 0.0,
-                right: 0.0,
-                child: DotsIndicator(
-                  key:
-                      UniqueKey(), // Unique key to force the DotsIndicator to rebuild
-                  dotsCount: widget.images.length,
-                  position: _currentImageIndex < widget.images.length
-                      ? _currentImageIndex
-                      : 0,
-                  decorator: DotsDecorator(
-                    activeColor: Colors.white,
-                    activeSize: const Size(8, 8),
-                    color: Colors.grey[400]!,
-                    size: const Size(4, 4),
-                  ),
-                ),
-              ),
-          ],
+            items: widget.images
+                .map(
+                  (image) => Image.memory(image, fit: BoxFit.cover),
+                )
+                .toList(),
+          ),
         ),
+        if (widget.images.isNotEmpty)
+          Positioned(
+            bottom: 75,
+            left: 0.0,
+            right: 0.0,
+            child: DotsIndicator(
+              key: UniqueKey(),
+              dotsCount: widget.images.length,
+              position: _currentImageIndex < widget.images.length
+                  ? _currentImageIndex
+                  : 0,
+              decorator: DotsDecorator(
+                activeColor: Colors.white,
+                activeSize: const Size(8, 8),
+                color: Colors.grey[400]!,
+                size: const Size(4, 4),
+              ),
+            ),
+          ),
       ],
     );
   }

@@ -16,6 +16,7 @@ import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/pricing_view.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';
@@ -116,7 +117,6 @@ class _AdvertForm extends State<AdvertForm> {
               height: 10,
             ),
             const SizedBox(height: 10),
-            // ... Los campos de formulario existentes ...
             if (_canShowSubmitButton()) _buildSubmitButton(),
             BlocConsumer<AdvertsCubit, AdvertsState>(
               listener: (BuildContext context, AdvertsState state) {
@@ -130,12 +130,13 @@ class _AdvertForm extends State<AdvertForm> {
                   );
                 } else if (state.status == AdvertsStatus.createSuccess) {
                   Navigator.pushReplacementNamed(context, Routes.indexPage);
-                  SnackBarUtil.showSnackBar(
-                    context,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.black,
-                    t.createdSuccessfullAdvertLinkText,
+                  SnackBar snackBar = SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: TextView(
+                      text: t.createdSuccessfullAdvertLinkText,
+                    ),
                   );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               },
               builder: (BuildContext _, AdvertsState state) {
@@ -195,9 +196,10 @@ class _AdvertForm extends State<AdvertForm> {
           content: CustomButton(
             onPressed: () {
               _submitForm();
+              Navigator.pushReplacementNamed(context, Routes.indexPage);
               Navigator.pop(_);
             },
-            text: 'manda esa vaina',
+            text: 'Submit advert',
           ),
         ),
       ),

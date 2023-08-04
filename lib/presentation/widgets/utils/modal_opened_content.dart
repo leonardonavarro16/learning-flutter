@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marquee_text/marquee_text.dart';
@@ -6,6 +7,7 @@ import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ModalOpenedContainerContent extends StatefulWidget {
   final Advert advert;
@@ -195,10 +197,21 @@ class _ModalOpenedContainerContentState
               fontSize: 20,
               height: 55,
               width: 250,
-              onPressed: () {
-                Clipboard.setData(ClipboardData(
-                    text: formatPhoneNumber(widget.advert.phoneNumber)));
-                showCopiedNumber(context);
+              onPressed: () async {
+                if (!kIsWeb) {
+                  final Uri url = Uri(
+                      scheme: 'tel',
+                      path: formatPhoneNumber(widget.advert.phoneNumber));
+                  if (await canLaunchUrl(url)) {
+                    launchUrl(url);
+                  } else {
+                    print(' cannot launch assigned value ');
+                  }
+                } else {
+                  Clipboard.setData(ClipboardData(
+                      text: formatPhoneNumber(widget.advert.phoneNumber)));
+                  showCopiedNumber(context);
+                }
               },
             ),
             const SizedBox(
