@@ -26,8 +26,8 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
   final List<Uint8List> _pickedFiles = [];
 
   @override
-  void dispose() async {
-    if (!kIsWeb) await _filePicker.clearTemporaryFiles();
+  void dispose() {
+    if (!kIsWeb) _filePicker.clearTemporaryFiles();
     super.dispose();
   }
 

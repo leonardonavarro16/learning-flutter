@@ -55,104 +55,99 @@ class _AdvertForm extends State<AdvertForm> {
   Widget build(BuildContext context) {
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
-    return Form(
-      key: _formKey,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            MultiFilePickerField(
-              onChanged: (List<Uint8List>? bytes) {
-                setState(() => imageBytes = bytes);
-              },
-            ),
-            NameFormField(
-              onFieldSubmitted: (_) => _submitForm(),
-              initialValue: name,
-              onChange: (String? value, bool valid) {
-                setState(() => name = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            AgeFormField(
-              ageToShow: age == null ? '18 años' : '$age años',
-              initialValue: age,
-              onChange: (int value) {
-                setState(() => age = value);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            PhoneFormField(
-              onFieldSubmitted: (_) => _submitForm(),
-              initialValue: phoneNumber,
-              onChange: (String? value, bool valid) {
-                setState(() => phoneNumber = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            AdTagEditor(
-              onFieldSubmitted: (_) => _submitForm(),
-              onTagsChanged: (List<String> tags) {
-                setState(() => ad_tags = tags);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            DescriptionFormField(
-              onFieldSubmitted: (_) => _submitForm(),
-              maxLines: 5,
-              minLines: 1,
-              maxLength: 131,
-              onChange: (String? value, bool valid) {
-                setState(() => description = valid ? value : null);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(height: 10),
-            if (_canShowSubmitButton()) _buildSubmitButton(),
-            BlocConsumer<AdvertsCubit, AdvertsState>(
-              listener: (BuildContext context, AdvertsState state) {
-                if (state.status == AdvertsStatus.indexFailure) {
-                  String errorMessage = state.error;
-                  SnackBarUtil.showSnackBar(
-                    context,
-                    backgroundColor: const Color(0xFFFF0000),
-                    textColor: Colors.black,
-                    errorMessage,
-                  );
-                } else if (state.status == AdvertsStatus.createSuccess) {
-                  Navigator.pushReplacementNamed(context, Routes.indexPage);
-                  SnackBar snackBar = SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: TextView(
-                      text: t.createdSuccessfullAdvertLinkText,
-                    ),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              },
-              builder: (BuildContext _, AdvertsState state) {
-                if (state.status == AdvertsStatus.loading) {
-                  return const CustomIndicatorProgress();
-                } else if (state.status == AdvertsStatus.createSuccess) {
-                  return Container();
-                } else {
-                  return Container();
-                }
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
+    return BlocListener<AdvertsCubit, AdvertsState>(
+      listenWhen: (prev, current) {
+        return prev.status != current.status &&
+            (current.status == AdvertsStatus.createFailure ||
+                current.status == AdvertsStatus.createSuccess);
+      },
+      listener: (BuildContext context, AdvertsState state) {
+        if (state.status == AdvertsStatus.createFailure) {
+          String errorMessage = state.error;
+          SnackBarUtil.showSnackBar(
+            context,
+            backgroundColor: const Color(0xFFFF0000),
+            textColor: Colors.black,
+            errorMessage,
+          );
+        } else if (state.status == AdvertsStatus.createSuccess) {
+          SnackBarUtil.showSnackBar(
+            context,
+            backgroundColor: Colors.green,
+            textColor: Colors.black,
+            'El anuncio se creo exitosamente',
+          );
+          Navigator.pushReplacementNamed(context, Routes.indexPage);
+        }
+      },
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              MultiFilePickerField(
+                onChanged: (List<Uint8List>? bytes) {
+                  setState(() => imageBytes = bytes);
+                },
+              ),
+              NameFormField(
+                onFieldSubmitted: (_) => _submitForm(),
+                initialValue: name,
+                onChange: (String? value, bool valid) {
+                  setState(() => name = valid ? value : null);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              AgeFormField(
+                ageToShow: age == null ? '18 años' : '$age años',
+                initialValue: age,
+                onChange: (int value) {
+                  setState(() => age = value);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              PhoneFormField(
+                onFieldSubmitted: (_) => _submitForm(),
+                initialValue: phoneNumber,
+                onChange: (String? value, bool valid) {
+                  setState(() => phoneNumber = valid ? value : null);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              AdTagEditor(
+                onFieldSubmitted: (_) => _submitForm(),
+                onTagsChanged: (List<String> tags) {
+                  setState(() => ad_tags = tags);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              DescriptionFormField(
+                onFieldSubmitted: (_) => _submitForm(),
+                maxLines: 5,
+                minLines: 1,
+                maxLength: 131,
+                onChange: (String? value, bool valid) {
+                  setState(() => description = valid ? value : null);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const SizedBox(height: 10),
+              if (_canShowSubmitButton()) _buildSubmitButton(),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -168,7 +163,6 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   Widget _buildSubmitButton() {
-    double screenWidth = MediaQuery.of(context).size.width;
     AppLocalizations? t = AppLocalizations.of(context);
     if (t == null) throw Exception('AppLocalizations not found');
     return CustomButton(
@@ -178,26 +172,24 @@ class _AdvertForm extends State<AdvertForm> {
   }
 
   void _showPricingDialog() {
-    Advert advert = _buildAdvert();
     String? token = context.read<AuthenticationCubit>().state.token;
     if (token == null) {
       throw Exception('Token is missing');
     }
     showDialog(
       context: context,
-      builder: (_) => BlocProvider.value(
+      builder: (BuildContext modalContext) => BlocProvider.value(
         value: context.read<AdvertsCubit>(),
         child: CustomAlertDialog(
           hasButton: false,
           header: SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
-            child: PricingView(),
+            child: const PricingView(),
           ),
           content: CustomButton(
             onPressed: () {
+              Navigator.of(modalContext).pop();
               _submitForm();
-              Navigator.pushReplacementNamed(context, Routes.indexPage);
-              Navigator.pop(_);
             },
             text: 'Submit advert',
           ),

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
-import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 class SnackBarUtil {
   static showSnackBar(BuildContext context, String message,
       {Icon? icon, Color? backgroundColor, Color? textColor}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 3),
         backgroundColor:
             backgroundColor ?? const Color.fromARGB(255, 235, 91, 81),
         content: Row(
@@ -26,13 +25,6 @@ class SnackBarUtil {
               ),
             ),
           ],
-        ),
-        action: SnackBarAction(
-          label: 'close',
-          textColor: Colors.white,
-          onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          },
         ),
       ),
     );

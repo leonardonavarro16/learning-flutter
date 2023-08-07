@@ -370,7 +370,7 @@ class Layout extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: !isLargeScreen ? BottomNavigator() : null,
+          bottomNavigationBar: !isLargeScreen ? const BottomNavigator() : null,
         );
       },
     );

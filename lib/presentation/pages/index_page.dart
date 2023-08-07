@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/data/models/advert.dart';
-import 'package:swc_front/data/models/story.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
 import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/pagination_index.dart';
-import 'package:swc_front/presentation/widgets/utils/stories_view.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import '../../logic/cubits/adverts.dart';
-import '../../logic/cubits/story_cubit.dart';
 import '../../logic/states/adverts.dart';
-import '../../logic/states/stories.dart';
 import '../widgets/advert_list.dart';
 
 class IndexPage extends StatelessWidget {
@@ -26,8 +22,6 @@ class IndexPage extends StatelessWidget {
     int decreasedCurrentPageIndex = currentFavPageIndex - 1;
     int increasedCurrentPageIndex = currentFavPageIndex + 1;
     int itemsPerPage = 10;
-    int currentPage = 0;
-    double maxWidth = MediaQuery.of(context).size.width;
 
     return Layout(
       content: Column(
@@ -65,13 +59,11 @@ class IndexPage extends StatelessWidget {
                         decreasedCurrentPageIndex: decreasedCurrentPageIndex,
                         onNextPage: () {
                           if (filteredAdverts.length >= 10) {
-                            currentPage++;
                             context.read<AdvertsCubit>().nextPage(token);
                           }
                         },
                         onPreviousPage: () {
                           if (itemsPerPage > 0) {
-                            currentPage--;
                             context.read<AdvertsCubit>().previousPage(token);
                           }
                         },
