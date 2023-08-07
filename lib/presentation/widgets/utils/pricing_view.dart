@@ -27,7 +27,7 @@ class _PricingViewState extends State<PricingView> {
             child: TextView(
               text: 'Choose your membership type',
               color: Color(0xFFFF0000),
-              fontSize: isLargeScreen ? 25 : 18,
+              fontSize: isLargeScreen ? 30 : 18,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -39,8 +39,8 @@ class _PricingViewState extends State<PricingView> {
             // width: desiredWidth,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisExtent: isLargeScreen ? 280 : 135,
-                // mainAxisSpacing: 0,
+                mainAxisExtent: isLargeScreen ? 175 : 135,
+                mainAxisSpacing: isLargeScreen ? 15 : 0,
                 crossAxisSpacing: 0,
                 crossAxisCount: 2,
               ),

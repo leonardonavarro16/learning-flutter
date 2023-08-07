@@ -65,17 +65,103 @@ class WalletPage extends StatelessWidget {
                   child: Container(
                     child: Column(
                       children: [
-                        _buildPaymentMethod(context),
+                        InkWell(
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            color: Colors.grey[200],
+                            child: const ListTile(
+                              leading: Icon(
+                                Icons.payment,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                              title: Text('**** **** **** 8938'),
+                            ),
+                          ),
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (_) {
+                              if (!isLargeScreen) {
+                                return Scaffold(
+                                    appBar: AppBar(
+                                      backgroundColor: Colors.black,
+                                      title: const TextView(
+                                          text: 'Add payment method'),
+                                    ),
+                                    body:
+                                        const Center(child: AddPaymentForm()));
+                              } else {
+                                return const CustomAlertDialog(
+                                    header: Center(
+                                      child: TextView(
+                                        color: Colors.white,
+                                        text: 'Añadir método de pago',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    hasButton: false,
+                                    content: AddPaymentForm());
+                              }
+                            },
+                          ),
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
-                        _buildPaymentMethod(context),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _buildPaymentMethod(context),
                         const Spacer(),
-                        _buildAddPaymentButton(context),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFF0000),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) {
+                                  if (!isLargeScreen) {
+                                    return Scaffold(
+                                        appBar: AppBar(
+                                          backgroundColor: Colors.black,
+                                          title: const TextView(
+                                              text: 'Add payment method'),
+                                        ),
+                                        body: const Center(
+                                            child: AddPaymentForm()));
+                                  } else {
+                                    return const CustomAlertDialog(
+                                        header: Center(
+                                          child: TextView(
+                                            color: Colors.white,
+                                            text: 'Añadir método de pago',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        hasButton: false,
+                                        content: AddPaymentForm());
+                                  }
+                                },
+                              );
+                            },
+                            child: const Text(
+                              'Add Payment Method',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 100,
                         ),
@@ -138,15 +224,16 @@ class WalletPage extends StatelessWidget {
               context: context,
               builder: (_) {
                 return const CustomAlertDialog(
-                    header: Center(
-                      child: TextView(
-                        color: Colors.white,
-                        text: 'Añadir método de pago',
-                        fontWeight: FontWeight.bold,
-                      ),
+                  header: Center(
+                    child: TextView(
+                      color: Colors.white,
+                      text: 'Añadir método de pago',
+                      fontWeight: FontWeight.bold,
                     ),
-                    hasButton: false,
-                    content: AddPaymentForm());
+                  ),
+                  hasButton: false,
+                  content: AddPaymentForm(),
+                );
               },
             );
           },

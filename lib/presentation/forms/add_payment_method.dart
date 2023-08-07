@@ -146,7 +146,39 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
                   const SizedBox(
                     height: 50,
                   ),
-                  _buildAddPaymentButton(context),
+                  Container(
+                    width: isLargeScreen
+                        ? MediaQuery.of(context).size.width * .9
+                        : MediaQuery.of(context).size.width * .5,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFF0000),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 0.0,
+                      ),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          print('valid');
+                        } else {
+                          print('inValid');
+                        }
+                      },
+                      child: Text(
+                        'Add this Payment Method',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: isLargeScreen ? 22 : 14,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
