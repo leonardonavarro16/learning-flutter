@@ -58,7 +58,7 @@ class _AddPaymentFormState extends State<AddPaymentForm> {
             height: 10,
           ),
           CreditCardWidget(
-            backgroundImage: 'card_bg.png',
+            // backgroundImage: 'card_bg.png',
             isSwipeGestureEnabled: true,
             height: isLargeScreen ? 325 : 230,
             width: 600,
