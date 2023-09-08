@@ -105,7 +105,7 @@ class _TagEditorWidgetState extends State<AdTagEditor> {
           hasButton: false,
           header: const TextView(
             text: 'Agregar Tag',
-            color: Colors.white,
+            color: Color.fromARGB(255, 255, 255, 255),
             fontWeight: FontWeight.bold,
           ),
           content: BaseTextFormField(
