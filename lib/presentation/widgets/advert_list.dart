@@ -1,38 +1,42 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:swc_front/data/models/advert.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
 import 'package:swc_front/presentation/forms/login_form.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
-import 'package:swc_front/presentation/widgets/utils/modal_opened_content.dart';
 import 'package:swc_front/presentation/widgets/utils/fav_icon_container.dart';
+import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 import 'package:swc_front/presentation/widgets/utils/modal_closed_content.dart';
+import 'package:swc_front/presentation/widgets/utils/modal_opened_content.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
+
 import '../../logic/cubits/authentication_cubit.dart';
 import 'utils/base_modal.dart';
-import 'package:swc_front/presentation/widgets/utils/image_swiper.dart';
 
 class AdvertList extends StatelessWidget {
   final List<Advert> adverts;
-  int colsPerRow = 0;
-  double colsWidth = 0;
-  int rowsCount = 0;
+  int colsPerRow;
+  double colsWidth;
+  int rowsCount;
   final double spaceBetweenCols;
   final int itemsPerPage;
   BoxConstraints constraints = const BoxConstraints();
-  int currentPage = 0;
+  int currentPage;
   AdvertList({
-    super.key,
+    Key? key,
     required this.adverts,
+    this.colsPerRow = 0,
+    this.colsWidth = 0,
+    this.rowsCount = 0,
     this.spaceBetweenCols = 10,
     this.itemsPerPage = 10,
-  });
+    this.currentPage = 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +158,6 @@ class _AdvertPreview extends StatelessWidget {
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
-    bool isLargeScreen = screenWidth > 800;
 
     return Stack(
       children: [
@@ -323,7 +326,7 @@ class _AdvertPreview extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   // height: 140,
                   width: 140,
                   child: SvgPicture.asset(
@@ -332,7 +335,7 @@ class _AdvertPreview extends StatelessWidget {
                 ),
               ],
             ),
-            content: Container(
+            content: SizedBox(
               height: 240,
               width: 400,
               child: ListView(

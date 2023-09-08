@@ -27,21 +27,18 @@ class BaseModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double maxHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Container(
-            child: AlertDialog(
-              title: title,
-              content: SingleChildScrollView(
-                child: ListBody(children: children),
-              ),
-              contentPadding: EdgeInsets.zero,
-              insetPadding: const EdgeInsets.all(0),
-              backgroundColor: Colors.transparent,
+          child: AlertDialog(
+            title: title,
+            content: SingleChildScrollView(
+              child: ListBody(children: children),
             ),
+            contentPadding: EdgeInsets.zero,
+            insetPadding: const EdgeInsets.all(0),
+            backgroundColor: Colors.transparent,
           ),
         ),
         Positioned(

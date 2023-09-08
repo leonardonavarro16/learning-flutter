@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -82,7 +81,7 @@ class _FilePickerField extends State<FilePickerField> {
         isLoading = false;
       });
     } catch (error) {
-      print(error);
+      TextView(text: error.toString());
     }
   }
 

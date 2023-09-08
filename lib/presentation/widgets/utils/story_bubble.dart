@@ -6,12 +6,12 @@ import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 class StoryBubble extends StatelessWidget {
   final Uint8List? profilePicture;
   final String? username;
-  final String? user_id;
+  final String? userId;
   const StoryBubble(
       {super.key,
       required this.profilePicture,
       required this.username,
-      required this.user_id});
+      required this.userId});
 
   @override
   Widget build(BuildContext context) {

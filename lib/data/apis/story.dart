@@ -38,8 +38,8 @@ class StoryAPI extends BaseAPI {
     }
   }
 
-  Future<List<dynamic>> fetchStories(String? token, String? user_id) async {
-    final url = '${baseUrl()}/stories/users?user_id=$user_id';
+  Future<List<dynamic>> fetchStories(String? token, String? userId) async {
+    final url = '${baseUrl()}/stories/users?user_id=$userId';
     final response = await httpGet(url, token: token);
     if (response.statusCode == 200) {
       List<dynamic> rawStories = jsonDecode(response.body);

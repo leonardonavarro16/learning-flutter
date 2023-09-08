@@ -15,17 +15,13 @@ class FavAdvertsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double desktopScreen = screenWidth * 0.3;
-    double mobileScreen = screenWidth * 0.8;
     bool isLargeScreen = screenWidth > 800;
-    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
     String? token = context.read<AuthenticationCubit>().state.token;
     int currentFavPageIndex =
         context.watch<AdvertsCubit>().state.currentFavPage;
     int decreasedCurrentPageIndex = currentFavPageIndex - 1;
     int increasedCurrentPageIndex = currentFavPageIndex + 1;
     int itemsPerPage = 10;
-    int currentFavPage = 0;
     return Layout(
       content: BlocBuilder<AdvertsCubit, AdvertsState>(
         builder: (BuildContext context, AdvertsState state) {
@@ -64,13 +60,11 @@ class FavAdvertsPage extends StatelessWidget {
                       decreasedCurrentPageIndex: decreasedCurrentPageIndex,
                       onNextPage: () {
                         if (state.adverts.length >= itemsPerPage) {
-                          currentFavPage++;
                           context.read<AdvertsCubit>().nextFavPage(token);
                         }
                       },
                       onPreviousPage: () {
                         if (itemsPerPage > 0) {
-                          currentFavPage--;
                           context.read<AdvertsCubit>().previousFavPage(token);
                         }
                       },

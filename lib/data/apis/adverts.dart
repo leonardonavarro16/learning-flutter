@@ -90,7 +90,6 @@ class AdvertsAPI extends BaseAPI {
 
   Future<List<dynamic>> fetchMyAds(String? token) async {
     final url = '${baseUrl()}/adverts/user';
-    ;
     final response = await httpGet(url, token: token);
     if (response.statusCode == 200) {
       List<dynamic> rawAdverts = jsonDecode(response.body);

@@ -12,6 +12,7 @@ class PaginationIndex extends StatelessWidget {
   final Function() onFirstPage;
 
   const PaginationIndex({
+    super.key,
     required this.currentPageIndex,
     required this.decreasedCurrentPageIndex,
     required this.increasedCurrentPageIndex,

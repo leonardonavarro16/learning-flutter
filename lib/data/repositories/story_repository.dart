@@ -13,8 +13,8 @@ class StoryRepository extends BaseRepository {
     return Story.fromMap(rawStory);
   }
 
-  Future<List<Story>> fetchStories(String? token, String? user_id) async {
-    List<dynamic> rawStories = await _api.fetchStories(token, user_id);
+  Future<List<Story>> fetchStories(String? token, String? userId) async {
+    List<dynamic> rawStories = await _api.fetchStories(token, userId);
     return rawStories.map<Story>((dynamic rawStories) {
       return Story.fromMap(rawStories);
     }).toList();
@@ -23,9 +23,9 @@ class StoryRepository extends BaseRepository {
   Future<List<User>> fetchStoriesUsers(String? token) async {
     List<dynamic>? rawUsers = await _api.fetchStoriesUsers(token);
     List<User> users = [];
-    rawUsers.forEach((rawStoryUser) {
+    for (var rawStoryUser in rawUsers) {
       users.add(User.fromMap(rawStoryUser));
-    });
+    }
     return users;
   }
 }

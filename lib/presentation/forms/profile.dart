@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
@@ -197,12 +196,12 @@ class _ProfileForm extends State<ProfileForm> {
             builder: (_) {
               return CustomAlertDialog(
                 hasButton: false,
-                header: Column(
+                header: const Column(
                   children: [
                     SizedBox(
                       height: 15,
                     ),
-                    const TextView(
+                    TextView(
                       text: 'Are you sure to Log out?',
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

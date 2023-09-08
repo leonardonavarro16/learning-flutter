@@ -5,8 +5,6 @@ import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
-import 'package:flutter/services.dart';
-
 class AdTagEditor extends StatefulWidget {
   final void Function(String)? onFieldSubmitted;
   final List<String>? tags;

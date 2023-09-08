@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ImageSlider extends StatefulWidget {
   final List<Uint8List> images;
 
-  ImageSlider({required this.images});
+  const ImageSlider({super.key, required this.images});
 
   @override
   _ImageSliderState createState() => _ImageSliderState();
@@ -22,7 +22,6 @@ class _ImageSliderState extends State<ImageSlider> {
     double desktopScreen = screenWidth * 0.3;
     double mobileScreen = screenWidth;
     double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
-    bool isLargeScreen = screenWidth > 800;
     return Stack(
       children: [
         SizedBox(

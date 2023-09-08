@@ -193,7 +193,7 @@ class _MultiFilePickerField extends State<MultiFilePickerField> {
         isLoading = false;
       });
     } catch (error) {
-      print(error);
+      TextView(text: error.toString());
     }
   }
 

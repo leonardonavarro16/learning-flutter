@@ -5,7 +5,7 @@ import '../forms/advert_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateAdvertPage extends StatelessWidget {
-  const CreateAdvertPage({Key? key});
+  const CreateAdvertPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -15,7 +15,7 @@ enum StoryStatus {
 class StoryState extends BaseState {
   final Map<String, List<Story>> stories;
   final String error;
-  String user_id;
+  String userId;
   final StoryStatus status;
   final int currentPage;
   final List<User> storiesUsers;
@@ -23,7 +23,7 @@ class StoryState extends BaseState {
   StoryState({
     required this.storiesUsers,
     required this.stories,
-    required this.user_id,
+    required this.userId,
     required this.error,
     required this.status,
     required this.currentPage,
@@ -33,7 +33,7 @@ class StoryState extends BaseState {
     return StoryState(
       stories: {},
       error: '',
-      user_id: '',
+      userId: '',
       status: StoryStatus.initial,
       currentPage: 1,
       storiesUsers: [],
@@ -43,7 +43,7 @@ class StoryState extends BaseState {
   StoryState copyWith({
     Map<String, List<Story>>? stories,
     String? error,
-    String? user_id,
+    String? userId,
     StoryStatus? status,
     int? currentPage,
     List<User>? storiesUsers,
@@ -51,7 +51,7 @@ class StoryState extends BaseState {
     return StoryState(
       stories: stories ?? this.stories,
       error: error ?? this.error,
-      user_id: user_id ?? this.user_id,
+      userId: userId ?? this.userId,
       status: status ?? this.status,
       currentPage: currentPage ?? this.currentPage,
       storiesUsers: storiesUsers ?? this.storiesUsers,

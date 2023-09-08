@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:swc_front/logic/cubits/adverts.dart';
-import 'package:swc_front/logic/cubits/authentication_cubit.dart';
 import 'package:swc_front/logic/states/adverts.dart';
 import 'package:swc_front/presentation/widgets/advert_list.dart';
 import 'package:swc_front/presentation/widgets/layout.dart';
@@ -17,12 +15,7 @@ class MyAdsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double desktopScreen = screenWidth * 0.3;
-    double mobileScreen = screenWidth * 0.8;
     bool isLargeScreen = screenWidth > 800;
-    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
-    String? token = context.read<AuthenticationCubit>().state.token;
-    int currentPage = context.watch<AdvertsCubit>().state.currentMyAdsPage;
 
     return Layout(
       content: Column(

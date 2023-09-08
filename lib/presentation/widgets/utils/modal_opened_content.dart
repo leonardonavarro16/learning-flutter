@@ -34,10 +34,6 @@ class _ModalOpenedContainerContentState
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    double desktopScreen = screenWidth * 0.3;
-    double mobileScreen = screenWidth * 0.8;
-    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     bool isLargeScreen = screenWidth > 800;
 
     return Container(
@@ -156,14 +152,14 @@ class _ModalOpenedContainerContentState
                     isExpanded: _isExpanded,
                     body: Column(
                       children: [
-                        if (widget.advert.ad_tags != null &&
-                            widget.advert.ad_tags!.isNotEmpty)
+                        if (widget.advert.adTags != null &&
+                            widget.advert.adTags!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             child: Wrap(
                               spacing: 8,
                               runSpacing: isLargeScreen ? 8 : -2.5,
-                              children: widget.advert.ad_tags!.map((tag) {
+                              children: widget.advert.adTags!.map((tag) {
                                 return Chip(
                                   backgroundColor: const Color(0xFFFF0000),
                                   label: TextView(
@@ -205,7 +201,11 @@ class _ModalOpenedContainerContentState
                   if (await canLaunchUrl(url)) {
                     launchUrl(url);
                   } else {
-                    print(' cannot launch assigned value ');
+                    const Center(
+                        child: TextView(
+                      text: ' cannot launch assigned value ',
+                      color: Colors.white,
+                    ));
                   }
                 } else {
                   Clipboard.setData(ClipboardData(

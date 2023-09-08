@@ -16,9 +16,6 @@ class _PricingViewState extends State<PricingView> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double desktopScreen = screenWidth * 0.32;
-    double mobileScreen = screenWidth * 0.6;
-    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     bool isLargeScreen = screenWidth > 800;
     return SingleChildScrollView(
       child: Column(
@@ -26,13 +23,13 @@ class _PricingViewState extends State<PricingView> {
           Center(
             child: TextView(
               text: 'Choose your membership type',
-              color: Color(0xFFFF0000),
+              color: const Color(0xFFFF0000),
               fontSize: isLargeScreen ? 30 : 18,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 10),
-          Container(
+          SizedBox(
             height: isLargeScreen
                 ? MediaQuery.of(context).size.height * 0.4
                 : MediaQuery.of(context).size.height * 0.35,
@@ -73,7 +70,7 @@ class _PricingViewState extends State<PricingView> {
               },
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (selectedCardIndex == 0)
             Center(
               child: TextView(
@@ -104,7 +101,7 @@ class OfferContentWidget extends StatefulWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  OfferContentWidget({
+  const OfferContentWidget({
     Key? key,
     this.timeText,
     this.offerText,
@@ -120,60 +117,55 @@ class _OfferContentWidgetState extends State<OfferContentWidget> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double desktopScreen = screenWidth * 0.32;
-    double mobileScreen = screenWidth * 0.6;
-    double desiredWidth = screenWidth > 800 ? desktopScreen : mobileScreen;
     bool isLargeScreen = screenWidth > 800;
     return InkWell(
       onTap: widget.onTap,
       child: Padding(
         padding: const EdgeInsets.only(left: 12.5, right: 12.5),
-        child: Container(
-          child: Card(
-            color: widget.isSelected
-                ? const Color.fromARGB(255, 138, 0, 0)
-                : Color.fromARGB(255, 35, 35, 35),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: BorderSide(
-                color: widget.isSelected ? Colors.amber : Colors.transparent,
-                width: 2.0,
-              ),
+        child: Card(
+          color: widget.isSelected
+              ? const Color.fromARGB(255, 138, 0, 0)
+              : const Color.fromARGB(255, 35, 35, 35),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+            side: BorderSide(
+              color: widget.isSelected ? Colors.amber : Colors.transparent,
+              width: 2.0,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(2),
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-                  TextView(
-                    fontSize: isLargeScreen ? 16 : 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.amber,
-                    text: widget.timeText ?? '12 MONTHS MEMBERSHIP',
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextView(
-                    fontSize: isLargeScreen ? 30 : 11,
-                    text: widget.offerText ?? '9.99 /MONTH',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Center(
-                    child: CircleAvatar(
-                      backgroundColor: Colors.amber,
-                      child: Icon(
-                        CupertinoIcons.cart_fill,
-                        color: Colors.black,
-                      ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                TextView(
+                  fontSize: isLargeScreen ? 16 : 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
+                  text: widget.timeText ?? '12 MONTHS MEMBERSHIP',
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextView(
+                  fontSize: isLargeScreen ? 30 : 11,
+                  text: widget.offerText ?? '9.99 /MONTH',
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Center(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    child: Icon(
+                      CupertinoIcons.cart_fill,
+                      color: Colors.black,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

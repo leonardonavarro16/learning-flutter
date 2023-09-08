@@ -25,10 +25,7 @@ class Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double desktopScreen = screenWidth * 0.3;
-    double mobileScreen = screenWidth * 0.8;
     bool isLargeScreen = screenWidth > 800;
-    double desiredWidth = isLargeScreen ? desktopScreen : mobileScreen;
     User? currentUser = context.watch<AuthenticationCubit>().state.user;
     String? token = context.read<AuthenticationCubit>().state.token;
     int navState = context.read<NavigationCubit>().state.selectedIndex;
@@ -51,7 +48,7 @@ class Layout extends StatelessWidget {
                   child: const SizedBox.expand(),
                 ),
                 Drawer(
-                  backgroundColor: Color.fromARGB(190, 0, 0, 0),
+                  backgroundColor: const Color.fromARGB(190, 0, 0, 0),
                   child: Column(
                     children: [
                       Expanded(
@@ -200,7 +197,6 @@ class Layout extends StatelessWidget {
                                             context, Routes.editProfile)
                                         : Navigator.pushReplacementNamed(
                                             context, Routes.loginPage);
-                                    ;
                                   }),
                             ),
                           ],
@@ -262,7 +258,7 @@ class Layout extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: navState == 0
-                ? Container(
+                ? SizedBox(
                     width: constraints.maxWidth * .55,
                     child: AdvertSearchField(
                       searchText: searchText,
@@ -326,7 +322,7 @@ class Layout extends StatelessWidget {
                     ),
             ],
             toolbarHeight: 60,
-            backgroundColor: Color.fromARGB(255, 11, 11, 11),
+            backgroundColor: const Color.fromARGB(255, 11, 11, 11),
           ),
           //! APPBAR ---------------------------------------------------------- X
           extendBody: true,

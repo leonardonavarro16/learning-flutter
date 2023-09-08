@@ -1,5 +1,4 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -199,7 +198,7 @@ class _UploadStoryButtonState extends State<UploadStoryButton> {
         isLoading = false;
       });
     } catch (error) {
-      print(error);
+      TextView(text: error.toString());
     }
   }
 }

@@ -134,7 +134,7 @@ class AppRouter {
             providers: [
               BlocProvider.value(value: _navigationCubit),
             ],
-            child: WalletPage(),
+            child: const WalletPage(),
           ),
         );
 

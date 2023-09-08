@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swc_front/presentation/widgets/utils/base_text_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/tag_search_field.dart';
@@ -9,7 +8,7 @@ class TagSelectorField extends StatefulWidget {
   final void Function(String?, bool) onChange;
 
   const TagSelectorField(
-      {Key? key, required this.adTags, required this.onChange});
+      {super.key, required this.adTags, required this.onChange});
 
   @override
   State<TagSelectorField> createState() => _TagSelectorFieldState();
@@ -21,6 +20,7 @@ class _TagSelectorFieldState extends State<TagSelectorField> {
   List<String>? tagsFilter;
   String? searchQuery;
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

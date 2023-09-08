@@ -149,7 +149,7 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
         isLoading = false;
       });
     } catch (error) {
-      print(error);
+      TextView(text: error.toString());
     }
   }
 }

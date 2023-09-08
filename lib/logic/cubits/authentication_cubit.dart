@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:swc_front/logic/states/authentication.dart';
 import '../../data/models/user.dart';

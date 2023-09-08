@@ -8,11 +8,11 @@ class Advert {
   String phoneNumber;
   String description;
   bool isFav;
-  List<String>? ad_tags;
+  List<String>? adTags;
 
   Advert({
     this.id,
-    this.ad_tags,
+    this.adTags,
     this.isFav = false,
     required this.phoneNumber,
     required this.age,
@@ -31,7 +31,7 @@ class Advert {
       phoneNumber: advertData['phone'],
       description: advertData['description'],
       isFav: advertData['is_fav'],
-      ad_tags: (advertData['ad_tags'] as String?)?.split(','),
+      adTags: (advertData['ad_tags'] as String?)?.split(','),
     );
   }
 
@@ -43,7 +43,7 @@ class Advert {
       'description': description,
       'phone': phoneNumber,
       'images': images,
-      'ad_tags': ad_tags?.join(','),
+      'ad_tags': adTags?.join(','),
     };
   }
 }

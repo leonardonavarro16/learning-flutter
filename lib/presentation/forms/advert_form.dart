@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swc_front/logic/cubits/authentication_cubit.dart';
@@ -10,13 +8,11 @@ import 'package:swc_front/presentation/widgets/utils/ad_tag_editor.dart';
 import 'package:swc_front/presentation/widgets/utils/alert_dialog_custom.dart';
 import 'package:swc_front/presentation/widgets/utils/custom_button.dart';
 import 'package:swc_front/presentation/widgets/utils/description_form.dart';
-import 'package:swc_front/presentation/widgets/utils/indicator_progress.dart';
 import 'package:swc_front/presentation/widgets/utils/name_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/phone_form_field.dart';
 import 'package:swc_front/presentation/widgets/utils/pricing_view.dart';
 import 'package:swc_front/presentation/widgets/utils/snackbar_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 
 import '../../data/models/advert.dart';
 import '../../logic/cubits/adverts.dart';
@@ -39,7 +35,7 @@ class _AdvertForm extends State<AdvertForm> {
   String? description;
   List<Uint8List>? imageBytes;
   bool initialized = false;
-  List<String>? ad_tags;
+  List<String>? adTags;
 
   @override
   void initState() {
@@ -123,7 +119,7 @@ class _AdvertForm extends State<AdvertForm> {
               AdTagEditor(
                 onFieldSubmitted: (_) => _submitForm(),
                 onTagsChanged: (List<String> tags) {
-                  setState(() => ad_tags = tags);
+                  setState(() => adTags = tags);
                 },
               ),
               const SizedBox(
@@ -205,7 +201,7 @@ class _AdvertForm extends State<AdvertForm> {
       name: name!,
       phoneNumber: phoneNumber!,
       images: imageBytes!,
-      ad_tags: ad_tags,
+      adTags: adTags,
     );
   }
 

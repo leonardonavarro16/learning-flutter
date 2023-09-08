@@ -134,7 +134,6 @@ class _FilterWidgetState extends State<FilterWidget> {
                       isSelected: isSelected,
                       onPressed: (int index) {
                         setState(() {
-                          // The button that is tapped is set to true, and the others to false.
                           for (int i = 0; i < isSelected.length; i++) {
                             isSelected[i] = i == index;
                           }

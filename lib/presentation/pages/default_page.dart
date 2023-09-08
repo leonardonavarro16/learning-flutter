@@ -5,7 +5,7 @@ import 'package:swc_front/presentation/widgets/utils/text_view.dart';
 import 'package:swc_front/presentation/router/app_router.dart';
 
 class NotFoundPage extends StatelessWidget {
-  const NotFoundPage({Key? key});
+  const NotFoundPage({super.key});
 
   @override
   Widget build(BuildContext context) {
